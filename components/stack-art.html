@@ -1,0 +1,82 @@
+<!-- Exploded layer stack. Each plane is drawn flat (240×240) and projected
+     isometrically with matrix(0.866 0.5 -0.866 0.5 cx cy). Bottom = layer one. -->
+<svg class="stack-svg" viewBox="0 0 700 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Five stacked layers: products, patterns, components, tokens and, at the base, foundations">
+  <defs>
+    <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.9" fill="#ecece8" fill-opacity="0.35"/></pattern>
+  </defs>
+  <!-- vertical construction lines through the stack -->
+  <g stroke="#ecece8" stroke-opacity="0.18" stroke-dasharray="2 5">
+    <line x1="300" y1="30" x2="300" y2="600"/><line x1="92.2" y1="150" x2="92.2" y2="452"/><line x1="507.8" y1="150" x2="507.8" y2="452"/>
+  </g>
+
+  <!-- 01 FOUNDATIONS (signal) -->
+  <g transform="matrix(0.866 0.5 -0.866 0.5 300 332)">
+    <rect width="240" height="240" rx="6" fill="#ff6b3d"/>
+    <g stroke="#0b0d12" stroke-opacity="0.22" stroke-width="0.8">
+      <line x1="20" y1="0" x2="20" y2="240"/><line x1="40" y1="0" x2="40" y2="240"/><line x1="60" y1="0" x2="60" y2="240"/><line x1="80" y1="0" x2="80" y2="240"/><line x1="100" y1="0" x2="100" y2="240"/><line x1="120" y1="0" x2="120" y2="240"/><line x1="140" y1="0" x2="140" y2="240"/><line x1="160" y1="0" x2="160" y2="240"/><line x1="180" y1="0" x2="180" y2="240"/><line x1="200" y1="0" x2="200" y2="240"/><line x1="220" y1="0" x2="220" y2="240"/>
+    </g>
+    <g>
+      <rect x="20" y="24" width="18" height="40" fill="#fff2ec"/><rect x="40" y="24" width="18" height="40" fill="#ffc6b1"/><rect x="60" y="24" width="18" height="40" fill="#ff764a"/><rect x="80" y="24" width="18" height="40" fill="#d03500"/><rect x="100" y="24" width="18" height="40" fill="#891500"/><rect x="120" y="24" width="18" height="40" fill="#440b00"/>
+      <text x="20" y="92" font-size="13" font-weight="700" fill="#0b0d12" font-family="Schibsted Grotesk, sans-serif">Aa</text>
+      <text x="48" y="92" font-size="7" fill="#0b0d12" font-family="JetBrains Mono, monospace">oklch(0.705 0.191 37)</text>
+      <g fill="#0b0d12"><rect x="20" y="120" width="4" height="4"/><rect x="28" y="120" width="8" height="4"/><rect x="40" y="120" width="12" height="4"/><rect x="56" y="120" width="16" height="4"/><rect x="76" y="120" width="24" height="4"/><rect x="104" y="120" width="32" height="4"/></g>
+    </g>
+  </g>
+
+  <!-- 02 TOKENS -->
+  <g transform="matrix(0.866 0.5 -0.866 0.5 300 252)">
+    <rect width="240" height="240" rx="6" fill="#13161d" fill-opacity="0.97" stroke="#ecece8" stroke-opacity="0.55"/>
+    <rect width="240" height="240" rx="6" fill="url(#dots)"/>
+    <g font-family="JetBrains Mono, monospace" font-size="8.5" fill="#ecece8">
+      <rect x="20" y="22" width="8" height="8" fill="#ab2800"/><text x="34" y="29">color.action.primary</text>
+      <rect x="20" y="40" width="8" height="8" fill="#1e232c" stroke="#ecece8" stroke-opacity=".6"/><text x="34" y="47">color.text.primary</text>
+      <text x="20" y="65" fill-opacity=".7">space.400 → 16px</text>
+      <text x="20" y="81" fill-opacity=".7">radius.md → 8px</text>
+      <text x="20" y="97" fill-opacity=".7">type.body.md → 16/24</text>
+    </g>
+  </g>
+
+  <!-- 03 COMPONENTS -->
+  <g transform="matrix(0.866 0.5 -0.866 0.5 300 172)">
+    <rect width="240" height="240" rx="6" fill="#13161d" fill-opacity="0.97" stroke="#ecece8" stroke-opacity="0.55"/>
+    <rect x="22" y="24" width="78" height="26" rx="5" fill="#ff6b3d"/>
+    <rect x="22" y="62" width="150" height="26" rx="5" fill="none" stroke="#ecece8" stroke-opacity=".7"/>
+    <rect x="30" y="73" width="50" height="4" rx="2" fill="#ecece8" fill-opacity=".5"/>
+    <rect x="22" y="102" width="34" height="18" rx="9" fill="#ecece8" fill-opacity=".85"/><circle cx="47" cy="111" r="6" fill="#13161d"/>
+    <rect x="68" y="103" width="16" height="16" rx="3" fill="none" stroke="#ecece8" stroke-opacity=".7"/>
+    <rect x="112" y="24" width="60" height="26" rx="5" fill="none" stroke="#ecece8" stroke-opacity=".7"/>
+  </g>
+
+  <!-- 04 PATTERNS -->
+  <g transform="matrix(0.866 0.5 -0.866 0.5 300 92)">
+    <rect width="240" height="240" rx="6" fill="#13161d" fill-opacity="0.97" stroke="#ecece8" stroke-opacity="0.55"/>
+    <rect x="22" y="22" width="120" height="150" rx="6" fill="none" stroke="#ecece8" stroke-opacity=".55"/>
+    <rect x="34" y="36" width="60" height="6" rx="3" fill="#ecece8" fill-opacity=".85"/>
+    <rect x="34" y="56" width="96" height="18" rx="4" fill="none" stroke="#ecece8" stroke-opacity=".5"/>
+    <rect x="34" y="82" width="96" height="18" rx="4" fill="none" stroke="#ecece8" stroke-opacity=".5"/>
+    <rect x="34" y="140" width="46" height="18" rx="4" fill="#ff6b3d" fill-opacity=".9"/>
+    <rect x="154" y="22" width="64" height="70" rx="6" fill="none" stroke="#ecece8" stroke-opacity=".55"/>
+  </g>
+
+  <!-- 05 PRODUCTS -->
+  <g transform="matrix(0.866 0.5 -0.866 0.5 300 12)">
+    <rect width="240" height="240" rx="6" fill="#13161d" fill-opacity="0.97" stroke="#ecece8" stroke-opacity="0.7"/>
+    <rect x="0" y="0" width="44" height="240" rx="6" fill="#ecece8" fill-opacity=".08"/>
+    <rect x="56" y="16" width="168" height="10" rx="3" fill="#ecece8" fill-opacity=".2"/>
+    <rect x="56" y="38" width="50" height="34" rx="4" fill="none" stroke="#ecece8" stroke-opacity=".5"/>
+    <rect x="115" y="38" width="50" height="34" rx="4" fill="none" stroke="#ecece8" stroke-opacity=".5"/>
+    <rect x="174" y="38" width="50" height="34" rx="4" fill="none" stroke="#ecece8" stroke-opacity=".5"/>
+    <polyline points="60,150 82,132 104,138 126,112 148,120 170,96 192,104 220,84" fill="none" stroke="#ff6b3d" stroke-width="2"/>
+    <rect x="56" y="84" width="168" height="80" rx="4" fill="none" stroke="#ecece8" stroke-opacity=".35"/>
+  </g>
+
+  <!-- labels -->
+  <g font-family="JetBrains Mono, monospace" font-size="11" fill="#ecece8">
+    <g stroke="#ecece8" stroke-opacity=".4"><line x1="520" y1="132" x2="556" y2="132"/><line x1="520" y1="212" x2="556" y2="212"/><line x1="520" y1="292" x2="556" y2="292"/><line x1="520" y1="372" x2="556" y2="372"/><line x1="520" y1="452" x2="556" y2="452" stroke="#ff6b3d" stroke-opacity="1"/></g>
+    <text x="562" y="136" fill-opacity=".6">05 Products</text>
+    <text x="562" y="216" fill-opacity=".6">04 Patterns</text>
+    <text x="562" y="296" fill-opacity=".6">03 Components</text>
+    <text x="562" y="376" fill-opacity=".6">02 Tokens</text>
+    <text x="562" y="456" fill="#ff6b3d">01 Foundations</text>
+  </g>
+</svg>

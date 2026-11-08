@@ -1,0 +1,182 @@
+<section class="chapter" id="ch10" data-part="02" data-num="10" data-title="Grid and layout systems" data-short="Grid &amp; layout"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 10</p>
+  <h1>Grid and layout systems</h1>
+  <p class="dek">Grids are how a product decides where things go on every screen size before anyone designs a single screen. In modern products, layout is less about a column grid on a page and more about regions, containers and how they adapt.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You are defining breakpoints, designing an app shell or dashboard, or your screens break in different ways on every device.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>The anatomy of a grid (columns, gutters, margins, containers) and the numbers for each.</li><li>A breakpoint system grounded in published systems.</li><li>A layout model for SaaS dashboards and complex enterprise applications.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch10-1">
+<h2><span class="sec-num">10.1</span>Grid fundamentals</h2>
+<p>A layout grid divides the available width into <strong>columns</strong> separated by <strong>gutters</strong>, inside <strong>margins</strong>, within a <strong>container</strong>. Content spans whole columns (and the gutters between them), so edges align across the screen without anyone measuring.</p>
+<figure class="fig">
+<div class="fig-body"><!-- @fig grid-anatomy --></div>
+<figcaption><b>Anatomy of a 12-column grid.</b> A 760px container with 32px margins and 16px gutters leaves 41.3px columns. Twelve divides evenly into 2, 3, 4 and 6, which is why it's the most common column count for desktop layouts.</figcaption>
+</figure>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:16%">Part</th><th>Definition</th><th style="width:36%">Guidance</th></tr></thead>
+<tbody>
+<tr><th>Columns</th><td>Vertical divisions content snaps to.</td><td>4 on phones, 8 on tablets, 12 on desktop is the common pattern.</td></tr>
+<tr><th>Gutters</th><td>Fixed space between columns.</td><td>Use spacing tokens (16–24px). Gutters stay fixed; columns flex.</td></tr>
+<tr><th>Margins</th><td>Space between the grid and the screen edge.</td><td>Grow with screen size: 16px on phones up to 32–80px on large screens.</td></tr>
+<tr><th>Container</th><td>The box the grid lives in; may have a maximum width.</td><td>Cap reading layouts (~1200–1440px); let data-dense apps go full width.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch10-2">
+<h2><span class="sec-num">10.2</span>Breakpoints and responsive grids</h2>
+<p>Breakpoints are the widths at which the layout changes structure. Set them where <em>your layout</em> needs to change, informed by common device classes, rather than by specific devices, which change every year.</p>
+<div class="cols-2">
+<div>
+<h4>Material 3 window size classes [[doc]]</h4>
+<div class="table-wrap" style="margin-top:8px">
+<table class="compact">
+<thead><tr><th>Class</th><th class="num">Width (dp)</th></tr></thead>
+<tbody>
+<tr><td>Compact</td><td class="num">&lt; 600</td></tr><tr><td>Medium</td><td class="num">600–839</td></tr><tr><td>Expanded</td><td class="num">840–1199</td></tr><tr><td>Large</td><td class="num">1200–1599</td></tr><tr><td>Extra-large</td><td class="num">≥ 1600</td></tr>
+</tbody>
+</table></div>
+<p class="muted" style="font-size:13px">Source: Material 3 layout guidance.[[c:m3-layout]]</p>
+</div>
+<div>
+<h4>IBM Carbon 2x Grid breakpoints [[doc]]</h4>
+<div class="table-wrap" style="margin-top:8px">
+<table class="compact">
+<thead><tr><th>Name</th><th class="num">From (px)</th><th class="num">Columns</th></tr></thead>
+<tbody>
+<tr><td>sm</td><td class="num">320</td><td class="num">4</td></tr><tr><td>md</td><td class="num">672</td><td class="num">8</td></tr><tr><td>lg</td><td class="num">1056</td><td class="num">16</td></tr><tr><td>xlg</td><td class="num">1312</td><td class="num">16</td></tr><tr><td>max</td><td class="num">1584</td><td class="num">16</td></tr>
+</tbody>
+</table></div>
+<p class="muted" style="font-size:13px">Source: Carbon 2x Grid.[[c:carbon-grid]] Carbon's 16-column grid suits dense product UI.</p>
+</div>
+</div>
+<p>Two mature systems, two different sets of numbers, and both work. The lesson is not to copy either set. Pick a small number of breakpoints (four or five), give them names rather than device labels, and tokenise them so design and code agree. Ledgerly uses Material's classes with 4, 8 and 12 columns.</p>
+<figure class="fig">
+<div class="fig-body"><!-- @fig grid-responsive --></div>
+<figcaption><b>The same dashboard at three breakpoints.</b> The content and its order don't change; the number of columns each block spans does. KPIs go from 2-up on a phone to 4-up on desktop; the activity panel only earns its own column when there is room for it.</figcaption>
+</figure>
+</section>
+
+<section class="sec" id="ch10-3">
+<h2><span class="sec-num">10.3</span>Fluid, fixed and hybrid layouts</h2>
+<div class="cols-3">
+  <div class="card"><span class="card-k">Fluid</span><h4>Columns stretch with the viewport</h4><p>Uses all available space. Right for data-dense apps, but long lines of text become unreadable on wide screens.</p></div>
+  <div class="card"><span class="card-k">Fixed</span><h4>Container has a set width</h4><p>Predictable, easy to design, but wastes space on large screens and needs separate layouts for small ones.</p></div>
+  <div class="card hl"><span class="card-k">Hybrid (recommended)</span><h4>Fluid up to a maximum</h4><p>Columns flex between breakpoints; the container caps at a maximum width for reading layouts. Apps can opt out of the cap.</p></div>
+</div>
+<h3>Content width</h3>
+<p>Grids decide where things <em>can</em> go; content width decides how wide reading content <em>should</em> be. Line length for prose is best kept around 45–75 characters,[[c:bringhurst]] which means body text should rarely span all 12 columns of a wide screen. Set content-width tokens independently of the grid:</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th>Token</th><th>Value</th><th>Used for</th></tr></thead>
+<tbody>
+<tr><td><code>layout.width.prose</code></td><td class="mono">68ch</td><td>Articles, help content, long descriptions</td></tr>
+<tr><td><code>layout.width.form</code></td><td class="mono">560px</td><td>Single-column forms and settings</td></tr>
+<tr><td><code>layout.width.dialog.md</code></td><td class="mono">560px</td><td>Standard dialogs</td></tr>
+<tr><td><code>layout.width.page</code></td><td class="mono">1440px</td><td>Max container for marketing and reading layouts</td></tr>
+<tr><td><code>layout.width.app</code></td><td class="mono">none</td><td>Data-dense application views, full width</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch10-4">
+<h2><span class="sec-num">10.4</span>Composing a SaaS dashboard</h2>
+<p>Most SaaS products are not pages on a grid. They are an <strong>app shell</strong> (persistent navigation and chrome) around a <strong>content region</strong> that has its own grid. Defining the shell's regions as part of the system removes a whole category of per-team layout decisions.</p>
+<figure class="fig">
+<div class="fig-body">
+<svg viewBox="0 0 760 400" role="img" aria-label="App shell regions: top bar, side navigation, page header, filter bar, KPI row, chart, panel and table" style="width:100%;height:auto;color:var(--text);font-family:'Schibsted Grotesk',sans-serif">
+  <rect x="0.5" y="0.5" width="759" height="399" rx="10" fill="var(--bg)" stroke="currentColor" stroke-opacity=".35"/>
+  <rect x="0.5" y="0.5" width="759" height="48" rx="10" fill="#0b0d12"/><rect x="0.5" y="30" width="759" height="18" fill="#0b0d12"/>
+  <text x="16" y="29" font-size="12" fill="#ecece8" font-weight="650">① Top bar</text><text x="120" y="29" font-size="10" fill="#9aa0aa" font-family="JetBrains Mono">size.topbar.height = 48</text>
+  <rect x="0.5" y="48" width="180" height="351" fill="var(--bg-sunken)"/>
+  <text x="16" y="72" font-size="12" font-weight="650" fill="currentColor">② Side navigation</text><text x="16" y="88" font-size="10" fill="currentColor" fill-opacity=".6" font-family="JetBrains Mono">240 → 64 collapsed</text>
+  <g fill="currentColor" fill-opacity=".14"><rect x="16" y="104" width="140" height="10" rx="3"/><rect x="16" y="124" width="110" height="10" rx="3"/><rect x="16" y="144" width="125" height="10" rx="3"/><rect x="16" y="164" width="96" height="10" rx="3"/></g>
+  <rect x="196" y="62" width="548" height="38" rx="4" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-dasharray="3 3"/>
+  <text x="208" y="86" font-size="12" font-weight="650" fill="currentColor">③ Page header: title, primary action</text>
+  <rect x="196" y="108" width="548" height="28" rx="4" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-dasharray="3 3"/>
+  <text x="208" y="127" font-size="11" fill="currentColor">④ Filter bar</text>
+  <g fill="var(--bg-raised)" stroke="currentColor" stroke-opacity=".45"><rect x="196" y="146" width="128" height="58" rx="5"/><rect x="336" y="146" width="128" height="58" rx="5"/><rect x="476" y="146" width="128" height="58" rx="5"/><rect x="616" y="146" width="128" height="58" rx="5"/></g>
+  <text x="206" y="166" font-size="11" fill="currentColor">⑤ KPI row · 4 × 3 col</text>
+  <rect x="196" y="214" width="408" height="96" rx="5" fill="var(--bg-raised)" stroke="currentColor" stroke-opacity=".45"/>
+  <polyline points="210,290 260,270 310,276 360,248 410,256 460,232 510,240 590,224" fill="none" stroke="var(--accent)" stroke-width="2"/>
+  <text x="206" y="234" font-size="11" fill="currentColor">⑥ Primary chart · 9 col</text>
+  <rect x="616" y="214" width="128" height="96" rx="5" fill="var(--bg-raised)" stroke="currentColor" stroke-opacity=".45"/>
+  <text x="626" y="234" font-size="11" fill="currentColor">⑦ Panel · 3 col</text>
+  <rect x="196" y="320" width="548" height="66" rx="5" fill="var(--bg-raised)" stroke="currentColor" stroke-opacity=".45"/>
+  <g stroke="currentColor" stroke-opacity=".15"><line x1="196" y1="342" x2="744" y2="342"/><line x1="196" y1="364" x2="744" y2="364"/></g>
+  <text x="206" y="336" font-size="11" fill="currentColor">⑧ Data table · 12 col, sticky header</text>
+  <text x="196" y="56" font-size="9" fill="var(--accent-text)" font-family="JetBrains Mono">content region: own 12-col grid, gutter 16, padding 16</text>
+</svg>
+</div>
+<figcaption><b>Regions of a SaaS dashboard.</b> Regions ①–② belong to the shell and are identical on every page. Regions ③–④ follow a page-template pattern. Regions ⑤–⑧ are laid out on the content region's own 12-column grid. Each region's size is a token, not a per-page choice.</figcaption>
+</figure>
+<h3>Dashboard composition rules</h3>
+<ol class="steps">
+  <li><h4>Most important information top-left</h4><p>For left-to-right languages, readers scan from the top-left. Put the KPI or chart that answers "is everything OK?" first.</p></li>
+  <li><h4>Equal-height rows</h4><p>Cards in the same row share a height, so the grid stays visible and the eye can compare them.</p></li>
+  <li><h4>Spans from a short list</h4><p>Allow 3, 4, 6, 8, 9 and 12 columns on desktop. Avoid 5 and 7, which create misaligned edges.</p></li>
+  <li><h4>Mirror for right-to-left</h4><p>Use logical properties (<code>inline-start</code>, not <code>left</code>) so Arabic and Hebrew layouts mirror correctly from the same tokens.</p></li>
+</ol>
+</section>
+
+<section class="sec" id="ch10-5">
+<h2><span class="sec-num">10.5</span>Desktop, mobile and alignment</h2>
+<div class="cols-2">
+<div>
+<h4>Desktop and mobile are different layouts, not one layout scaled</h4>
+<p>On mobile, side navigation becomes a bottom bar or a drawer; multi-pane views become single screens with back navigation; tables become lists or cards. Decide these transformations once, as patterns, and every product inherits them.</p>
+</div>
+<div>
+<h4>Align to columns at the page level, to spacing inside components</h4>
+<p>Page regions and cards align to grid columns. Inside a card, elements align to each other using spacing tokens; a button doesn't need to snap to a column. Trying to grid everything produces rigid, awkward components.</p>
+</div>
+</div>
+<div class="callout callout--note">
+  <p class="callout-label">Reflow, and its exceptions</p>
+  <p>WCAG 2.2 SC 1.4.10 requires content to reflow at a width of 320 CSS px without two-dimensional scrolling, except for content that requires a two-dimensional layout, such as data tables, maps and diagrams.[[c:wcag-reflow]] [[std]] Plan the 320px layout of every pattern; scroll horizontally only inside a table, never the whole page.</p>
+</div>
+</section>
+
+<section class="sec" id="ch10-6">
+<h2><span class="sec-num">10.6</span>Layout for complex enterprise applications</h2>
+<p>Enterprise applications push past the single-grid model. The layout system needs a vocabulary for structures that page grids don't describe:</p>
+<div class="cols-2">
+  <div class="card"><h4>Multi-pane layouts</h4><p>List–detail and supporting-pane layouts that show two or three panes side by side on large screens and collapse to one on small. Material documents these as canonical layouts.[[c:m3-layout]]</p></div>
+  <div class="card"><h4>Resizable and collapsible panes</h4><p>Users of complex tools expect to resize panels. Define minimum and maximum widths as tokens, and remember user preferences.</p></div>
+  <div class="card"><h4>Nested grids and container queries</h4><p>A component placed in a narrow pane should adapt to <em>its container</em>, not the viewport. CSS container queries make components responsive to the space they're given.</p></div>
+  <div class="card"><h4>Sticky regions and dense tables</h4><p>Sticky headers, frozen first columns and horizontal scrolling inside tables keep context while users work through large datasets.</p></div>
+</div>
+<h3>Layout tokens</h3>
+<pre><span class="k">"breakpoint"</span>: { <span class="k">"medium"</span>: <span class="s">"600px"</span>, <span class="k">"expanded"</span>: <span class="s">"840px"</span>, <span class="k">"large"</span>: <span class="s">"1200px"</span>, <span class="k">"xlarge"</span>: <span class="s">"1600px"</span> },
+<span class="k">"grid"</span>:       { <span class="k">"columns"</span>: { <span class="k">"compact"</span>: <span class="n">4</span>, <span class="k">"medium"</span>: <span class="n">8</span>, <span class="k">"expanded"</span>: <span class="n">12</span> },
+                <span class="k">"gutter"</span>: <span class="n">"{space.4}"</span>, <span class="k">"margin"</span>: { <span class="k">"compact"</span>: <span class="n">"{space.4}"</span>, <span class="k">"expanded"</span>: <span class="n">"{space.6}"</span> } },
+<span class="k">"layout"</span>:     { <span class="k">"sidebar"</span>: { <span class="k">"width"</span>: <span class="s">"240px"</span>, <span class="k">"collapsed"</span>: <span class="s">"64px"</span> }, <span class="k">"topbar"</span>: { <span class="k">"height"</span>: <span class="s">"48px"</span> },
+                <span class="k">"width"</span>: { <span class="k">"prose"</span>: <span class="s">"68ch"</span>, <span class="k">"form"</span>: <span class="s">"560px"</span>, <span class="k">"page"</span>: <span class="s">"1440px"</span> } }</pre>
+<p class="muted" style="font-size:14px">A note on breakpoints as tokens: CSS custom properties can't be used inside media query conditions, so breakpoint tokens are compiled to constants (Sass variables, JS constants, or <code>@custom-media</code> where supported) rather than to <code>var()</code>.</p>
+
+<h3>Grid and layout checklist</h3>
+<div class="cols-2">
+<ul class="checklist">
+  <li>4–5 named breakpoints, tokenised for design and code</li>
+  <li>Columns per breakpoint (e.g. 4 / 8 / 12)</li>
+  <li>Gutters and margins from the spacing scale</li>
+  <li>Hybrid container: fluid with a max width for reading</li>
+  <li>Content-width tokens for prose, forms and dialogs</li>
+</ul>
+<ul class="checklist">
+  <li>App shell regions defined and sized by tokens</li>
+  <li>Mobile transformations defined as patterns</li>
+  <li>Every pattern works at 320px (tables excepted)</li>
+  <li>Logical properties for right-to-left support</li>
+  <li>Container queries for components in panes</li>
+</ul>
+</div>
+</section>
+</div><!-- /chapter --></section>

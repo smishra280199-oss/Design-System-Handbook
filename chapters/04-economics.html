@@ -1,0 +1,185 @@
+<section class="chapter" id="ch04" data-part="01" data-num="04" data-title="The economics of design systems" data-short="Economics"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 04</p>
+  <h1>The economics of design systems</h1>
+  <p class="dek">The biggest misconception about design systems is that they need a large upfront investment. They don't. Investment is a dial, not a switch. This chapter shows how to set the dial and how to know when to turn it up.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You need a budget number, a staffing plan or an ROI model, or someone has quoted you a seven-figure estimate and you want to understand what drives it.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>The ten factors that drive cost, so you can scope rather than guess.</li><li>Three budget scenarios built from roles and FTE-months, with every assumption stated.</li><li>An ROI model you can run with your own numbers, plus an honest view of when it breaks even.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch04-1">
+<h2><span class="sec-num">04.1</span>How to read the numbers in this chapter</h2>
+<p>Salaries differ by a factor of five or more between markets, so a dollar figure from one market is meaningless in another. This chapter therefore budgets in <strong>FTE-months</strong> (one full-time person for one month) and converts to currency only at the end, using three example rates you should replace with your own.</p>
+<div class="callout callout--note">
+  <p class="callout-label">[[ill]] All figures in this chapter are illustrative</p>
+  <p>They are built from stated assumptions, not measured from real projects. The point is the <em>method</em>: change the assumptions to match your organisation and the model recalculates. The full model is in <code>scripts/generate-data.mjs</code> in the playbook's repository.</p>
+</div>
+</section>
+
+<section class="sec" id="ch04-2">
+<h2><span class="sec-num">04.2</span>What determines the investment</h2>
+<p>Ten factors explain most of the difference between a system that costs a few FTE-months and one that costs a hundred.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Cost driver</th><th>Lower cost when…</th><th>Higher cost when…</th><th style="width:11%">Impact</th></tr></thead>
+<tbody>
+<tr><th>Platforms</th><td>Web only</td><td>Web + iOS + Android (+ desktop): each needs native components</td><td><b>Very high</b></td></tr>
+<tr><th>Frameworks</th><td>One front-end framework</td><td>React and Angular and a legacy stack in parallel</td><td><b>Very high</b></td></tr>
+<tr><th>Brands and themes</th><td>One brand, light mode</td><td>Dark mode, multiple brands, white-label for customers</td><td><b>High</b></td></tr>
+<tr><th>Existing debt</th><td>Young product, little UI code</td><td>Years of divergent UI to migrate</td><td><b>High</b></td></tr>
+<tr><th>Component scope</th><td>15–25 core components</td><td>60+ components including complex data tables, charts, editors</td><td><b>High</b></td></tr>
+<tr><th>Accessibility target</th><td>WCAG 2.2 AA built in from the start</td><td>Retrofitting AA (or AAA) onto existing components</td><td><b>Medium</b></td></tr>
+<tr><th>Documentation depth</th><td>Usage guidance and code examples</td><td>Full public docs site, content guidelines, tutorials</td><td><b>Medium</b></td></tr>
+<tr><th>Team distribution</th><td>Co-located, one time zone</td><td>Many teams, vendors, time zones</td><td><b>Medium</b></td></tr>
+<tr><th>Tooling and automation</th><td>Manual token export, simple package</td><td>Token pipeline, visual regression tests, linting, Figma–code sync</td><td><b>Medium</b> (pays back)</td></tr>
+<tr><th>Governance overhead</th><td>One product team as owner</td><td>Councils, multiple business units, compliance sign-off</td><td><b>Medium</b></td></tr>
+</tbody>
+</table>
+</div>
+<p>Platforms and frameworks dominate. Every additional platform roughly means another implementation of every component. That's why token architecture comes first: tokens are the one layer that is written once and compiled to every platform.</p>
+</section>
+
+<section class="sec" id="ch04-3">
+<h2><span class="sec-num">04.3</span>Roles and resources</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:20%">Role</th><th>Responsible for</th><th style="width:22%">When you need it</th></tr></thead>
+<tbody>
+<tr><th>System lead / product owner</th><td>Roadmap, prioritisation, stakeholder alignment, adoption, metrics. Treats the system as a product.</td><td>From Stage 2; can be 0.5 FTE of a design or engineering lead</td></tr>
+<tr><th>System designer</th><td>Foundations, component design, states, documentation of usage, Figma libraries.</td><td>From Stage 1</td></tr>
+<tr><th>System engineer (front end)</th><td>Token pipeline, component code and API, testing, release and package management.</td><td>From Stage 1. The role most often missing.</td></tr>
+<tr><th>Native engineers</th><td>iOS and Android component implementations from the same tokens.</td><td>When you ship native apps</td></tr>
+<tr><th>Accessibility specialist</th><td>Standards, audits, screen-reader testing, review of component behaviour.</td><td>Part-time from Stage 2</td></tr>
+<tr><th>Content / docs</th><td>Docs site structure, writing guidelines, UX writing patterns.</td><td>Part-time from Stage 3</td></tr>
+<tr><th>Contributors</th><td>Product designers and engineers who propose and build changes.</td><td>From Stage 3; time protected in their teams' plans</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--mistake">
+  <p class="callout-label">Common mistake</p>
+  <h4>Staffing a design system with designers only</h4>
+  <p>It produces an excellent Figma library and no adoption, because adoption happens in code. Our rule of thumb is at least as much engineering capacity as design capacity on the core team, and more once you ship multiple platforms. [[prac]]</p>
+</div>
+</section>
+
+<section class="sec" id="ch04-4">
+<h2><span class="sec-num">04.4</span>How long it takes</h2>
+<figure class="fig">
+<div class="fig-body">
+<svg viewBox="0 0 760 230" role="img" aria-label="Phased timeline: audit, foundations, core components, adoption, steady state" style="width:100%;height:auto;color:var(--text);font-family:'Schibsted Grotesk',sans-serif">
+  <g font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" fill-opacity=".6">
+    <text x="20" y="20">weeks →</text><text x="140" y="20">4</text><text x="260" y="20">8</text><text x="380" y="20">12</text><text x="500" y="20">16</text><text x="620" y="20">20</text><text x="728" y="20">24+</text>
+  </g>
+  <g stroke="currentColor" stroke-opacity=".12"><line x1="140" y1="28" x2="140" y2="215"/><line x1="260" y1="28" x2="260" y2="215"/><line x1="380" y1="28" x2="380" y2="215"/><line x1="500" y1="28" x2="500" y2="215"/><line x1="620" y1="28" x2="620" y2="215"/></g>
+  <rect x="20" y="36" width="60" height="30" rx="5" fill="#0b0d12"/><text x="26" y="56" font-size="12" fill="#fff" font-weight="600">Audit</text><text x="90" y="56" font-size="11" fill="currentColor" fill-opacity=".7">2 weeks · inventory, a11y check, ranked plan</text>
+  <rect x="80" y="76" width="180" height="30" rx="5" fill="#ff6b3d"/><text x="88" y="96" font-size="12" fill="#0b0d12" font-weight="600">Foundations + tokens</text><text x="270" y="96" font-size="11" fill="currentColor" fill-opacity=".7">4–8 weeks</text>
+  <rect x="200" y="116" width="360" height="30" rx="5" fill="#ffa384"/><text x="208" y="136" font-size="12" fill="#0b0d12" font-weight="600">Core components (15–25), docs, first release</text><text x="570" y="136" font-size="11" fill="currentColor" fill-opacity=".7">8–16 weeks</text>
+  <rect x="320" y="156" width="420" height="30" rx="5" fill="#ffe2d5"/><text x="328" y="176" font-size="12" fill="#0b0d12" font-weight="600">Pilot team → adoption and migration across teams</text>
+  <text x="20" y="208" font-size="11" fill="currentColor" fill-opacity=".7">Phases overlap: components start once colour and type tokens are stable; adoption starts with the first release.</text>
+</svg>
+</div>
+<figcaption><b>A typical first-system timeline for a single-platform product.</b> [[prac]] Roughly four to six months to a usable first release, then adoption becomes the main work. Multiply component effort per additional platform.</figcaption>
+</figure>
+</section>
+
+<section class="sec" id="ch04-5">
+<h2><span class="sec-num">04.5</span>Three budget scenarios</h2>
+<p>Each scenario lists year-one effort by role, then converts the total at three example loaded monthly costs per person (salary plus overheads): <span class="mono">$6,000</span>, <span class="mono">$12,000</span> and <span class="mono">$20,000</span>. These are example inputs, not market data; substitute your own. [[ill]]</p>
+<figure class="fig">
+<div class="fig-body bare"><!-- @fig budget-scenarios --></div>
+<figcaption><b>Year-one investment by scenario, in FTE-months.</b> [[ill]] The startup scenario uses part-time embedded owners, not hires. The enterprise scenario has no separate run phase because a year-one enterprise system is still being built. Not included: the effort product teams spend migrating to the system, which is usually larger than the system team's own cost and should be planned with each team.</figcaption>
+</figure>
+<h3>Reading the scenarios</h3>
+<ul>
+  <li><strong>The startup system costs less than one engineer for a year.</strong> It buys tokens, a themed off-the-shelf library and a handful of custom components: enough to stay coherent through Series A.</li>
+  <li><strong>The mid-sized system is a small team, not a department.</strong> Two to three people are enough if the scope is one platform plus mobile web and product teams contribute.</li>
+  <li><strong>Enterprise cost is driven by platforms and brands.</strong> Engineering is over half of the enterprise effort here, and native iOS and Android work alone is more than a fifth of it.</li>
+</ul>
+</section>
+
+<section class="sec" id="ch04-6">
+<h2><span class="sec-num">04.6</span>Dedicated team or existing product team?</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%"></th><th>Embedded ownership (product team owns it)</th><th>Dedicated core team</th></tr></thead>
+<tbody>
+<tr><th>How it works</th><td>One designer and one engineer get protected time (often 20–30%) to own the system within their product team.</td><td>A team whose product <em>is</em> the system, serving product teams as customers.</td></tr>
+<tr><th>Strengths</th><td>Cheap; close to real needs; no "ivory tower".</td><td>Focus; consistent quality; can serve many teams and platforms.</td></tr>
+<tr><th>Risks</th><td>Protected time gets eaten by product deadlines; system bends toward one product.</td><td>Distance from product reality; becomes a bottleneck if it doesn't enable contribution.</td></tr>
+<tr><th>Fits</th><td>One product, fewer than ~30 engineers, Stage 1–2.</td><td>Two or more products or platforms, ~40+ engineers, Stage 3+.</td></tr>
+</tbody>
+</table>
+</div>
+<p>For comparison, zeroheight's 2025 survey reports average dedicated team sizes of about three people at companies under 100 employees, four at 100–499, and nine at 500+.[[c:zeroheight-2025]] [[doc]] Teams rarely grow beyond 20–25 people, even in very large organisations, because at that scale contribution from product teams does the scaling.</p>
+</section>
+
+<section class="sec" id="ch04-7">
+<h2><span class="sec-num">04.7</span>Ongoing maintenance costs</h2>
+<p>The most expensive mistake in design system budgeting is funding the build and not the run. A system without maintenance degrades within a year: components lag behind product needs, teams fork them, and adoption reverses.</p>
+<div class="cols-2">
+<div>
+<h4>What "run" includes</h4>
+<ul class="checklist">
+  <li>Bug fixes and accessibility fixes in components</li>
+  <li>New variants and components as products evolve</li>
+  <li>Dependency and framework upgrades (e.g. a React major version)</li>
+  <li>Design tool library maintenance and releases</li>
+  <li>Documentation, office hours, onboarding</li>
+  <li>Reviewing and merging contributions</li>
+  <li>Measuring adoption and health</li>
+</ul>
+</div>
+<div class="callout callout--practice" style="margin-top:0">
+  <p class="callout-label">[[prac]] Budget run as a team, not a percentage</p>
+  <p>Rather than "maintenance = X% of build", plan for the team that built the system to stay, at a similar or slightly smaller size, with its time shifting from building to enabling. In our experience, systems whose builders are reassigned after launch rarely keep adoption.</p>
+</div>
+</div>
+</section>
+
+<section class="sec" id="ch04-8">
+<h2><span class="sec-num">04.8</span>Calculating ROI</h2>
+<p>A defensible ROI model has three parts: hours saved by reuse, avoided costs at moments of change, and the cost of the team. The formulas:</p>
+<pre><span class="c">// Annual value from reuse (efficiency)</span>
+<span class="k">hours_saved</span> = people × focused_hours × UI_share × adoption × efficiency_gain
+<span class="k">value</span>       = hours_saved × loaded_hourly_rate
+
+<span class="c">// Annual value from change-once events (count only those actually planned)</span>
+<span class="k">avoided</span>     = Σ (cost_without_system − cost_with_system) for rebrands, themes, a11y fixes
+
+<span class="c">// Return</span>
+<span class="k">ROI</span>         = (value + avoided − system_cost) ÷ system_cost</pre>
+<h3>A worked example: Ledgerly</h3>
+<p>Ledgerly, our fictional B2B finance product, has 40 engineers and 6 designers. We assume a 20% efficiency gain on work the system covers. That is deliberately well below the 34% and 47% figures from 03.2, which come from best-case tasks. Adoption ramps over three years. We count <em>only</em> efficiency savings, so the model leaves out every change-once event.</p>
+<figure class="fig">
+<div class="fig-body"><!-- @fig roi-years --></div>
+<figcaption><b>Ledgerly: a 2-person system team, efficiency savings only.</b> [[ill]] On reuse alone, a two-person team at this company size becomes net-positive in year three, and recovers its earlier deficit only after that. Any single change-once event, such as a dark theme, a rebrand or an accessibility remediation programme, typically moves break-even earlier.</figcaption>
+</figure>
+<p>That result is deliberately unflattering, and it is the most useful number in this chapter. It shows that at 40 engineers, efficiency alone barely justifies a two-person dedicated team. The case rests on adoption speed and on change-once events, which is exactly where to focus the plan.</p>
+<figure class="fig">
+<div class="fig-body"><!-- @fig sensitivity --></div>
+<figcaption><b>How sensitive is the answer?</b> [[ill]] Adoption matters as much as efficiency. A system at 90% adoption with a modest 10% gain beats one at 40% adoption with a 34% gain. That is why Chapter 05 treats adoption as the system team's primary job.</figcaption>
+</figure>
+<figure class="fig">
+<div class="fig-body"><!-- @fig break-even --></div>
+<figcaption><b>Break-even team size.</b> [[ill]] With these assumptions, each full-time system person needs roughly 22–23 engineers' worth of UI work to cover their cost from efficiency alone. Use this to sanity-check proposals: an 8-person system team for 60 engineers needs a strong change-once case.</figcaption>
+</figure>
+</section>
+
+<section class="sec" id="ch04-9">
+<h2><span class="sec-num">04.9</span>Start small, invest progressively</h2>
+<p>Fund each stage from the evidence produced by the last one. Each step has a <em>gate</em>: a measurable condition that unlocks the next round of investment.</p>
+<ol class="steps">
+  <li><h4>Audit — 2 weeks</h4><p>Inventory styles, components and tokens in design and code; baseline duplication, token coverage and accessibility. <b>Gate:</b> leadership agrees on the ranked problem list.</p></li>
+  <li><h4>Foundations and tokens — 1–2 months, 1–2 people part-time</h4><p>Colour, type, spacing, layout and elevation tokens in code and design. <b>Gate:</b> one product team ships new work using only tokens.</p></li>
+  <li><h4>The ten most-used components — 2–3 months</h4><p>Pick by frequency in the audit, not by what's interesting. <b>Gate:</b> pilot team measurably faster or fewer UI defects.</p></li>
+  <li><h4>Docs, releases and contribution — ongoing</h4><p>Make it usable by teams who didn't build it. <b>Gate:</b> a second team adopts without hand-holding; first external contribution merged.</p></li>
+  <li><h4>Scale — themes, platforms, governance</h4><p>Only now invest in multi-brand, native platforms and formal governance. <b>Gate:</b> adoption above ~60% and a planned change-once event that needs it.</p></li>
+</ol>
+<div class="callout callout--key">
+  <p class="callout-label">The economics in one sentence</p>
+  <h4>Tokens are cheap and pay back immediately; components pay back with adoption; governance pays back with scale. Fund them in that order.</h4>
+</div>
+</section>
+</div><!-- /chapter --></section>

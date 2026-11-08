@@ -1,0 +1,173 @@
+<section class="chapter" id="ch11" data-part="02" data-num="11" data-title="How foundations work together" data-short="Together"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 11</p>
+  <h1>How foundations work together</h1>
+  <p class="dek">Colour, type, spacing and layout are not four separate deliverables. They are one system, and the best way to see it is to follow a single component from the first decision to the line of code that ships.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You want to see the whole architecture in one place, or you need to explain to engineering how foundations become components.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>One component traced through five layers: decision, token, component, pattern and production.</li><li>A clear picture of what changes, and what doesn't, when a foundation changes.</li><li>A foundations readiness checklist to close out Part 02.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch11-1">
+<h2><span class="sec-num">11.1</span>One button, five layers</h2>
+<p>The primary button is the most-used interactive component in most products. Here is every foundation it depends on, and how each one gets from a decision to the screen.</p>
+<figure class="fig">
+<div class="fig-body ink">
+<div class="pipeline">
+  <div class="pipe-step"><span class="pn">01 DECISIONS</span><h5 style="color:#fff">Foundations</h5><div class="pex">Brand seed → OKLCH ramp<br>Type: label role, 600<br>4px spacing base<br>Controls 40px tall<br>Focus visible, 3:1</div></div>
+  <div class="pipe-step"><span class="pn">02 TOKENS</span><h5 style="color:#fff">Primitive → semantic</h5><div class="pex">brand.700 → action.primary.bg<br>space.4 → control.inset-x<br>type.label.md<br>radius.md<br>blue.600 → focus.ring</div></div>
+  <div class="pipe-step"><span class="pn">03 COMPONENT</span><h5 style="color:#fff">Button</h5><div class="pex">variant: primary | secondary | danger<br>size: sm | md | lg<br>states: hover, pressed, focus, disabled, loading</div></div>
+  <div class="pipe-step"><span class="pn">04 PATTERN</span><h5 style="color:#fff">Form actions</h5><div class="pex">Primary at inline-end<br>Secondary before it<br>space.2 between<br>space.6 above</div></div>
+  <div class="pipe-step"><span class="pn">05 PRODUCTION</span><h5 style="color:#fff">Shipped UI</h5><div class="pex">CSS variables + React component, published as a versioned package</div></div>
+</div>
+</div>
+<figcaption><b>The foundation-to-production chain.</b> Each layer only knows about the layer directly beneath it. The button doesn't know that <code>brand.700</code> exists, and the form doesn't know the button's padding. That ignorance is the point: it's what makes each layer changeable.</figcaption>
+</figure>
+
+<h3>The component, annotated</h3>
+<figure class="fig">
+<div class="fig-body">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:32px;align-items:center">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:28px;padding:20px 0">
+    <span style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:6px;background:#ab2800;color:#f3f7fe;font-size:14px;line-height:20px;font-weight:600;transform:scale(1.6);transform-origin:center"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Send invoice</span>
+    <div style="display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;justify-content:center;font-size:12px;font-weight:600">
+      <span style="display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:6px;background:#ab2800;color:#f3f7fe">Default</span>
+      <span style="display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:6px;background:#861b00;color:#f3f7fe">Hover</span>
+      <span style="display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:6px;background:#ab2800;color:#f3f7fe;outline:2px solid #1c75d6;outline-offset:2px">Focus</span>
+      <span style="display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:6px;background:#d2dae5;color:#707681">Disabled</span>
+    </div>
+  </div>
+  <div class="table-wrap" style="margin:0">
+  <table class="compact">
+    <thead><tr><th>Property</th><th>Token</th><th>Resolves to (light)</th></tr></thead>
+    <tbody>
+      <tr><td>Background</td><td><span class="tk sem">color.action.primary.bg</span></td><td class="mono" style="font-size:11px"><span class="sw" style="background:#ab2800"></span>brand.700</td></tr>
+      <tr><td>Background, hover</td><td><span class="tk sem">color.action.primary.bg-hover</span></td><td class="mono" style="font-size:11px"><span class="sw" style="background:#861b00"></span>brand.800</td></tr>
+      <tr><td>Label colour</td><td><span class="tk sem">color.action.primary.text</span></td><td class="mono" style="font-size:11px"><span class="sw" style="background:#f3f7fe"></span>neutral.50 · 6.48:1</td></tr>
+      <tr><td>Label type</td><td><span class="tk sem">type.label.md</span></td><td class="mono" style="font-size:11px">14/20 · 600</td></tr>
+      <tr><td>Height</td><td><span class="tk sem">size.control.height</span></td><td class="mono" style="font-size:11px">40px (default density)</td></tr>
+      <tr><td>Padding x</td><td><span class="tk sem">space.control.inset-x</span></td><td class="mono" style="font-size:11px">space.4 · 16px</td></tr>
+      <tr><td>Icon gap</td><td><span class="tk prim">space.2</span></td><td class="mono" style="font-size:11px">8px</td></tr>
+      <tr><td>Radius</td><td><span class="tk sem">radius.control</span></td><td class="mono" style="font-size:11px">6px</td></tr>
+      <tr><td>Focus ring</td><td><span class="tk sem">color.focus.ring</span></td><td class="mono" style="font-size:11px"><span class="sw" style="background:#1c75d6"></span>blue.600 · 2px, offset 2px</td></tr>
+    </tbody>
+  </table></div>
+</div>
+</div>
+<figcaption><b>Every visual property of the button is a token.</b> Shown at 1.6× scale. Nine properties draw on all four foundations: colour (four tokens), typography (one), spacing and sizing (three) and shape (one). The label contrast, 6.48:1, was computed from the actual token values in Chapter 07.</figcaption>
+</figure>
+</section>
+
+<section class="sec" id="ch11-2">
+<h2><span class="sec-num">11.2</span>Into production</h2>
+<p>The token pipeline compiles the token source into each platform's format. For the web, that's CSS custom properties, which the component consumes. Notice that the component code contains <strong>no raw values at all</strong>.</p>
+<div class="cols-2">
+<pre style="margin:0"><span class="c">/* tokens.css: generated, never hand-edited */</span>
+:root {
+  <span class="k">--color-brand-700</span>: <span class="s">oklch(0.486 0.172 35)</span>;
+  <span class="k">--color-brand-800</span>: <span class="s">oklch(0.406 0.146 34)</span>;
+  <span class="k">--color-action-primary-bg</span>:
+    <span class="n">var(--color-brand-700)</span>;
+  <span class="k">--color-action-primary-bg-hover</span>:
+    <span class="n">var(--color-brand-800)</span>;
+  <span class="k">--space-control-inset-x</span>: <span class="n">var(--space-4)</span>;
+  <span class="k">--size-control-height</span>: <span class="s">40px</span>;
+}
+[data-theme="dark"] {
+  <span class="k">--color-action-primary-bg</span>:
+    <span class="n">var(--color-brand-400)</span>;
+}
+[data-density="compact"] {
+  <span class="k">--size-control-height</span>: <span class="s">32px</span>;
+  <span class="k">--space-control-inset-x</span>: <span class="n">var(--space-2)</span>;
+}</pre>
+<pre style="margin:0"><span class="c">/* button.css: consumes semantic tokens only */</span>
+.button {
+  <span class="k">height</span>: <span class="n">var(--size-control-height)</span>;
+  <span class="k">padding-inline</span>: <span class="n">var(--space-control-inset-x)</span>;
+  <span class="k">gap</span>: <span class="n">var(--space-2)</span>;
+  <span class="k">border-radius</span>: <span class="n">var(--radius-control)</span>;
+  <span class="k">font</span>: <span class="n">var(--type-label-md)</span>;
+}
+.button[data-variant="primary"] {
+  <span class="k">background</span>: <span class="n">var(--color-action-primary-bg)</span>;
+  <span class="k">color</span>: <span class="n">var(--color-action-primary-text)</span>;
+}
+.button[data-variant="primary"]:hover {
+  <span class="k">background</span>:
+    <span class="n">var(--color-action-primary-bg-hover)</span>;
+}
+.button:focus-visible {
+  <span class="k">outline</span>: <span class="s">2px solid</span> <span class="n">var(--color-focus-ring)</span>;
+  <span class="k">outline-offset</span>: <span class="s">2px</span>;
+}</pre>
+</div>
+<p style="margin-top:20px">Native platforms receive the same tokens as Swift and Kotlin constants from the same source file. The token source is the contract; each platform's components are implementations of it.</p>
+</section>
+
+<section class="sec" id="ch11-3">
+<h2><span class="sec-num">11.3</span>When a foundation changes</h2>
+<p>The real test of the architecture is change. For each kind of change, here is which layers are touched, and how many are not.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Change</th><th style="text-align:center">Primitives</th><th style="text-align:center">Semantic</th><th style="text-align:center">Components</th><th style="text-align:center">Products</th><th style="width:26%">Effort</th></tr></thead>
+<tbody>
+<tr><td>Rebrand: new brand hue</td><td style="text-align:center" class="yes">●</td><td style="text-align:center">○</td><td style="text-align:center">○</td><td style="text-align:center">○</td><td>Change one seed; ramps regenerate; validate contrast; release.</td></tr>
+<tr><td>Add dark theme</td><td style="text-align:center">○</td><td style="text-align:center" class="yes">●</td><td style="text-align:center">○</td><td style="text-align:center">○</td><td>One new semantic mapping; validate pairings; release.</td></tr>
+<tr><td>Fix secondary-text contrast</td><td style="text-align:center">○</td><td style="text-align:center" class="yes">●</td><td style="text-align:center">○</td><td style="text-align:center">○</td><td>One reference change; every product fixed on upgrade.</td></tr>
+<tr><td>Add compact density</td><td style="text-align:center">○</td><td style="text-align:center" class="yes">●</td><td style="text-align:center" class="part">◐</td><td style="text-align:center">○</td><td>Density mapping; check components with fixed internal sizes.</td></tr>
+<tr><td>New type scale</td><td style="text-align:center" class="yes">●</td><td style="text-align:center" class="part">◐</td><td style="text-align:center">○</td><td style="text-align:center" class="part">◐</td><td>Values change; products check layouts that depended on old sizes.</td></tr>
+<tr><td>White-label for a customer</td><td style="text-align:center" class="yes">●</td><td style="text-align:center">○</td><td style="text-align:center">○</td><td style="text-align:center">○</td><td>Generate a brand tier from the customer's seed at runtime or build time.</td></tr>
+</tbody>
+</table>
+</div>
+<p class="muted" style="font-size:14px">● changed · ◐ may need review · ○ untouched. These outcomes hold <em>only</em> if components consume semantic tokens exclusively. A single hard-coded hex in a component breaks the chain for that component.</p>
+<div class="callout callout--key">
+  <p class="callout-label">The whole of Part 02 in one sentence</p>
+  <h4>Decide once in OKLCH, on a 4px grid, in a named type scale; encode the decisions as primitive and semantic tokens; let components consume only semantic tokens. Then every future change is a configuration change.</h4>
+</div>
+</section>
+
+<section class="sec" id="ch11-4">
+<h2><span class="sec-num">11.4</span>Foundations readiness checklist</h2>
+<p>Before building components at scale, confirm the foundations are ready. Each item links back to the chapter that explains it.</p>
+<div class="cols-2">
+<div>
+<h4>Colour <span class="mono muted" style="font-weight:400;font-size:12px">ch. 07</span></h4>
+<ul class="checklist">
+  <li>OKLCH ramps on a fixed lightness curve, hex fallbacks generated</li>
+  <li>Semantic colour tokens for bg, surface, border, text, icon, action, feedback, focus</li>
+  <li>Light and dark mappings with every pairing contrast-tested in CI</li>
+</ul>
+<h4>Typography <span class="mono muted" style="font-weight:400;font-size:12px">ch. 08</span></h4>
+<ul class="checklist">
+  <li>Role-based scale (display, heading, body, label, caption) as composite tokens</li>
+  <li>Line-heights on the 4px grid; tabular numerals available</li>
+  <li>Responsive strategy that respects zoom and text-spacing overrides</li>
+</ul>
+</div>
+<div>
+<h4>Spacing <span class="mono muted" style="font-weight:400;font-size:12px">ch. 09</span></h4>
+<ul class="checklist">
+  <li>4px-based scale with guessable token names</li>
+  <li>Semantic component spacing with density modes</li>
+  <li>Target sizes meet WCAG 2.2 AA (24px) and platform touch guidance</li>
+</ul>
+<h4>Layout <span class="mono muted" style="font-weight:400;font-size:12px">ch. 10</span></h4>
+<ul class="checklist">
+  <li>Named breakpoints, columns, gutters and margins as tokens</li>
+  <li>App shell regions and content-width tokens defined</li>
+  <li>Every pattern planned for 320px reflow</li>
+</ul>
+<h4>Pipeline <span class="mono muted" style="font-weight:400;font-size:12px">ch. 06</span></h4>
+<ul class="checklist">
+  <li>Single token source (DTCG JSON) compiled to all platforms and the design tool</li>
+  <li>Lint rule against raw values in product code</li>
+</ul>
+</div>
+</div>
+<p class="pull">Tokens first, components second.<cite>Rule #4 — Layer One</cite></p>
+<p>With foundations in place, the next layer is components: their APIs, variants, states and accessibility behaviour. That is where Part 03 of this playbook begins.</p>
+</section>
+</div><!-- /chapter --></section>

@@ -1,0 +1,265 @@
+<section class="chapter" id="ch05" data-part="01" data-num="05" data-title="Design system operating models" data-short="Operating models"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 05</p>
+  <h1>Design system operating models</h1>
+  <p class="dek">A design system is not something a team builds and publishes. It is a product with users, a roadmap, releases, support and metrics. The operating model decides whether it is still trusted in three years.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You are setting up a system team, your system has adoption problems, or product teams see the system team as a bottleneck.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A clear choice between centralised, federated and hybrid models, and what each requires.</li><li>Working templates: decision rights (RACI), contribution flow, versioning policy.</li><li>A health scorecard and a plan for managing design and technical debt.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch05-1">
+<h2><span class="sec-num">05.1</span>Treat the system as a product</h2>
+<p>The most reliable predictor of a healthy design system is whether its team behaves like a product team. That means it knows its users (product designers and engineers), runs discovery on their problems, prioritises a roadmap, ships on a cadence, supports what it ships and measures outcomes.</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:22%">Product practice</th><th>In a design system team</th></tr></thead>
+<tbody>
+<tr><th>Users</th><td>Product designers, engineers, PMs, content designers, and sometimes vendors and partners.</td></tr>
+<tr><th>Discovery</th><td>Audit requests, sit with product teams, review what teams build <em>outside</em> the system and why.</td></tr>
+<tr><th>Roadmap</th><td>Public, prioritised by reach (how many teams) × pain, not by what the system team finds interesting.</td></tr>
+<tr><th>Releases</th><td>Versioned, with changelogs and migration notes; on a predictable cadence.</td></tr>
+<tr><th>Support</th><td>A channel with response targets, office hours, onboarding sessions.</td></tr>
+<tr><th>Metrics</th><td>Adoption, coverage, contribution, satisfaction and outcome KPIs (03.4).</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch05-2">
+<h2><span class="sec-num">05.2</span>Centralised, federated and hybrid models</h2>
+<p>Nathan Curtis's 2015 essay set out the vocabulary most teams still use: <em>solitary</em>, <em>centralised</em> and <em>federated</em>.[[c:curtis-team-models]] Salesforce later described a <em>cyclical</em> hybrid, with a central team plus a federated group of contributors that inform each other.[[c:salesforce-cyclical]] Curtis himself later concluded that successful systems always have a central team <em>and</em> seek participation from a federated community.[[c:curtis-fallacy]] [[doc]]</p>
+<figure class="fig">
+<div class="fig-body">
+<svg viewBox="0 0 760 210" role="img" aria-label="Four team models as node diagrams" style="width:100%;height:auto;color:var(--text);font-family:'Schibsted Grotesk',sans-serif">
+  <g font-size="13" font-weight="650" fill="currentColor"><text x="20" y="20">Solitary</text><text x="210" y="20">Centralised</text><text x="400" y="20">Federated</text><text x="590" y="20">Hybrid (cyclical)</text></g>
+  <!-- solitary -->
+  <circle cx="95" cy="100" r="22" fill="var(--signal-500)"/><text x="95" y="104" text-anchor="middle" font-size="10" fill="#0b0d12" font-family="JetBrains Mono">A</text>
+  <g fill="none" stroke="currentColor" stroke-opacity=".3" stroke-dasharray="3 3"><line x1="117" y1="100" x2="150" y2="70"/><line x1="117" y1="100" x2="150" y2="135"/><line x1="73" y1="100" x2="40" y2="135"/></g>
+  <g fill="var(--bg)" stroke="currentColor" stroke-opacity=".5"><circle cx="156" cy="64" r="11"/><circle cx="156" cy="140" r="11"/><circle cx="34" cy="140" r="11"/></g>
+  <!-- centralised -->
+  <rect x="263" y="78" width="54" height="44" rx="8" fill="var(--signal-500)"/><text x="290" y="104" text-anchor="middle" font-size="10" fill="#0b0d12" font-family="JetBrains Mono">core</text>
+  <g stroke="currentColor" stroke-opacity=".45"><line x1="290" y1="78" x2="290" y2="50"/><line x1="317" y1="100" x2="345" y2="100"/><line x1="290" y1="122" x2="290" y2="150"/><line x1="263" y1="100" x2="235" y2="100"/></g>
+  <g fill="var(--bg)" stroke="currentColor" stroke-opacity=".5"><circle cx="290" cy="40" r="11"/><circle cx="356" cy="100" r="11"/><circle cx="290" cy="161" r="11"/><circle cx="224" cy="100" r="11"/></g>
+  <!-- federated -->
+  <g stroke="currentColor" stroke-opacity=".45"><line x1="445" y1="60" x2="525" y2="60"/><line x1="445" y1="60" x2="445" y2="140"/><line x1="525" y1="60" x2="525" y2="140"/><line x1="445" y1="140" x2="525" y2="140"/><line x1="445" y1="60" x2="525" y2="140"/><line x1="525" y1="60" x2="445" y2="140"/></g>
+  <g fill="var(--signal-300)" stroke="currentColor" stroke-opacity=".5"><circle cx="445" cy="60" r="13"/><circle cx="525" cy="60" r="13"/><circle cx="445" cy="140" r="13"/><circle cx="525" cy="140" r="13"/></g>
+  <!-- hybrid -->
+  <rect x="653" y="78" width="54" height="44" rx="8" fill="var(--signal-500)"/><text x="680" y="104" text-anchor="middle" font-size="10" fill="#0b0d12" font-family="JetBrains Mono">core</text>
+  <g stroke="currentColor" stroke-opacity=".45"><line x1="680" y1="78" x2="680" y2="50"/><line x1="707" y1="100" x2="735" y2="100"/><line x1="680" y1="122" x2="680" y2="150"/><line x1="653" y1="100" x2="625" y2="100"/></g>
+  <g fill="var(--signal-300)" stroke="currentColor" stroke-opacity=".5"><circle cx="680" cy="40" r="11"/><circle cx="746" cy="100" r="11"/><circle cx="680" cy="161" r="11"/><circle cx="614" cy="100" r="11"/></g>
+  <path d="M 692 38 Q 740 45 744 88" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker></defs>
+  <g font-size="10.5" fill="currentColor" fill-opacity=".65" font-family="JetBrains Mono"><text x="20" y="196">one team serves itself</text><text x="210" y="196">one team serves all</text><text x="400" y="196">all teams share ownership</text><text x="590" y="196">core team + contributors</text></g>
+</svg>
+</div>
+<figcaption><b>Four team models.</b> Orange marks system ownership; tinted nodes are product teams that contribute. In the hybrid model, contributions flow from product teams into the core and releases flow back out.</figcaption>
+</figure>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:14%">Model</th><th>Strengths</th><th>Failure mode</th><th style="width:24%">Fits</th></tr></thead>
+<tbody>
+<tr><th>Solitary</th><td>Fast; grounded in real product needs.</td><td>The system bends to one product; others don't adopt.</td><td>Stage 1–2; a single product</td></tr>
+<tr><th>Centralised</th><td>Focus, consistent quality, clear accountability.</td><td>Becomes a bottleneck and drifts from product reality ("overlords don't scale").</td><td>Early Stage 3, while foundations stabilise</td></tr>
+<tr><th>Federated</th><td>Spreads load; strong product context.</td><td>Nobody's job, so nobody does it; decisions stall.</td><td>Rarely works alone</td></tr>
+<tr><th>Hybrid</th><td>Core quality plus contribution at scale.</td><td>Needs real investment in contribution process and reviewer time.</td><td>Stage 3–4; multiple products</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Our recommendation</p>
+  <p>Start solitary or centralised to establish foundations and the first components. Move to hybrid as soon as two or more teams are adopting. Do it deliberately, by budgeting contributor time in product teams' plans, not by hoping for goodwill.</p>
+</div>
+</section>
+
+<section class="sec" id="ch05-3">
+<h2><span class="sec-num">05.3</span>Ownership and decision rights</h2>
+<p>Most system conflicts are really unclear decision rights. Write them down. The RACI below is a starting template for a hybrid model. <b>R</b>esponsible does the work, <b>A</b>ccountable makes the call, <b>C</b>onsulted gives input, <b>I</b>nformed is told.</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:34%">Decision</th><th style="text-align:center">System lead</th><th style="text-align:center">System designers</th><th style="text-align:center">System engineers</th><th style="text-align:center">Product teams</th><th style="text-align:center">Design / eng leadership</th></tr></thead>
+<tbody>
+<tr><td>Change a foundation (palette, type scale)</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td>Add a new component to the core</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">C</td><td style="text-align:center">I</td></tr>
+<tr><td>Add a variant to an existing component</td><td style="text-align:center">I</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">—</td></tr>
+<tr><td>Component API and breaking changes</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center"><b>A</b>/R</td><td style="text-align:center">C</td><td style="text-align:center">I</td></tr>
+<tr><td>Accessibility conformance of components</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">I</td><td style="text-align:center">I</td></tr>
+<tr><td>Use of a local (non-system) component</td><td style="text-align:center">I</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center"><b>A</b>/R</td><td style="text-align:center">—</td></tr>
+<tr><td>Deprecate and remove a component</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">C</td><td style="text-align:center">I</td></tr>
+<tr><td>System roadmap and funding</td><td style="text-align:center">R</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center"><b>A</b></td></tr>
+</tbody>
+</table>
+</div>
+<p>Note row six. Product teams are <em>accountable</em> for their own local components. A healthy system lets teams build outside it when it doesn't meet their need. It just asks them to say so, so the system can learn.</p>
+</section>
+
+<section class="sec" id="ch05-4">
+<h2><span class="sec-num">05.4</span>Design and engineering collaboration</h2>
+<p>Design–engineering friction in a system usually comes from two sources of truth disagreeing. Resolve it by deciding, explicitly, what each source is authoritative for.</p>
+<div class="cols-3">
+  <div class="card"><span class="card-k">Tokens</span><h4>Truth for values</h4><p>One token source (JSON in the repository, in the DTCG format) feeds both the design tool and code.[[c:dtcg-format]] Neither side hand-edits values.</p></div>
+  <div class="card"><span class="card-k">Code</span><h4>Truth for behaviour</h4><p>States, keyboard interaction, responsiveness and accessibility semantics are defined by the shipped component.</p></div>
+  <div class="card"><span class="card-k">Design library</span><h4>Truth for intent</h4><p>Usage, composition and visual specification. It mirrors code names and variants one-to-one.</p></div>
+</div>
+<h3>One definition of done for a component</h3>
+<ul class="checklist">
+  <li>Designed for every state: default, hover, focus, active, disabled, loading, error, empty.</li>
+  <li>Built using tokens only. No raw values in component code.</li>
+  <li>Keyboard and screen-reader behaviour specified and tested; meets WCAG 2.2 AA.[[c:wcag22]]</li>
+  <li>Names, variants and properties identical in the design library and in code.</li>
+  <li>Documented: when to use, when not to, anatomy, examples, accessibility notes.</li>
+  <li>Released in a versioned package with a changelog entry.</li>
+</ul>
+</section>
+
+<section class="sec" id="ch05-5">
+<h2><span class="sec-num">05.5</span>Contribution and review</h2>
+<p>Contribution is what lets a small core team serve a large organisation. It only works if the path is clear, proportional to the size of the change, and fast.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="pipeline" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+  <div class="pipe-step"><span class="pn">TIER 1 · HOURS</span><h5>Report or request</h5><div class="pex">Bug report, docs fix, "we need X". Anyone; triaged weekly.</div></div>
+  <div class="pipe-step"><span class="pn">TIER 2 · DAYS</span><h5>Fix</h5><div class="pex">Bug fix or docs change by a contributor. One reviewer from the core team.</div></div>
+  <div class="pipe-step"><span class="pn">TIER 3 · WEEKS</span><h5>Extend</h5><div class="pex">New variant or property. Short proposal; design + eng review; tests and docs.</div></div>
+  <div class="pipe-step"><span class="pn">TIER 4 · WEEKS–MONTHS</span><h5>New component</h5><div class="pex">Proposal with evidence of need in ≥ 2 teams; co-built with core; full definition of done.</div></div>
+</div>
+</div>
+<figcaption><b>Four tiers of contribution.</b> [[prac]] Review effort scales with the change. The most common failure is applying Tier 4 process to a Tier 2 fix, which teaches contributors not to bother.</figcaption>
+</figure>
+<h3>The rule of two</h3>
+<p>A component enters the core system when <strong>at least two teams</strong> need it. Until then, it lives as a local component in the team that built it, built from system tokens so it can be promoted later. This prevents the core from filling with one-off components, and it gives the system a natural pipeline of tested candidates. [[prac]]</p>
+</section>
+
+<section class="sec" id="ch05-6">
+<h2><span class="sec-num">05.6</span>Governance and decision-making</h2>
+<p>Governance is how a system decides when people disagree. Keep it lightweight and written down:</p>
+<ol class="steps">
+  <li><h4>Principles settle most arguments</h4><p>"Accessible by default" and "clarity over density" end debates faster than any committee.</p></li>
+  <li><h4>RFCs for significant changes</h4><p>A one-page proposal (problem, options, recommendation, migration impact) open for comment for a fixed period, decided by the accountable owner.</p></li>
+  <li><h4>A small council for cross-org decisions</h4><p>At Stage 4, representatives of major product areas meet on a fixed cadence for decisions that affect everyone: foundations, breaking changes, roadmap.</p></li>
+  <li><h4>A documented exception path</h4><p>Teams may diverge with a stated reason. Exceptions are logged and reviewed quarterly; recurring exceptions become roadmap items.</p></li>
+</ol>
+<p class="pull">Every decision comes with a reason.<cite>Rule #6 — Layer One</cite></p>
+</section>
+
+<section class="sec" id="ch05-7">
+<h2><span class="sec-num">05.7</span>Versioning and release management</h2>
+<p>Product teams need to upgrade on purpose, not discover changes in production. Use semantic versioning:[[c:semver]] <code>MAJOR.MINOR.PATCH</code>, and define what each means <em>for a design system</em>. Visual changes are the grey area most policies forget.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:14%">Bump</th><th>Meaning</th><th>Design system examples</th></tr></thead>
+<tbody>
+<tr><th>MAJOR</th><td>Consumers must change their code or will see breaking behaviour.</td><td>Renamed or removed token; changed component API; removed variant; changed default size or spacing that alters layouts.</td></tr>
+<tr><th>MINOR</th><td>New capability, backward compatible.</td><td>New component, variant, token or icon; new optional property.</td></tr>
+<tr><th>PATCH</th><td>Fixes, no intended visual or API change.</td><td>Bug fix; accessibility fix that doesn't change layout; documentation.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cols-2">
+<div>
+<h4>Release practice</h4>
+<ul>
+  <li>A predictable cadence (e.g. minor releases every two weeks), with patches as needed.</li>
+  <li>Changelog entries written for consumers ("what changes for you"), not for the system team.</li>
+  <li>Design library versions published in step with code releases.</li>
+  <li>Visual regression tests on every component before release.</li>
+</ul>
+</div>
+<div>
+<h4>Deprecation policy</h4>
+<ul>
+  <li>Deprecate in a minor release, with a console warning and docs notice.</li>
+  <li>Provide a migration guide, and a codemod where the change is mechanical.</li>
+  <li>Remove only in the next major release, after a stated minimum period.</li>
+  <li>Track usage of deprecated items so you know when removal is safe.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="sec" id="ch05-8">
+<h2><span class="sec-num">05.8</span>Documentation and adoption</h2>
+<p class="pull">Docs decide adoption.<cite>Rule #9 — Layer One</cite></p>
+<p>Engineers and designers adopt what they can understand in the five minutes before a deadline. Every component page should answer, in order:</p>
+<div class="cols-2">
+<ol class="steps" style="margin-top:0">
+  <li><h4>What is it, and when do I use it?</h4><p>One sentence, plus when <em>not</em> to use it and what to use instead.</p></li>
+  <li><h4>What does it look like?</h4><p>Live examples of variants and states.</p></li>
+  <li><h4>How do I build with it?</h4><p>Copyable code; properties table; design library link.</p></li>
+</ol>
+<ol class="steps" start="4" style="margin-top:0;counter-reset:st 3">
+  <li><h4>What do I need to know about accessibility?</h4><p>Keyboard behaviour, labelling requirements, known pitfalls.</p></li>
+  <li><h4>Do's and don'ts</h4><p>Visual examples of correct and incorrect usage.</p></li>
+  <li><h4>What changed?</h4><p>Version history and migration notes.</p></li>
+</ol>
+</div>
+<h3>Adoption tactics that work</h3>
+<div class="cols-3">
+  <div class="card"><h4>Pilot, then case study</h4><p>Ship with one team first; publish their before-and-after internally.</p></div>
+  <div class="card"><h4>Champions</h4><p>One named designer and engineer per product team who get early access and a direct line.</p></div>
+  <div class="card"><h4>Office hours</h4><p>A weekly slot where anyone can bring a screen and get help building it with the system.</p></div>
+  <div class="card"><h4>Lint rules</h4><p>Flag raw colour values and deprecated components in code review, automatically.</p></div>
+  <div class="card"><h4>Codemods</h4><p>Automate mechanical migrations so upgrades cost minutes, not sprints.</p></div>
+  <div class="card"><h4>Make the right way easiest</h4><p>Starter templates and scaffolds that begin with the system already wired in.</p></div>
+</div>
+</section>
+
+<section class="sec" id="ch05-9">
+<h2><span class="sec-num">05.9</span>Measuring system health</h2>
+<p>Review a small scorecard monthly with the team and quarterly with leadership. Look for trends, not targets.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:16%">Dimension</th><th>Metric</th><th>Healthy signal</th><th>Warning signal</th></tr></thead>
+<tbody>
+<tr><th>Adoption</th><td>% of UI files importing the system; % of products on a supported version</td><td>Rising; most products within one major version</td><td>Flat; products stuck on old majors</td></tr>
+<tr><th>Coverage</th><td>Token coverage; local components per product</td><td>Hard-coded values falling</td><td>Local components growing faster than core</td></tr>
+<tr><th>Quality</th><td>Open bugs; a11y violations; visual regressions</td><td>Bugs closed faster than opened</td><td>Same bug class recurring</td></tr>
+<tr><th>Flow</th><td>Median time from request to release; contribution count</td><td>Days to weeks; contributions growing</td><td>Months; contributions falling to zero</td></tr>
+<tr><th>Sentiment</th><td>"The system makes my work faster" (% agree)</td><td>Majority agree and rising</td><td>Teams describe the system as a blocker</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch05-10">
+<h2><span class="sec-num">05.10</span>Managing technical and design debt</h2>
+<p>Every system accumulates debt: components that no longer fit, workarounds that became permanent, values that drifted. Debt is normal; <em>invisible</em> debt is the problem.</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:22%">Debt type</th><th>How it appears</th><th>How to detect it</th></tr></thead>
+<tbody>
+<tr><th>Detached instances</th><td>Designers break components to make one-off changes.</td><td>Design-tool analytics on detachments by component</td></tr>
+<tr><th>Hard-coded values</th><td>Raw colours, sizes and spacing in product code.</td><td>Lint rules; scripted search</td></tr>
+<tr><th>Forked components</th><td>Teams copy a system component and modify it.</td><td>Code search for copied component signatures</td></tr>
+<tr><th>Deprecated usage</th><td>Old components still in production after replacement.</td><td>Import tracking of deprecated items</td></tr>
+<tr><th>Inaccessible patterns</th><td>Components that pass in isolation but fail in composition.</td><td>Automated checks on key flows; periodic manual audits</td></tr>
+<tr><th>Design–code drift</th><td>The design library and code no longer match.</td><td>Periodic side-by-side review; token sync checks</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] A debt budget</p>
+  <p>Keep a visible debt register, and reserve a fixed share of every cycle (we suggest around a fifth) for paying it down. Teams that schedule debt work on a fixed basis rarely need a "big rewrite"; teams that don't usually end up doing one.</p>
+</div>
+
+<h3>Operating model checklist</h3>
+<div class="cols-2">
+<ul class="checklist">
+  <li>Team model chosen and written down</li>
+  <li>RACI for the eight decisions in 05.3</li>
+  <li>Tokens, code and design library each own a defined truth</li>
+  <li>Definition of done for components</li>
+  <li>Contribution tiers and the rule of two published</li>
+</ul>
+<ul class="checklist">
+  <li>Versioning policy including visual changes</li>
+  <li>Deprecation policy with minimum notice period</li>
+  <li>Docs template for every component</li>
+  <li>Health scorecard with a monthly review</li>
+  <li>Debt register and debt budget</li>
+</ul>
+</div>
+<p class="pull">Leave the team able to run it without us.<cite>Rule #10 — Layer One</cite></p>
+</section>
+</div><!-- /chapter --></section>

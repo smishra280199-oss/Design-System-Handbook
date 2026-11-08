@@ -1,0 +1,361 @@
+{
+  "frost-atomic": {
+    "title": "Atomic Design",
+    "author": "Brad Frost",
+    "publisher": "Self-published",
+    "year": 2016,
+    "url": "https://atomicdesign.bradfrost.com/"
+  },
+  "curtis-team-models": {
+    "title": "Team Models for Scaling a Design System",
+    "author": "Nathan Curtis",
+    "publisher": "EightShapes",
+    "year": 2015,
+    "url": "https://eightshapes.com/articles/team-models-for-scaling-a-design-system",
+    "note": "Introduces the solitary, centralised and federated team models."
+  },
+  "curtis-fallacy": {
+    "title": "The Fallacy of Federated Design Systems",
+    "author": "Nathan Curtis",
+    "publisher": "EightShapes",
+    "year": null,
+    "url": "https://nathanacurtis.substack.com/p/the-fallacy-of-federated-design-systems-23b9a9a05542",
+    "note": "Argues that successful systems always have a central team, plus federated participation."
+  },
+  "salesforce-cyclical": {
+    "title": "The Salesforce Team Model for Scaling a Design System",
+    "author": "Salesforce UX",
+    "publisher": "Medium",
+    "year": null,
+    "url": "https://medium.com/salesforce-ux/the-salesforce-team-model-for-scaling-a-design-system-d89c2a2d404b",
+    "note": "Describes the 'cyclical' hybrid: a central team plus a federated group of contributors."
+  },
+  "figma-value": {
+    "title": "Measuring the value of design systems",
+    "author": "Figma",
+    "publisher": "Figma blog",
+    "year": null,
+    "url": "https://www.figma.com/blog/measuring-the-value-of-design-systems/",
+    "note": "Vendor-run internal experiment: participants with a relevant, up-to-date design system completed a design objective 34% faster. Sample details are limited; treat as indicative."
+  },
+  "sparkbox-carbon": {
+    "title": "Yes, Design Systems Do Improve Developer Efficiency and Design Consistency",
+    "author": "Sparkbox",
+    "publisher": "Sparkbox Foundry",
+    "year": null,
+    "url": "https://sparkbox.com/foundry/design_system_roi_impact_of_design_systems_business_value_carbon_design_system",
+    "note": "Eight developers built a form from scratch, then with IBM Carbon: median 4.2 h vs 2 h (≈47% faster). Small sample; the scratch build always came first, so familiarity with the design favours the second build."
+  },
+  "zeroheight-2025": {
+    "title": "Design Systems Report 2025",
+    "author": "zeroheight",
+    "publisher": "zeroheight",
+    "year": 2025,
+    "url": "https://zeroheight.com/how-we-document",
+    "note": "Survey of 294 respondents (Sep–Nov 2024). 79% report a dedicated design system team; average team size ≈3 (<100 employees), ≈4 (100–499), ≈9 (500+)."
+  },
+  "webaim-2025": {
+    "title": "The WebAIM Million: The 2025 report on the accessibility of the top 1,000,000 home pages",
+    "author": "WebAIM",
+    "publisher": "Utah State University",
+    "year": 2025,
+    "url": "https://webaim.org/projects/million/2025",
+    "note": "Low-contrast text detected on 79.1% of home pages; 94.8% had at least one detectable WCAG 2 failure."
+  },
+  "wcag22": {
+    "title": "Web Content Accessibility Guidelines (WCAG) 2.2",
+    "author": "W3C",
+    "publisher": "W3C Recommendation",
+    "year": 2023,
+    "url": "https://www.w3.org/TR/WCAG22/"
+  },
+  "wcag-contrast": {
+    "title": "Understanding Success Criterion 1.4.3: Contrast (Minimum)",
+    "author": "W3C WAI",
+    "publisher": "W3C",
+    "year": 2023,
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+  },
+  "wcag-nontext": {
+    "title": "Understanding Success Criterion 1.4.11: Non-text Contrast",
+    "author": "W3C WAI",
+    "publisher": "W3C",
+    "year": 2023,
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html"
+  },
+  "wcag-target": {
+    "title": "Understanding Success Criterion 2.5.8: Target Size (Minimum)",
+    "author": "W3C WAI",
+    "publisher": "W3C",
+    "year": 2023,
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html"
+  },
+  "wcag-textspacing": {
+    "title": "Understanding Success Criterion 1.4.12: Text Spacing",
+    "author": "W3C WAI",
+    "publisher": "W3C",
+    "year": 2023,
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html"
+  },
+  "wcag-reflow": {
+    "title": "Understanding Success Criterion 1.4.10: Reflow",
+    "author": "W3C WAI",
+    "publisher": "W3C",
+    "year": 2023,
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html"
+  },
+  "dtcg-format": {
+    "title": "Design Tokens Format Module 2025.10",
+    "author": "Design Tokens Community Group",
+    "publisher": "W3C Community Group Final Report",
+    "year": 2025,
+    "url": "https://www.designtokens.org/tr/2025.10/format/",
+    "note": "A Community Group report, not a W3C Standard; widely implemented by token tooling."
+  },
+  "dtcg-announce": {
+    "title": "Design Tokens specification reaches first stable version",
+    "author": "Design Tokens Community Group",
+    "publisher": "W3C",
+    "year": 2025,
+    "url": "https://www.w3.org/community/design-tokens/2025/10/28/design-tokens-specification-reaches-first-stable-version/"
+  },
+  "css-color-4": {
+    "title": "CSS Color Module Level 4",
+    "author": "W3C CSS Working Group",
+    "publisher": "W3C",
+    "year": null,
+    "url": "https://www.w3.org/TR/css-color-4/"
+  },
+  "ottosson-oklab": {
+    "title": "A perceptual color space for image processing",
+    "author": "Björn Ottosson",
+    "publisher": "bottosson.github.io",
+    "year": 2020,
+    "url": "https://bottosson.github.io/posts/oklab/",
+    "note": "The original definition of Oklab, from which OKLCH is derived."
+  },
+  "em-oklch": {
+    "title": "OKLCH in CSS: why we quit RGB and HSL",
+    "author": "Andrey Sitnik, Travis Turner",
+    "publisher": "Evil Martians",
+    "year": 2022,
+    "url": "https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl"
+  },
+  "tailwind-v4": {
+    "title": "Tailwind CSS v4.0",
+    "author": "Tailwind Labs",
+    "publisher": "tailwindcss.com",
+    "year": 2025,
+    "url": "https://tailwindcss.com/blog/tailwindcss-v4",
+    "note": "The default colour palette moved to OKLCH."
+  },
+  "radix-scale": {
+    "title": "Understanding the scale",
+    "author": "WorkOS",
+    "publisher": "Radix Colors documentation",
+    "year": null,
+    "url": "https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale",
+    "note": "A 12-step scale where each step has a defined job: backgrounds, component states, borders, solids, text."
+  },
+  "m3-color": {
+    "title": "Color system: how the system works",
+    "author": "Google",
+    "publisher": "Material Design 3",
+    "year": null,
+    "url": "https://m3.material.io/styles/color/system/how-the-system-works",
+    "note": "Tonal palettes generated in the HCT colour space; colour roles mapped from tones."
+  },
+  "m3-type": {
+    "title": "Type scale tokens",
+    "author": "Google",
+    "publisher": "Material Design 3",
+    "year": null,
+    "url": "https://m3.material.io/styles/typography/type-scale-tokens"
+  },
+  "m3-structure": {
+    "title": "Designing: structure",
+    "author": "Google",
+    "publisher": "Material Design 3",
+    "year": null,
+    "url": "https://m3.material.io/foundations/designing/structure"
+  },
+  "m3-layout": {
+    "title": "Layout: breakpoints (window size classes)",
+    "author": "Google",
+    "publisher": "Material Design 3",
+    "year": null,
+    "url": "https://m3.material.io/foundations/layout/breakpoints/overview",
+    "note": "Compact < 600dp, medium 600–839dp, expanded 840–1199dp, large 1200–1599dp, extra-large ≥ 1600dp."
+  },
+  "hig-type": {
+    "title": "Typography",
+    "author": "Apple",
+    "publisher": "Human Interface Guidelines",
+    "year": null,
+    "url": "https://developer.apple.com/design/human-interface-guidelines/typography"
+  },
+  "hig-a11y": {
+    "title": "Accessibility",
+    "author": "Apple",
+    "publisher": "Human Interface Guidelines",
+    "year": null,
+    "url": "https://developer.apple.com/design/human-interface-guidelines/accessibility",
+    "note": "Recommends a minimum control size of 44×44 pt on iOS/iPadOS."
+  },
+  "hig-layout": {
+    "title": "Layout",
+    "author": "Apple",
+    "publisher": "Human Interface Guidelines",
+    "year": null,
+    "url": "https://developer.apple.com/design/human-interface-guidelines/layout"
+  },
+  "carbon-spacing": {
+    "title": "Spacing",
+    "author": "IBM",
+    "publisher": "Carbon Design System",
+    "year": null,
+    "url": "https://www.carbondesignsystem.com/elements/spacing/overview/"
+  },
+  "carbon-grid": {
+    "title": "2x Grid",
+    "author": "IBM",
+    "publisher": "Carbon Design System",
+    "year": null,
+    "url": "https://www.carbondesignsystem.com/elements/2x-grid/overview/"
+  },
+  "carbon-type": {
+    "title": "Typography: type sets (productive and expressive)",
+    "author": "IBM",
+    "publisher": "Carbon Design System",
+    "year": null,
+    "url": "https://www.carbondesignsystem.com/elements/typography/type-sets/"
+  },
+  "carbon-themes": {
+    "title": "Themes",
+    "author": "IBM",
+    "publisher": "Carbon Design System",
+    "year": null,
+    "url": "https://www.carbondesignsystem.com/elements/themes/overview/"
+  },
+  "atlassian-spacing": {
+    "title": "Spacing",
+    "author": "Atlassian",
+    "publisher": "Atlassian Design System",
+    "year": null,
+    "url": "https://atlassian.design/foundations/spacing",
+    "note": "8px base; tokens from space.025 (2px) to space.1000 (80px), named as multiples of the base."
+  },
+  "atlassian-tokens": {
+    "title": "Design tokens",
+    "author": "Atlassian",
+    "publisher": "Atlassian Design System",
+    "year": null,
+    "url": "https://atlassian.design/foundations/tokens/design-tokens"
+  },
+  "spectrum-tokens": {
+    "title": "Design tokens",
+    "author": "Adobe",
+    "publisher": "Spectrum",
+    "year": null,
+    "url": "https://spectrum.adobe.com/page/design-tokens/"
+  },
+  "slds-tokens": {
+    "title": "Design tokens",
+    "author": "Salesforce",
+    "publisher": "Lightning Design System",
+    "year": null,
+    "url": "https://v1.lightningdesignsystem.com/design-tokens/",
+    "note": "Salesforce's design system team is widely credited with coining the term 'design tokens' (c. 2014)."
+  },
+  "polaris": {
+    "title": "Polaris design system",
+    "author": "Shopify",
+    "publisher": "shopify.dev",
+    "year": null,
+    "url": "https://shopify.dev/docs/api/polaris"
+  },
+  "semver": {
+    "title": "Semantic Versioning 2.0.0",
+    "author": "Tom Preston-Werner",
+    "publisher": "semver.org",
+    "year": 2013,
+    "url": "https://semver.org/"
+  },
+  "bringhurst": {
+    "title": "The Elements of Typographic Style",
+    "author": "Robert Bringhurst",
+    "publisher": "Hartley & Marks",
+    "year": 2004,
+    "url": null,
+    "note": "Recommends 45–75 characters per line for single-column text, with 66 widely regarded as ideal."
+  },
+  "utopia": {
+    "title": "Utopia: fluid responsive design",
+    "author": "James Gilyead, Trys Mudford",
+    "publisher": "utopia.fyi",
+    "year": null,
+    "url": "https://utopia.fyi/"
+  },
+  "mdn-variable-fonts": {
+    "title": "Variable fonts guide",
+    "author": "MDN contributors",
+    "publisher": "Mozilla",
+    "year": null,
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts/Variable_fonts_guide"
+  },
+  "apca": {
+    "title": "APCA: Accessible Perceptual Contrast Algorithm",
+    "author": "Myndex Research",
+    "publisher": "git.apcacontrast.com",
+    "year": null,
+    "url": "https://git.apcacontrast.com/documentation/APCA_in_a_Nutshell",
+    "note": "A candidate contrast method explored for future WCAG versions. Not normative under WCAG 2.x."
+  },
+  "eu-eaa": {
+    "title": "Directive (EU) 2019/882 — European Accessibility Act",
+    "author": "European Parliament and Council",
+    "publisher": "Official Journal of the EU",
+    "year": 2019,
+    "url": "https://eur-lex.europa.eu/eli/dir/2019/882/oj",
+    "note": "Applies to many products and services placed on the EU market from 28 June 2025."
+  },
+  "layerone": {
+    "title": "Layer One — Design systems studio",
+    "author": "Layer One",
+    "publisher": "layerone.co.in",
+    "year": 2026,
+    "url": "https://www.layerone.co.in/"
+  },
+  "brooks": {
+    "title": "The Mythical Man-Month: Essays on Software Engineering",
+    "author": "Frederick P. Brooks Jr.",
+    "publisher": "Addison-Wesley",
+    "year": 1975,
+    "url": null,
+    "note": "Source of the observation that communication paths grow as n(n−1)/2 with team size."
+  },
+  "kurosu": {
+    "title": "Apparent usability vs. inherent usability: experimental analysis on the determinants of the apparent usability",
+    "author": "Masaaki Kurosu, Kaori Kashimura",
+    "publisher": "CHI '95 Conference Companion, ACM",
+    "year": 1995,
+    "url": "https://doi.org/10.1145/223355.223680",
+    "note": "Origin of the 'aesthetic-usability effect': visual appeal correlated strongly with perceived ease of use."
+  },
+  "fogg": {
+    "title": "How do users evaluate the credibility of Web sites? A study with over 2,500 participants",
+    "author": "B. J. Fogg et al.",
+    "publisher": "Proceedings of DUX 2003, ACM",
+    "year": 2003,
+    "url": "https://doi.org/10.1145/997078.997097",
+    "note": "'Design look' was the most frequently mentioned factor in participants' credibility comments."
+  },
+  "curtis-space": {
+    "title": "Space in Design Systems",
+    "author": "Nathan Curtis",
+    "publisher": "EightShapes",
+    "year": 2016,
+    "url": null,
+    "note": "Introduces the inset, stack and inline vocabulary for spacing tokens."
+  }
+}

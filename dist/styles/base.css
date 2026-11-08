@@ -1,0 +1,49 @@
+/* ==========================================================================
+   Base typography & elements (shared by screen and print)
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  font-feature-settings: "ss01" 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { color: var(--accent-text); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+h1, h2, h3, h4, h5 { margin: 0; font-weight: 600; letter-spacing: -0.02em; line-height: 1.12; text-wrap: balance; }
+h2 { font-size: 34px; letter-spacing: -0.025em; margin: 72px 0 20px; }
+h3 { font-size: 22px; letter-spacing: -0.015em; margin: 44px 0 12px; }
+h4 { font-size: 17px; letter-spacing: -0.005em; margin: 28px 0 8px; }
+p { margin: 0 0 1em; text-wrap: pretty; }
+ul, ol { margin: 0 0 1em; padding-left: 1.2em; }
+li { margin: 0.25em 0; }
+li::marker { color: var(--text-faint); }
+strong, b { font-weight: 650; }
+em { font-style: italic; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 40px 0; }
+code, kbd, .mono { font-family: var(--font-mono); font-size: 0.84em; letter-spacing: 0; }
+:not(pre) > code { background: var(--bg-sunken); padding: 0.1em 0.35em; border-radius: 4px; white-space: nowrap; }
+pre {
+  font-family: var(--font-mono); font-size: 13px; line-height: 1.6;
+  background: var(--code-bg); color: var(--code-text);
+  padding: 20px 22px; border-radius: var(--r); overflow-x: auto; margin: 0 0 1.4em;
+}
+pre .k { color: #ff8a63; }   /* key */
+pre .s { color: #9de7c8; }   /* string */
+pre .c { color: #7d838d; }   /* comment */
+pre .n { color: #cfcbff; }   /* number / ref */
+small { font-size: 0.82em; }
+abbr[title] { text-decoration: underline dotted; text-underline-offset: 0.2em; }
+sup.cite { font-size: 0.62em; line-height: 0; vertical-align: super; margin-left: 1px; }
+sup.cite a { text-decoration: none; color: var(--accent-text); font-family: var(--font-mono); font-weight: 500; }
+sup.cite a::before { content: "["; } sup.cite a::after { content: "]"; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

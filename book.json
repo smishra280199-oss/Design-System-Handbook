@@ -1,0 +1,32 @@
+{
+  "title": "The Design Systems Playbook",
+  "edition": "0.1",
+  "author": "Aniket Pandey",
+  "publisher": "Layer One",
+  "pdf": "layer-one-design-systems-playbook.pdf",
+  "parts": [
+    { "num": "01", "short": "Understanding design systems", "title": "Understanding design systems: does your company actually need one?" },
+    { "num": "02", "short": "Building the foundations", "title": "Building the foundations of a design system" }
+  ],
+  "order": [
+    "components/cover.html",
+    "components/colophon.html",
+    "@toc",
+    "components/how-to-read.html",
+    "chapters/part-01.html",
+    "chapters/01-what-a-design-system-is.html",
+    "chapters/02-who-needs-one.html",
+    "chapters/03-what-its-worth.html",
+    "chapters/04-economics.html",
+    "chapters/05-operating-models.html",
+    "chapters/part-02.html",
+    "chapters/06-foundations-architecture.html",
+    "chapters/07-colour.html",
+    "chapters/08-typography.html",
+    "chapters/09-spacing.html",
+    "chapters/10-grid-layout.html",
+    "chapters/11-foundations-together.html",
+    "@references",
+    "components/about.html"
+  ]
+}

@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Print / PDF. A4 portrait. Running heads are generated per chapter by the
+   build (named pages), see scripts/build.mjs → <style id="running-heads">.
+   ========================================================================== */
+@page {
+  size: A4;
+  margin: 20mm 18mm 20mm 22mm;
+  @bottom-right { content: counter(page, decimal-leading-zero); font: 500 7.5pt "JetBrains Mono", monospace; color: #0b0d12; vertical-align: top; padding-top: 4mm; }
+  @bottom-left { content: "Layer One — The Design Systems Playbook"; font: 400 7pt "JetBrains Mono", monospace; color: #7a808a; vertical-align: top; padding-top: 4mm; }
+}
+@page cover { margin: 0; @bottom-right { content: none; } @bottom-left { content: none; } }
+@page bleed { margin: 0; @bottom-right { content: none; } @bottom-left { content: none; } }
+@page front { @top-left { content: none; } }
+
+@media print {
+  :root { --measure: none; }
+  html, body { background: #fff; }
+  body { font-size: 9.4pt; line-height: 1.5; color: #0b0d12; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .sidebar, .mobile-bar, .progress, .screen-only { display: none !important; }
+  .shell, .main, .page { display: block; max-width: none; margin: 0; padding: 0; }
+
+  /* Cover & full-bleed openers */
+  .cover { page: cover; width: 210mm; height: 297mm; min-height: 0; break-after: page; }
+  .part-opener { page: bleed; width: 210mm; height: 297mm; min-height: 0; padding: 22mm 20mm 20mm; break-before: page; break-after: page; }
+  .part-opener .po-num { font-size: 190pt; }
+  .part-opener h1 { font-size: 40pt; }
+  .part-opener .po-dek { font-size: 12pt; }
+  .part-opener .po-chapters li { font-size: 10pt; }
+  .part-opener .po-art { right: -40mm; top: -20mm; width: 175mm; }
+
+  .front { page: front; break-before: page; padding: 0; }
+  .chapter { break-before: page; padding: 0; border: 0; }
+
+  /* Type sizes for print */
+  h2 { font-size: 21pt; margin: 22pt 0 10pt; break-after: avoid; }
+  h3 { font-size: 13pt; margin: 16pt 0 6pt; break-after: avoid; }
+  h4 { font-size: 10.5pt; margin: 12pt 0 4pt; break-after: avoid; }
+  .sec-num { font-size: 7.5pt; margin-bottom: 5pt; }
+  section.sec { break-before: auto; }
+  section.sec.new-page { break-before: page; }
+  section.sec > h2:first-child { margin-top: 26pt; }
+  p, li { orphans: 3; widows: 3; }
+  .lede { font-size: 12.5pt; }
+  .chapter-opener { padding-top: 6mm; margin-bottom: 4mm; }
+  .chapter-opener h1 { font-size: 36pt; }
+  .chapter-opener .dek { font-size: 13pt; }
+  .chapter-opener .ch-num { font-size: 8pt; margin-bottom: 14mm; }
+  .opener-meta { margin-top: 12mm; }
+  .opener-meta p, .opener-meta li { font-size: 9pt; }
+  .pull { font-size: 16pt; margin: 18pt 0; }
+  pre { font-size: 7.6pt; padding: 12pt 14pt; white-space: pre-wrap; break-inside: avoid; }
+
+  /* Components at print size */
+  table { font-size: 8.4pt; }
+  thead th, caption { font-size: 6.8pt; }
+  th, td { padding: 5pt 8pt 5pt 0; }
+  td.num, th.num { font-size: 7.8pt; }
+  table.compact th, table.compact td { font-size: 7.8pt; padding: 4pt 6pt 4pt 0; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  .callout { padding: 11pt 13pt 10pt; margin: 14pt 0; }
+  .callout p, .callout li { font-size: 8.9pt; }
+  .callout--key h4 { font-size: 12.5pt; }
+  .card { padding: 10pt 11pt; }
+  .card h4 { font-size: 10pt; }
+  .card p, .card li { font-size: 8.4pt; }
+  .stat .stat-n { font-size: 30pt; }
+  .stat .stat-l { font-size: 8.6pt; }
+  .qa { padding: 12pt 0; gap: 16pt; }
+  .qa .q { font-size: 12.5pt; }
+  .qa .a p, .qa .a li { font-size: 9pt; }
+  .checklist li { font-size: 8.8pt; padding: 5pt 0 5pt 22pt; }
+  .checklist li::before { top: 6pt; width: 10pt; height: 10pt; }
+  .steps > li { padding: 8pt 0; grid-template-columns: 34pt 1fr; }
+  .steps p { font-size: 8.8pt; }
+  .fig { margin: 16pt 0 18pt; }
+  .fig-body { padding: 14pt; border-radius: 8pt; }
+  .fig figcaption { font-size: 8pt; margin-top: 6pt; }
+  .ev { font-size: 6.2pt; padding: 2pt 4pt; }
+  .ev-legend div, .routes p { font-size: 8pt; }
+  .routes h5 { font-size: 9.5pt; } .routes .path { font-size: 7pt; }
+  .toc-list li { font-size: 10pt; padding: 5pt 0; }
+  .toc-list li .tsub { font-size: 7.8pt; }
+  .toc-part .tp-title { font-size: 14pt; }
+  .refs li { font-size: 8.2pt; padding: 5pt 0; }
+  .refs .ru { font-size: 6.8pt; }
+  .tk { font-size: 7pt; }
+
+  /* Figure internals at print size */
+  .chip { min-height: 40pt; font-size: 5.6pt; padding: 3pt; }
+  .chip .st { font-size: 6.4pt; }
+  .ramp-row, .ramp-head { grid-template-columns: 46pt repeat(11, minmax(0, 1fr)); gap: 2pt; }
+  .ramp-row .rn { font-size: 6.6pt; }
+  .ramp-head { font-size: 6pt; }
+  .ramp-detail > div { min-height: 90pt; font-size: 5.8pt; padding: 6pt 4pt; }
+  .ramp-detail .st { font-size: 8pt; }
+  .swrow .sw-big { height: 42pt; font-size: 6pt; }
+  .swrow .sw-meta { font-size: 6pt; }
+  .row-label { font-size: 7pt; }
+  .spec-row { grid-template-columns: 70pt 1fr 80pt; padding: 4pt 0; }
+  .spec-row .tok, .spec-row .meta { font-size: 6.4pt; }
+  .tier .tk-row { font-size: 7pt; }
+  .tier .tier-q { font-size: 8pt; }
+  .pipe-step h5 { font-size: 9.5pt; }
+  .pipe-step .pex { font-size: 6.6pt; }
+  .mat-col { font-size: 7.6pt; padding: 8pt; }
+  .mat-col h5 { font-size: 9.5pt; }
+  .mat-col .mat-inv { font-size: 6.4pt; }
+  .dtree { font-size: 8.6pt; }
+  .dt-out { font-size: 8.2pt; } .dt-out b { font-size: 8.8pt; }
+  .hbar { grid-template-columns: 110pt 1fr; font-size: 8pt; }
+  .fig-label { font-size: 6.4pt; }
+  a { text-decoration: none; }
+  sup.cite a { color: #b83a16; }
+  .no-print { display: none !important; }
+  /* Let long tables and Q&A flow across pages; keep their heads attached. */
+  .table-wrap { break-inside: auto; overflow: visible; }
+  .qa { break-inside: auto; }
+  .qa .q { break-after: avoid; }
+  .toc-list li { padding: 3.5pt 0; }
+  .toc-list li .tsub { font-size: 7pt; line-height: 1.35; }
+  .toc-part { margin: 12pt 0 4pt; padding-top: 6pt; }
+  .print-break { break-before: page; }
+}

@@ -1,0 +1,132 @@
+{
+  "color": {
+    "brand": {
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.645,
+            0.19,
+            37
+          ],
+          "hex": "#e95728"
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.565,
+            0.189,
+            37
+          ],
+          "hex": "#cc3c00"
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.486,
+            0.172,
+            35
+          ],
+          "hex": "#ab2800"
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.406,
+            0.146,
+            34
+          ],
+          "hex": "#861b00"
+        }
+      }
+    },
+    "neutral": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.975,
+            0.011,
+            260
+          ],
+          "hex": "#f3f7fe"
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.945,
+            0.018,
+            260
+          ],
+          "hex": "#e6edf9"
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.485,
+            0.018,
+            260
+          ],
+          "hex": "#595f69"
+        }
+      },
+      "950": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.255,
+            0.018,
+            260
+          ],
+          "hex": "#1e232c"
+        }
+      }
+    }
+  },
+  "semantic": {
+    "action": {
+      "primary": {
+        "bg": {
+          "$type": "color",
+          "$value": "{color.brand.700}"
+        },
+        "text": {
+          "$type": "color",
+          "$value": "{color.neutral.50}"
+        }
+      }
+    },
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "{color.neutral.950}"
+      }
+    }
+  },
+  "button": {
+    "primary": {
+      "background": {
+        "$type": "color",
+        "$value": "{semantic.action.primary.bg}"
+      }
+    }
+  }
+}

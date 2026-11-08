@@ -1,0 +1,127 @@
+<section class="chapter" id="ch03" data-part="01" data-num="03" data-title="What a design system is worth" data-short="What it's worth"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 03</p>
+  <h1>What a design system is worth</h1>
+  <p class="dek">"Consistency and efficiency" is not a business case. This chapter separates what has actually been measured from what is merely claimed, and gives you a way to measure your own outcomes.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You need to justify investment to a CFO, a board or a sceptical engineering leader, or you need to prove that an existing system is working.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>An honest picture of the published evidence, including its limits.</li><li>The mechanism behind each of nine business outcomes, so you can argue causally rather than by anecdote.</li><li>A KPI framework with formulas you can baseline this quarter.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch03-1">
+<h2><span class="sec-num">03.1</span>Where the value actually comes from</h2>
+<p>Every business benefit of a design system traces back to three mechanisms. If a claimed benefit can't be traced to one of them, be suspicious of it.</p>
+<div class="cols-3">
+  <div class="card hl"><span class="card-k">Mechanism 1</span><h4>Decide once</h4><p>Teams stop re-making the same decisions: which grey, how much padding, how errors behave. Time moves from re-deciding to the problems that are actually new.</p></div>
+  <div class="card hl"><span class="card-k">Mechanism 2</span><h4>Build once</h4><p>Components are built, tested and made accessible once, then reused. Defects are fixed once and the fix ships everywhere.</p></div>
+  <div class="card hl"><span class="card-k">Mechanism 3</span><h4>Change once</h4><p>Because products reference tokens and components rather than copies, a decision changed at the source propagates: rebrands, themes, accessibility fixes.</p></div>
+</div>
+<p>The first two produce savings that accrue steadily with usage. The third produces savings in lumps, at the moments of change, and it is often the larger of the three over a product's lifetime. Business cases that only count the first two undersell the system; business cases that promise the third without a token architecture overpromise it.</p>
+</section>
+
+<section class="sec" id="ch03-2">
+<h2><span class="sec-num">03.2</span>The evidence, honestly</h2>
+<p>The public evidence base for design system ROI is <strong>thinner than the marketing around it suggests</strong>. Many percentages in circulation trace back to a small number of studies, several of them run by vendors. That doesn't mean the benefits aren't real. It means you should rely on the mechanisms and measure your own outcomes, rather than borrowing someone else's number.</p>
+<div class="cols-3" style="margin:32px 0">
+  <div class="stat"><span class="stat-n">34<small>%</small></span><span class="stat-l">faster completion of a design task when participants had a relevant, up-to-date design system.</span><span class="stat-src">[[doc]] Figma internal experiment.[[c:figma-value]] Vendor-run; limited sample detail.</span></div>
+  <div class="stat"><span class="stat-n">47<small>%</small></span><span class="stat-l">faster to code a simple form with IBM's Carbon system than from scratch (median 2 h vs 4.2 h).</span><span class="stat-src">[[doc]] Sparkbox.[[c:sparkbox-carbon]] n = 8 developers; scratch build always done first.</span></div>
+  <div class="stat"><span class="stat-n">79.1<small>%</small></span><span class="stat-l">of the top million home pages had low-contrast text, the most common detectable WCAG failure.</span><span class="stat-src">[[doc]] WebAIM Million 2025.[[c:webaim-2025]] A problem tokens can solve at source.</span></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<caption>Evidence ledger — what is known, and how strongly</caption>
+<thead><tr><th style="width:22%">Finding</th><th>Source and method</th><th style="width:28%">Caveats</th><th style="width:16%">How to use it</th></tr></thead>
+<tbody>
+<tr><td>Designers complete objectives ~34% faster with a system</td><td>Figma data science team; controlled task with and without a system; no-system group given older design files to reference.[[c:figma-value]]</td><td>Vendor-published; the system used was directly relevant to the task, which is the best case.</td><td>As an upper bound for design-side efficiency on well-covered work.</td></tr>
+<tr><td>Developers build a form ~47% faster with a system</td><td>Sparkbox; 8 developers each built the same form from scratch, then with Carbon.[[c:sparkbox-carbon]]</td><td>Tiny sample; order effect (second build benefits from familiarity with the design). Also showed better visual consistency.</td><td>As directional evidence, not a planning number.</td></tr>
+<tr><td>Low contrast is the most common accessibility failure on the web</td><td>WebAIM automated scan of 1M home pages, 2025.[[c:webaim-2025]]</td><td>Automated detection only; measures home pages, not apps.</td><td>To justify contrast-checked colour tokens (Chapter 07).</td></tr>
+<tr><td>Most practitioner organisations now fund a dedicated system team</td><td>zeroheight Design Systems Report 2025; 294 respondents; 79% report a dedicated team.[[c:zeroheight-2025]]</td><td>Self-selected sample of design-system practitioners.</td><td>As context for team-size benchmarks, not as proof of ROI.</td></tr>
+<tr><td>Visual design shapes perceived usability and credibility</td><td>Kurosu &amp; Kashimura (1995), the "aesthetic-usability" study;[[c:kurosu]] Fogg et al. (2003), 2,500+ participants rating web credibility.[[c:fogg]]</td><td>Neither study is about design systems. They show that look and coherence affect trust; a system is one way to deliver coherence.</td><td>To explain why consistency is a revenue issue, not a cosmetic one.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout callout--mistake">
+  <p class="callout-label">Common mistake</p>
+  <h4>Putting someone else's percentage in your business case</h4>
+  <p>"Design systems make teams 47% faster" will be challenged by the first engineer who reads the study, and your credibility goes with it. Use published findings to show the mechanism is real, then build your case on your own baseline using the KPIs in 03.4. Chapter 04 shows how to do this with conservative assumptions.</p>
+</div>
+</section>
+
+<section class="sec" id="ch03-3">
+<h2><span class="sec-num">03.3</span>Nine outcomes, and the mechanism behind each</h2>
+<p>For each outcome below, the <em>mechanism</em> column is the argument you make to leadership; the <em>measure</em> column is how you prove it later.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:17%">Outcome</th><th style="width:30%">Mechanism</th><th>What to measure</th><th style="width:11%">Evidence</th></tr></thead>
+<tbody>
+<tr><th>Design and delivery velocity</th><td>Decide once: designers assemble known parts and spec less in handoff.</td><td>Time from brief to dev-ready design for comparable features; handoff comment count.</td><td>[[doc]]</td></tr>
+<tr><th>Engineering efficiency</th><td>Build once: no re-implementing standard UI; less styling code to review.</td><td>Cycle time for UI-heavy tickets; lines of custom CSS per feature; PR review rounds on styling.</td><td>[[doc]]</td></tr>
+<tr><th>Reuse, less duplication</th><td>One implementation per component instead of one per team.</td><td>Number of distinct implementations of the same component across repos; % of UI imported from the package.</td><td>[[prac]]</td></tr>
+<tr><th>Quality and consistency</th><td>Tested components with defined states; tokens remove "close enough" values.</td><td>UI defects per release; unique hard-coded colour and spacing values over time.</td><td>[[doc]]</td></tr>
+<tr><th>Accessibility and compliance</th><td>Contrast, focus, target size and semantics are solved in the system and inherited.</td><td>Automated a11y violations per page; audit findings per release; time to remediate.</td><td>[[std]]</td></tr>
+<tr><th>Maintenance and scalability</th><td>Change once: a fix or update in the system reaches every consumer through a version bump.</td><td>Effort (hours) for a cross-product visual change; time to ship a new theme.</td><td>[[prac]]</td></tr>
+<tr><th>Cross-team collaboration</th><td>A shared vocabulary removes translation between design and code.</td><td>Survey: "I know which component to use"; design–eng clarification threads per feature.</td><td>[[prac]]</td></tr>
+<tr><th>Time to market</th><td>New products and features start from a working kit instead of a blank page.</td><td>Time from project start to first usable prototype or beta for new products.</td><td>[[prac]]</td></tr>
+<tr><th>Product trust and perceived quality</th><td>Coherent, polished interfaces are judged more usable and credible.</td><td>Perceived-quality questions in product surveys; support tickets citing confusion; sales feedback.</td><td>[[doc]]</td></tr>
+</tbody>
+</table>
+</div>
+<p class="muted" style="font-size:14px">Evidence column: [[doc]] where published studies support the mechanism (03.2); [[std]] where a standard defines the requirement (WCAG 2.2[[c:wcag22]]); [[prac]] where the case rests on practice and your own measurement.</p>
+
+<h3>Accessibility deserves its own line in the budget</h3>
+<p>Accessibility is the outcome where the business case has moved fastest. WCAG 2.2 sets testable success criteria for contrast, focus visibility and target size.[[c:wcag22]] [[std]] Regulation increasingly references these criteria: the European Accessibility Act, for example, applies to many digital products and services placed on the EU market from 28 June 2025.[[c:eu-eaa]] A design system is the most efficient place to meet them, because a contrast-checked colour token or a component with correct focus behaviour fixes the issue in every product that uses it. Remediating screen by screen fixes it once, and only until the next screen is built.</p>
+</section>
+
+<section class="sec" id="ch03-4">
+<h2><span class="sec-num">03.4</span>A KPI framework you can baseline this quarter</h2>
+<p class="pull">Measure time saved, not usage.<cite>Rule #8 — Layer One</cite></p>
+<p>Usage metrics (component import counts, Figma insertions) tell you whether the system is <em>used</em>. They don't tell you whether it is <em>worth it</em>. Track both, but report outcomes to leadership.</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:18%">KPI</th><th style="width:34%">Formula</th><th>How to collect</th><th style="width:12%">Cadence</th></tr></thead>
+<tbody>
+<tr><th>Adoption</th><td><code>UI files importing the system ÷ all UI files</code></td><td>Static analysis of imports across repos</td><td>Monthly</td></tr>
+<tr><th>Token coverage</th><td><code>1 − (hard-coded colour + spacing values ÷ total style values)</code></td><td>Lint rule or a scripted search for raw values</td><td>Monthly</td></tr>
+<tr><th>Duplication</th><td><code>Distinct implementations of component X</code></td><td>Code search for known component patterns</td><td>Quarterly</td></tr>
+<tr><th>UI cycle time</th><td><code>Median(ticket start → merge) for UI tickets, system vs non-system</code></td><td>Issue tracker plus PR data, tagged</td><td>Quarterly</td></tr>
+<tr><th>Design QA defects</th><td><code>Visual + a11y defects found after dev ÷ features shipped</code></td><td>Bug tracker labels</td><td>Per release</td></tr>
+<tr><th>Accessibility</th><td><code>Automated violations per page (axe or similar)</code></td><td>CI accessibility checks on key flows</td><td>Per release</td></tr>
+<tr><th>Cost of change</th><td><code>Hours to ship a cross-product visual change</code></td><td>Time-box and log real changes (e.g. a colour update)</td><td>Per event</td></tr>
+<tr><th>Contribution health</th><td><code>Median days from proposal to release; proposals per quarter</code></td><td>Contribution tracker</td><td>Quarterly</td></tr>
+<tr><th>Satisfaction</th><td><code>% agree: "The system makes my work faster"</code></td><td>Short survey of designers and engineers</td><td>Twice a year</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Baselining tip</p>
+  <h4>Measure before you build</h4>
+  <p>Run the duplication, token-coverage and a11y counts during the audit, before any system work ships. Without a baseline, every later number is an opinion. With one, a single slide ("unique colour values: 412 → 61") does more for continued funding than any industry statistic.</p>
+</div>
+</section>
+
+<section class="sec" id="ch03-5">
+<h2><span class="sec-num">03.5</span>When value shows up, and when it doesn't</h2>
+<figure class="fig">
+<div class="fig-body">
+<div class="cols-3" style="gap:0">
+  <div style="padding:0 16px 0 0;border-right:1px solid var(--rule)"><p class="fig-label">Months 0–3</p><h4 style="margin:6px 0">Consistency of new work</h4><p style="font-size:14px;color:var(--text-muted)">Foundations and first components land. New screens look coherent. Savings are small; the system is still a cost.</p></div>
+  <div style="padding:0 16px;border-right:1px solid var(--rule)"><p class="fig-label">Months 3–12</p><h4 style="margin:6px 0">Build-once savings</h4><p style="font-size:14px;color:var(--text-muted)">Adoption passes the tipping point; teams stop rebuilding standard UI; QA defects fall. Value begins to approach cost.</p></div>
+  <div style="padding:0 0 0 16px"><p class="fig-label">Months 12+</p><h4 style="margin:6px 0">Change-once savings</h4><p style="font-size:14px;color:var(--text-muted)">Themes, rebrands, new products and accessibility fixes become configuration. This is where most systems pay back.</p></div>
+</div>
+</div>
+<figcaption><b>The value curve of a design system.</b> [[prac]] Timings vary with team size and adoption speed. The shape is consistent: cost first, steady savings next, large savings at moments of change.</figcaption>
+</figure>
+<h3>When a design system destroys value</h3>
+<ul>
+  <li><strong>Nobody adopts it.</strong> A system with 10% adoption has all of the cost and almost none of the benefit. Adoption is the multiplier on every outcome above.</li>
+  <li><strong>It is too abstract.</strong> Components with 40 props that try to serve every case are slower to use than writing the UI by hand.</li>
+  <li><strong>It is a bottleneck.</strong> If every new need waits weeks for the system team, product teams will route around it, and they will be right to.</li>
+  <li><strong>It is frozen.</strong> A system that doesn't evolve with the product becomes a constraint teams fight rather than a tool they use.</li>
+</ul>
+<p>Chapter 05 is about the operating model that prevents all four.</p>
+</section>
+</div><!-- /chapter --></section>

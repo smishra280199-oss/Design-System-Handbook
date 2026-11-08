@@ -1,0 +1,94 @@
+<section class="chapter" id="ch06" data-part="02" data-num="06" data-title="Understanding design foundations" data-short="Foundations"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 06</p>
+  <h1>Understanding design foundations</h1>
+  <p class="dek">Foundations are the small set of decisions that every pixel in your product inherits. They are the cheapest part of a design system to build and the most expensive part to get wrong.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You are about to define colour, type or spacing for a product, or you need to understand how a design decision becomes code without being re-typed by hand.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A clear list of what counts as a foundation, and what doesn't.</li><li>An understanding of "blast radius": why foundation changes are high-impact.</li><li>The pipeline from a design decision to a token to production code, which the rest of Part 02 fills in.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch06-1">
+<h2><span class="sec-num">06.1</span>What foundations are</h2>
+<p>A foundation is a <strong>category of fundamental visual decision</strong> that is not itself a component but is used by every component. Public systems differ in naming (Carbon calls them "elements", Material calls them "styles" and "foundations"), but the categories are remarkably consistent.[[c:carbon-spacing,m3-color]]</p>
+<div class="cols-4">
+  <div class="card"><span class="card-k">Chapter 07</span><h4>Colour</h4><p>Palettes, ramps, semantic roles, themes, contrast.</p></div>
+  <div class="card"><span class="card-k">Chapter 08</span><h4>Typography</h4><p>Typefaces, scale, line-height, roles, responsive type.</p></div>
+  <div class="card"><span class="card-k">Chapter 09</span><h4>Spacing</h4><p>Base unit, scale, density, component and layout space.</p></div>
+  <div class="card"><span class="card-k">Chapter 10</span><h4>Grid and layout</h4><p>Columns, gutters, breakpoints, containers, regions.</p></div>
+  <div class="card"><span class="card-k">Also</span><h4>Elevation</h4><p>Shadows and layering (z-order) for surfaces.</p></div>
+  <div class="card"><span class="card-k">Also</span><h4>Shape</h4><p>Corner radius and border widths.</p></div>
+  <div class="card"><span class="card-k">Also</span><h4>Motion</h4><p>Durations, easing curves, reduced-motion behaviour.</p></div>
+  <div class="card"><span class="card-k">Also</span><h4>Iconography</h4><p>Grid, stroke, sizes and optical alignment.</p></div>
+</div>
+<p style="margin-top:20px">This edition covers the four foundations with the largest effect on product quality: colour, typography, spacing and layout. The others follow the same architecture and will be covered in a later edition.</p>
+</section>
+
+<section class="sec" id="ch06-2">
+<h2><span class="sec-num">06.2</span>Why foundations matter: blast radius</h2>
+<p>Every decision in a design system has a <em>blast radius</em>: the number of places it affects. A component property affects one component. A foundation affects all of them. That is why foundations are both the highest-leverage and the highest-risk part of the system.</p>
+<figure class="fig">
+<div class="fig-body">
+<svg viewBox="0 0 760 260" role="img" aria-label="Concentric rings showing that a foundation change reaches every component, pattern and product" style="width:100%;height:auto;color:var(--text);font-family:'Schibsted Grotesk',sans-serif">
+  <g transform="translate(200 130)">
+    <circle r="120" fill="var(--bg-sunken)"/><circle r="88" fill="var(--accent-tint)"/><circle r="56" fill="#ffa384"/><circle r="26" fill="#ff6b3d"/>
+    <text y="4" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#0b0d12">token</text>
+    <text y="-36" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#0b0d12">components</text>
+    <text y="-68" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="currentColor">patterns</text>
+    <text y="-100" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="currentColor">products</text>
+  </g>
+  <g font-size="13" fill="currentColor">
+    <text x="380" y="50" font-weight="650">Change one foundation token…</text>
+    <text x="380" y="72" fill-opacity=".7" font-size="12">color.text.secondary: neutral.600 → neutral.700</text>
+    <text x="380" y="112" font-weight="650">…and it reaches</text>
+    <text x="380" y="134" fill-opacity=".7" font-size="12">every component with secondary text: inputs, tables, cards, menus</text>
+    <text x="380" y="156" fill-opacity=".7" font-size="12">every pattern built from them</text>
+    <text x="380" y="178" fill-opacity=".7" font-size="12">every screen in every product on the release</text>
+    <text x="380" y="218" font-weight="650" fill="var(--accent-text)">One change, one review, one release.</text>
+  </g>
+</svg>
+</div>
+<figcaption><b>Blast radius.</b> Here, a contrast fix applied once at the token layer reaches every product. The same mechanism spreads a bad decision just as efficiently, which is why foundations deserve the most careful review in the system.</figcaption>
+</figure>
+<p>Foundational decisions shape four outcomes:</p>
+<div class="table-wrap">
+<table class="compact">
+<tbody>
+<tr><th style="width:18%">Quality</th><td>Contrast, legibility and hierarchy are decided here. A type scale with too-small steps produces muddy hierarchy in every screen.</td></tr>
+<tr><th>Consistency</th><td>A constrained set of values (say 12 spacing values instead of "whatever looks right") makes consistency the default rather than a review task.</td></tr>
+<tr><th>Scalability</th><td>A semantic layer (07.4) makes themes, dark mode and new brands possible without touching components.</td></tr>
+<tr><th>Delivery speed</th><td>Fewer choices mean faster decisions. "Which of these 12 spacing values?" is a quicker question than "how many pixels?"</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch06-3">
+<h2><span class="sec-num">06.3</span>From decision to token to code</h2>
+<p>The reason foundations can be changed safely is that they are never typed twice. A decision is captured once as a <strong>design token</strong>, a named value stored in a platform-agnostic format, and compiled into every platform's code by a build step.</p>
+<figure class="fig">
+<div class="fig-body ink">
+<div class="pipeline">
+  <div class="pipe-step"><span class="pn">01 DECISION</span><h5 style="color:#fff">"Primary actions use our brand orange, accessible on white"</h5><div class="pex">Made by people, with a reason</div></div>
+  <div class="pipe-step"><span class="pn">02 PRIMITIVE</span><h5 style="color:#fff">color.brand.700</h5><div class="pex">oklch(0.486 0.172 35)<br>Raw value, descriptive name</div></div>
+  <div class="pipe-step"><span class="pn">03 SEMANTIC</span><h5 style="color:#fff">color.action.primary.bg</h5><div class="pex">→ {color.brand.700}<br>Purpose, not appearance</div></div>
+  <div class="pipe-step"><span class="pn">04 BUILD</span><h5 style="color:#fff">Token pipeline</h5><div class="pex">tokens.json → CSS, Swift, Kotlin, Figma variables</div></div>
+  <div class="pipe-step"><span class="pn">05 CODE</span><h5 style="color:#fff">var(--color-action-primary-bg)</h5><div class="pex">Consumed by the Button component, never by hand-typed hex</div></div>
+</div>
+</div>
+<figcaption><b>The foundation pipeline.</b> A decision becomes a primitive token, then a semantic token, then platform code. Only step 01 involves judgement. Everything after it is automated, so a change at step 02 or 03 reaches every platform in one release.</figcaption>
+</figure>
+<h3>A shared format</h3>
+<p>Until recently every tool used its own token format. In October 2025 the W3C Design Tokens Community Group published version 2025.10 of the Design Tokens Format Module, its first stable specification.[[c:dtcg-announce,dtcg-format]] [[doc]] It defines a JSON format where each token has a <code>$value</code> and a <code>$type</code>, groups nest with dot-path names, and tokens reference each other with curly braces (<code>{color.brand.700}</code>). Note that it is a Community Group report, not a formal W3C Standard; it is nevertheless the format most token tools now converge on. This is what the Ledgerly tokens look like in it:</p>
+<figure class="fig">
+<div class="fig-body bare"><!-- @fig dtcg --></div>
+<figcaption><b>Design tokens in the DTCG 2025.10 format.</b> Three tiers, generated from this playbook's data: primitives hold OKLCH values; semantic tokens reference primitives; the component token references a semantic token. Values were computed by the build script, not copied by hand.</figcaption>
+</figure>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Tokens first, components second</p>
+  <p>Rule #4 of how we work, and the most important sequencing decision in a system. Components built before the token layer exists end up with hard-coded values that must be found and replaced later. Tokens built first make every component themeable from day one.</p>
+</div>
+<p>The next four chapters take each foundation in turn, from first principles to tokens. Chapter 11 then shows them working together in one component.</p>
+</section>
+</div><!-- /chapter --></section>

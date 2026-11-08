@@ -1,0 +1,211 @@
+<section class="chapter" id="ch08" data-part="02" data-num="08" data-title="Typography systems" data-short="Typography"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 08</p>
+  <h1>Typography systems</h1>
+  <p class="dek">Most of any interface is text. A typography system isn't a font choice and a list of sizes. It is a set of roles, a scale, a rhythm and a set of rules that keep text readable on every screen and every platform.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You are choosing a typeface, defining a type scale, or your product's hierarchy feels muddy or inconsistent across screens.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A method for building a type scale, from ratio to rounded, grid-aligned values.</li><li>A complete, tokenised product type scale you can adapt.</li><li>Guidance on how typography should differ across SaaS, enterprise, mobile, desktop and data-heavy products.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch08-1">
+<h2><span class="sec-num">08.1</span>Choosing typefaces</h2>
+<p>For product interfaces, typeface selection is primarily a functional decision. Brand expression matters, but it is secondary to legibility at small sizes and coverage of everything the product needs to display.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Criterion</th><th>What to check</th><th style="width:28%">Why it matters</th></tr></thead>
+<tbody>
+<tr><th>Legibility at small sizes</th><td>Set 12–14px samples on real screens. Check x-height, open apertures, and distinguishable <code>Il1</code>, <code>O0</code>, <code>rn/m</code>.</td><td>Labels, tables and captions live at small sizes.</td></tr>
+<tr><th>Weights and styles</th><td>At least regular, medium and semibold (or a variable weight axis); true italics if your content needs them.</td><td>Hierarchy depends on weight as much as size.</td></tr>
+<tr><th>Numerals</th><td>Tabular (fixed-width) figures via <code>font-variant-numeric: tabular-nums</code>; clear distinction between 1 and 7.</td><td>Columns of numbers must align in tables and dashboards.</td></tr>
+<tr><th>Language coverage</th><td>Every script you ship or plan to ship: Latin Extended, Cyrillic, Arabic, Devanagari…</td><td>A fallback font for one market breaks visual consistency.</td></tr>
+<tr><th>Licensing</th><td>Web, app embedding, and number of products. Open-source (OFL) fonts remove most of the friction.</td><td>Licence terms can block a platform launch.</td></tr>
+<tr><th>Performance</th><td>File size; variable font versus several static files; subsetting.</td><td>Fonts are often among the largest assets on first load.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cols-2">
+  <div class="callout callout--note" style="margin-top:0"><p class="callout-label">System fonts</p><p>Platform UI fonts (San Francisco on Apple platforms, Roboto on Android, Segoe UI on Windows) are highly legible, free, cost nothing to load and feel native. They're the right default for many internal and enterprise tools. The trade-off is weaker brand distinctiveness.</p></div>
+  <div class="callout callout--note" style="margin-top:0"><p class="callout-label">How many families?</p><p>One family for UI is usually enough. A second (a mono for code and data, or a display face for marketing) is common. A third is rarely justified in product UI. This playbook uses Schibsted Grotesk for everything and JetBrains Mono for values a machine reads.</p></div>
+</div>
+
+<h3>Variable fonts</h3>
+<p>A variable font stores a continuous range of a design axis, most commonly weight, in one file.[[c:mdn-variable-fonts]] Instead of choosing between four static weights, the system can use any weight between, say, 400 and 900. For a design system this means one file to load, exact weight tokens (<code>font.weight.semibold = 600</code>), and optical adjustments such as slightly heavier weights in dark mode.</p>
+<figure class="fig">
+<div class="fig-body">
+<div style="display:grid;gap:4px;font-size:30px;letter-spacing:-0.02em;line-height:1.25">
+  <div style="font-weight:400">Ledger 400 <span class="mono muted" style="font-size:11px;letter-spacing:0">font.weight.regular</span></div>
+  <div style="font-weight:500">Ledger 500 <span class="mono muted" style="font-size:11px;letter-spacing:0;font-weight:400">font.weight.medium</span></div>
+  <div style="font-weight:600">Ledger 600 <span class="mono muted" style="font-size:11px;letter-spacing:0;font-weight:400">font.weight.semibold</span></div>
+  <div style="font-weight:700">Ledger 700 <span class="mono muted" style="font-size:11px;letter-spacing:0;font-weight:400">font.weight.bold</span></div>
+  <div style="font-weight:850">Ledger 850 <span class="mono muted" style="font-size:11px;letter-spacing:0;font-weight:400">any value on the axis</span></div>
+</div>
+</div>
+<figcaption><b>One variable font file, any weight.</b> Schibsted Grotesk's weight axis runs from 400 to 900. Systems still tokenise a small set of named weights so that "any value" doesn't become "every value".</figcaption>
+</figure>
+</section>
+
+<section class="sec" id="ch08-2">
+<h2><span class="sec-num">08.2</span>Type scale architecture</h2>
+<p>A type scale is the limited set of font sizes your product uses. The classical method is a <strong>modular scale</strong>: start from a base size (usually 16px, the browser default) and multiply by a constant ratio for each step up, divide for each step down.</p>
+<figure class="fig">
+<div class="fig-body"><!-- @fig type-scales --></div>
+<figcaption><b>Four modular scales from a 16px base.</b> Computed values, steps −2 to +4. Small ratios (1.125) give many close sizes, suited to dense UI. Large ratios (1.618) jump quickly to display sizes, suited to editorial and marketing pages, and leave few usable sizes in between.</figcaption>
+</figure>
+<p>A pure modular scale is a starting point, not the answer. Product interfaces need several sizes clustered between 12 and 20px (labels, body, small headings), and only a few large sizes. A single ratio rarely provides both. Most mature systems therefore <strong>start from a ratio and then adjust by hand</strong>, rounding to whole pixels and to the line-height grid. Material 3's type scale, for example, is a curated set of 15 named styles rather than a strict geometric progression.[[c:m3-type]] [[doc]]</p>
+
+<h3>Line-height: tighter as text grows</h3>
+<p>Line-height (leading) should <em>decrease</em> as a ratio as size increases. Body text needs about 1.4–1.6× for comfortable reading; large headings look loose above about 1.2×. Snap every line-height to your spacing grid (4px in this playbook) so text and components align vertically.</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th>Font size</th><th>Target ratio</th><th>Rule used to generate the scale</th></tr></thead>
+<tbody>
+<tr><td class="num" style="text-align:left">≤ 14px</td><td class="num" style="text-align:left">≈ 1.45</td><td rowspan="5">line-height = round(size × ratio ÷ 4) × 4, the nearest multiple of 4px to the target. Small sizes end up slightly looser and large sizes slightly tighter, which is the direction you want. Headings use the tighter ratios at every size, so an 18px heading gets 24px, not the 28px of 18px body text.</td></tr>
+<tr><td class="num" style="text-align:left">15–20px</td><td class="num" style="text-align:left">≈ 1.5</td></tr>
+<tr><td class="num" style="text-align:left">21–32px</td><td class="num" style="text-align:left">≈ 1.3</td></tr>
+<tr><td class="num" style="text-align:left">33–48px</td><td class="num" style="text-align:left">≈ 1.2</td></tr>
+<tr><td class="num" style="text-align:left">&gt; 48px</td><td class="num" style="text-align:left">≈ 1.1</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Letter-spacing (tracking)</h3>
+<p>Typefaces are spaced for text sizes. At large sizes, the default spacing looks loose, so display and heading styles usually take slightly <em>negative</em> tracking (around −0.01 to −0.02em). At very small sizes, and in all-caps labels, slightly <em>positive</em> tracking improves legibility. Store tracking in <code>em</code> so it scales with size.</p>
+</section>
+
+<section class="sec" id="ch08-3">
+<h2><span class="sec-num">08.3</span>Roles and hierarchy: a complete product scale</h2>
+<p>Name type styles by <strong>role</strong>, not by size. "Heading large" survives a redesign; "28px" doesn't. Five role families cover almost every product interface:</p>
+<div class="cols-4" style="grid-template-columns:repeat(5,minmax(0,1fr))">
+  <div class="card"><span class="card-k">Display</span><p>Hero numbers, marketing moments, empty-state headlines.</p></div>
+  <div class="card"><span class="card-k">Heading</span><p>Page and section titles; the structure of a screen.</p></div>
+  <div class="card"><span class="card-k">Body</span><p>Paragraphs, descriptions, table cells, form values.</p></div>
+  <div class="card"><span class="card-k">Label</span><p>Buttons, tabs, form labels, navigation. Medium weight.</p></div>
+  <div class="card"><span class="card-k">Caption</span><p>Metadata, timestamps, helper text, footnotes.</p></div>
+</div>
+<figure class="fig">
+<div class="fig-body"><!-- @fig type-specimen --></div>
+<figcaption><b>The Ledgerly product type scale.</b> Twelve styles in five roles, set in Schibsted Grotesk at their actual sizes. Format: size/line-height in px · weight · tracking. Every line-height is a multiple of 4.</figcaption>
+</figure>
+<figure class="fig">
+<div class="fig-body"><!-- @fig type-table --></div>
+<figcaption><b>The scale as tokens.</b> Each style becomes a composite typography token (family, size, line-height, weight, tracking). The ratio column shows line-height falling from about 1.5 to about 1.1 as size grows.</figcaption>
+</figure>
+
+<h3>Hierarchy uses more than size</h3>
+<p>A common mistake is to create hierarchy with size alone, which inflates the scale. Weight, colour (<code>text.primary</code> vs <code>text.secondary</code>), case and spacing are equally strong signals and cost no new sizes.</p>
+<div class="cols-2">
+  <div>
+    <p class="ba-tag bad">✕ Hierarchy by size only</p>
+    <div class="mini-ui" style="padding:18px">
+      <div style="font-size:22px;margin-bottom:4px">Invoices</div>
+      <div style="font-size:18px;margin-bottom:4px">Overdue</div>
+      <div style="font-size:15px;margin-bottom:4px">3 invoices totalling ₹2,40,000</div>
+      <div style="font-size:13px">Last reminder sent 2 days ago</div>
+    </div>
+  </div>
+  <div>
+    <p class="ba-tag good">✓ Size, weight, colour and space</p>
+    <div class="mini-ui" style="padding:18px">
+      <div style="font-size:22px;font-weight:650;letter-spacing:-0.01em;margin-bottom:12px">Invoices</div>
+      <div style="font-size:12px;font-weight:550;letter-spacing:0.04em;text-transform:uppercase;color:#595f69;margin-bottom:4px">Overdue</div>
+      <div style="font-size:16px;font-weight:550;margin-bottom:2px">3 invoices totalling ₹2,40,000</div>
+      <div style="font-size:13px;color:#595f69">Last reminder sent 2 days ago</div>
+    </div>
+  </div>
+</div>
+<p style="margin-top:16px">The right-hand version uses fewer sizes but has a clearer hierarchy, because each level differs on two or more dimensions.</p>
+</section>
+
+<section class="sec" id="ch08-4">
+<h2><span class="sec-num">08.4</span>Responsive typography</h2>
+<p>Large display and heading sizes that work on a desktop overwhelm a phone. There are two approaches:</p>
+<div class="cols-2">
+  <div class="card"><span class="card-k">Stepped</span><h4>Different token values per breakpoint</h4><p><code>heading.xl</code> is 28px below 600px wide and 36px above. Simple, predictable, easy to spec in design tools.</p></div>
+  <div class="card"><span class="card-k">Fluid</span><h4>Interpolate between a minimum and maximum</h4><p>Size scales smoothly with viewport width using CSS <code>clamp()</code>. Fewer jumps; popularised by tools such as Utopia.[[c:utopia]]</p></div>
+</div>
+<pre><span class="c">/* heading.xl: 28px at a 360px viewport → 36px at 1280px */</span>
+<span class="k">--type-heading-xl-size</span>: <span class="n">clamp</span>(<span class="s">1.75rem</span>, <span class="s">1.554rem + 0.87vw</span>, <span class="s">2.25rem</span>);
+
+<span class="c">/* slope     = (36 − 28) ÷ (1280 − 360) = 0.0087  → 0.87vw
+   intercept = 28 − 0.0087 × 360  = 24.87px     → 1.554rem */</span></pre>
+<div class="callout callout--mistake">
+  <p class="callout-label">Common mistake</p>
+  <h4>Fluid type that ignores zoom</h4>
+  <p>Font sizes set purely in viewport units (<code>font-size: 3vw</code>) don't grow when users zoom, which can fail WCAG 2.2 SC 1.4.4 (Resize Text, up to 200%).[[c:wcag22]] [[std]] Always include a <code>rem</code> component in the fluid formula, as above, and only make display and heading sizes fluid. Body text should stay fixed and readable.</p>
+</div>
+<p>Native platforms add their own layer. iOS Dynamic Type and Android's font scaling let users choose larger text system-wide. Apple's guidelines encourage supporting Dynamic Type so text scales with the user's preference.[[c:hig-type]] A design system for native apps should map each type token to the platform's scalable text style rather than to a fixed size.</p>
+</section>
+
+<section class="sec" id="ch08-5">
+<h2><span class="sec-num">08.5</span>Accessibility and readability</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Requirement</th><th>What it means for the type system</th><th style="width:14%">Basis</th></tr></thead>
+<tbody>
+<tr><th>Contrast</th><td>4.5:1 for body text, 3:1 for large text (≥ 24px, or ≥ 18.66px bold). Defined in the colour tokens used by each text style.</td><td>[[std]] SC 1.4.3[[c:wcag-contrast]]</td></tr>
+<tr><th>Resize</th><td>Text can scale to 200% without loss of content: use relative units and let containers grow.</td><td>[[std]] SC 1.4.4</td></tr>
+<tr><th>Text spacing</th><td>Layouts must not break when users override line-height to 1.5×, paragraph spacing to 2×, letter spacing to 0.12em and word spacing to 0.16em. Avoid fixed-height text containers.</td><td>[[std]] SC 1.4.12[[c:wcag-textspacing]]</td></tr>
+<tr><th>Reflow</th><td>Content reflows to a 320 CSS px width without horizontal scrolling (except tables, maps and similar).</td><td>[[std]] SC 1.4.10[[c:wcag-reflow]]</td></tr>
+<tr><th>Line length</th><td>Aim for about 45–75 characters per line for long-form text; cap reading widths with a <code>max-width</code> in <code>ch</code>.</td><td>[[doc]] Bringhurst[[c:bringhurst]]</td></tr>
+<tr><th>Minimum sizes</th><td>Avoid body text below 14px in dense web UI and 16px on mobile web; reserve 11–12px for captions and labels.</td><td>[[prac]]</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch08-6">
+<h2><span class="sec-num">08.6</span>Typography across product categories</h2>
+<p>The same principles produce different scales for different products. The table summarises how we would tune a type system for each category. Platform defaults are documented; the rest is practice.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:16%">Category</th><th style="width:13%">Body size</th><th style="width:13%">Scale ratio</th><th>Priorities</th><th style="width:24%">Watch out for</th></tr></thead>
+<tbody>
+<tr><th>SaaS web app</th><td>14–16px</td><td>~1.2</td><td>Clear headings for navigation; comfortable forms; 10–14 styles.</td><td>Marketing-site scales leaking into the app.</td></tr>
+<tr><th>Enterprise software</th><td>14px (13px dense)</td><td>~1.125–1.2</td><td>Density and scannability; strong label/value contrast; long sessions.</td><td>Text so small it fails users with low vision; offer a comfortable density mode.</td></tr>
+<tr><th>Mobile apps</th><td>iOS: 17pt body; Android: 16sp body large</td><td>Platform scale</td><td>Use platform text styles; support Dynamic Type and font scaling.[[c:hig-type,m3-type]] [[doc]]</td><td>Fixed-height rows that truncate when users enlarge text.</td></tr>
+<tr><th>Desktop apps</th><td>13–15px</td><td>~1.125–1.2</td><td>Follow OS conventions; dense menus and panels; keyboard-heavy use.</td><td>Mixing OS and brand fonts inconsistently.</td></tr>
+<tr><th>Responsive web</th><td>16px</td><td>1.2 mobile → 1.25–1.33 desktop</td><td>Fluid headings; fixed body; readable line length at every width.</td><td>Headings that wrap to five lines on phones.</td></tr>
+<tr><th>Data-heavy dashboards</th><td>13–14px</td><td>~1.125</td><td>Tabular numerals; a "metric" display style; compact labels; mono for IDs.</td><td>Hierarchy lost in a sea of same-size numbers; use weight and colour.</td></tr>
+</tbody>
+</table>
+</div>
+<p>IBM Carbon formalises a similar split with two type sets: a <em>productive</em> set for dense task-focused product UI and an <em>expressive</em> set for editorial and marketing moments.[[c:carbon-type]] [[doc]] If your product has both a dense app and a marketing surface, consider the same separation rather than one compromise scale.</p>
+</section>
+
+<section class="sec" id="ch08-7">
+<h2><span class="sec-num">08.7</span>Typography tokens</h2>
+<p>Typography uses two token levels. <strong>Primitive</strong> tokens hold individual values (families, sizes, weights, line-heights, tracking). <strong>Composite</strong> tokens bundle them into styles by role. The DTCG format defines a composite <code>typography</code> type for exactly this.[[c:dtcg-format]]</p>
+<pre><span class="c">// primitives</span>
+<span class="k">"font"</span>: {
+  <span class="k">"family"</span>: { <span class="k">"sans"</span>: { <span class="k">"$type"</span>: <span class="s">"fontFamily"</span>, <span class="k">"$value"</span>: [<span class="s">"Schibsted Grotesk"</span>, <span class="s">"system-ui"</span>, <span class="s">"sans-serif"</span>] } },
+  <span class="k">"weight"</span>: { <span class="k">"semibold"</span>: { <span class="k">"$type"</span>: <span class="s">"fontWeight"</span>, <span class="k">"$value"</span>: <span class="n">600</span> } }
+},
+<span class="c">// composite, by role</span>
+<span class="k">"type"</span>: { <span class="k">"heading"</span>: { <span class="k">"lg"</span>: {
+  <span class="k">"$type"</span>: <span class="s">"typography"</span>,
+  <span class="k">"$value"</span>: {
+    <span class="k">"fontFamily"</span>: <span class="n">"{font.family.sans}"</span>, <span class="k">"fontWeight"</span>: <span class="n">"{font.weight.semibold}"</span>,
+    <span class="k">"fontSize"</span>: { <span class="k">"value"</span>: <span class="n">28</span>, <span class="k">"unit"</span>: <span class="s">"px"</span> }, <span class="k">"lineHeight"</span>: <span class="n">1.29</span>,
+    <span class="k">"letterSpacing"</span>: { <span class="k">"value"</span>: <span class="n">-0.01</span>, <span class="k">"unit"</span>: <span class="s">"em"</span> }
+  } } } }</pre>
+<h3>Typography checklist</h3>
+<div class="cols-2">
+<ul class="checklist">
+  <li>One UI family (plus mono if needed), tested at 12–14px</li>
+  <li>Tabular numerals available and used in tables</li>
+  <li>10–15 styles named by role, not size</li>
+  <li>Line-heights snapped to the 4px grid</li>
+  <li>Tracking defined in em for display and labels</li>
+</ul>
+<ul class="checklist">
+  <li>Responsive strategy chosen: stepped or fluid (with rem)</li>
+  <li>Layouts survive 200% text resize and text-spacing overrides</li>
+  <li>Reading widths capped at roughly 45–75 characters</li>
+  <li>Native styles mapped to Dynamic Type / font scaling</li>
+  <li>Composite typography tokens in design tool and code</li>
+</ul>
+</div>
+</section>
+</div><!-- /chapter --></section>

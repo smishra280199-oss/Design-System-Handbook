@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Design Systems Playbook — Layer One</title>
+<meta name="description" content="A practical, research-backed playbook on design systems: whether you need one, what it costs, how to run it, and how to build its foundations. By Aniket Pandey, Layer One.">
+<meta name="author" content="Aniket Pandey, Layer One">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/components.css">
+<link rel="stylesheet" href="styles/figures.css">
+<link rel="stylesheet" href="styles/cover.css">
+<link rel="stylesheet" href="styles/screen.css">
+<link rel="stylesheet" href="styles/print.css">
+<style id="running-heads">@media print{
+{{running_heads}}
+}</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<div class="mobile-bar">
+  <button class="btn" type="button" data-nav-toggle aria-label="Open contents">☰ Contents</button>
+  <a class="btn" href="{{pdf}}" download>Download PDF</a>
+</div>
+<div class="shell">
+  <nav class="sidebar" aria-label="Playbook contents">
+    <a class="sb-brand" href="#top"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg>Layer One</a>
+    <p class="sb-sub">Design Systems Playbook · v{{version}}</p>
+    <div class="sb-actions">
+      <a class="btn primary" href="{{pdf}}" download>↓ Download PDF</a>
+      <button class="btn" type="button" data-theme-toggle aria-label="Toggle dark mode">◐</button>
+    </div>
+    <ul class="nav-list"><li><a href="#contents" data-nav="contents"><span>—</span>Contents</a></li><li><a href="#how-to-read" data-nav="how-to-read"><span>—</span>How to read this</a></li></ul>
+    {{nav}}
+  </nav>
+  <main class="main" id="top">
+{{body}}
+  </main>
+</div>
+<script>
+(() => {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem('l1-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('l1-theme', root.dataset.theme); } catch (e) {}
+  });
+  document.querySelector('[data-nav-toggle]')?.addEventListener('click', () => document.body.classList.toggle('nav-open'));
+  document.querySelectorAll('.sidebar a').forEach((a) => a.addEventListener('click', () => document.body.classList.remove('nav-open')));
+  const bar = document.querySelector('.progress');
+  addEventListener('scroll', () => { const h = document.documentElement; bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%'; }, { passive: true });
+  const links = new Map([...document.querySelectorAll('[data-nav]')].map((a) => [a.dataset.nav, a]));
+  const targets = [...links.keys()].map((id) => document.getElementById(id)).filter(Boolean);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const id = e.target.id; const a = links.get(id); if (!a) return;
+      const isChapter = !a.closest('.nav-sub');
+      document.querySelectorAll(isChapter ? '.nav-list > li > a.active' : '.nav-sub a.active').forEach((x) => x.classList.remove('active'));
+      a.classList.add('active');
+      if (!isChapter) { const ch = a.closest('.nav-sub')?.previousElementSibling; if (ch && !ch.classList.contains('active')) { document.querySelectorAll('.nav-list > li > a.active').forEach((x) => x.classList.remove('active')); ch.classList.add('active'); } }
+    });
+  }, { rootMargin: '0px 0px -75% 0px' });
+  targets.forEach((t) => io.observe(t));
+})();
+</script>
+</body>
+</html>
