@@ -1,0 +1,147 @@
+<section class="chapter" id="ch13" data-part="03" data-num="13" data-title="Deciding what to build first" data-short="What to build"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 13</p>
+  <h1>Deciding what to build first</h1>
+  <p class="dek">The most common way to waste the first six months of a design system is to start with the components that are fun to design instead of the ones teams actually need. This chapter shows how to find out what you have, decide what matters, and say "not yet" to the rest.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You're planning which components to build, deciding between building your own and using an open-source library, or drowning in requests.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A step-by-step way to take stock of the interface you already have.</li><li>A simple way to rank what to build first.</li><li>A realistic first-year plan, and the confidence to say "not yet".</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch13-1">
+<h2><span class="sec-num">13.1</span>Start with what you already have</h2>
+<p>Before you design anything new, find out what already exists. Brad Frost calls this an <strong>interface inventory</strong>: you go through your product, screenshot every distinct version of every interface element, and group them by type.[[c:frost-inventory]] In his original write-up he describes screenshotting the buttons from just a few pages of a bank's website and finding a startling variety of styles. That's typical. Every product we've audited has been the same.</p>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">"We have one date picker." (They had three.)</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>Ledgerly's team believes their product is fairly consistent. They spend two afternoons doing an inventory before starting their design system.</p></div>
+    <div><span class="sc-k">What they find</span><p>7 kinds of primary button, 3 date pickers (one from an old library, two custom), 4 different "something went wrong" messages, 11 shades of border grey, and 2 tables that sort differently.</p></div>
+    <div><span class="sc-k">Why it matters</span><p>Now they know where the pain is, they have "before" numbers to show progress, and leadership can <em>see</em> the problem on one wall. The inventory became the business case.</p></div>
+  </div>
+</div>
+
+<h3>How to run an inventory in a week</h3>
+<ol class="steps">
+  <li><h4>Pick your scope</h4><p>Your top 15–25 screens by traffic or importance, across every product and platform. You don't need every screen to see the pattern.</p></li>
+  <li><h4>Screenshot by category</h4><p>Buttons, form fields, menus, messages, tables, cards, navigation, icons, colours, text styles. One slide or board per category.</p></li>
+  <li><h4>Group the near-duplicates</h4><p>Put things that are <em>meant</em> to be the same next to each other. The differences will jump out.</p></li>
+  <li><h4>Check the code too</h4><p>Ask engineers to count how many different implementations exist for the main components, and how many raw colour values are in the code.</p></li>
+  <li><h4>Show it to people</h4><p>Walk leadership and product teams through the boards. It's the fastest way to build shared understanding of the problem.</p></li>
+</ol>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Do it together</p>
+  <p>Run the inventory as a team exercise with designers <em>and</em> engineers, not as a solo audit. People who find the seven buttons themselves become supporters of the system. People who are shown a report about their seven buttons become defensive.</p>
+</div>
+</section>
+
+<section class="sec" id="ch13-2">
+<h2><span class="sec-num">13.2</span>Count what matters</h2>
+<p>An inventory tells you <em>what</em> exists. To decide what to build first, you need two more pieces of information for each component: <strong>how often it's used</strong> and <strong>how much trouble it's causing</strong> today.</p>
+<p>How often is the easy one. Engineers can count how many times each kind of component appears in the code, and designers can count in their design files. Trouble is a bit more judgement: how many different versions are there, how many bugs and accessibility problems have been reported, and how much time do teams spend rebuilding or debating it?</p>
+<figure class="fig">
+<div class="fig-body">
+<p class="fig-label" style="margin:0 0 12px">Ledgerly inventory — number of different versions found in production</p>
+<div class="hbars">
+  <div class="hbar"><span>Primary button</span><div class="track"><div class="fill" style="width:63.6%">7</div></div></div>
+  <div class="hbar"><span>Text field</span><div class="track"><div class="fill" style="width:45.5%">5</div></div></div>
+  <div class="hbar"><span>Error / alert message</span><div class="track"><div class="fill" style="width:36.4%">4</div></div></div>
+  <div class="hbar"><span>Date picker</span><div class="track"><div class="fill" style="width:27.3%">3</div></div></div>
+  <div class="hbar"><span>Dialog / pop-up</span><div class="track"><div class="fill" style="width:27.3%">3</div></div></div>
+  <div class="hbar"><span>Table</span><div class="track"><div class="fill" style="width:18.2%">2</div></div></div>
+  <div class="hbar"><span>Border greys</span><div class="track"><div class="fill" style="width:100%;background:var(--accent);color:#0b0d12">11</div></div></div>
+</div>
+</div>
+<figcaption><b>What an inventory typically reveals.</b> [[ill]] These are Ledgerly's numbers, from our fictional example, but the shape is typical: the most common components have the most versions, because they're built most often by the most people.</figcaption>
+</figure>
+<p>Notice something about the chart: the components with the most versions are usually the most common ones. That's not a coincidence. The more often something is built, the more chances there are for it to drift. Which is good news, because it means fixing a small number of everyday components fixes a large share of the inconsistency.</p>
+</section>
+
+<section class="sec" id="ch13-3">
+<h2><span class="sec-num">13.3</span>Rank it: what to build first</h2>
+<p>Put your two pieces of information together and you get a simple map. Plot each component by how often it's used and how much trouble it causes today.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="matrix-2x2">
+  <div class="ax v">← less trouble · more trouble →</div>
+  <div class="q" style="background:#ffe2d5;color:#0b0d12"><b>Plan next</b>Painful but rare. Date picker, file upload. Build after the basics, ideally with the team that needs it most.</div>
+  <div class="q" style="background:#ed521c;color:#0b0d12"><b>Build first</b>Used everywhere and inconsistent today. Button, text field, select, alerts, dialog. The biggest payoff for the least effort.</div>
+  <div class="ax v"></div>
+  <div class="q" style="background:var(--bg-sunken)"><b>Leave alone</b>Rare and not causing problems. One-off widgets. Leave them local until a second team needs them.</div>
+  <div class="q" style="background:#ffa384;color:#0b0d12"><b>Quick tidy</b>Used everywhere but mostly fine. Links, badges, avatars. Formalise what exists; don't redesign.</div>
+  <div></div>
+  <div class="ax">← used rarely</div>
+  <div class="ax">used everywhere →</div>
+</div>
+</div>
+<figcaption><b>A simple way to rank components.</b> [[prac]] Top right first. Most teams find their first ten components land there, and they're almost always the boring ones: buttons, fields, messages and dialogs.</figcaption>
+</figure>
+<p>This is less exciting than designing a fancy data visualisation component, and that's exactly the point. The boring components are where the most time is wasted and the most inconsistency lives. Nathan Curtis suggests a similar exercise for teams starting a system, which he calls "picking parts, products and people": agree on the ten most important parts, the products that will use them first, and the people who'll do the work.[[c:curtis-parts]]</p>
+<div class="callout callout--mistake">
+  <p class="callout-label">A mistake we see often</p>
+  <h4>Starting with the hardest component</h4>
+  <p>A team decides to begin with the data table "because it's the biggest problem". Six months later they have a sophisticated table, nothing else, and product teams have stopped waiting. Start with components you can finish in days, so teams see progress quickly, and tackle the big ones once you have momentum and a working process.</p>
+</div>
+</section>
+
+<section class="sec" id="ch13-4">
+<h2><span class="sec-num">13.4</span>Build, borrow or buy?</h2>
+<p>You don't have to build every component from scratch. There are excellent open-source libraries, and one kind in particular is worth knowing about.</p>
+<div class="term"><span class="term-k">New word</span><b>Headless component</b><span>A component that handles behaviour (keyboard use, focus, accessibility) but has no visual style, so you can apply your own.</span></div>
+<p><strong>Headless libraries</strong>, such as Radix, provide components that work correctly (keyboard navigation, focus handling, screen-reader support) but come without any visual styling. You add your own look using your foundations. It's a bit like buying a well-engineered car chassis and designing your own body for it. Building accessible behaviour for complex components like menus, dialogs and comboboxes is genuinely hard; the W3C's own guide to these patterns runs to dozens of pages.[[c:aria-apg]] Borrowing tested behaviour can save months.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%">Approach</th><th>Good for</th><th>Watch out for</th></tr></thead>
+<tbody>
+<tr><th>Build your own</th><td>Full control; exactly your needs; no outside dependency.</td><td>Slowest. Accessible behaviour for complex components is hard to get right.</td></tr>
+<tr><th>Headless library + your styles</th><td>Correct, accessible behaviour out of the box; your own look; much faster.</td><td>You depend on the library's updates and its way of doing things.</td></tr>
+<tr><th>Fully styled library (themed)</th><td>Fastest to start; great for early-stage products and internal tools.</td><td>Hard to make it look truly yours; heavy theming can be harder than building.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] What we usually recommend</p>
+  <p>For most product companies: build simple components yourself (buttons, badges, cards), because they're easy and you'll want full control. Use a headless library for complex interactive ones (menus, dialogs, comboboxes, date pickers), because the behaviour is the hard part. Use a fully styled library only before product–market fit, or for internal tools where brand matters less.</p>
+</div>
+</section>
+
+<section class="sec" id="ch13-5">
+<h2><span class="sec-num">13.5</span>Saying "no" and "not yet"</h2>
+<p>Once a design system exists, requests arrive constantly. "Can we have a special pricing card?" "Can the button have a gradient for the campaign page?" "We need a timeline component." A system team that says yes to everything ends up with a bloated, inconsistent library, which is exactly the problem it was created to solve.</p>
+<p>Saying no doesn't mean refusing to help. It usually means one of three answers:</p>
+<div class="cols-3">
+  <div class="card"><span class="card-k">"Use this instead"</span><h4>It already exists</h4><p>Often an existing component, or a combination of them, already solves the problem. Showing how is a quick win for everyone.</p></div>
+  <div class="card"><span class="card-k">"Build it locally"</span><h4>It's a one-off</h4><p>If only one team needs it, they build it from system parts and own it. If a second team needs it later, it becomes a candidate for the core.</p></div>
+  <div class="card"><span class="card-k">"Yes, next quarter"</span><h4>It's real but not urgent</h4><p>It goes on the public roadmap with an honest timeline, so the team can plan around it.</p></div>
+</div>
+<p style="margin-top:18px">This is the rule of two from Chapter 05 in action: something enters the core when at least two teams need it. Brad Frost describes product-specific combinations that stay outside the core as "recipes",[[c:frost-recipes]] and Nathan Curtis describes the same idea as tiers below a high-quality core.[[c:curtis-tiers]] Whatever you call it, having a respectable place for "not in the core" components is what makes it possible to say no without being unhelpful.</p>
+</section>
+
+<section class="sec" id="ch13-6">
+<h2><span class="sec-num">13.6</span>A realistic first year</h2>
+<p>Here's how Ledgerly might plan its first year, using everything in this chapter. Notice that each quarter delivers something teams can use straight away, and that the work is always tied to a real product project, a pilot, rather than built in isolation. Dan Mall argues that pilots are the best way to start and sustain a design system, because they keep the system honest about real needs.[[c:mall-dts]]</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="lifecycle" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+  <div style="border-color:#0b0d12"><span class="fig-label">Quarter 1</span><b>Foundations + 8 basics</b>Inventory. Colours, text, spacing as named values. Button, text field, select, checkbox, radio, switch, link, alert. Pilot: the new settings page.</div>
+  <div style="border-color:#ed521c"><span class="fig-label">Quarter 2</span><b>Containers + feedback</b>Dialog, card, tabs, toast, empty state, side panel, menu, tooltip. Documentation site. Pilot: the onboarding redesign.</div>
+  <div style="border-color:#ffa384"><span class="fig-label">Quarter 3</span><b>Data + navigation</b>Table (basic), pagination, badge, tag, avatar, top bar, side menu, breadcrumbs. Second team adopts. First outside contribution.</div>
+  <div style="border-color:#ffe2d5"><span class="fig-label">Quarter 4</span><b>Hard ones + dark mode</b>Date picker (headless), search, advanced table features. Dark mode as a second theme. Health check and next year's plan.</div>
+</div>
+</div>
+<figcaption><b>Ledgerly's first year.</b> [[ill]] About 32 components plus foundations, each quarter tied to a real product project. The hardest components come last, once the process is running smoothly.</figcaption>
+</figure>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Start with an interface inventory, done together with designers and engineers.</li>
+    <li>Rank components by how often they're used and how much trouble they cause. The boring everyday ones usually win.</li>
+    <li>Borrow tested behaviour for complex components; build simple ones yourself.</li>
+    <li>Have a respectable home for "not in the core" components, so you can say "not yet" without being unhelpful.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

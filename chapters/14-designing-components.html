@@ -1,0 +1,160 @@
+<section class="chapter" id="ch14" data-part="03" data-num="14" data-title="Designing a component that lasts" data-short="Designing"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 14</p>
+  <h1>Designing a component that lasts</h1>
+  <p class="dek">A component in a design system is used in hundreds of places by people you'll never meet, with content you'll never see. Designing one is less about making it look good in a mock-up and more about predicting everything that will happen to it in real life.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You design components, review them, or keep finding that system components break when real content and real people get hold of them.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A process that starts from real use, not from a blank canvas.</li><li>Checklists for states, edge cases and accessibility.</li><li>A clear "ready to build" standard for handing a component to engineering.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch14-1">
+<h2><span class="sec-num">14.1</span>Start from real use, not a blank canvas</h2>
+<p>When designers start a new component, the instinct is to open a blank frame and design the ideal version. For a system component, that's the wrong starting point. The right one is the inventory from Chapter 13: every version of this component that already exists, and every situation it's used in.</p>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">The alert that looked perfect until it met real messages</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A designer creates a beautiful alert component. In the mock-up, every message is one short line: "Changes saved."</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>In the real product, messages include "Your payment of ₹1,24,000 to Acme Supplies could not be processed because the bank declined the transaction. Try another payment method." The alert wraps onto four lines, the icon floats in the middle, and the close button overlaps the text.</p></div>
+    <div><span class="sc-k">What would have helped</span><p>Collecting twenty real alert messages from the product <em>before</em> designing, and testing the design with the longest, shortest and strangest ones.</p></div>
+  </div>
+</div>
+
+<p>So before you design, gather the evidence:</p>
+<ul class="checklist">
+  <li><b>Every existing version</b> of the component, from the inventory, and what each one was trying to do.</li>
+  <li><b>Real content</b>: actual labels, messages and data from the product, including the longest and the oddest.</li>
+  <li><b>Where it's used</b>: in a table, in a dialog, on a phone, in a dense dashboard, in a marketing page.</li>
+  <li><b>What teams have asked for</b>: open requests and complaints about the current versions.</li>
+  <li><b>How others do it</b>: look at how mature public systems handle the same component, for ideas and pitfalls.</li>
+</ul>
+</section>
+
+<section class="sec" id="ch14-2">
+<h2><span class="sec-num">14.2</span>Design every state and every edge</h2>
+<p>In Chapter 12 we saw a text field in eight states. Most components have more situations than people expect, and the ones you forget are the ones that end up looking broken in production. Here's a checklist we use for every component.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Situation</th><th>Questions to answer</th></tr></thead>
+<tbody>
+<tr><th>Interaction states</th><td>Default, hover, pressed, keyboard focus, selected, disabled, read-only. What does each look like?</td></tr>
+<tr><th>Data states</th><td>Empty, loading, partly loaded, error, success. What shows while we wait? What if there's nothing to show?</td></tr>
+<tr><th>Too much content</th><td>A very long name, a huge number, 300 items in a list. Does it wrap, cut off with "…", or scroll?</td></tr>
+<tr><th>Too little content</th><td>A one-character name, a single item. Does it still look intentional?</td></tr>
+<tr><th>Other languages</th><td>Some languages need much more space than English for the same message; some read right to left. Does the layout survive?</td></tr>
+<tr><th>Screen sizes</th><td>What happens on a phone? In a narrow side panel? On a very wide screen?</td></tr>
+<tr><th>Bigger text and zoom</th><td>If someone sets their text size larger, or zooms to 200%, does anything get cut off?</td></tr>
+<tr><th>Combinations</th><td>Error <em>and</em> disabled? Loading <em>and</em> selected? Which combinations are possible, and which should be prevented?</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] The "stress test" frame</p>
+  <p>Keep a page in your design file next to every component called "stress test". Put the component in it with the longest real content, the shortest, an empty state, an error, a translated version and a phone-width version. Review that page, not the pretty one. It takes an hour and saves weeks of bug reports.</p>
+</div>
+</section>
+
+<section class="sec" id="ch14-3">
+<h2><span class="sec-num">14.3</span>Accessible from the start</h2>
+<p>Layer One's fifth rule is <em>accessible by default, not by audit</em>. For components, this matters even more than anywhere else, because every accessibility problem in a component is copied into every screen that uses it. The good news is that the reverse is also true: get a component right once, and every screen gets it right.</p>
+<p>Accessibility can sound intimidating, so here it is in plain terms. For each component, make sure that:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:26%">Everyone can…</th><th>Which means</th><th style="width:16%">Source</th></tr></thead>
+<tbody>
+<tr><th>See it</th><td>Text has enough contrast (4.5:1), and so do the edges of fields and buttons (3:1). Information never relies on colour alone.</td><td>[[std]] WCAG 1.4.3, 1.4.11, 1.4.1[[c:wcag22]]</td></tr>
+<tr><th>Use it with a keyboard</th><td>Every action can be reached with Tab and triggered with Enter or Space. Menus and dialogs follow the standard keyboard patterns.</td><td>[[std]] WCAG 2.1.1; ARIA patterns[[c:aria-apg]]</td></tr>
+<tr><th>See where they are</th><td>A clear focus outline appears when moving with the keyboard.</td><td>[[std]] WCAG 2.4.7</td></tr>
+<tr><th>Hear what it is</th><td>Screen readers announce what it is ("button"), its name ("Send invoice") and its state ("expanded", "selected").</td><td>[[std]] WCAG 4.1.2</td></tr>
+<tr><th>Hit it</th><td>Click and tap targets are at least 24 × 24px, and 44–48 on touchscreens.</td><td>[[std]] WCAG 2.5.8[[c:wcag-target]]</td></tr>
+<tr><th>Understand errors</th><td>Error messages say what's wrong and how to fix it, and are connected to the field they describe.</td><td>[[std]] WCAG 3.3.1, 3.3.3</td></tr>
+<tr><th>Avoid discomfort</th><td>Animations respect the "reduce motion" setting on people's devices.</td><td>[[prac]]</td></tr>
+</tbody>
+</table>
+</div>
+<p>For complex interactive components like menus, tabs, dialogs and comboboxes, don't invent the keyboard behaviour. The W3C's ARIA Authoring Practices Guide documents the expected behaviour for each of these patterns, including which keys do what, and it's the reference most accessible component libraries follow.[[c:aria-apg]] [[doc]]</p>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">The dialog you couldn't escape</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A team builds its own confirmation dialog. It looks great and works perfectly with a mouse.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>Keyboard users press Tab and the focus goes <em>behind</em> the dialog into the page. Escape doesn't close it. Screen readers don't announce it. It ships in 40 places before anyone notices.</p></div>
+    <div><span class="sc-k">The system fix</span><p>One dialog component with focus kept inside, Escape to close, focus returned afterwards, and a proper announcement. Fixed once; every one of the 40 dialogs inherits it.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ch14-4">
+<h2><span class="sec-num">14.4</span>The words are part of the component</h2>
+<p>A button isn't finished when its colour and padding are decided. What it <em>says</em> matters just as much. Good systems include writing guidance alongside each component, because consistent words are as important as consistent pixels.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%">Component</th><th>Instead of…</th><th>Write…</th><th style="width:28%">Why</th></tr></thead>
+<tbody>
+<tr><th>Button</th><td>"Submit", "OK", "Yes"</td><td>"Send invoice", "Delete 3 files"</td><td>Say what will happen. People often read only the button.</td></tr>
+<tr><th>Error message</th><td>"Invalid input"</td><td>"Enter a date after 1 January 2026"</td><td>Say what's wrong <em>and</em> how to fix it.</td></tr>
+<tr><th>Empty state</th><td>"No data"</td><td>"No invoices yet. Create your first invoice to get paid faster."</td><td>Explain why it's empty and what to do next.</td></tr>
+<tr><th>Confirmation</th><td>"Are you sure?"</td><td>"Delete this customer? Their 12 invoices will also be deleted."</td><td>Spell out the consequence.</td></tr>
+<tr><th>Label</th><td>Placeholder text only</td><td>A visible label above the field</td><td>Placeholders disappear when you type, and are often low-contrast.</td></tr>
+</tbody>
+</table>
+</div>
+<p>You don't need a full content style guide on day one. Start with one or two sentences of writing guidance on each component's documentation page, plus a handful of real examples. Those few lines will do more for consistency than a 40-page tone-of-voice document nobody reads.</p>
+</section>
+
+<section class="sec" id="ch14-5">
+<h2><span class="sec-num">14.5</span>"Ready to build": what a finished design includes</h2>
+<p>When is a component design ready to hand to engineering? Many disagreements between designers and engineers come down to different answers to that question. Agree on one checklist, and use it every time.</p>
+<div class="cols-2">
+<div>
+<h4>The design is ready when it has…</h4>
+<ul class="checklist">
+  <li><b>An anatomy diagram</b> with every part named</li>
+  <li><b>Every option</b> (types, sizes) and which combinations are allowed</li>
+  <li><b>Every state</b>, including empty, loading and error</li>
+  <li><b>The stress test</b>: long, short, translated and phone versions</li>
+  <li><b>Named values only</b>: every colour, size and space is a token, not a number</li>
+</ul>
+</div>
+<div>
+<h4>…and also</h4>
+<ul class="checklist">
+  <li><b>Behaviour notes</b>: what happens on click, keyboard use and resize</li>
+  <li><b>Accessibility notes</b>: keyboard pattern, focus, what screen readers announce</li>
+  <li><b>Writing guidance</b>: one or two lines plus examples</li>
+  <li><b>When to use it</b>, and when to use something else instead</li>
+  <li><b>An engineer's review</b> of the design before building starts</li>
+</ul>
+</div>
+</div>
+<p style="margin-top:18px">That last item is the most important. Bring an engineer in while the component is being designed, not after. A ten-minute conversation ("can the menu really open upwards when there's no space below?") prevents a week of rework. The best system teams pair a designer and an engineer on every component from the first sketch.</p>
+</section>
+
+<section class="sec" id="ch14-6">
+<h2><span class="sec-num">14.6</span>Test it in the real product</h2>
+<p>A component isn't proven until it's been used in a real product by a team that didn't design it. That's why pilots matter so much (see Chapter 05). Before calling a new component stable, put it into one or two live product screens and watch what happens.</p>
+<ol class="steps">
+  <li><h4>Release it as "beta"</h4><p>Label it clearly as new and still settling, so teams know it might change slightly.</p></li>
+  <li><h4>Use it in a pilot</h4><p>One real product team uses it in real work, with a direct line to the system team.</p></li>
+  <li><h4>Watch for workarounds</h4><p>If the team detaches it in Figma, overrides it in code or asks "how do I make it do X?", that's design feedback.</p></li>
+  <li><h4>Adjust, then promote to "stable"</h4><p>Fix what the pilot revealed, then announce it as stable and ready for everyone.</p></li>
+</ol>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] The review questions we always ask</p>
+  <p>Can a new designer understand when to use this in under a minute? Does it work with only a keyboard? What happens with the longest real content we've ever seen? Which existing versions will this replace, and how will teams switch? If any answer is "not sure", it isn't ready yet.</p>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Start from real examples and real content, not a blank canvas.</li>
+    <li>Design every state and stress-test every edge before handing over.</li>
+    <li>Build accessibility into the component, and every screen inherits it.</li>
+    <li>Agree one "ready to build" checklist, involve engineers early, and prove components in a pilot before calling them stable.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

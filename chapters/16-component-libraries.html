@@ -1,0 +1,183 @@
+<section class="chapter" id="ch16" data-part="03" data-num="16" data-title="A library people can actually use" data-short="The library"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 16</p>
+  <h1>A library people can actually use</h1>
+  <p class="dek">A component that nobody can find, understand or trust might as well not exist. This chapter is about the everyday side of a growing library: organising it, documenting it, tracking it, and handling the moment a team needs something a little different.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>Your Figma library has grown messy, people keep building their own versions of things that already exist, or you're not sure which components are really being used.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A way to organise and name a design library so people can find things fast.</li><li>A documentation template and a simple life cycle for every component.</li><li>Practical ways to track usage and to handle teams that need something different.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch16-1">
+<h2><span class="sec-num">16.1</span>If people can't find it, they'll rebuild it</h2>
+<p>Here's a pattern we see in almost every growing design system. In year one, the Figma library is small and everyone knows what's in it. By year three, it has hundreds of components, several abandoned experiments, old versions nobody deleted, and names that made sense to whoever created them.</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">The designer who couldn't find the right component</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>Meera joins as a product designer. She needs a simple tag to show an invoice's status. She opens the library and searches "tag".</p></div>
+    <div><span class="sc-k">What she finds</span><p>"Tag", "Tag v2", "Chip", "Pill/Status", "Badge (old)", "Label - DO NOT USE", and three more in a page called "WIP". No descriptions. Two look identical.</p></div>
+    <div><span class="sc-k">What happens next</span><p>She picks one at random. It turns out to be deprecated. Engineering builds it from scratch because the code version was deleted months ago. The product now has another status tag.</p></div>
+  </div>
+</div>
+<p>Nothing in that story is about the quality of the components themselves. They may all have been well designed. The problem is <strong>findability</strong>, and in our experience it's one of the most underrated causes of low adoption. Every minute someone spends confused in your library makes building their own version more tempting.</p>
+</section>
+
+<section class="sec" id="ch16-2">
+<h2><span class="sec-num">16.2</span>Organising the design library</h2>
+<p>A well-organised library feels like a well-organised supermarket: you can guess which aisle something is in, things are labelled clearly, and nothing out of date is left on the shelves. Here's a structure that works for most teams.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="cols-2" style="gap:28px">
+<div class="tree"><span class="hl">Ledgerly · Foundations</span>          <span class="c">← colours, text styles, spacing, icons</span>
+<span class="hl">Ledgerly · Components</span>           <span class="c">← the core, used by everyone</span>
+  ├─ Start here                  <span class="c">← how to use this library</span>
+  ├─ Actions
+  │   ├─ Button
+  │   ├─ Icon button
+  │   └─ Link
+  ├─ Forms
+  │   ├─ Text field
+  │   ├─ Select
+  │   └─ Checkbox · Radio · Switch
+  ├─ Feedback
+  │   ├─ Alert · Toast
+  │   └─ Empty state
+  └─ Data display
+      └─ Table · Badge · Tag
+<span class="hl">Ledgerly · Analytics extensions</span> <span class="c">← shared by analytics products</span>
+<span class="c">Archive (hidden from search)</span>     <span class="c">← old versions, kept for reference</span></div>
+<div>
+<h4 style="margin-top:0">What makes this work</h4>
+<ul style="font-size:14.5px">
+  <li><b>Separate libraries for separate jobs.</b> Foundations, core components and product-family extensions live in different files, so people only switch on what they need.</li>
+  <li><b>Groups that match how people think</b>: actions, forms, feedback. Not by date added or by who built it.</li>
+  <li><b>A "Start here" page</b> that explains the library in two minutes.</li>
+  <li><b>Old things archived and hidden</b>, not left lying around with "old" in the name.</li>
+  <li><b>No work-in-progress</b> in the published library. Experiments live in a separate file until they're ready.</li>
+</ul>
+</div>
+</div>
+</div>
+<figcaption><b>A tidy library structure.</b> Three published libraries (foundations, core and one extension) plus a hidden archive. People can find what they need by guessing which group it's in.</figcaption>
+</figure>
+
+<h3>Names and descriptions</h3>
+<p>Remember Rule #3: <em>name things so people can guess them</em>. Use the same component names everywhere (Figma, code, documentation) and avoid version numbers or status in names. "Tag v2 NEW" is a cry for help, not a name. Status belongs in a label or description, not the name.</p>
+<p>Most design tools let you add a short description and search keywords to each component. Use them. A good description answers "what is this for?" in one sentence and lists the words someone might search for. "Tag: a short label showing a status or category. Also known as: chip, pill, badge, label." That one line would have saved Meera half a day.</p>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Publish on a rhythm, not on a whim</p>
+  <p>Publish library updates on the same rhythm as code releases, with the same release notes. When designers get a library update notification, they should know exactly what changed and why. Random, unannounced updates teach people to ignore update notifications, and then they end up working with outdated components.</p>
+</div>
+</section>
+
+<section class="sec" id="ch16-3">
+<h2><span class="sec-num">16.3</span>Documentation that actually gets read</h2>
+<p>Layer One's ninth rule says it bluntly: <em>docs decide adoption</em>. People use what they can understand in the five minutes before a deadline. If documentation is long, scattered or out of date, people stop reading it and start guessing, or building their own.</p>
+<p>The trick isn't writing more. It's writing the same few things for every component, in the same order, so people know exactly where to look. Here's the template we use:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:5%">#</th><th style="width:24%">Section</th><th>What it answers</th><th style="width:26%">Keep it to</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><th>Summary</th><td>What is it, and when should I use it?</td><td>One or two sentences</td></tr>
+<tr><td class="num">2</td><th>When not to use it</th><td>What should I use instead, and when?</td><td>Two or three bullet points</td></tr>
+<tr><td class="num">3</td><th>Live examples</th><td>What does it look like in each option and state?</td><td>Interactive examples</td></tr>
+<tr><td class="num">4</td><th>Anatomy</th><td>What are the parts called?</td><td>One labelled diagram</td></tr>
+<tr><td class="num">5</td><th>How to build with it</th><td>How do I use it in code and in Figma?</td><td>Copyable code, settings table, library link</td></tr>
+<tr><td class="num">6</td><th>Accessibility</th><td>How does it work with a keyboard and a screen reader? What must I add?</td><td>A short checklist</td></tr>
+<tr><td class="num">7</td><th>Writing</th><td>What should the words say?</td><td>One or two lines, plus examples</td></tr>
+<tr><td class="num">8</td><th>Do's and don'ts</th><td>What does correct and incorrect use look like?</td><td>Two to four visual pairs</td></tr>
+<tr><td class="num">9</td><th>Status and history</th><td>Is it stable? What changed recently?</td><td>A status label and a short change log</td></tr>
+</tbody>
+</table>
+</div>
+<p>The UK government's GOV.UK Design System is a good public example of documentation done well: every component page follows a consistent structure, explains when <em>not</em> to use it, and shares the research behind it.[[c:govuk-criteria]] Notice also what's <em>not</em> in the template: long essays about design philosophy. Those belong on a separate page for people who want them.</p>
+</section>
+
+<section class="sec" id="ch16-4">
+<h2><span class="sec-num">16.4</span>A component's life, from idea to retirement</h2>
+<p>Components aren't permanent. They're proposed, tried out, settled, and eventually replaced. Giving each stage a clear label tells everyone how much they can rely on a component right now.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="lifecycle">
+  <div style="border-color:#c9ccd2"><span class="fig-label">01</span><b>Proposed</b>An idea with evidence that two or more teams need it. Not available to use yet.</div>
+  <div style="border-color:#ffa384"><span class="fig-label">02</span><b>Beta</b>Available and being tried in a pilot. Might still change. Use it, but expect small adjustments.</div>
+  <div style="border-color:#ed521c"><span class="fig-label">03</span><b>Stable</b>Proven in real products. Safe to use everywhere. Changes follow the versioning rules.</div>
+  <div style="border-color:#7a5a00"><span class="fig-label">04</span><b>Deprecated</b>Still works, but please don't use it for new work. A replacement and a switching guide exist.</div>
+  <div style="border-color:#0b0d12"><span class="fig-label">05</span><b>Removed</b>Deleted in a major release, after a notice period everyone knew about.</div>
+</div>
+</div>
+<figcaption><b>Five stages in a component's life.</b> [[prac]] Show the current stage as a label in Figma, in code and on the documentation page, so nobody has to ask.</figcaption>
+</figure>
+<p>The two stages teams most often skip are <strong>beta</strong> and <strong>deprecated</strong>, and they're the two that build the most trust. Beta lets you release something before it's perfect without breaking anyone's work when it changes. Deprecated lets you retire something without surprising anyone. Chapter 05 describes the deprecation process in more detail: mark it, give a guide and a notice period, track who's still using it, and only remove it in a major release.</p>
+</section>
+
+<section class="sec" id="ch16-5">
+<h2><span class="sec-num">16.5</span>Knowing what's actually being used</h2>
+<p>You can't look after a library well if you don't know how it's used. Fortunately, both sides of the twins leave a trail.</p>
+<div class="cols-2">
+  <div class="card"><span class="card-k">In design files</span><h4>Usage and detachments</h4><p>Design tools can typically show how often each library component is inserted, and how often designers <em>detach</em> it (break the link to customise it). Detachments are gold: they show exactly where a component isn't meeting people's needs.</p></div>
+  <div class="card"><span class="card-k">In code</span><h4>Imports and versions</h4><p>A simple script can count which system components each product imports, which version of the package each product uses, and where deprecated components are still in use.</p></div>
+</div>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">What the detach numbers revealed</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>Ledgerly's system team looks at its design library data for the first time. The alert component is used 900 times, and detached 310 times.</p></div>
+    <div><span class="sc-k">What they find</span><p>They look at a sample of the detached copies. Almost all of them added a second button: "Retry" next to "Dismiss". The component only allowed one.</p></div>
+    <div><span class="sc-k">What they do</span><p>They add an optional second action, release it in a minor update, and the detach rate drops sharply. No survey or meeting needed; the data told them.</p></div>
+  </div>
+</div>
+<p>Two cautions. First, remember Rule #8: measure time saved, not just usage. High usage is good, but it isn't the goal in itself. Second, use the data to learn, not to police. If a team detaches a component a lot, the first question is "what does the component fail to do for you?", not "why aren't you following the rules?"</p>
+</section>
+
+<section class="sec" id="ch16-6">
+<h2><span class="sec-num">16.6</span>When a team needs something different</h2>
+<p>Sooner or later, a team will need a component to do something it doesn't do. The marketing team wants a bigger, bolder button for a campaign page. The analytics team needs a table that can freeze three columns. How you respond decides whether the system bends sensibly or breaks into pieces.</p>
+<p>There are four common responses, and they're not equally healthy:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:20%">Response</th><th>What happens</th><th style="width:30%">When it's right</th></tr></thead>
+<tbody>
+<tr><th>Extend the component</th><td>Add a new option to the core component for everyone.</td><td>When two or more teams need it and it fits the component's purpose.</td></tr>
+<tr><th>Build a local component</th><td>The team builds its own, from system parts, and owns it.</td><td>When it's specific to one product. It can be promoted later.</td></tr>
+<tr><th>Small override</th><td>The team adjusts one detail of a system component in its own code.</td><td>Rarely, as a short-term fix, and always reported to the system team.</td></tr>
+<tr><th style="color:var(--bad)">Copy and modify</th><td>The team copies the system component's code and changes it.</td><td>Almost never. The copy stops getting fixes and updates, and silently drifts.</td></tr>
+</tbody>
+</table>
+</div>
+<p>The last row is how companies end up with three dropdowns (Chapter 15). It usually happens when the system team is slow to respond, or when "build a local component" isn't presented as a respectable option. Make the healthy paths quick and easy, and copying becomes rare.</p>
+<div class="callout callout--key">
+  <p class="callout-label">The principle behind all of this</p>
+  <h4>The system should make the right thing the easy thing. When teams work around it, treat that as feedback about the system, not a failure of the teams.</h4>
+</div>
+
+<h3>Library health checklist</h3>
+<div class="cols-2">
+<ul class="checklist">
+  <li>Separate libraries for foundations, core and extensions</li>
+  <li>Groups that match how people think, plus a "Start here" page</li>
+  <li>Same names in Figma, code and docs; no versions in names</li>
+  <li>A one-line description and keywords on every component</li>
+  <li>Old versions archived and hidden; no work-in-progress published</li>
+</ul>
+<ul class="checklist">
+  <li>One documentation template, used for every component</li>
+  <li>A visible life-cycle label on every component</li>
+  <li>Library updates published with release notes, on a rhythm</li>
+  <li>Usage and detach data reviewed monthly</li>
+  <li>Quick, respectable paths for local components</li>
+</ul>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Findability is adoption. A tidy, well-named library prevents duplicates before they happen.</li>
+    <li>Document every component the same way, briefly, and say when <em>not</em> to use it.</li>
+    <li>Label every component's stage (beta, stable, deprecated) so people know what to rely on.</li>
+    <li>Use design and code data to learn where components fall short, and make the healthy paths quick and easy.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

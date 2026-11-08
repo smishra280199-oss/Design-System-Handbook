@@ -195,3 +195,42 @@ table.compact th, table.compact td { padding: 7px 10px 7px 0; font-size: 13.5px;
 .routes .path { font-family: var(--font-mono); font-size: 11.5px; line-height: 1.7; color: var(--text); }
 .routes .path b { color: var(--accent-text); font-weight: 500; }
 @media screen and (max-width: 900px) { .routes { grid-template-columns: 1fr 1fr; } .routes > div { border-right: 0; border-bottom: 1px solid var(--rule); margin: 0; } }
+
+/* ==========================================================================
+   Book components (edition 0.2)
+   ========================================================================== */
+/* Big chapter number on the opener page */
+.chapter-opener .ch-big { display: block; font-size: 120px; line-height: 0.85; font-weight: 800; letter-spacing: -0.06em; color: var(--signal-500); margin: 0 0 24px -4px; }
+.in-chapter { list-style: none; padding: 0; margin: 28px 0 0; }
+.in-chapter-h { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 8px; }
+.in-chapter li { display: grid; grid-template-columns: 40px 1fr; padding: 4px 0; margin: 0; font-size: 14px; break-inside: avoid; }
+.in-chapter li span { font-family: var(--font-mono); font-size: 0.8em; color: var(--accent-text); padding-top: 0.15em; }
+
+/* "New word" margin notes */
+.term { display: block; border-top: 2px solid var(--signal-500); padding: 8px 0 0; margin: 4px 0 16px; max-width: 320px; }
+.term .term-k { display: block; font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 4px; }
+.term b { display: block; font-size: 14px; letter-spacing: -0.01em; margin-bottom: 2px; }
+.term span { display: block; font-size: 13px; line-height: 1.45; color: var(--text-muted); }
+
+/* Scenario panels: a real situation, told in three beats */
+.scenario { background: var(--paper-100); border-radius: var(--r-lg); padding: 22px 24px 18px; margin: 32px 0; break-inside: avoid; }
+.scenario .sc-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+.scenario .sc-label { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; background: var(--ink-950); padding: 3px 7px; border-radius: 3px; white-space: nowrap; }
+.scenario .sc-title { font-size: 19px; font-weight: 650; letter-spacing: -0.015em; line-height: 1.25; color: var(--ink-950); }
+.scenario .sc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 18px; }
+.scenario .sc-grid > div { border-top: 1px solid var(--paper-300); padding-top: 8px; }
+.scenario .sc-k { display: block; font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: #565c67; margin-bottom: 4px; }
+.scenario .sc-grid > div:last-child .sc-k { color: var(--signal-700); }
+.scenario p { font-size: 14.5px; line-height: 1.5; color: var(--ink-950); margin: 0 0 6px; }
+.scenario .sc-body { margin-bottom: 10px; }
+@media screen and (max-width: 760px) { .scenario .sc-grid { grid-template-columns: 1fr; } }
+
+/* Chapter ending */
+.chapter-end { background: var(--ink-950); color: var(--paper-100); border-radius: var(--r-lg); padding: 24px 26px; margin: 48px 0 0; break-inside: avoid; }
+.chapter-end .ce-k { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--signal-400); margin: 0 0 6px; }
+.chapter-end h4 { color: #fff; font-size: 20px; margin: 0 0 12px; letter-spacing: -0.015em; }
+.chapter-end ol { margin: 0; padding: 0; list-style: none; counter-reset: ce; }
+.chapter-end li { counter-increment: ce; position: relative; padding: 7px 0 7px 30px; border-top: 1px solid var(--ink-700); color: #dcdcd6; line-height: 1.5; margin: 0; }
+.chapter-end li::before { content: counter(ce, decimal-leading-zero); position: absolute; left: 0; top: 9px; font-family: var(--font-mono); font-size: 0.75em; color: var(--signal-400); }
+.up-next { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); margin: 14px 0 0; display: flex; gap: 8px; }
+.up-next b { color: var(--text); font-family: var(--font-sans); font-weight: 600; }

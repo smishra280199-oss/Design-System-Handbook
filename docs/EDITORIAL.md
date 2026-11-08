@@ -26,17 +26,28 @@ expert reading over their shoulder. In practice:
 The book signposts these routes on the "How to read this playbook" page, and every
 chapter opens with a one-line **"Read this if…"**.
 
-## 3. Voice
+## 3. Voice (edition 0.2 onwards)
 
-Layer One's own rules set the tone: *"Every decision comes with a reason."*
+**A senior designer explaining things across a table to someone smart who has never
+worked with a design system.** Conversational, experienced, never intimidating.
 
-- **Direct.** Short declarative sentences. Recommend; don't survey.
-- **Specific.** "Use 11 steps" beats "use an appropriate number of steps".
-- **Honest about evidence.** We say how strong the evidence is every time.
-- **Opinionated, and labelled as such.** Opinions are allowed. They must be marked.
-- **No filler.** No "in today's fast-paced digital landscape". No exclamation marks.
-- **British/Indian English spelling for prose** (colour, organisation), but
-  `color` in code, because that is what CSS and the token spec use.
+Writing principles:
+- **Assume zero prior knowledge.** Never use a term before explaining it. The first
+  time a term appears, add a "New word" margin note (`<div class="term">`).
+- **Why before how.** Open each section with the situation or problem, then explain.
+- **Story first.** Use relatable workplace scenarios (`<div class="scenario">`): the
+  situation, what goes wrong, what a design system changes. Composite, never a client.
+- **Everyday words.** "Named values" before "tokens"; "job names" before "semantic
+  tokens"; "settings" before "props". Introduce the industry term once the idea is clear.
+- **Prose over bullets.** Use lists for checklists and steps, not for explanations.
+- **Opinionated, and labelled as such.** Opinions are allowed; mark them [[prac]].
+- **Honest about evidence.** Every statistic cited, every weakness stated.
+- **No filler.** No "in today's fast-paced landscape". No exclamation marks.
+- **Operational lens.** Wherever possible, show how things work inside a company over
+  years: who owns it, who decides, how requests and changes flow.
+- **British/Indian English spelling for prose** (colour, organisation), `color` in code.
+- Practitioner references (Curtis, Frost, Callahan, Mall, Kholmatova, GOV.UK, zeroheight)
+  are interpreted in our own words and cited, never reproduced.
 
 ## 4. The evidence system
 
@@ -77,13 +88,24 @@ Derived from the live Layer One site (layerone.co.in) and its token set:
 (a hierarchy, a ramp, a scale, a before/after), and its caption must say what to
 notice. If a figure could be deleted without losing information, delete it.
 
-## 6. Page system (print)
+## 6. Page system (print, the source of truth from edition 0.2)
 
-- A4 portrait, 18 mm outer / 22 mm inner margins, 12-column grid, 5 mm gutters.
-- Running header: part name (left) · chapter name (right), in mono, 7.5 pt.
-- Folio: page number bottom outside, with the Layer One mark.
-- Chapters start on a new page; part openers are full-bleed ink spreads.
-- Figures, tables, callouts and checklists never split across pages.
+The PDF is the primary deliverable. It is still generated from the HTML sources,
+because that keeps every figure data-driven and every edit reviewable in git.
+
+Page grammar, so readers always know where a topic begins and ends:
+- **Part** → full-bleed ink opener page.
+- **Chapter** → its own opener page: big number, title, promise, "Read this if",
+  "What you'll leave with", and an auto-generated "In this chapter" list.
+- **Section** → starts at the top of a new page under a heavy rule and section number.
+  If a section would leave an almost-empty page, `export-pdf.mjs` first tightens it
+  slightly (fit-1, fit-2) and, if that isn't enough, lets the next section in the same
+  chapter start on that page (`follow`). Chapters always start on a new page.
+- **Chapter end** → "The short version" summary box plus an auto-generated "Up next".
+- **Measure** → running text on a 122 mm column (~70 characters); a 40 mm margin column
+  on the right for "New word" notes; figures and tables use the full 168 mm.
+- A4 portrait; margins 22/20/22/22 mm; running heads (part · chapter) and folio in mono.
+- Figures, callouts, scenarios and checklists never split; long tables may, with headers repeated.
 
 ## 7. What "done" means for a chapter
 

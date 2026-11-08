@@ -2,210 +2,254 @@
 <header class="chapter-opener">
   <p class="ch-num">Chapter 02</p>
   <h1>Who needs a design system, and when</h1>
-  <p class="dek">Every product already has a design system. It just might be implicit, inconsistent and stored in people's heads. The real question is how much of it to make explicit, and when.</p>
+  <p class="dek">Here's a secret: every product already has a design system. It's just usually unwritten, inconsistent and living in a few people's heads. The real question isn't "do we need one?" It's "how much of it should we write down, and when?"</p>
   <div class="opener-meta">
-    <div><h5>Read this if</h5><p>You are deciding whether to invest now, later or not at all, or you are being asked to justify a system to someone who thinks it is premature.</p></div>
-    <div><h5>What you'll leave with</h5><ol><li>Direct answers to the seven questions founders and leaders ask most.</li><li>A five-stage maturity model to place your organisation, and to see the next stage.</li><li>A decision tree and readiness checklist you can use in a planning meeting.</li></ol></div>
+    <div><h5>Read this if</h5><p>You're trying to decide whether to invest now, later or not at all, or someone is telling you it's too early.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>Straight answers to the seven questions founders and leaders ask most.</li><li>A simple way to tell where your company is today and what the next step looks like.</li><li>A decision tree and a checklist you can bring to a planning meeting.</li></ol></div>
   </div>
 </header>
 
 <section class="sec" id="ch02-1">
 <h2><span class="sec-num">02.1</span>The seven questions everyone asks</h2>
-<p>These answers are direct by design. Each one names the condition under which it would change.</p>
+<p>When we sit down with founders and product leaders, the same seven questions come up almost every time. Here are our honest answers, including when the answer would change.</p>
 
 <div class="qa">
   <div class="q">Does every company need a design system?</div>
   <div class="a">
-    <p class="short">Every company needs consistent design decisions. Not every company needs a dedicated, formal system.</p>
-    <p>Any product with more than one screen has made decisions about colour, type, spacing and behaviour. The question is whether those decisions are written down, shared and reusable, or re-made by whoever builds the next screen. A two-person team with one product can stay consistent through conversation. Once decisions are made by people who don't talk daily, implicit systems start to fork. [[prac]]</p>
+    <p class="short">Every company needs consistent design decisions. Not every company needs a formal system with its own team.</p>
+    <p>If your product has more than one screen, you've already made decisions about colours, text and spacing. The question is whether those decisions are written down and shared, or re-made by whoever builds the next screen. Two people sitting side by side can stay consistent just by talking. Once decisions are being made by people who don't talk every day, the unwritten system starts to split. [[prac]]</p>
   </div>
 </div>
 
 <div class="qa">
-  <div class="q">Is a design system only for enterprises?</div>
+  <div class="q">Isn't this only for big enterprises?</div>
   <div class="a">
-    <p class="short">No. Small companies run them too, at a smaller scale.</p>
-    <p>zeroheight's 2025 survey of design system practitioners found dedicated teams averaging about three people at companies with fewer than 100 employees, rising to about nine at companies with 500+.[[c:zeroheight-2025]] [[doc]] (The sample is self-selected: people who answer a design systems survey tend to have one.) Enterprises need more <em>governance</em>, not more <em>system</em>. The core of a small system and a large one is the same: foundations, tokens and the components you use most.</p>
+    <p class="short">No. Small companies run them too, just smaller.</p>
+    <p>zeroheight's 2025 survey of people who work on design systems found teams averaging about three people at companies with fewer than 100 employees, and about nine at companies with 500 or more.[[c:zeroheight-2025]] [[doc]] (Keep in mind that people who answer a design systems survey usually have one.) What big companies need more of isn't system, it's <em>coordination</em>: more teams, more rules about who decides what. The core of a small system and a large one looks surprisingly similar.</p>
   </div>
 </div>
 
 <div class="qa">
-  <div class="q">Does a startup need product–market fit first?</div>
+  <div class="q">Should a startup wait until it finds product–market fit?</div>
   <div class="a">
-    <p class="short">Before product–market fit, build foundations, not a system.</p>
-    <p>Pre-PMF, the product will change shape, so investing in a broad component library and governance is waste. But a token layer (named colours, a type scale, a spacing scale) costs days, not months, and it makes pivots <em>cheaper</em>: restyling a product built on tokens is a configuration change. Use an off-the-shelf component library (Radix, MUI and similar) themed with your own tokens, and defer custom components until the product stabilises. [[prac]]</p>
+    <p class="short">Wait on the big system. Don't wait on the basics.</p>
+    <p>Before product–market fit, your product will change shape, so building a large custom component library is likely wasted effort. But naming your colours, text sizes and spacing takes days, not months, and it actually makes pivots <em>cheaper</em>: restyling a product built on named values is a quick change instead of a rebuild. Pair that with a good open-source component library (Radix, MUI and others) styled with your own values, and save custom components for when the product settles down. [[prac]]</p>
   </div>
 </div>
 
 <div class="qa">
-  <div class="q">Is a team of 5–6 designers big enough?</div>
+  <div class="q">We have five or six designers. Is that enough to justify one?</div>
   <div class="a">
-    <p class="short">Usually yes. But count engineers and surfaces, not designers.</p>
-    <p>Five designers on one product with eight engineers can stay coherent with a well-maintained UI kit and a shared token file. Five designers serving 40 engineers across a web app, a mobile app and an admin tool cannot. They will spend their week answering "which grey is it?" in Slack. The trigger for a real system is the number of <em>places UI gets built</em>, and how far apart they are. [[prac]]</p>
+    <p class="short">Usually yes, but count engineers and products, not just designers.</p>
+    <p>Five designers on one product with eight engineers can stay consistent with a good UI kit and a shared list of named values. Five designers supporting forty engineers across a web app, a mobile app and an admin panel cannot. They'll spend half their week answering "which grey is it?" in Slack. What really drives the need is <em>how many places UI is being built</em>, and how far apart those places are. [[prac]]</p>
   </div>
 </div>
 
 <div class="qa">
-  <div class="q">When is a UI kit enough instead of a full system?</div>
+  <div class="q">When is a UI kit enough?</div>
   <div class="a">
-    <p class="short">When the problem is design consistency, not delivery consistency.</p>
-    <ul>
-      <li>One product, one platform, one codebase, and fewer than about three squads.</li>
-      <li>Engineering already uses a themed third-party component library.</li>
-      <li>Designers disagree with each other more than design disagrees with code.</li>
-    </ul>
-    <p>A UI kit fixes design-to-design drift. It does nothing for design-to-code drift. When the second problem appears, the kit has reached its ceiling.</p>
+    <p class="short">When designers disagreeing with each other is the main problem, rather than design and code disagreeing.</p>
+    <p>A UI kit is often enough if you have one product, on one platform, built in one codebase, by fewer than about three squads, and engineering already uses a well-styled off-the-shelf component library. It stops designs drifting apart. It does nothing to stop code drifting away from design. When that second problem shows up, you've hit the ceiling.</p>
   </div>
 </div>
 
 <div class="qa">
   <div class="q">How do we know we've outgrown what we have?</div>
   <div class="a">
-    <p class="short">When the cost of inconsistency shows up in delivery, not just in design reviews.</p>
-    <p>The signals checklist in 02.4 is the practical test. If you tick five or more, the case for a system is already being paid for, just in rework instead of in investment.</p>
+    <p class="short">When inconsistency starts costing you time in delivery, not just debates in design reviews.</p>
+    <p>The checklist in 02.4 is a practical test. If you tick five or more items, you're already paying for a design system. You're just paying for it in rework instead of investment.</p>
   </div>
 </div>
 
 <div class="qa">
-  <div class="q">When is a design system unnecessary or premature?</div>
+  <div class="q">When is it too early, or unnecessary?</div>
   <div class="a">
-    <p class="short">When nobody will own it, nobody will adopt it, or the product won't live long enough to benefit.</p>
-    <ul>
-      <li>You are still searching for the product and expect to rebuild the UI within six months.</li>
-      <li>One designer and one or two engineers build everything, and they sit together.</li>
-      <li>The product is a marketing site or a campaign with a short life.</li>
-      <li>Engineering leadership has not agreed to adopt it. A design-only system is a UI kit with a bigger budget.</li>
-      <li>No one can be given protected time to own it. An unowned system decays faster than no system, because people stop trusting it.</li>
-    </ul>
+    <p class="short">When nobody will own it, nobody will use it, or the product won't live long enough to benefit.</p>
+    <p>Hold off if you expect to rebuild your UI from scratch within six months; if one designer and one or two engineers build everything together; if it's a short-lived marketing site; or if engineering leadership hasn't agreed to use it. A system that only designers use is just an expensive UI kit. And be honest about ownership. A system nobody looks after decays faster than having no system at all, because people stop trusting it and start working around it.</p>
   </div>
 </div>
 </section>
 
 <section class="sec" id="ch02-2">
-<h2><span class="sec-num">02.2</span>A maturity model: where you are, and what's next</h2>
-<p>Design system maturity is a staircase, not a switch. Most organisations should aim for the <em>next</em> stage, not the last one. Skipping stages usually means building governance for components nobody uses yet.</p>
+<h2><span class="sec-num">02.2</span>Where are you today? A five-stage map</h2>
+<p>Design systems grow in stages, like a staircase. The most useful thing you can do is figure out which step you're on and aim for the <em>next</em> one, not the top. Jumping straight to the top usually means building approval processes for components nobody uses yet.</p>
 <figure class="fig">
 <div class="fig-body">
 <div class="maturity">
-  <div class="mat-col" style="height:250px;background:var(--bg-sunken)"><span class="mn muted">STAGE 0</span><h5>Implicit</h5><ul><li>Decisions live in screens and heads</li><li>Values copied by eye</li></ul><span class="mat-inv muted">Typical: pre-seed, 1–2 designers</span></div>
-  <div class="mat-col" style="height:290px;background:#ffe2d5;color:#0b0d12"><span class="mn">STAGE 1</span><h5>Shared styles</h5><ul><li>UI kit with styles and components</li><li>Maybe CSS variables</li></ul><span class="mat-inv">Typical: seed–A, one product</span></div>
-  <div class="mat-col" style="height:330px;background:#ffa384;color:#0b0d12"><span class="mn">STAGE 2</span><h5>Foundations in code</h5><ul><li>Token architecture shared by design and code</li><li>10–25 core components in a package</li></ul><span class="mat-inv">Typical: Series A–B, 20–60 engineers</span></div>
-  <div class="mat-col" style="height:370px;background:#ed521c;color:#0b0d12"><span class="mn">STAGE 3</span><h5>Managed system</h5><ul><li>Docs, versioning, contribution</li><li>Adoption measured</li><li>Named owners</li></ul><span class="mat-inv">Typical: multiple products or platforms</span></div>
-  <div class="mat-col" style="height:410px;background:#0b0d12;color:#ecece8"><span class="mn" style="color:#ff8a63">STAGE 4</span><h5>Platform</h5><ul><li>Multi-brand, multi-platform tokens pipeline</li><li>Governance at scale</li><li>System health metrics</li></ul><span class="mat-inv" style="color:#9aa0aa">Typical: enterprise, several business units</span></div>
+  <div class="mat-col" style="height:250px;background:var(--bg-sunken)"><span class="mn muted">STAGE 0</span><h5>Unwritten</h5><ul><li>Decisions live in old screens and people's heads</li><li>Values copied by eye</li></ul><span class="mat-inv muted">Often: very early, 1–2 designers</span></div>
+  <div class="mat-col" style="height:290px;background:#ffe2d5;color:#0b0d12"><span class="mn">STAGE 1</span><h5>Shared styles</h5><ul><li>A UI kit in Figma</li><li>Maybe a few shared colours in code</li></ul><span class="mat-inv">Often: seed to Series A, one product</span></div>
+  <div class="mat-col" style="height:330px;background:#ffa384;color:#0b0d12"><span class="mn">STAGE 2</span><h5>Basics in code</h5><ul><li>Named values shared by design and code</li><li>10–25 core components engineers import</li></ul><span class="mat-inv">Often: Series A–B, 20–60 engineers</span></div>
+  <div class="mat-col" style="height:370px;background:#ed521c;color:#0b0d12"><span class="mn">STAGE 3</span><h5>Looked after</h5><ul><li>Documentation, releases, a way to contribute</li><li>Usage is measured</li><li>Named owners</li></ul><span class="mat-inv">Often: several products or platforms</span></div>
+  <div class="mat-col" style="height:410px;background:#0b0d12;color:#ecece8"><span class="mn" style="color:#ff8a63">STAGE 4</span><h5>Company platform</h5><ul><li>Several brands and platforms</li><li>Clear rules across departments</li><li>Health tracked like any product</li></ul><span class="mat-inv" style="color:#9aa0aa">Often: enterprise, many business units</span></div>
 </div>
 </div>
-<figcaption><b>Five stages of design system maturity.</b> [[prac]] The "typical" profiles are patterns from practice, not thresholds. A 30-person company with three white-label products may need Stage 3; a 300-person company with one product may be well served at Stage 2.</figcaption>
+<figcaption><b>Five stages, from unwritten to company platform.</b> [[prac]] The "often" lines are patterns we see, not rules. A 30-person company selling a white-labelled product to banks might need Stage 3; a 300-person company with one simple product may be perfectly served by Stage 2.</figcaption>
 </figure>
 
 <div class="table-wrap">
 <table>
-<thead><tr><th style="width:15%">Stage</th><th>You know you're here when…</th><th>The move to the next stage</th><th style="width:20%">Investment to get there</th></tr></thead>
+<thead><tr><th style="width:15%">Stage</th><th>You'll recognise it when…</th><th>The next step</th><th style="width:20%">What it takes</th></tr></thead>
 <tbody>
-<tr><th>0 Implicit</th><td>Designers ask each other for hex codes; engineers inspect screenshots.</td><td>Define foundations; publish a UI kit with styles.</td><td>1–3 weeks of one designer</td></tr>
-<tr><th>1 Shared styles</th><td>Design is consistent; code still has many values that "look close".</td><td>Tokens as a single source of truth for design and code; build the most-used components.</td><td>1–3 months, a designer and an engineer, part-time</td></tr>
-<tr><th>2 Foundations in code</th><td>New screens use the package; old ones don't; nobody owns requests.</td><td>Named owners, docs, release process, contribution path.</td><td>A small dedicated core (1.5–3 FTE)</td></tr>
-<tr><th>3 Managed system</th><td>Multiple teams contribute; adoption is measured; releases are routine.</td><td>Theming, multi-platform output, governance across business units.</td><td>A dedicated team plus federated contributors</td></tr>
-<tr><th>4 Platform</th><td>The system is infrastructure, with its own roadmap, SLAs and metrics.</td><td>Sustain; reduce cost of change; automate compliance.</td><td>Ongoing product-level budget</td></tr>
+<tr><th>0 Unwritten</th><td>Designers ask each other for hex codes; engineers measure screenshots.</td><td>Write down the basics; publish a UI kit.</td><td>1–3 weeks of one designer</td></tr>
+<tr><th>1 Shared styles</th><td>The designs look consistent, but the code is full of colours that "look about right".</td><td>Name the values once and share them with code; build the most-used components.</td><td>1–3 months, a designer and an engineer, part-time</td></tr>
+<tr><th>2 Basics in code</th><td>New screens use the package, older ones don't, and nobody owns incoming requests.</td><td>Give it owners, documentation, releases and a way to contribute.</td><td>A small dedicated team (1.5–3 people)</td></tr>
+<tr><th>3 Looked after</th><td>Several teams contribute; updates ship on a rhythm; usage is tracked.</td><td>Themes, multiple platforms, decision-making across the company.</td><td>A dedicated team plus contributors in product teams</td></tr>
+<tr><th>4 Platform</th><td>The system is treated like infrastructure, with its own roadmap and targets.</td><td>Keep it healthy; make change cheaper; automate checks.</td><td>An ongoing product budget</td></tr>
 </tbody>
 </table>
 </div>
-<p class="muted" style="font-size:14px">Ranges are [[prac]] estimates for orientation; Chapter 04 builds them up from roles and assumptions.</p>
+<p>These stages describe your <em>company's</em> relationship with its design system. Ben Callahan at Sparkbox describes a complementary maturity model for the <em>system itself</em>, which starts with "building version one" and then "growing adoption" before the system settles into a long-lived product.[[c:callahan-maturity]] The two views fit together well. Whatever stage your company is at, the system goes through a hard early phase where it has to prove it's worth using. Chapter 05 covers that phase in detail.</p>
 </section>
 
 <section class="sec" id="ch02-3">
-<h2><span class="sec-num">02.3</span>The decision tree</h2>
-<p>If you only have ten minutes in a leadership meeting, use this. It intentionally asks about <em>engineering</em> and <em>surfaces</em> before it asks about design.</p>
+<h2><span class="sec-num">02.3</span>A decision tree for your next planning meeting</h2>
+<p>If you only have ten minutes with your leadership team, walk through these four questions. Notice that they ask about engineering and products before they ask about design. That's on purpose.</p>
 <figure class="fig">
 <div class="fig-body">
 <div class="dtree">
-  <div class="dt-node">1 · Will this product's UI still exist, in roughly this form, in 12 months?</div>
+  <div class="dt-node">1 · Will this product's interface still exist, in roughly this shape, a year from now?</div>
   <div class="dt-no">No →</div>
-  <div class="dt-branch"><div class="dt-out" style="background:var(--bg-sunken)"><b>Foundations only.</b> Define tokens; theme an off-the-shelf library. Revisit after PMF.</div></div>
+  <div class="dt-branch"><div class="dt-out" style="background:var(--bg-sunken)"><b>Just the basics.</b> Name your colours, text and spacing; style an off-the-shelf library. Come back to this after product–market fit.</div></div>
   <div class="dt-yes">Yes ↓</div>
   <div class="dt-branch">
-    <div class="dt-node">2 · Is UI built in more than one codebase, platform or product, or by more than ~3 squads?</div>
+    <div class="dt-node">2 · Is UI being built in more than one codebase, platform or product, or by more than about three squads?</div>
     <div class="dt-no">No →</div>
-    <div class="dt-branch"><div class="dt-out" style="background:#ffe2d5;color:#0b0d12"><b>Stage 1–2: UI kit plus a token file in code.</b> One owner with protected time (~20%).</div></div>
+    <div class="dt-branch"><div class="dt-out" style="background:#ffe2d5;color:#0b0d12"><b>A UI kit plus shared values in code (Stages 1–2).</b> One owner with protected time, around a day a week.</div></div>
     <div class="dt-yes">Yes ↓</div>
     <div class="dt-branch">
-      <div class="dt-node">3 · Will engineering leadership commit to adopting a shared component package?</div>
+      <div class="dt-node">3 · Will engineering leadership commit to actually using a shared component package?</div>
       <div class="dt-no">No →</div>
-      <div class="dt-branch"><div class="dt-out" style="background:var(--bad-bg);color:var(--bad)"><b>Stop. Fix alignment first.</b> A system design builds and engineering ignores will fail. Run an audit to build the shared case.</div></div>
+      <div class="dt-branch"><div class="dt-out" style="background:var(--bad-bg);color:var(--bad)"><b>Stop and get aligned first.</b> A system that design builds and engineering ignores will fail. An audit is often the best way to build a shared case.</div></div>
       <div class="dt-yes">Yes ↓</div>
       <div class="dt-branch">
-        <div class="dt-node">4 · Do you need theming (dark mode, multiple brands, white-label) or multiple platforms?</div>
+        <div class="dt-node">4 · Do you need dark mode, several brands, white-labelling or several platforms?</div>
         <div class="dt-no">No →</div>
-        <div class="dt-branch"><div class="dt-out" style="background:#ffa384;color:#0b0d12"><b>Stage 2→3: core system.</b> Small dedicated team; semantic tokens; 15–25 components; docs and releases.</div></div>
+        <div class="dt-branch"><div class="dt-out" style="background:#ffa384;color:#0b0d12"><b>A core system (Stages 2–3).</b> A small dedicated team, 15–25 components, documentation and regular releases.</div></div>
         <div class="dt-yes">Yes ↓</div>
-        <div class="dt-branch"><div class="dt-out" style="background:#0b0d12;color:#ecece8"><b>Stage 3→4: system as platform.</b> Three-tier token architecture, multi-platform build pipeline, hybrid team model with federated contribution.</div></div>
+        <div class="dt-branch"><div class="dt-out" style="background:#0b0d12;color:#ecece8"><b>A platform (Stages 3–4).</b> A careful structure for named values, output for every platform, and a shared ownership model with product teams.</div></div>
       </div>
     </div>
   </div>
 </div>
 </div>
-<figcaption><b>Should we invest, and how much?</b> [[prac]] Question 3 is the one most often skipped, and the most common root cause of failed systems we see in audits.</figcaption>
+<figcaption><b>Should we invest, and how much?</b> [[prac]] Question 3 is the one teams most often skip, and it's the most common root cause of failed systems we see in audits.</figcaption>
 </figure>
 </section>
 
 <section class="sec" id="ch02-4">
-<h2><span class="sec-num">02.4</span>Signs you have outgrown your current UI infrastructure</h2>
-<p>Each of these is observable, and most can be counted. Count them before you build the business case; they will become your baseline metrics in Chapter 03.</p>
+<h2><span class="sec-num">02.4</span>Signs you've outgrown what you have</h2>
+<p>You don't need a consultant to tell you whether you have a consistency problem. Most of the evidence is sitting in your code and your calendar. Here's what to look for, and every item can be counted or observed, which is useful because these become your "before" numbers later.</p>
 <div class="cols-2">
 <div>
 <h4>In the code</h4>
 <ul class="checklist">
-  <li>A search for hard-coded hex values returns <b>hundreds of unique colours</b>.</li>
-  <li>There is <b>more than one Button</b> (or Modal, or Table) component in the codebase.</li>
-  <li>The same <b>accessibility bug</b> (focus, contrast, labels) has been fixed in several places.</li>
-  <li>Engineers estimate a <b>brand colour change in weeks</b>, not hours.</li>
-  <li>Front-end PR reviews regularly argue about <b>spacing and styling</b>.</li>
+  <li>A search for colour codes finds <b>hundreds of different colours</b>.</li>
+  <li>There's <b>more than one button</b> component (or dialog, or table) in the codebase.</li>
+  <li>The same <b>accessibility bug</b> has been fixed in several places.</li>
+  <li>Engineers think a brand colour change would take <b>weeks</b>, not hours.</li>
+  <li>Code reviews regularly turn into <b>debates about spacing</b> and styling.</li>
 </ul>
 </div>
 <div>
 <h4>In the organisation</h4>
 <ul class="checklist">
-  <li>Design QA has become a <b>release gate</b> that blocks shipping.</li>
-  <li>New designers or engineers take <b>weeks to learn</b> "how we do UI here".</li>
-  <li>Customers or sales mention that products <b>"feel like different companies"</b>.</li>
+  <li>Design review has become a <b>bottleneck</b> before every release.</li>
+  <li>New designers or engineers take <b>weeks</b> to learn "how we do UI here".</li>
+  <li>Customers or sales say your products <b>feel like different companies</b>.</li>
   <li>A <b>second product, platform, brand or acquisition</b> is on the roadmap.</li>
-  <li>Enterprise deals now include <b>accessibility conformance</b> requirements.</li>
+  <li>Enterprise customers now ask for <b>accessibility compliance</b>.</li>
 </ul>
 </div>
 </div>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">The dark mode request that exposed everything</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A B2B product gets its most-requested feature for the third quarter running: dark mode. The PM estimates two sprints.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>Engineering finds 340 different colour values typed directly into the code, many of them nearly identical greys. There's no way to "switch" them, because nothing says which grey is for text and which is for borders. The estimate becomes two quarters.</p></div>
+    <div><span class="sc-k">What a design system changes</span><p>With colours named by their job ("text", "border", "background"), dark mode is a second set of values for the same names. It becomes a design task and a testing task, not a rewrite. Chapter 07 shows exactly how.</p></div>
+  </div>
+</div>
+
 <div class="callout callout--practice">
   <p class="callout-label">[[prac]] How to read your score</p>
-  <p><b>0–2:</b> keep doing what you're doing; write down your foundations. <b>3–5:</b> you are paying for inconsistency in rework; plan Stage 2. <b>6+:</b> the system is already costing you more by its absence than it would by its presence. Start with an audit to size it.</p>
+  <p><b>0–2 ticks:</b> you're fine for now; write down your basics. <b>3–5:</b> you're paying for inconsistency in rework, so plan the next stage. <b>6 or more:</b> not having a system is already costing you more than having one would. Start with an audit to see the size of the problem.</p>
 </div>
 </section>
 
 <section class="sec" id="ch02-5">
-<h2><span class="sec-num">02.5</span>Four scenarios</h2>
-<p>These are composite, fictional scenarios. They are not clients; they illustrate how the decision tree resolves in different contexts. [[ill]]</p>
-<div class="cols-2">
-  <div class="card"><span class="card-k">Scenario A — Seed fintech</span><h4>2 designers, 6 engineers, pre-PMF</h4><p><b>Situation:</b> one web app, pivoting monthly. The founder wants a "design system like Stripe's".</p><p><b>Recommendation:</b> no system yet. Spend a week defining colour, type and spacing tokens; theme an open-source component library. <b>Why:</b> the product will change, and the tokens will survive the change while bespoke components won't.</p></div>
-  <div class="card"><span class="card-k">Scenario B — Series B SaaS</span><h4>7 designers, 45 engineers, 2 products</h4><p><b>Situation:</b> a web app plus a newly acquired analytics product with its own UI stack. Three button styles; dark mode requested by customers.</p><p><b>Recommendation:</b> Stage 2→3. A two-week audit, then a semantic token layer that themes both products, and 15–20 shared components. Core team of ~2 FTE plus named contributors.</p></div>
-  <div class="card"><span class="card-k">Scenario C — Enterprise internal tools</span><h4>30+ tools built by different vendors</h4><p><b>Situation:</b> every tool looks different; accessibility is a compliance requirement; nobody owns UI centrally.</p><p><b>Recommendation:</b> start with tokens and an accessibility baseline, not components. Tokens can be retro-fitted into legacy stacks; components can't. Establish a hybrid team model and a contribution path vendors must follow.</p></div>
-  <div class="card"><span class="card-k">Scenario D — Brand and marketing site</span><h4>Agency-built, redesigned every 2–3 years</h4><p><b>Situation:</b> the marketing team asks for a design system for the website.</p><p><b>Recommendation:</b> a style guide plus a small set of CMS blocks is the right tool. Share colour and type <em>tokens</em> with the product so the brand stays aligned, but don't fund a product-grade system for a site with a short life.</p></div>
+<h2><span class="sec-num">02.5</span>Four companies, four different answers</h2>
+<p>To make this concrete, here are four situations we see again and again. They're composites, not real clients, but you'll probably recognise one of them. [[ill]]</p>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Company A</span><span class="sc-title">A fintech startup: 3 designers, 4 engineers, still finding its feet</span></div>
+  <div class="sc-body"><p>The founder has seen Stripe's design and wants "a proper design system". The product changes direction every month or two. Everyone sits in one room.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">What they need</span><p>The basics only: about a week to name colours, text sizes and spacing, plus a good open-source component library styled to match.</p></div>
+    <div><span class="sc-k">Why not more?</span><p>Custom components would be redesigned with each pivot. The named values survive pivots; the components wouldn't.</p></div>
+    <div><span class="sc-k">When to revisit</span><p>When a second squad forms, or when they start building a mobile app.</p></div>
+  </div>
+</div>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Company B</span><span class="sc-title">A Series B SaaS: 7 designers, 45 engineers, 2 products</span></div>
+  <div class="sc-body"><p>They have their main web app and a recently acquired analytics product built with completely different code. There are three button styles in production, and customers keep asking for dark mode.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">What they need</span><p>A two-week audit, then a shared set of named values that can style both products, and 15–20 shared components.</p></div>
+    <div><span class="sc-k">Who does it</span><p>A small core team of about two people, plus a named designer and engineer in each squad who contribute.</p></div>
+    <div><span class="sc-k">The payoff</span><p>Dark mode and visual consistency across both products, and a path to merge the acquired product's UI over time.</p></div>
+  </div>
+</div>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Company C</span><span class="sc-title">An enterprise with 30+ internal tools built by different vendors</span></div>
+  <div class="sc-body"><p>Every tool looks different. Accessibility is now a legal requirement. Nobody owns the interface centrally, and each vendor uses its own technology.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">What they need</span><p>Start with named values and accessibility rules, not components. Those can be added to old tools; new components can't be dropped into every old technology.</p></div>
+    <div><span class="sc-k">Who does it</span><p>A central team that sets the rules, with a clear process vendors must follow to contribute and get approval.</p></div>
+    <div><span class="sc-k">The payoff</span><p>A consistent, accessible baseline across tools, without rewriting them all at once.</p></div>
+  </div>
+</div>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Company D</span><span class="sc-title">A marketing website, rebuilt every two or three years</span></div>
+  <div class="sc-body"><p>The marketing team asks for "a design system for the website". An agency builds and maintains it.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">What they need</span><p>A style guide and a set of reusable page sections in the CMS.</p></div>
+    <div><span class="sc-k">The smart move</span><p>Share the same named colours and fonts with the product, so the brand stays aligned between website and app.</p></div>
+    <div><span class="sc-k">What to avoid</span><p>Funding a product-grade system for a site that will be thrown away in two years.</p></div>
+  </div>
 </div>
 </section>
 
 <section class="sec" id="ch02-6">
-<h2><span class="sec-num">02.6</span>Readiness checklist</h2>
-<p>Use this before committing budget. A "no" doesn't mean don't proceed. It means that item becomes the first workstream.</p>
+<h2><span class="sec-num">02.6</span>Are you ready? A checklist</h2>
+<p>Run through this before you commit budget. A "no" doesn't mean stop. It means that item becomes the first thing to work on.</p>
 <div class="cols-2">
 <ul class="checklist">
-  <li><b>Sponsor.</b> A leader with budget authority who will defend the system in planning.</li>
-  <li><b>Engineering commitment.</b> Engineering leadership agrees teams will adopt the package.</li>
-  <li><b>Owner.</b> A named person with protected time; ownership is in the job description.</li>
-  <li><b>Audit.</b> You know what exists today: styles, components, tokens, a11y gaps.</li>
+  <li><b>A sponsor.</b> A leader with budget who will defend the system in planning meetings.</li>
+  <li><b>Engineering on board.</b> Engineering leadership agrees teams will use the shared code.</li>
+  <li><b>An owner.</b> A named person with protected time, written into their role.</li>
+  <li><b>An audit.</b> You know what exists today: styles, components, values, accessibility gaps.</li>
 </ul>
 <ul class="checklist">
-  <li><b>Pilot team.</b> One product team volunteers to build with the system first.</li>
-  <li><b>Baseline metrics.</b> You've counted the signals in 02.4, so you can show change.</li>
-  <li><b>Scope.</b> You've chosen the next stage, not the final one.</li>
-  <li><b>Tech stack.</b> You know which frameworks and platforms the system must output to.</li>
+  <li><b>A pilot team.</b> One product team volunteers to build with it first.</li>
+  <li><b>"Before" numbers.</b> You've counted the signs in 02.4, so you can show progress.</li>
+  <li><b>The right scope.</b> You've picked the next stage, not the last one.</li>
+  <li><b>Known technology.</b> You know which platforms and frameworks it has to support.</li>
 </ul>
 </div>
 <p class="pull">Audit before you build.<cite>Rule #2 — Layer One</cite></p>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Every product has a design system; the choice is how much of it to write down and share.</li>
+    <li>What drives the need is how many places UI gets built, more than how many designers you have.</li>
+    <li>Before product–market fit, name your basic values and use an off-the-shelf library. Hold off on the big custom system.</li>
+    <li>Aim for the next stage, not the final one, and don't start without engineering leadership on board.</li>
+  </ol>
+</aside>
 </section>
 </div><!-- /chapter --></section>

@@ -2,204 +2,198 @@
 <header class="chapter-opener">
   <p class="ch-num">Chapter 07</p>
   <h1>Colour systems</h1>
-  <p class="dek">Colour is the foundation teams get wrong most often, and the one where getting it right pays back fastest. This chapter goes from colour models to a production token architecture, and every value in it is computed, not guessed.</p>
+  <p class="dek">Colour is the foundation teams get wrong most often, and the one where getting it right pays off fastest. We'll go step by step, from how colours are described, to building a palette, to making dark mode a simple switch. Every value in this chapter is calculated, not guessed.</p>
   <div class="opener-meta">
-    <div><h5>Read this if</h5><p>You are defining or repairing a palette, adding dark mode or a second brand, or you keep finding contrast failures in audits.</p></div>
-    <div><h5>What you'll leave with</h5><ol><li>Why OKLCH is the right model for building a system palette, and where it still needs checking.</li><li>A repeatable method for generating accessible colour ramps, with a complete worked palette.</li><li>A three-tier token architecture that makes themes, dark mode and multiple brands a configuration change.</li></ol></div>
+    <div><h5>Read this if</h5><p>You're creating or fixing a colour palette, planning dark mode or a second brand, or your accessibility audits keep flagging text that's hard to read.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>Why the way you describe colour matters, and why we recommend a model called OKLCH.</li><li>A repeatable method for building a palette, with a complete worked example.</li><li>A way of naming colours that makes dark mode and new brands a settings change.</li></ol></div>
   </div>
 </header>
 
 <section class="sec" id="ch07-1">
-<h2><span class="sec-num">07.1</span>Colour models: how colour is described</h2>
-<p>A colour model is a way of describing a colour with numbers. The model you build your palette in decides which questions are easy to answer. For a design system the most important question is <em>"is this lighter or darker than that, and by how much?"</em>, because that is what contrast, hierarchy and state changes depend on.</p>
+<h2><span class="sec-num">07.1</span>Why colour goes wrong</h2>
+<p>Let's start with a story we've seen in some form at almost every company we've audited.</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">340 greys and no way to switch them</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A five-year-old product finally commits to dark mode. An engineer searches the code for colour values to see how big the job is.</p></div>
+    <div><span class="sc-k">What they find</span><p>340 different colour values, most of them greys that are almost, but not quite, the same. Some are for text, some for borders, some for backgrounds. Nothing in the code says which is which.</p></div>
+    <div><span class="sc-k">Why it matters</span><p>To build dark mode, someone has to look at every one of those 340 values in context and decide what it should become. A two-sprint feature turns into a two-quarter project.</p></div>
+  </div>
+</div>
+<p>Nobody set out to create 340 greys. A designer picked a grey that looked right for a divider. Another picked a slightly lighter one for a caption. An engineer approximated one from a screenshot. Each choice was reasonable. Together they're unmanageable.</p>
+<p>There's a second, quieter problem too: <strong>text that's hard to read</strong>. Pale grey text looks elegant in a design file on a bright monitor. On a laptop in sunlight, or for someone with less-than-perfect eyesight, it disappears. WebAIM's 2025 scan of the world's top million home pages found text with too little contrast on 79.1% of them, making it the single most common accessibility problem on the web.[[c:webaim-2025]] [[doc]]</p>
+<p>A colour system solves both problems. It gives you a small, deliberate set of colours, each checked for readability, each named by the job it does. The rest of this chapter shows you how to build one.</p>
+</section>
+
+<section class="sec" id="ch07-2">
+<h2><span class="sec-num">07.2</span>How colour is described</h2>
+<p>To a computer, a colour is just numbers, and there are several ways of writing those numbers down. They're called <strong>colour models</strong>. You've probably seen some of them: <code>#CC3C00</code> or <code>rgb(204, 60, 0)</code>. The model you use matters more than you'd think, because it decides which questions are easy to answer. For a design system, the most important question is: <em>is this colour lighter or darker than that one, and by how much?</em> Readability, hierarchy and hover effects all depend on it.</p>
 <div class="table-wrap">
 <table>
-<thead><tr><th style="width:12%">Model</th><th style="width:22%">Describes colour as</th><th>Good for</th><th>Problem for design systems</th></tr></thead>
+<thead><tr><th style="width:12%">Model</th><th style="width:24%">Describes colour as</th><th>Good for</th><th>The catch</th></tr></thead>
 <tbody>
-<tr><th>RGB</th><td>Amounts of red, green and blue light (0–255)</td><td>How screens work; final output</td><td>Not human-readable. Nobody can predict what <code>rgb(204 60 0)</code> looks like, or how to make it 10% lighter.</td></tr>
-<tr><th>HEX</th><td>RGB written in base 16 (<code>#cc3c00</code>)</td><td>Compact; universal in tools and code</td><td>The same as RGB, and even less readable.</td></tr>
-<tr><th>HSL</th><td>Hue (angle), saturation, lightness</td><td>Picking colours by intuition</td><td>"Lightness" is not perceived lightness: <code>hsl(60 100% 50%)</code> (yellow) and <code>hsl(240 100% 50%)</code> (blue) claim the same lightness but look nothing alike.</td></tr>
-<tr><th>HSV / HSB</th><td>Hue, saturation, value (brightness)</td><td>Colour pickers in design tools</td><td>Same flaw as HSL; "value 100%" is a different perceived brightness for every hue.</td></tr>
-<tr><th style="color:var(--accent-text)">OKLCH</th><td>Lightness (0–1), chroma (colourfulness), hue (angle)</td><td>Building palettes, ramps and themes</td><td>Some combinations fall outside what screens can show (07.2), and lightness is close to, but not identical with, WCAG contrast.</td></tr>
+<tr><th>RGB / HEX</th><td>Amounts of red, green and blue light</td><td>How screens actually work; every tool understands it</td><td>Unreadable to humans. Nobody can look at <code>#CC3C00</code> and know how to make it 10% lighter.</td></tr>
+<tr><th>HSL / HSV</th><td>Hue (which colour), saturation, lightness</td><td>Picking colours by feel; most colour pickers use it</td><td>Its "lightness" isn't what your eyes see. A yellow and a blue with the same HSL lightness look completely different.</td></tr>
+<tr><th style="color:var(--accent-text)">OKLCH</th><td>Lightness (0 to 1), chroma (how colourful), hue (which colour)</td><td>Building palettes and themes</td><td>Some combinations can't be shown on normal screens, and its lightness isn't exactly the same as the official readability measure. Both are manageable (see below).</td></tr>
 </tbody>
 </table>
 </div>
 
-<h3>Perceptual versus non-perceptual</h3>
-<p>RGB, HSL and HSV are <em>non-perceptual</em>: equal numeric steps do not look like equal steps to the human eye. A <strong>perceptual</strong> colour space is designed so that numeric distance tracks perceived difference. Oklab, published by Björn Ottosson in 2020, is a perceptual space designed for exactly this.[[c:ottosson-oklab]] OKLCH is the same space in polar form: lightness, chroma and hue. It is part of CSS Color Module Level 4 and supported natively in current browsers as <code>oklch()</code>.[[c:css-color-4]] [[std]]</p>
-
+<h3>"Lightness" that matches your eyes</h3>
+<p>The big difference is that OKLCH is a <strong>perceptual</strong> model. It was designed so that the numbers match what people actually see. It's based on a colour space called Oklab, published by Björn Ottosson in 2020,[[c:ottosson-oklab]] and it's now built into CSS, the language that styles websites, as <code>oklch()</code>.[[c:css-color-4]] [[std]]</p>
+<p>The easiest way to see why this matters is to look. Below, the top row shows six colours that HSL says are all equally light. The grey strip under each one shows how light it really looks.</p>
 <figure class="fig">
 <div class="fig-body"><!-- @fig hsl-vs-oklch --></div>
-<figcaption><b>Same number, different reality.</b> Top: six hues at HSL lightness 50%. Their perceived lightness (the grey strip, computed in Oklab) ranges from 0.45 to 0.97, and contrast on white from 1.07:1 to 8.59:1. Bottom: six hues at OKLCH lightness 0.65. The grey strips match. This is the whole argument for OKLCH in one picture.</figcaption>
+<figcaption><b>Same number, very different result.</b> Top: six colours with the same HSL lightness. How light they actually look ranges from 0.45 to 0.97, and their readability on white ranges from 1.07:1 to 8.59:1. Bottom: six colours with the same OKLCH lightness. The grey strips match. That, in one picture, is why we build palettes in OKLCH.</figcaption>
 </figure>
 
-<h3>Lightness, chroma and hue</h3>
+<h3>The three dials of OKLCH</h3>
+<p>You can think of OKLCH as three dials. Turn one and the other two stay put.</p>
 <div class="cols-3">
   <div>
     <h4>Lightness <span class="mono muted" style="font-weight:400">L 0 → 1</span></h4>
     <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin:8px 0 10px">
       <i style="height:40px;border-radius:3px;background:oklch(0.25 0.12 255)"></i><i style="height:40px;border-radius:3px;background:oklch(0.35 0.14 255)"></i><i style="height:40px;border-radius:3px;background:oklch(0.45 0.15 255)"></i><i style="height:40px;border-radius:3px;background:oklch(0.55 0.15 255)"></i><i style="height:40px;border-radius:3px;background:oklch(0.65 0.14 255)"></i><i style="height:40px;border-radius:3px;background:oklch(0.75 0.11 255)"></i><i style="height:40px;border-radius:3px;background:oklch(0.85 0.07 255)"></i><i style="height:40px;border-radius:3px;background:oklch(0.95 0.025 255)"></i>
     </div>
-    <p style="font-size:14px;color:var(--text-muted)">How light the colour looks. The axis that drives contrast, hierarchy and states. Black is 0, white is 1.</p>
+    <p style="font-size:14px;color:var(--text-muted)">How light it looks, from black (0) to white (1). This is the dial that controls readability.</p>
   </div>
   <div>
     <h4>Chroma <span class="mono muted" style="font-weight:400">C 0 → ~0.37</span></h4>
     <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin:8px 0 10px">
       <i style="height:40px;border-radius:3px;background:oklch(0.62 0 37)"></i><i style="height:40px;border-radius:3px;background:oklch(0.62 0.03 37)"></i><i style="height:40px;border-radius:3px;background:oklch(0.62 0.06 37)"></i><i style="height:40px;border-radius:3px;background:oklch(0.62 0.09 37)"></i><i style="height:40px;border-radius:3px;background:oklch(0.62 0.12 37)"></i><i style="height:40px;border-radius:3px;background:oklch(0.62 0.15 37)"></i><i style="height:40px;border-radius:3px;background:oklch(0.62 0.18 37)"></i><i style="height:40px;border-radius:3px;background:oklch(0.62 0.2 37)"></i>
     </div>
-    <p style="font-size:14px;color:var(--text-muted)">How colourful it is. 0 is grey. Unlike HSL saturation, the maximum depends on hue and lightness.</p>
+    <p style="font-size:14px;color:var(--text-muted)">How colourful it is. Zero is grey. The maximum depends on the hue and the lightness.</p>
   </div>
   <div>
     <h4>Hue <span class="mono muted" style="font-weight:400">H 0° → 360°</span></h4>
     <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin:8px 0 10px">
       <i style="height:40px;border-radius:3px;background:oklch(0.7 0.13 25)"></i><i style="height:40px;border-radius:3px;background:oklch(0.7 0.13 70)"></i><i style="height:40px;border-radius:3px;background:oklch(0.7 0.13 110)"></i><i style="height:40px;border-radius:3px;background:oklch(0.7 0.13 150)"></i><i style="height:40px;border-radius:3px;background:oklch(0.7 0.11 195)"></i><i style="height:40px;border-radius:3px;background:oklch(0.7 0.13 245)"></i><i style="height:40px;border-radius:3px;background:oklch(0.7 0.13 290)"></i><i style="height:40px;border-radius:3px;background:oklch(0.7 0.13 335)"></i>
     </div>
-    <p style="font-size:14px;color:var(--text-muted)">Which colour family. Every swatch in this row has L 0.70, so they all look equally light.</p>
+    <p style="font-size:14px;color:var(--text-muted)">Which colour family, as an angle around a wheel. Every swatch in this row looks equally light.</p>
   </div>
 </div>
 
-<h3>Why OKLCH is particularly useful for design systems</h3>
-<div class="cols-2">
-<ol class="steps" style="margin-top:0">
-  <li><h4>Predictable lightness</h4><p>Step 700 can mean "this lightness" in every hue. So state changes, hierarchy and contrast behave the same across your whole palette.</p></li>
-  <li><h4>Independent axes</h4><p>Change hue (a new brand) without changing lightness, and so without breaking contrast. In HSL, rotating hue silently changes perceived lightness.</p></li>
-  <li><h4>Generated, not hand-picked, ramps</h4><p>Ramps become a formula (a lightness curve plus a chroma envelope), so new hues, brands and white-label themes come out consistent.</p></li>
-</ol>
-<ol class="steps" start="4" style="margin-top:0;counter-reset:st 3">
-  <li><h4>Better gradients and mixing</h4><p>Interpolating in OKLCH avoids the grey, muddy midpoints of sRGB blends (07.7).</p></li>
-  <li><h4>Wide-gamut ready</h4><p>OKLCH can describe the more vivid colours of Display P3 screens. In sRGB values you can't even write them down.</p></li>
-  <li><h4>Native in CSS and the token spec</h4><p><code>oklch()</code> is in CSS Color 4, and the DTCG 2025.10 format can store OKLCH components directly.[[c:css-color-4,dtcg-format]] Tailwind CSS moved its default palette to OKLCH in v4.0.[[c:tailwind-v4]] [[doc]]</p></li>
-</ol>
-</div>
+<h3>Why OKLCH is so useful for a design system</h3>
+<p>Because the dials are independent and lightness matches your eyes, a lot of hard problems get easy. You can say "shade 700 of every colour is this light" and it will be true for blue, red and green alike. You can swap one brand colour for another by turning only the hue dial, without changing how light anything is, so readability doesn't break. Palettes become a recipe rather than a pile of hand-picked swatches. Gradients look cleaner. And OKLCH can describe the more vivid colours modern screens can show. It's supported in CSS and in the shared token format,[[c:css-color-4,dtcg-format]] and Tailwind CSS, one of the most widely used styling frameworks, switched its whole default palette to OKLCH in version 4.0.[[c:tailwind-v4]] [[doc]]</p>
 <div class="callout callout--mistake">
-  <p class="callout-label">Two caveats that matter</p>
-  <p><b>1. Not every OKLCH colour can be displayed.</b> Screens have a gamut, a range of colours they can physically produce. High chroma at very light or very dark lightness often falls outside sRGB. Tools must <em>gamut-map</em> (reduce chroma until the colour fits); our generator does this, and marks each chip where it happened.</p>
-  <p><b>2. OKLCH lightness is not WCAG contrast.</b> WCAG 2 contrast is computed from relative luminance, a different formula.[[c:wcag-contrast]] Equal OKLCH lightness gives <em>similar</em> contrast across hues, not identical. You still validate every pairing. Figure 7.4 shows exactly how close it gets.</p>
-</div>
-</section>
-
-<section class="sec" id="ch07-2">
-<h2><span class="sec-num">07.2</span>Building a palette</h2>
-<h3>Step 1: Establish the primary colour, and separate brand from action</h3>
-<p>Most palettes start from a brand colour. The first discovery is usually that the brand colour, at its exact brand value, can't be used for text or for buttons with white labels. Layer One's own signal orange, <code>#ff6b3d</code>, is a good example: it has a contrast of <strong>2.83:1 on white</strong>, below the 4.5:1 WCAG 2.2 AA minimum for body text and below 3:1 for UI components. On the ink background it reaches 6.87:1. [[std]]</p>
-<p>The answer is not to change the brand. It is to treat the brand colour as a <em>seed</em> for a ramp, and to choose ramp steps by role. The exact brand value is kept for large brand moments (illustration, the logo, dark-background accents), and a darker step from the same ramp is used for interactive elements on light backgrounds. In the palette below, the brand ramp is generated from <code>#ff6b3d</code> (<code>oklch(0.705 0.191 37)</code>), and <code>brand.700</code> becomes the primary action colour.</p>
-
-<h3>Step 2: Choose supporting hues by job, not by taste</h3>
-<p>A product palette needs far fewer hues than a brand palette. Most products need:</p>
-<div class="table-wrap">
-<table class="compact">
-<thead><tr><th style="width:18%">Hue</th><th>Job</th><th style="width:30%">Rule</th></tr></thead>
-<tbody>
-<tr><th>Brand / primary</th><td>Primary actions, selection, key brand moments</td><td>One hue; not reused for status</td></tr>
-<tr><th>Neutral</th><td>Text, surfaces, borders, most of the interface</td><td>Low chroma, often tinted toward the brand or a cool hue</td></tr>
-<tr><th>Danger (red)</th><td>Errors, destructive actions</td><td>Never the same hue as brand</td></tr>
-<tr><th>Success (green)</th><td>Confirmation, positive status</td><td>Always paired with an icon or label</td></tr>
-<tr><th>Warning (amber)</th><td>Caution, pending states</td><td>Dark text on amber, not white</td></tr>
-<tr><th>Info / link (blue)</th><td>Links, informational messages, focus rings</td><td>May double as primary if brand is blue</td></tr>
-</tbody>
-</table>
-</div>
-<p>Status colours must never carry meaning on their own. WCAG 2.2 success criterion 1.4.1 ("Use of Color") requires that colour is not the only visual means of conveying information,[[c:wcag22]] so every status colour ships with an icon, a label or both. [[std]]</p>
-<p>Watch for collisions between brand and status hues. Ledgerly's brand orange sits at hue 37° and its danger red at 25°, only 12° apart. That's a realistic situation for a warm brand, and it means colour alone could never tell "primary action" from "destructive action". The fix is structural, not chromatic: destructive buttons get an explicit label and confirmation, and errors always carry an icon.</p>
-
-<h3>Step 3: Build ramps on a fixed lightness curve</h3>
-<p>A <strong>ramp</strong> (also called a scale or tonal palette) is the set of lightness steps for one hue. The key move in OKLCH is to fix the lightness of each step <em>across all hues</em>: <code>blue.700</code>, <code>red.700</code> and <code>neutral.700</code> all have L ≈ 0.485. That makes the step number itself meaningful.</p>
-<div class="table-wrap">
-<table class="compact">
-<thead><tr><th>Step</th><th class="num">50</th><th class="num">100</th><th class="num">200</th><th class="num">300</th><th class="num">400</th><th class="num">500</th><th class="num">600</th><th class="num">700</th><th class="num">800</th><th class="num">900</th><th class="num">950</th></tr></thead>
-<tbody>
-<tr><th>Lightness L</th><td class="num">0.975</td><td class="num">0.945</td><td class="num">0.885</td><td class="num">0.815</td><td class="num">0.730</td><td class="num">0.645</td><td class="num">0.565</td><td class="num">0.485</td><td class="num">0.405</td><td class="num">0.330</td><td class="num">0.255</td></tr>
-<tr><th>Chroma × peak</th><td class="num">0.12</td><td class="num">0.26</td><td class="num">0.50</td><td class="num">0.74</td><td class="num">0.92</td><td class="num">1.00</td><td class="num">1.00</td><td class="num">0.92</td><td class="num">0.78</td><td class="num">0.60</td><td class="num">0.45</td></tr>
-<tr><th>Typical role</th><td colspan="2">Backgrounds, tints</td><td colspan="2">Subtle fills, borders</td><td colspan="2">Strong borders, icons, large accents</td><td colspan="2">Text-safe accents, actions</td><td colspan="3">Text, dark surfaces</td></tr>
-</tbody>
-</table>
-</div>
-<p>The curve is denser at both ends than in the middle. Interfaces need many very light tints (surfaces, hover backgrounds, selected rows) and several very dark values (text, dark-mode surfaces), but only a few mid-tones. Radix Colors takes a similar purpose-led approach with 12 steps, each assigned a job from app background to high-contrast text;[[c:radix-scale]] Material 3 generates tonal palettes from a key colour in its HCT colour space.[[c:m3-color]] [[doc]]</p>
-
-<h3>Step 4: Shape chroma, then fit it to the gamut</h3>
-<p>Colourfulness should peak in the middle of the ramp and fall away toward both ends. Very light tints with high chroma look neon; very dark shades with high chroma look muddy. Our generator multiplies each hue's peak chroma by an envelope (the second row of the table above), then reduces chroma wherever the result falls outside sRGB. Lightness and hue are preserved, so contrast stays predictable.</p>
-
-<figure class="fig wide">
-<div class="fig-body"><!-- @fig ramps --></div>
-<figcaption><b>The Ledgerly palette: six ramps, 66 colours.</b> Each chip shows its step, hex fallback and contrast against white. Every value is generated from three inputs: the lightness curve, the chroma envelope and one hue angle per ramp. A small ring marks chips where chroma was reduced to fit the sRGB gamut. Hover any chip in the HTML edition for its full OKLCH value.</figcaption>
-</figure>
-
-<figure class="fig">
-<div class="fig-body"><!-- @fig ramp-detail brand --></div>
-<figcaption><b>The brand ramp in detail.</b> OKLCH lightness (L), chroma (C) and hue (H) for each step, with hex and contrast on white. Notice the lightness column climbing in even, predictable increments while chroma rises and falls.</figcaption>
-</figure>
-
-<h3>Step 5: Validate contrast, and learn the pairing rules</h3>
-<p>WCAG 2.2 sets three thresholds you'll use constantly:[[c:wcag-contrast,wcag-nontext]] [[std]]</p>
-<div class="cols-3">
-  <div class="stat"><span class="stat-n">4.5<small>:1</small></span><span class="stat-l">Minimum for body text (AA, SC 1.4.3). 7:1 for AAA (SC 1.4.6).</span></div>
-  <div class="stat"><span class="stat-n">3<small>:1</small></span><span class="stat-l">Large text: at least 18pt, or 14pt bold (about 24px / 18.66px).</span></div>
-  <div class="stat"><span class="stat-n">3<small>:1</small></span><span class="stat-l">Non-text: UI component boundaries, focus indicators, meaningful graphics (SC 1.4.11).</span></div>
-</div>
-<figure class="fig">
-<div class="fig-body"><!-- @fig contrast-chart --></div>
-<figcaption><b>A fixed lightness curve produces near-identical contrast across hues.</b> Six ramps, six lines that almost coincide. It isn't perfect: at step 600 green reaches 4.16:1 while red reaches 5.06:1, because WCAG luminance weights green more heavily than OKLCH lightness does. So the rule becomes "step 700 and darker pass 4.5:1 on white in every hue", which this palette guarantees, and anything else is checked individually.</figcaption>
-</figure>
-<p>Because lightness is fixed per step, contrast between two steps depends mostly on <em>how many steps apart</em> they are. That gives your team pairing rules they can apply without a contrast checker:</p>
-<figure class="fig">
-<div class="fig-body"><!-- @fig contrast-matrix --></div>
-<figcaption><b>Neutral ramp contrast matrix.</b> Each cell is the contrast ratio between two neutral steps. In this palette, steps <b>five or more apart</b> always reach 3:1 (enough for borders and large text), and steps <b>seven or more apart</b> always reach 4.5:1 (body text). Rules like these are only possible on a perceptually even ramp.</figcaption>
-</figure>
-<div class="callout callout--note">
-  <p class="callout-label">What about APCA?</p>
-  <p>APCA (the Accessible Perceptual Contrast Algorithm) is a newer contrast method that accounts for font size, weight and polarity, and it has been explored for future versions of WCAG.[[c:apca]] Radix Colors, for example, tunes its text steps to APCA targets.[[c:radix-scale]] It is promising, but WCAG 2.x contrast remains the normative requirement for conformance today. Validate with WCAG 2 ratios, and use APCA as additional guidance for dark mode and thin type if you wish.</p>
+  <p class="callout-label">Two things to watch out for</p>
+  <p><b>1. Some combinations can't be displayed.</b> Screens can only show a certain range of colours. Very colourful shades that are also very light or very dark often fall outside that range. Good tools quietly turn down the chroma dial until the colour fits. Our palette generator does this and marks each colour where it happened.</p>
+  <p><b>2. OKLCH lightness isn't the official readability score.</b> The accessibility guidelines measure contrast with a different formula.[[c:wcag-contrast]] Equal OKLCH lightness gives <em>similar</em> readability across colours, not identical. You still check every pairing; 07.4 shows how close it gets.</p>
 </div>
 </section>
 
 <section class="sec" id="ch07-3">
-<h2><span class="sec-num">07.3</span>Neutrals: the colour you use most</h2>
-<p>In a typical product, neutrals cover far more of the screen than any other colour: text, backgrounds, surfaces, borders, dividers, disabled states. A carefully built neutral ramp does more for perceived quality than any brand colour.</p>
-<div class="cols-2">
-<div>
-<h4>Pure grey or tinted?</h4>
-<p>Pure greys (chroma 0) can feel cold and slightly "dead" next to a saturated brand colour. A very small amount of chroma (0.005–0.02 in OKLCH) tinted toward the brand hue (warm) or toward blue (cool) makes neutrals feel intentional. Ledgerly's neutral ramp uses chroma 0.018 at hue 260: a cool, barely visible tint. [[prac]]</p>
+<h2><span class="sec-num">07.3</span>Building a palette, step by step</h2>
+<h3>Step 1: start from your brand colour, but don't use it for everything</h3>
+<p>Most palettes start from a brand colour, and the first surprise is usually that the exact brand colour can't be used for text or for buttons with white text on them. Layer One's own orange, <code>#ff6b3d</code>, is a perfect example. On white it has a contrast ratio of just <strong>2.83 to 1</strong>, well below the 4.5 to 1 the accessibility guidelines require for normal text. On the dark ink background, it reaches a comfortable 6.87 to 1. [[std]]</p>
+<p>The fix isn't to change the brand. It's to treat the brand colour as a <em>starting point</em> for a family of shades, then use different shades for different jobs. The exact brand orange stays for big brand moments like the logo and illustrations. A deeper shade from the same family is used for buttons and links on light backgrounds. In the palette below, the brand family is generated from <code>#ff6b3d</code>, and shade 700 becomes the main action colour.</p>
+
+<h3>Step 2: add supporting colours for specific jobs</h3>
+<p>A product needs far fewer colours than a brand guideline suggests. Most products need one brand colour, a family of greys, and a few colours that signal status:</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:20%">Colour</th><th>Its job</th><th style="width:32%">Rule of thumb</th></tr></thead>
+<tbody>
+<tr><th>Brand</th><td>Main actions, selected items, brand moments</td><td>Never reused to mean "error" or "success"</td></tr>
+<tr><th>Neutral (greys)</th><td>Text, backgrounds, borders: most of the screen</td><td>Very slightly tinted, so it doesn't feel lifeless</td></tr>
+<tr><th>Red</th><td>Errors, destructive actions like "Delete"</td><td>Clearly different from the brand colour</td></tr>
+<tr><th>Green</th><td>Success, confirmation</td><td>Always paired with an icon or words</td></tr>
+<tr><th>Amber</th><td>Warnings, pending states</td><td>Use dark text on amber, not white</td></tr>
+<tr><th>Blue</th><td>Links, information, keyboard focus outlines</td><td>Can double as the brand colour if your brand is blue</td></tr>
+</tbody>
+</table>
 </div>
-<div>
-<h4>How many neutral steps?</h4>
-<p>Use the same 11 steps as every other ramp so the pairing rules apply. In practice, light themes use about six neutral steps (50, 100, 200, 500, 700, 950) and dark themes about six more. Unused steps are cheap to keep and prevent ad-hoc greys later.</p>
+<p>One important rule: colour should never be the <em>only</em> way to tell people something. Colour blindness is common, screens and lighting vary, and WCAG 2.2 requires that colour isn't the only visual signal.[[c:wcag22]] [[std]] So a red error message also gets an icon and clear words.</p>
+<p>Watch for clashes between your brand and your status colours, too. Ledgerly's orange sits at hue 37° and its error red at 25°, only 12° apart. That's common with warm brands, and it means colour alone could never tell "main action" from "delete". The answer isn't a different colour. It's design: delete buttons get clear labels and a confirmation step, and errors always come with an icon.</p>
+
+<h3>Step 3: build each colour into a family of shades</h3>
+<div class="term"><span class="term-k">New word</span><b>Ramp</b><span>A family of shades of one colour, from very light to very dark, numbered like 50, 100, 200 … 950.</span></div>
+<p>Each colour becomes a <strong>ramp</strong>: a set of shades numbered from very light (50) to very dark (950). The clever part, and the reason we use OKLCH, is that each shade number has the same lightness in every colour. Blue 700, red 700 and grey 700 are all equally light (L ≈ 0.485). So the number itself tells you something useful: "anything 700 or darker is safe for text on white".</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th>Shade</th><th class="num">50</th><th class="num">100</th><th class="num">200</th><th class="num">300</th><th class="num">400</th><th class="num">500</th><th class="num">600</th><th class="num">700</th><th class="num">800</th><th class="num">900</th><th class="num">950</th></tr></thead>
+<tbody>
+<tr><th>Lightness</th><td class="num">0.975</td><td class="num">0.945</td><td class="num">0.885</td><td class="num">0.815</td><td class="num">0.730</td><td class="num">0.645</td><td class="num">0.565</td><td class="num">0.485</td><td class="num">0.405</td><td class="num">0.330</td><td class="num">0.255</td></tr>
+<tr><th>Colourfulness</th><td class="num">12%</td><td class="num">26%</td><td class="num">50%</td><td class="num">74%</td><td class="num">92%</td><td class="num">100%</td><td class="num">100%</td><td class="num">92%</td><td class="num">78%</td><td class="num">60%</td><td class="num">45%</td></tr>
+<tr><th>Typical use</th><td colspan="2">Backgrounds, tints</td><td colspan="2">Soft fills, borders</td><td colspan="2">Strong borders, icons</td><td colspan="2">Text-safe accents, buttons</td><td colspan="3">Text, dark-mode surfaces</td></tr>
+</tbody>
+</table>
 </div>
-</div>
-<div class="callout callout--mistake">
-  <p class="callout-label">Common mistake</p>
-  <h4>Light grey text</h4>
-  <p>Low-contrast grey text for "secondary" information is the single most common accessibility failure on the web. WebAIM's 2025 scan found low-contrast text on 79.1% of the top million home pages.[[c:webaim-2025]] Fix it at the token: <code>color.text.secondary</code> in Ledgerly maps to <code>neutral.700</code> (5.99:1 on the canvas), never to anything lighter.</p>
-</div>
+<p>Notice that the shades are bunched up at both ends. That's on purpose. Interfaces need lots of very light tints (backgrounds, hover states, selected rows) and several very dark shades (text, dark-mode surfaces), but only a few mid-tones. Other well-known systems take a similar purpose-driven approach: Radix Colors uses 12 steps, each with a stated job from "app background" to "high-contrast text",[[c:radix-scale]] and Google's Material Design generates families of tones from a key colour.[[c:m3-color]] [[doc]]</p>
+
+<h3>Step 4: shape the colourfulness</h3>
+<p>Colourfulness should peak in the middle of the ramp and fade towards both ends. Very light shades that are very colourful look neon; very dark shades that are very colourful look muddy. That's the "colourfulness" row in the table above. Where a shade would be too colourful for screens to show, the generator turns the chroma dial down until it fits, keeping lightness the same so readability stays predictable.</p>
+
+<figure class="fig wide">
+<div class="fig-body"><!-- @fig ramps --></div>
+<figcaption><b>Ledgerly's complete palette: six ramps, 66 colours.</b> Each chip shows its shade number, the colour code, and its contrast against white. Everything is generated from three inputs: the lightness curve, the colourfulness curve and one hue angle per colour. A small ring marks shades whose colourfulness was turned down to fit what screens can display.</figcaption>
+</figure>
+<figure class="fig">
+<div class="fig-body"><!-- @fig ramp-detail brand --></div>
+<figcaption><b>The brand ramp up close.</b> Lightness (L), colourfulness (C) and hue (H) for each shade, plus its colour code and contrast on white. Lightness climbs in even, predictable steps while colourfulness rises and falls.</figcaption>
+</figure>
 </section>
 
 <section class="sec" id="ch07-4">
-<h2><span class="sec-num">07.4</span>Colour architecture: primitive, semantic and component tokens</h2>
-<p>A palette is a set of values. A colour <em>system</em> is the layer of meaning on top of it. Mature public systems (Atlassian, Carbon, Spectrum, Salesforce Lightning, Material) all separate raw values from usage, even though their names differ.[[c:atlassian-tokens,carbon-themes,spectrum-tokens,slds-tokens]] [[doc]]</p>
+<h2><span class="sec-num">07.4</span>Making sure people can read it</h2>
+<div class="term"><span class="term-k">New word</span><b>Contrast ratio</b><span>How different two colours are in brightness, from 1:1 (identical) to 21:1 (black on white). Higher is easier to read.</span></div>
+<p>Readability is measured with a <strong>contrast ratio</strong>: a number that compares how bright the text is with how bright the background is. The Web Content Accessibility Guidelines (WCAG) 2.2 set three thresholds you'll use all the time:[[c:wcag-contrast,wcag-nontext]] [[std]]</p>
+<div class="cols-3">
+  <div class="stat"><span class="stat-n">4.5<small>:1</small></span><span class="stat-l">The minimum for normal text. (7:1 for the stricter AAA level.)</span></div>
+  <div class="stat"><span class="stat-n">3<small>:1</small></span><span class="stat-l">The minimum for large text: about 24px, or about 19px if bold.</span></div>
+  <div class="stat"><span class="stat-n">3<small>:1</small></span><span class="stat-l">The minimum for the edges of buttons and inputs, focus outlines and meaningful icons.</span></div>
+</div>
+<p style="margin-top:20px">Because every ramp uses the same lightness curve, contrast behaves almost identically across colours. The chart below proves it: six colours, six lines that nearly sit on top of each other.</p>
+<figure class="fig">
+<div class="fig-body"><!-- @fig contrast-chart --></div>
+<figcaption><b>Equal lightness gives near-equal readability.</b> It isn't perfect: at shade 600, green reaches 4.16:1 while red reaches 5.06:1, because the official formula weights green more heavily than OKLCH does. So the simple, safe rule is "shade 700 and darker passes 4.5:1 on white, in every colour", which this palette guarantees. Anything else, check individually.</figcaption>
+</figure>
+<p>This also gives designers <strong>pairing rules</strong> they can use without a contrast checker. Because lightness is fixed per shade, readability between two shades depends mostly on how many steps apart they are:</p>
+<figure class="fig">
+<div class="fig-body"><!-- @fig contrast-matrix --></div>
+<figcaption><b>Contrast between every pair of greys.</b> Each cell is the contrast ratio between two shades. In this palette, shades <b>five or more steps apart</b> always reach 3:1 (enough for borders and large text), and shades <b>seven or more steps apart</b> always reach 4.5:1 (enough for body text). Rules this simple only work on an evenly built ramp.</figcaption>
+</figure>
+
+<h3>The light grey text trap</h3>
+<p>The most common readability mistake is "secondary" text, like captions, timestamps and helper text, set in a pale grey because it looks refined. It's the main reason so many websites fail contrast checks. Fix it once, at the source: Ledgerly's secondary text colour points to grey 700, which reaches 5.99:1 on the background. Nothing lighter is allowed for text, and because every component uses that one named colour, every screen passes.</p>
+<div class="callout callout--note">
+  <p class="callout-label">What about APCA?</p>
+  <p>You may hear about APCA, a newer way of measuring contrast that takes text size and weight into account and has been explored for future versions of the guidelines.[[c:apca]] Radix Colors, for example, tunes its text shades with it.[[c:radix-scale]] It's promising, but today the WCAG 2 ratio is the official requirement. Use WCAG 2 to pass, and APCA as extra guidance if you like.</p>
+</div>
+</section>
+
+<section class="sec" id="ch07-5">
+<h2><span class="sec-num">07.5</span>Naming colours by their job</h2>
+<p>A palette is a box of paints. A colour <em>system</em> is the set of labels that says what each paint is for. This is the single most important idea in this chapter, so let's take it slowly.</p>
+<p>There are two kinds of name. The first kind describes the colour: "blue 600", "grey 950". The second kind describes the job: "link text", "page background", "error message". Components only ever use the second kind. The job names point to the colour names.</p>
+<div class="term"><span class="term-k">New word</span><b>Semantic token</b><span>A colour named by its job ("text-secondary") rather than its appearance ("grey-700"). It points to a raw colour.</span></div>
+<p>The design systems world has formal names for these levels. Colour names are called <strong>primitive tokens</strong> (the raw ingredients). Job names are called <strong>semantic tokens</strong> ("semantic" just means "about meaning"). Some systems add a third level of <strong>component tokens</strong> for settings specific to one component. Every mature public design system we know of separates raw values from their jobs, even if they use different words for it.[[c:atlassian-tokens,carbon-themes,spectrum-tokens,slds-tokens]] [[doc]]</p>
 <figure class="fig">
 <div class="fig-body">
 <div class="tier-diagram">
   <div class="tier">
-    <h5 style="color:#2f5bd3">Tier 1 · Primitive</h5>
-    <p class="tier-q">What is the value? Named by appearance. Never used directly in components.</p>
-    <div class="tk-row"><span class="sw" style="background:#ab2800"></span><span class="tk prim">color.brand.700</span></div>
-    <div class="tk-row"><span class="sw" style="background:#861b00"></span><span class="tk prim">color.brand.800</span></div>
-    <div class="tk-row"><span class="sw" style="background:#f3f7fe"></span><span class="tk prim">color.neutral.50</span></div>
-    <div class="tk-row"><span class="sw" style="background:#595f69"></span><span class="tk prim">color.neutral.700</span></div>
-    <div class="tk-row"><span class="sw" style="background:#1e232c"></span><span class="tk prim">color.neutral.950</span></div>
-    <div class="tk-row"><span class="sw" style="background:#1c75d6"></span><span class="tk prim">color.blue.600</span></div>
+    <h5 style="color:#2f5bd3">Level 1 · The paints</h5>
+    <p class="tier-q">What colour is it? Named by appearance. Components never use these directly.</p>
+    <div class="tk-row"><span class="sw" style="background:#ab2800"></span><span class="tk prim">brand.700</span></div>
+    <div class="tk-row"><span class="sw" style="background:#861b00"></span><span class="tk prim">brand.800</span></div>
+    <div class="tk-row"><span class="sw" style="background:#f3f7fe"></span><span class="tk prim">neutral.50</span></div>
+    <div class="tk-row"><span class="sw" style="background:#595f69"></span><span class="tk prim">neutral.700</span></div>
+    <div class="tk-row"><span class="sw" style="background:#1e232c"></span><span class="tk prim">neutral.950</span></div>
+    <div class="tk-row"><span class="sw" style="background:#1c75d6"></span><span class="tk prim">blue.600</span></div>
   </div>
   <div class="tier">
-    <h5 style="color:var(--accent-text)">Tier 2 · Semantic</h5>
-    <p class="tier-q">What is it for? Named by purpose. Themes remap this tier.</p>
-    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">color.action.primary.bg</span></div>
-    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">color.action.primary.bg-hover</span></div>
-    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">color.action.primary.text</span></div>
-    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">color.text.secondary</span></div>
-    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">color.text.primary</span></div>
-    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">color.focus.ring</span></div>
+    <h5 style="color:var(--accent-text)">Level 2 · The jobs</h5>
+    <p class="tier-q">What is it for? Named by purpose. Dark mode changes this level only.</p>
+    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">action.primary.bg</span></div>
+    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">action.primary.bg-hover</span></div>
+    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">action.primary.text</span></div>
+    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">text.secondary</span></div>
+    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">text.primary</span></div>
+    <div class="tk-row"><span class="arrow">←</span><span class="tk sem">focus.ring</span></div>
   </div>
   <div class="tier">
-    <h5 style="color:#1d7a43">Tier 3 · Component</h5>
-    <p class="tier-q">Where exactly is it used? Optional; for overrides and theming at component level.</p>
+    <h5 style="color:#1d7a43">Level 3 · Component settings</h5>
+    <p class="tier-q">Exactly where is it used? Optional, mostly for multi-brand systems.</p>
     <div class="tk-row"><span class="arrow">←</span><span class="tk comp">button.primary.background</span></div>
     <div class="tk-row"><span class="arrow">←</span><span class="tk comp">button.primary.background-hover</span></div>
     <div class="tk-row"><span class="arrow">←</span><span class="tk comp">button.primary.label</span></div>
@@ -209,154 +203,145 @@
   </div>
 </div>
 </div>
-<figcaption><b>Three tiers of colour tokens.</b> Read right to left: a component token references a semantic token, which references a primitive. Each row is one chain: <code>button.primary.background → color.action.primary.bg → color.brand.700</code>. Components only ever see tiers 2 or 3; the hex value lives in exactly one place.</figcaption>
+<figcaption><b>Three levels of colour naming.</b> Read each row from right to left: the button's background uses the "main action" colour, which uses brand orange 700. The actual colour code lives in exactly one place.</figcaption>
 </figure>
 
-<h3>Why separate raw values from usage?</h3>
+<h3>Why bother with two names?</h3>
 <div class="cols-2">
-  <div class="card"><h4>Themes become a remap, not a rewrite</h4><p>Dark mode changes which primitive each semantic token points to. No component changes.</p></div>
-  <div class="card"><h4>Meaning survives refactoring</h4><p>If danger moves from <code>red.700</code> to <code>red.800</code>, you change one reference, not every red in the product.</p></div>
-  <div class="card"><h4>Decisions are reviewable</h4><p>"Is <code>text.secondary</code> accessible?" is one check. "Are all the greys used for secondary text accessible?" is an audit.</p></div>
-  <div class="card"><h4>The palette stays closed</h4><p>Designers and engineers choose from roles, not from 66 swatches, so new ad-hoc colours stop appearing.</p></div>
+  <div class="card"><h4>Dark mode becomes a switch</h4><p>Dark mode just changes which paint each job points to. No component changes.</p></div>
+  <div class="card"><h4>Fixes happen in one place</h4><p>If error text needs to be darker, you change one pointer, not every red in the product.</p></div>
+  <div class="card"><h4>Checks are simple</h4><p>"Is secondary text readable?" is one check, not an audit of every grey ever used for text.</p></div>
+  <div class="card"><h4>The palette stays tidy</h4><p>People choose from a short list of jobs, not 66 swatches, so new random colours stop appearing.</p></div>
 </div>
 
-<h3>Do you need component tokens?</h3>
-<p>Component tokens add a level of indirection, and that has a cost: more tokens to name, document and maintain. Use them when <strong>(a)</strong> you support multiple brands or white-label theming that must restyle specific components, or <strong>(b)</strong> one component legitimately differs from the semantic default. Otherwise, components can consume semantic tokens directly. Many teams start with two tiers and add the third when theming demands it. [[prac]]</p>
+<h3>Do you need the third level?</h3>
+<p>Component settings add another layer to name, document and maintain. Use them if you support several brands or white-labelled versions that need to restyle specific components, or if one component genuinely needs to differ from the normal rule. Otherwise, components can use job names directly. Many teams start with two levels and add the third only when they need it. [[prac]]</p>
 
-<h3>Brand tokens</h3>
-<p>In a multi-brand system, add a <strong>brand tier</strong> between primitives and semantics: each brand defines its own primitive ramps (or just its seed hues, from which ramps are generated), and the semantic tier references <code>brand.*</code> rather than a specific hue. Swapping the brand tier restyles every product. With OKLCH-generated ramps, a new brand needs only a seed colour; the lightness curve guarantees the same contrast behaviour.</p>
-
-<h3>Naming semantic colour tokens</h3>
-<p>Use a consistent grammar so people can guess names they haven't seen. Rule #3 of how we work is <em>"name things so people can guess them"</em>. A grammar that works across most products:</p>
-<pre><span class="k">color</span>.<span class="s">{category}</span>.<span class="n">{role}</span>.<span class="c">{variant?}</span>.<span class="c">{state?}</span>
-
-<span class="k">color</span>.<span class="s">bg</span>.<span class="n">surface</span>                      <span class="c">// backgrounds: canvas, surface, subtle, inverse</span>
-<span class="k">color</span>.<span class="s">text</span>.<span class="n">secondary</span>                   <span class="c">// text: primary, secondary, disabled, inverse, link</span>
-<span class="k">color</span>.<span class="s">border</span>.<span class="n">strong</span>                    <span class="c">// border: default, strong, focus</span>
-<span class="k">color</span>.<span class="s">icon</span>.<span class="n">subtle</span>
-<span class="k">color</span>.<span class="s">action</span>.<span class="n">primary</span>.<span class="c">bg</span>.<span class="c">hover</span>         <span class="c">// interactive: role → part → state</span>
+<h3>Naming the jobs</h3>
+<p>Pick a simple naming pattern so that people can guess names they haven't seen. That's Rule #3 of how we work: <em>name things so people can guess them</em>. This pattern works for most products: what kind of thing, then its role, then (if needed) a variation and a state.</p>
+<pre><span class="k">color</span>.<span class="s">bg</span>.<span class="n">surface</span>                      <span class="c">// backgrounds: canvas, surface, subtle</span>
+<span class="k">color</span>.<span class="s">text</span>.<span class="n">secondary</span>                   <span class="c">// text: primary, secondary, disabled, link</span>
+<span class="k">color</span>.<span class="s">border</span>.<span class="n">strong</span>                    <span class="c">// borders: default, strong</span>
+<span class="k">color</span>.<span class="s">action</span>.<span class="n">primary</span>.<span class="c">bg</span>.<span class="c">hover</span>         <span class="c">// interactive: role, part, state</span>
 <span class="k">color</span>.<span class="s">feedback</span>.<span class="n">danger</span>.<span class="c">text</span>            <span class="c">// status: danger, warning, success, info</span></pre>
-
 <figure class="fig">
 <div class="fig-body"><!-- @fig semantic-table --></div>
-<figcaption><b>Ledgerly's semantic colour tokens.</b> Each token points to a different primitive in each theme. This table <em>is</em> the theme: no component code is involved.</figcaption>
+<figcaption><b>Ledgerly's colour jobs, and what each points to in light and dark mode.</b> This table <em>is</em> the theme. No component code is involved.</figcaption>
 </figure>
-
-<h3>Background, surface, border, text and icon colours</h3>
-<div class="table-wrap">
-<table class="compact">
-<thead><tr><th style="width:16%">Category</th><th>Purpose</th><th>Rule of thumb</th></tr></thead>
-<tbody>
-<tr><th>Background</th><td>The canvas of the app and large regions.</td><td>Lightest steps in light mode; darkest in dark mode.</td></tr>
-<tr><th>Surface</th><td>Cards, panels, menus, dialogs sitting on the background.</td><td>One step of separation from the background, plus a border or elevation.</td></tr>
-<tr><th>Border</th><td>Dividers (decorative) and component boundaries (functional).</td><td>Decorative borders can be subtle; boundaries of inputs and controls need 3:1.</td></tr>
-<tr><th>Text</th><td>Primary, secondary, disabled, inverse, link.</td><td>All except disabled must pass 4.5:1 on every surface they appear on.</td></tr>
-<tr><th>Icon</th><td>Meaningful icons and decorative ones.</td><td>Meaningful icons need 3:1; often share the text tokens.</td></tr>
-</tbody>
-</table>
-</div>
 </section>
 
-<section class="sec" id="ch07-5">
-<h2><span class="sec-num">07.5</span>Interactive and state colours</h2>
-<p>Interactive elements need a colour for each state: default, hover, pressed (active), focus, selected and disabled. There are two common strategies:</p>
+<section class="sec" id="ch07-6">
+<h2><span class="sec-num">07.6</span>Colours that respond: hover, press and focus</h2>
+<p>Buttons, links and other interactive elements need to change colour when you hover over them, press them, or reach them with the keyboard. There are two common ways to handle this.</p>
 <div class="cols-2">
-  <div class="card"><span class="card-k">Strategy A — Step shift</span><h4>Move along the ramp</h4><p>Hover moves one step darker (light mode) or lighter (dark mode): <code>brand.700 → brand.800</code>. Explicit, easy to check for contrast, and every state is a named token.</p>
+  <div class="card"><span class="card-k">Approach A — step along the ramp</span><h4>Move one shade darker</h4><p>Hover goes one shade darker in light mode (brand 700 → 800) and one lighter in dark mode. Simple, easy to check for readability, and every state has a name.</p>
     <div style="display:flex;gap:6px;margin-top:10px;font-size:12px;font-weight:600">
       <span style="background:#ab2800;color:#fff;padding:7px 10px;border-radius:6px">Default</span><span style="background:#861b00;color:#fff;padding:7px 10px;border-radius:6px">Hover</span><span style="background:#631600;color:#fff;padding:7px 10px;border-radius:6px">Pressed</span><span style="background:#ab2800;color:#fff;padding:7px 10px;border-radius:6px;outline:2px solid #1c75d6;outline-offset:2px">Focus</span>
     </div></div>
-  <div class="card"><span class="card-k">Strategy B — State layers</span><h4>Overlay a translucent layer</h4><p>A semi-transparent layer of the content colour is placed over the component on hover or press. Material Design uses this approach. It works with any background, and fewer tokens are needed.</p>
+  <div class="card"><span class="card-k">Approach B — add a see-through layer</span><h4>Lay a tint on top</h4><p>A faint, see-through layer is placed over the button on hover or press. Material Design uses this approach. It works on any colour and needs fewer names.</p>
     <div style="display:flex;gap:6px;margin-top:10px;font-size:12px;font-weight:600">
       <span style="background:#ab2800;color:#fff;padding:7px 10px;border-radius:6px">Default</span><span style="background:linear-gradient(oklch(1 0 0 / 0.1),oklch(1 0 0 / 0.1)),#ab2800;color:#fff;padding:7px 10px;border-radius:6px">+ hover layer</span><span style="background:linear-gradient(oklch(1 0 0 / 0.18),oklch(1 0 0 / 0.18)),#ab2800;color:#fff;padding:7px 10px;border-radius:6px">+ press layer</span>
     </div></div>
 </div>
-<p style="margin-top:20px"><strong>Focus</strong> deserves special care. A focus indicator is non-text content that must reach 3:1 against adjacent colours.[[c:wcag-nontext]] Use a dedicated <code>color.focus.ring</code> token (Ledgerly: <code>blue.600</code> in light mode, 4.28:1 on the canvas). Don't reuse the brand colour, which may not contrast with the component it surrounds. <strong>Disabled</strong> elements are exempt from contrast requirements under WCAG, but they should still be legible enough to be recognised. Never rely on disabled styling alone to explain why something can't be used.</p>
+<p style="margin-top:20px"><strong>Focus</strong> deserves special attention. When someone moves through a page with the keyboard (many people do, and some have to), the focus outline shows where they are. It must contrast at least 3:1 with what's around it.[[c:wcag-nontext]] Give it its own named colour (Ledgerly uses blue 600, which reaches 4.28:1 on the background) rather than reusing the brand colour, which may not stand out against the button it surrounds.</p>
+<p><strong>Disabled</strong> elements are exempt from contrast rules, but they still need to be recognisable. And never rely on a greyed-out button alone to explain why something can't be done. Tell people why.</p>
 </section>
 
-<section class="sec" id="ch07-6">
-<h2><span class="sec-num">07.6</span>Themes: light, dark, brand and white-label</h2>
-<p>With a semantic tier in place, a theme is simply a complete mapping from semantic tokens to primitives. The figure below shows the same mini-interface built from the same semantic tokens, rendered through two mappings.</p>
+<section class="sec" id="ch07-7">
+<h2><span class="sec-num">07.7</span>Dark mode, brands and white-labelling</h2>
+<p>Here's the payoff for all the naming work. A theme is simply a complete list of which paint each job points to. Below is the same little interface, built from the same named jobs, shown with two different lists.</p>
 <figure class="fig">
 <div class="fig-body"><!-- @fig theme-preview --></div>
-<figcaption><b>One component tree, two themes.</b> Every colour on both cards comes from the semantic tokens in Figure 7.7. Nothing in the "component" changed between them; only the mapping did.</figcaption>
+<figcaption><b>One interface, two themes.</b> Every colour on both cards comes from the job names in the previous table. Nothing in the "component" changed between them, only the list of pointers.</figcaption>
 </figure>
 <figure class="fig">
 <div class="fig-body"><!-- @fig contrast-pairs --></div>
-<figcaption><b>Every semantic pairing, validated in both themes.</b> Computed by the build script from the actual token values. A theme isn't finished until this table passes, so make it a test that runs in CI.</figcaption>
+<figcaption><b>Every pairing checked, in both themes.</b> Calculated by the build script from the real colour values. A theme isn't finished until this table passes, so make it an automatic test that runs whenever colours change.</figcaption>
 </figure>
 
-<h3>Dark mode is not inversion</h3>
+<h3>Dark mode isn't just "invert the colours"</h3>
 <ul>
-  <li><strong>Don't use pure black.</strong> Very dark neutral surfaces (Ledgerly: <code>neutral.950</code>, L 0.255) reduce glare and leave room for elevation.</li>
-  <li><strong>Express elevation with lighter surfaces.</strong> Shadows barely show on dark backgrounds. Raised surfaces step <em>lighter</em> (<code>neutral.900</code>, <code>neutral.800</code>).</li>
-  <li><strong>Lighten, and often desaturate, accents.</strong> Ledgerly's primary action moves from <code>brand.700</code> to <code>brand.400</code> in dark mode, with dark text on top (5.96:1).</li>
-  <li><strong>Re-validate everything.</strong> Pairings that pass in light mode can fail in dark mode, and vice versa.</li>
+  <li><strong>Avoid pure black.</strong> A very dark grey (Ledgerly uses grey 950) is easier on the eyes and leaves room to show depth.</li>
+  <li><strong>Show depth with lighter surfaces.</strong> Shadows barely show on dark backgrounds, so raised cards and menus get slightly <em>lighter</em> instead.</li>
+  <li><strong>Lighten the accent colours.</strong> Ledgerly's main action colour moves from brand 700 to brand 400 in dark mode, with dark text on top (5.96:1).</li>
+  <li><strong>Check everything again.</strong> A pairing that passes in light mode can fail in dark mode, and the other way round.</li>
 </ul>
-<p>Carbon, for example, ships four themes (two light, two dark) from a single set of semantic tokens.[[c:carbon-themes]] [[doc]]</p>
+<p>IBM's Carbon, for example, offers four themes (two light, two dark) from a single set of colour jobs.[[c:carbon-themes]] [[doc]]</p>
 
-<h3>Multi-brand and white-label</h3>
+<h3>Several brands, or customers' brands</h3>
 <div class="table-wrap">
 <table class="compact">
-<thead><tr><th style="width:20%">Scenario</th><th>What changes</th><th>Architecture</th></tr></thead>
+<thead><tr><th style="width:22%">Situation</th><th>What changes</th><th>How to set it up</th></tr></thead>
 <tbody>
-<tr><th>Light / dark</th><td>Semantic → primitive mapping</td><td>Two theme files over one palette</td></tr>
-<tr><th>Multiple brands you own</th><td>Brand primitives; sometimes type and radius</td><td>A brand tier, plus light/dark per brand</td></tr>
-<tr><th>White-label for customers</th><td>A small, controlled set of inputs (e.g. one seed colour, a logo)</td><td>Generate ramps from the seed in OKLCH; expose <em>only</em> those inputs, never raw tokens</td></tr>
+<tr><th>Light and dark</th><td>Which paint each job points to</td><td>Two pointer lists over one palette</td></tr>
+<tr><th>Several brands you own</th><td>The brand paints, sometimes fonts and corner rounding</td><td>A brand level that swaps the brand paints, then light and dark per brand</td></tr>
+<tr><th>White-label for customers</th><td>A few things the customer chooses, like one colour and a logo</td><td>Generate the customer's ramp from their colour; let them change <em>only</em> those inputs</td></tr>
 </tbody>
 </table>
 </div>
 <div class="callout callout--practice">
-  <p class="callout-label">[[prac]] White-label safely</p>
-  <p>Let customers pick a seed colour, then generate their ramp with your lightness curve and map your semantic tokens to it. Because lightness is fixed per step, a customer's "brand.700" lands at the same lightness as yours, so contrast survives a choice you didn't make. Validate the generated pairings automatically and fall back to a darker step where a hue misses (as green does at 600).</p>
+  <p class="callout-label">[[prac]] White-labelling safely</p>
+  <p>Let the customer pick one brand colour, then generate their ramp using your lightness curve, and point your jobs at it. Because lightness is fixed per shade, their "brand 700" ends up exactly as light as yours, so readability survives a colour choice you didn't make. Run the pairing checks automatically and fall back to a darker shade if a colour falls short (as green does at 600).</p>
 </div>
 </section>
 
-<section class="sec" id="ch07-7">
-<h2><span class="sec-num">07.7</span>Practical questions</h2>
+<section class="sec" id="ch07-8">
+<h2><span class="sec-num">07.8</span>Questions teams always ask about colour</h2>
 <div class="qa">
-  <div class="q">How many colours should a design system contain?</div>
-  <div class="a"><p class="short">Few hues, many steps, and fewer semantic tokens than you expect.</p><p>A typical product needs one brand hue, one neutral, and three or four status hues: five to seven ramps. At 11 steps each, that's 55–77 primitives, but only 30–60 semantic tokens, and those are what people actually choose from. [[prac]]</p></div>
+  <div class="q">How many colours should a design system have?</div>
+  <div class="a"><p class="short">Few colour families, plenty of shades, and fewer named jobs than you'd expect.</p><p>Most products need one brand colour, one grey family and three or four status colours: five to seven ramps. At 11 shades each, that's 55 to 77 paints, but only 30 to 60 named jobs, and the jobs are what people actually choose from. [[prac]]</p></div>
 </div>
 <div class="qa">
-  <div class="q">How many shades should a ramp have?</div>
-  <div class="a"><p class="short">Between 10 and 13 steps is the established range.</p><p>Tailwind uses 11 (50–950), Radix 12, and Material's tonal palettes 13 tones.[[c:tailwind-v4,radix-scale,m3-color]] [[doc]] Fewer than about 9 leaves gaps for states and dark mode; more than about 13 produces steps nobody can tell apart.</p></div>
+  <div class="q">How many shades should each ramp have?</div>
+  <div class="a"><p class="short">Between 10 and 13 is the normal range.</p><p>Tailwind uses 11, Radix 12 and Material 13.[[c:tailwind-v4,radix-scale,m3-color]] [[doc]] Fewer than about 9 leaves gaps for hover states and dark mode. More than about 13 gives you shades nobody can tell apart.</p></div>
 </div>
 <div class="qa">
-  <div class="q">Is there a maximum number of colours?</div>
-  <div class="a"><p class="short">There's no standard maximum, but there is a practical one: what your team can tell apart and remember.</p><p>The symptom of too many colours isn't the palette size. It's semantic tokens with overlapping meaning (<code>text.muted</code>, <code>text.subtle</code>, <code>text.secondary</code>, <code>text.tertiary</code>). If two tokens can't be explained differently in one sentence, merge them.</p></div>
+  <div class="q">Is there a maximum?</div>
+  <div class="a"><p class="short">No official one. The practical limit is how many your team can tell apart and remember.</p><p>The warning sign isn't the size of the palette. It's having several job names that mean almost the same thing: "text-muted", "text-subtle", "text-secondary", "text-tertiary". If you can't explain the difference between two names in one sentence, merge them.</p></div>
 </div>
 <div class="qa">
-  <div class="q">How do we stop colour proliferation?</div>
-  <div class="a"><ul><li>Components consume semantic tokens only; lint against raw colour values in product code.</li><li>New semantic tokens need a reason ("which role doesn't exist yet?") and an owner's approval.</li><li>Run the "unique colours in code" count from Chapter 03 every quarter. It should fall.</li></ul></div>
+  <div class="q">How do we stop new colours creeping in?</div>
+  <div class="a"><p>Components use job names only, and an automatic check flags any colour code typed directly into product code. New job names need a reason ("which job doesn't exist yet?") and the owner's approval. And recount the "different colours in our code" number from Chapter 03 every quarter. It should go down.</p></div>
 </div>
 <div class="qa">
-  <div class="q">How should we handle gradients?</div>
-  <div class="a"><p class="short">Interpolate in OKLCH and tokenise the stops.</p><p>Blending in sRGB passes through a dull, greyish midpoint; OKLCH keeps the midpoint vivid and evenly bright. CSS lets you choose the interpolation space directly.</p>
-  <div style="display:grid;gap:6px;margin:10px 0"><div style="height:28px;border-radius:6px;background:linear-gradient(to right in srgb, #1c75d6, #dd981d)"></div><span class="fig-label">linear-gradient(in srgb, blue.600, amber.400)</span><div style="height:28px;border-radius:6px;background:linear-gradient(to right in oklch, #1c75d6, #dd981d)"></div><span class="fig-label">linear-gradient(in oklch, blue.600, amber.400)</span></div></div>
+  <div class="q">How should we do gradients?</div>
+  <div class="a"><p class="short">Blend in OKLCH, and name the start and end colours.</p><p>Blending in the traditional way passes through a dull, greyish middle. Blending in OKLCH keeps the middle bright and even. Modern CSS lets you choose which way to blend.</p>
+  <div style="display:grid;gap:6px;margin:10px 0"><div style="height:28px;border-radius:6px;background:linear-gradient(to right in srgb, #1c75d6, #dd981d)"></div><span class="fig-label">blended the traditional way (sRGB): blue 600 → amber 400</span><div style="height:28px;border-radius:6px;background:linear-gradient(to right in oklch, #1c75d6, #dd981d)"></div><span class="fig-label">blended in OKLCH: blue 600 → amber 400</span></div></div>
 </div>
 <div class="qa">
-  <div class="q">What about overlays and transparency?</div>
-  <div class="a"><p class="short">Use transparency for overlays and state layers, never for text.</p><p>Scrims behind dialogs (<code>color.overlay.scrim → oklch(0.2 0.02 260 / 0.5)</code>) and state layers are good uses of alpha. Text with alpha is not: its contrast changes with whatever is behind it, so it can't be validated once. Give text solid tokens.</p></div>
+  <div class="q">What about see-through colours and overlays?</div>
+  <div class="a"><p class="short">Fine for overlays and hover layers; never for text.</p><p>The dark, see-through layer behind a pop-up dialog is a good use of transparency. Transparent text isn't: its readability changes depending on whatever is behind it, so you can't check it once and trust it. Give text solid colours.</p></div>
 </div>
 
-<h3>Colour system checklist</h3>
+<h3>Colour checklist</h3>
 <div class="cols-2">
 <ul class="checklist">
-  <li>Palette built in OKLCH from a fixed lightness curve</li>
-  <li>Brand colour used as a seed; action colour is a text-safe step</li>
-  <li>5–7 ramps, 10–13 steps each, same step numbers across hues</li>
-  <li>Gamut mapping applied; hex fallbacks generated, not hand-picked</li>
-  <li>Neutral ramp with a deliberate tint (or a deliberate lack of one)</li>
-  <li>Pairing rules published for designers</li>
+  <li>Palette built in OKLCH from one lightness curve</li>
+  <li>Brand colour used as a starting point; buttons use a readable shade</li>
+  <li>5–7 colour families, 10–13 shades each, same numbering everywhere</li>
+  <li>Colour codes generated by a tool, not hand-picked</li>
+  <li>A deliberately tinted (or deliberately neutral) grey family</li>
+  <li>Simple pairing rules shared with designers</li>
 </ul>
 <ul class="checklist">
-  <li>Primitive and semantic tiers; components never reference primitives</li>
-  <li>Token naming grammar documented</li>
-  <li>State colours defined for every interactive role, including focus</li>
-  <li>Light and dark themes as semantic mappings</li>
-  <li>Every semantic pairing contrast-tested automatically in CI</li>
-  <li>Status colours always paired with icon or text</li>
+  <li>Raw colours and job names kept separate; components use job names only</li>
+  <li>A naming pattern written down</li>
+  <li>Hover, press, focus and disabled colours for every interactive role</li>
+  <li>Light and dark mode as two pointer lists</li>
+  <li>Every pairing checked automatically</li>
+  <li>Status colours always paired with an icon or words</li>
 </ul>
 </div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Use OKLCH: its lightness matches what eyes see, so palettes become predictable.</li>
+    <li>Build each colour into a ramp where each shade number has the same lightness in every colour.</li>
+    <li>Check readability with the WCAG ratios: 4.5:1 for text, 3:1 for large text and UI edges.</li>
+    <li>Name colours by their job and let components use only job names. Dark mode and new brands then become a switch.</li>
+  </ol>
+</aside>
 </section>
 </div><!-- /chapter --></section>

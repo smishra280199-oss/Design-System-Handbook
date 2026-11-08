@@ -1,0 +1,151 @@
+<section class="chapter" id="ch15" data-part="03" data-num="15" data-title="Building components in code" data-short="Building"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 15</p>
+  <h1>Building components in code</h1>
+  <p class="dek">This chapter is for engineers, but it's written so that designers, product managers and founders can follow it too. Understanding how components are built in code is the best way to understand why design systems succeed or struggle.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You build components, work closely with people who do, or keep running into "the design and the code don't match".</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>What engineers mean by a component's "API" and "props", in plain words.</li><li>How to keep design and code in step, and avoid three versions of everything.</li><li>How components are tested and shipped so teams can trust them.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch15-1">
+<h2><span class="sec-num">15.1</span>What engineers mean by a component</h2>
+<div class="term"><span class="term-k">New word</span><b>Props</b><span>The settings you pass to a component in code, like the buttons on a TV remote: "variant", "size", "disabled".</span></div>
+<p>Think of a TV remote. You don't need to know how the TV works inside. You just press buttons: volume up, channel 5, mute. A code component works the same way. Engineers use it by passing it a few settings, which they call <strong>props</strong>, and the component takes care of everything else: colours, spacing, keyboard behaviour, accessibility.</p>
+<p>Here's what using the Ledgerly button looks like in code. Even if you've never written code, you can probably read it:</p>
+<pre><span class="c">// Using the button: three settings and a label</span>
+&lt;<span class="k">Button</span> <span class="s">variant</span>=<span class="n">"primary"</span> <span class="s">size</span>=<span class="n">"md"</span> <span class="s">icon</span>=<span class="n">"send"</span>&gt;
+  Send invoice
+&lt;/<span class="k">Button</span>&gt;
+
+<span class="c">// The same button, disabled while saving</span>
+&lt;<span class="k">Button</span> <span class="s">variant</span>=<span class="n">"primary"</span> <span class="s">loading</span>&gt;Saving…&lt;/<span class="k">Button</span>&gt;</pre>
+<div class="term"><span class="term-k">New word</span><b>API</b><span>The list of settings a component accepts and what each one does. It's the "contract" between the component and the people using it.</span></div>
+<p>The full list of settings a component accepts is called its <strong>API</strong>. A good component API is like a good remote: a few clearly labelled buttons that do exactly what they say, and nothing surprising. A bad one has sixty tiny buttons, half of which interfere with each other.</p>
+<p>Once a component is in use, its API becomes a promise. If you rename <code>variant</code> to <code>kind</code>, every screen that uses the old name stops working. That's why changes to a component's API are treated as "breaking changes" (Chapter 05) and handled with care.</p>
+</section>
+
+<section class="sec" id="ch15-2">
+<h2><span class="sec-num">15.2</span>Keeping design and code in step</h2>
+<p>In Chapter 12 we described components as twins: one in the design tool, one in code. Keeping the twins identical is one of the hardest ongoing jobs in a design system, and when it slips, things get messy fast.</p>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">Three dropdowns, all called "Dropdown"</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A mid-sized SaaS company has three engineering teams. Over two years, each built its own dropdown: one wraps an old open-source library, one is custom, and one was copied from the system and then modified.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>A keyboard accessibility bug is reported. It exists in all three, fixed differently in each. A design update to the dropdown takes three separate projects. New engineers don't know which one to use.</p></div>
+    <div><span class="sc-k">The way out</span><p>One dropdown in the system, matching the Figma version exactly; a migration guide; an automatic warning when the old ones are used; and a date after which the old ones are deleted.</p></div>
+  </div>
+</div>
+
+<h3>One vocabulary, two places</h3>
+<p>The simplest and most effective rule: <strong>the names and options in Figma match the names and options in code, exactly</strong>. If the design file calls it "variant: primary / secondary / danger", the code does too. Not "kind", not "solid / outline", not "primary / default / destructive".</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:24%">In Figma</th><th style="width:30%">In code</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Variant = Primary</td><td><code>variant="primary"</code></td><td><span class="pass">match</span></td></tr>
+<tr><td>Size = Medium</td><td><code>size="md"</code></td><td><span class="pass">match</span> (agreed short form, documented)</td></tr>
+<tr><td>State = Disabled</td><td><code>disabled</code></td><td><span class="pass">match</span></td></tr>
+<tr><td>Type = Tertiary</td><td><code>variant="ghost"</code></td><td><span class="fail">mismatch</span>: rename one of them</td></tr>
+<tr><td>Has icon = Yes</td><td><code>icon="send"</code></td><td><span class="pass">match</span> (code also says which icon)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>A shared workshop for components</h3>
+<p>Most system teams use a "workshop" tool where every component can be seen and tried in isolation, in every variant and state, outside of any product. Storybook is the most widely used one.[[c:storybook]] It gives designers, engineers and product managers one place to look at the <em>real</em> coded component, which makes it much easier to spot when the twins have drifted apart. Many teams also link each Figma component directly to its code and documentation, so a designer can jump from one to the other.</p>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] A monthly "twin check"</p>
+  <p>Once a month, a system designer and a system engineer spend an hour going through recently changed components side by side: Figma on one screen, the coded version on the other. List every difference and decide which twin is right. It's tedious, and it's the cheapest way we know to stop drift.</p>
+</div>
+</section>
+
+<section class="sec" id="ch15-3">
+<h2><span class="sec-num">15.3</span>Settings or building blocks?</h2>
+<p>There are two broad ways to make a component flexible, and choosing between them is one of the most important decisions in building a component library.</p>
+<p>The first is <strong>configuration</strong>: one component with lots of settings. "Card with <code>showImage</code>, <code>showAvatar</code>, <code>showFooter</code>, <code>footerAlign</code>…" It's easy to start with, but every new need adds another setting, and eventually you get the forty-setting monster from Chapter 12.</p>
+<p>The second is <strong>composition</strong>: several small, simple pieces that fit together, like Lego. You combine them to build exactly what you need. This is the code version of the "slots" idea from Chapter 12.</p>
+<div class="cols-2">
+<pre style="margin:0"><span class="c">// Configuration: one component, many settings</span>
+&lt;<span class="k">Card</span>
+  <span class="s">title</span>=<span class="n">"Revenue"</span>
+  <span class="s">showMenu</span>
+  <span class="s">image</span>=<span class="n">{chart}</span>
+  <span class="s">footerText</span>=<span class="n">"Updated 4 min ago"</span>
+  <span class="s">footerAlign</span>=<span class="n">"right"</span>
+  <span class="s">primaryAction</span>=<span class="n">"View report"</span>
+  <span class="c">// …and the next team will need one more</span>
+/&gt;</pre>
+<pre style="margin:0"><span class="c">// Composition: small pieces that fit together</span>
+&lt;<span class="k">Card</span>&gt;
+  &lt;<span class="k">Card.Header</span> <span class="s">title</span>=<span class="n">"Revenue"</span>&gt;
+    &lt;<span class="k">Menu</span> … /&gt;
+  &lt;/<span class="k">Card.Header</span>&gt;
+  &lt;<span class="k">Card.Media</span>&gt;{chart}&lt;/<span class="k">Card.Media</span>&gt;
+  &lt;<span class="k">Card.Footer</span>&gt;
+    Updated 4 min ago
+    &lt;<span class="k">Button</span>&gt;View report&lt;/<span class="k">Button</span>&gt;
+  &lt;/<span class="k">Card.Footer</span>&gt;
+&lt;/<span class="k">Card</span>&gt;</pre>
+</div>
+<p style="margin-top:18px">Neither approach is always right. Our rule of thumb is the same one we gave for design in Chapter 12. Small, frequently used components (button, checkbox, badge) should use a few clear settings, because consistency matters most and the options are limited. Bigger, container-like components (card, dialog, table, page layout) should use composition, because the content varies endlessly and settings can't keep up. [[prac]]</p>
+</section>
+
+<section class="sec" id="ch15-4">
+<h2><span class="sec-num">15.4</span>No hard-coded values, ever</h2>
+<p>Chapter 11 showed the button's code using only named values, with no colour codes and no pixel numbers. That's the rule for every component in the system, and it's worth enforcing automatically, because it's very easy to slip.</p>
+<p>Imagine an engineer is fixing a small layout issue at the end of a long day. The quickest fix is to type <code>margin-top: 13px</code>. It works, it ships, and nobody notices. But that one value doesn't change in compact mode, doesn't follow the spacing scale, and will be wrong after the next spacing update. Multiply that by a hundred small fixes and the system's foundations are quietly bypassed.</p>
+<div class="term"><span class="term-k">New word</span><b>Linter</b><span>A tool that automatically checks code for problems and breaks of agreed rules, and flags them before the code is merged.</span></div>
+<p>The fix is a <strong>linter</strong> rule: an automatic check that flags any raw colour code, pixel value or font size in component code, and suggests the named value to use instead. It runs every time someone submits code, so nobody has to remember. The same check can run in product teams' code too, which is one of the best ways to measure how much of the product really uses the system (Chapter 03).</p>
+</section>
+
+<section class="sec" id="ch15-5">
+<h2><span class="sec-num">15.5</span>How you know a component works</h2>
+<p>When a component is used in 400 places, a bug isn't one bug: it's 400 bugs. That's why system components are tested more thoroughly than ordinary product code. Teams usually combine four kinds of testing:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Kind of test</th><th>What it catches</th><th>How it works, simply</th></tr></thead>
+<tbody>
+<tr><th>Visual tests</th><td>Unintended changes to how a component looks</td><td>A tool takes a picture of every variant and state and compares it with the last approved picture. Any difference is flagged for a human to check.</td></tr>
+<tr><th>Automated accessibility checks</th><td>Missing labels, low contrast, incorrect roles</td><td>A tool scans each component for common accessibility rule breaks. It catches a lot, but not everything.</td></tr>
+<tr><th>Behaviour tests</th><td>Things that don't work, like a menu that won't open with the keyboard</td><td>Code that pretends to be a user: clicks, types, presses keys, and checks the right thing happens.</td></tr>
+<tr><th>Manual checks</th><td>What automation can't judge</td><td>A person tries the component with a keyboard only and with a screen reader, especially for complex components.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Visual tests deserve special mention, because they catch exactly the kind of problem from the scenario in Chapter 05, where a small padding change broke layouts. If the system team had seen pictures of every button changing size, they'd have known it was a breaking change before shipping it.</p>
+<div class="callout callout--mistake">
+  <p class="callout-label">A mistake we see often</p>
+  <h4>"The automated checks passed, so it's accessible"</h4>
+  <p>Automated accessibility tools are excellent at catching certain problems, like missing labels and poor contrast. They can't tell whether a keyboard user can actually complete a task, or whether a screen reader announcement makes sense. Always pair them with a real keyboard and screen-reader check for interactive components.</p>
+</div>
+</section>
+
+<section class="sec" id="ch15-6">
+<h2><span class="sec-num">15.6</span>Packaging and shipping components</h2>
+<p>Finished components are bundled into a <strong>package</strong>, which is how they reach product teams. Product teams install the package, a bit like installing an app, and can update it when a new version comes out. Chapter 05 covered version numbers and breaking changes; here's what that means day to day for the people building components.</p>
+<ol class="steps">
+  <li><h4>Every change gets a note</h4><p>Each change includes a one-line entry for the release notes, written for the people using the system: what changed and what, if anything, they need to do.</p></li>
+  <li><h4>Releases happen on a rhythm</h4><p>For example, new features every two weeks and urgent fixes whenever needed. Predictable releases let product teams plan their updates.</p></li>
+  <li><h4>Breaking changes are rare, grouped and announced</h4><p>Collect them into one bigger release, a few times a year, with a migration guide and, where possible, a script that makes the changes automatically.</p></li>
+  <li><h4>Old versions get a notice period</h4><p>Product teams can't always update immediately. Say how long old versions will receive important fixes, and stick to it.</p></li>
+</ol>
+<div class="callout callout--note">
+  <p class="callout-label">What if teams use different technologies?</p>
+  <p>Large companies often have products built with different frameworks: one team on React, another on Angular, the mobile apps in Swift and Kotlin. Named values (tokens) work everywhere, because they're generated for each platform. Components are harder, because each technology needs its own version. This is one of the biggest cost drivers in Chapter 04, and a strong reason to agree on as few front-end technologies as possible.</p>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>A component's settings (its API) are a promise. Keep them few, clear and stable.</li>
+    <li>Use exactly the same names and options in Figma and in code, and check them regularly.</li>
+    <li>Small components use a few settings; big ones are built from composable pieces.</li>
+    <li>Ban hard-coded values with automatic checks, test visually and for accessibility, and ship on a predictable rhythm.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

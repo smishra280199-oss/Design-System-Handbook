@@ -2,213 +2,244 @@
 <header class="chapter-opener">
   <p class="ch-num">Chapter 01</p>
   <h1>What a design system actually is</h1>
-  <p class="dek">A design system is not a Figma file and it is not a component library. It is a shared agreement about how your product gets made, encoded in tools that design and engineering both use, and kept alive by people whose job it is to keep it alive.</p>
+  <p class="dek">Most people picture a design system as a Figma file full of buttons. That's part of it, but only a small part. Let's start from the beginning, with a situation you've probably already lived through.</p>
   <div class="opener-meta">
-    <div><h5>Read this if</h5><p>You have heard "design system" used for five different things in one meeting, or you need to explain to leadership what you are actually proposing to fund.</p></div>
-    <div><h5>What you'll leave with</h5><ol><li>A precise, defensible definition you can put in a strategy document.</li><li>The ability to tell a style guide, UI kit, component library and design system apart, and to know which one you have today.</li><li>A clear picture of why a system's value grows faster than the organisation using it.</li></ol></div>
+    <div><h5>Read this if</h5><p>You keep hearing "design system" and you're not sure everyone means the same thing, including you.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A plain-English definition you can repeat to anyone.</li><li>The difference between a style guide, a UI kit, a component library and a design system.</li><li>Why a design system matters more and more as a company grows.</li></ol></div>
   </div>
 </header>
 
 <section class="sec" id="ch01-1">
-<h2><span class="sec-num">01.1</span>A working definition</h2>
-<p>The term is used loosely, and the looseness causes real damage. Leadership approves a "design system" thinking it bought consistency. The design team ships a Figma library. Engineering never adopts it. Eighteen months later the product still has nine kinds of button, and everyone concludes design systems don't work.</p>
-<p>So we start with a definition precise enough to plan against:</p>
-<div class="callout callout--key">
-  <p class="callout-label">Definition</p>
-  <h4>A design system is the set of shared decisions, reusable assets and working agreements that lets many people build one coherent product, plus the team and process that keep all three current.</h4>
-</div>
-<p>Each of the three parts matters, and most failed systems are missing one of them.</p>
-<div class="cols-3">
-  <div class="card"><span class="card-k">01 — Decisions</span><h4>What we've agreed</h4><p>Principles, foundations (colour, type, spacing, layout, motion), accessibility targets, content voice. The <em>why</em> behind every asset.</p></div>
-  <div class="card"><span class="card-k">02 — Assets</span><h4>What we've built</h4><p>Design tokens, components in the design tool <em>and</em> in code, patterns, templates, icons and the documentation that explains them.</p></div>
-  <div class="card"><span class="card-k">03 — Agreements</span><h4>How we work</h4><p>Ownership, contribution, review, versioning, release and deprecation. The rules for how the first two change over time.</p></div>
-</div>
-<p>Decisions without assets are a PDF nobody opens. Assets without decisions are a library that encodes whatever inconsistency already existed. Decisions and assets without agreements drift out of date within a year. Layer One's first working rule says it plainly:</p>
-<p class="pull">A design system is an agreement, not a library.<cite>Rule #1 — Layer One</cite></p>
+<h2><span class="sec-num">01.1</span>The five-button problem</h2>
+<p>Picture a product team with five designers. Each of them is working on a different part of the app: one on onboarding, one on billing, one on settings, and so on. None of them is careless. Each one designs a good-looking button for their screens.</p>
+<p>A year later, someone counts. The app has five slightly different primary buttons. They're all roughly blue. One has rounded corners, one is a bit taller, one uses a bolder font, one turns a darker blue on hover and another turns lighter. Engineering has built each of them separately, because each designer handed over a different spec.</p>
+<p>Nobody decided to have five buttons. It just happened, one reasonable decision at a time.</p>
+<p>Now the company changes its brand colour. Somebody has to find all five buttons, in every screen, in design files and in code, and update each one. They'll miss a few. The product will look a little off for months. And the same thing has quietly happened to text styles, form fields, spacing, error messages and icons.</p>
 
-<h3>A short lineage</h3>
-<p>Organisations have codified visual decisions for decades, in brand manuals and corporate identity standards. What changed in software was that the decisions had to be <em>executable</em>. Pattern libraries spread through web teams in the early 2010s. Brad Frost's <em>Atomic Design</em> gave teams a shared mental model for composing interfaces from small parts into large ones.[[c:frost-atomic]] Salesforce's design system team popularised the term <em>design tokens</em> for named design decisions that can be compiled into any platform's code.[[c:slds-tokens]] In October 2025 the W3C Design Tokens Community Group published the first stable version of a vendor-neutral format for those tokens.[[c:dtcg-announce]] Design systems have moved from a design-team initiative to shared product infrastructure, and the standards have caught up.</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">"Why does our app look like three different companies built it?"</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A growing SaaS company has three product squads. Each squad has its own designer and its own engineers, and each one moves fast.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>Every squad solves the same problems slightly differently: tables, filters, empty screens, error messages. Customers notice. So does the sales team during demos.</p></div>
+    <div><span class="sc-k">What a design system changes</span><p>The squads agree on one way to do the common things, build those once, and share them. Each squad spends its time on what makes its part of the product unique.</p></div>
+  </div>
+</div>
+
+<p>That, in one story, is why design systems exist. They're not about making things pretty. They're about making sure that many people, working in parallel, end up building <em>one</em> product instead of several that happen to share a logo.</p>
 </section>
 
 <section class="sec" id="ch01-2">
-<h2><span class="sec-num">01.2</span>Style guide, UI kit, component library, design system</h2>
-<p>These four terms are not synonyms. Each is a <em>part</em> of a design system, and each has a ceiling on what it can do on its own.</p>
+<h2><span class="sec-num">01.2</span>A definition you can actually use</h2>
+<p>Here's the definition we use with clients. It's deliberately simple:</p>
+<div class="callout callout--key">
+  <p class="callout-label">In one sentence</p>
+  <h4>A design system is a shared set of decisions, reusable parts and working agreements that helps many people build one consistent product, plus the people and process that keep it up to date.</h4>
+</div>
+<p>Let's unpack the three ingredients, because most design systems that fail are missing one of them.</p>
+<div class="cols-3">
+  <div class="card"><span class="card-k">01 · Decisions</span><h4>"What we've agreed"</h4><p>Which colours we use and for what. How big our text is. How much space goes between things. How we write error messages. The reasons behind the look.</p></div>
+  <div class="card"><span class="card-k">02 · Reusable parts</span><h4>"What we've built"</h4><p>Ready-made buttons, inputs, menus and tables, available to designers in their design tool <em>and</em> to engineers in code, plus guidance on how to use them.</p></div>
+  <div class="card"><span class="card-k">03 · Agreements</span><h4>"How we work together"</h4><p>Who looks after the system, how people ask for new things, how changes are announced, and what happens when two teams want different things.</p></div>
+</div>
+<p style="margin-top:18px">Think of it like a restaurant kitchen. The <strong>decisions</strong> are the recipes. The <strong>reusable parts</strong> are the prepared ingredients and the tools on the line. The <strong>agreements</strong> are how the kitchen runs: who orders stock, who changes the menu, how a new dish gets approved. A kitchen with great recipes but no process still serves inconsistent food on a busy night.</p>
+<p>When a system is missing one of the three, you can usually spot it:</p>
 <div class="table-wrap">
 <table>
-<thead><tr><th style="width:15%">Artefact</th><th style="width:25%">What it is</th><th>Lives in</th><th>Primary users</th><th style="width:26%">What it cannot do alone</th></tr></thead>
+<thead><tr><th style="width:26%">If you only have…</th><th>What happens</th></tr></thead>
 <tbody>
-<tr><th>Style guide</th><td>Written rules for the brand and visual language: logo, colour, typography, imagery, voice.</td><td>PDF, wiki, brand site</td><td>Brand, marketing, designers</td><td>Guarantee that what ships matches. It describes; it doesn't build.</td></tr>
-<tr><th>UI kit</th><td>Reusable visual elements in a design tool: styles, components, icons.</td><td>Figma (or similar)</td><td>Designers</td><td>Reach production. Engineers re-implement it by eye, so the kit and the product drift apart.</td></tr>
-<tr><th>Component library</th><td>Coded, reusable UI components with an API (props, variants, states).</td><td>A code package (e.g. npm)</td><td>Engineers</td><td>Explain <em>when</em> and <em>why</em>. Without shared foundations it faithfully reproduces existing inconsistency.</td></tr>
-<tr><th>Pattern library</th><td>Documented solutions to recurring problems: forms, empty states, filtering, onboarding.</td><td>Docs site</td><td>Designers, PMs, engineers</td><td>Enforce itself. Patterns are guidance that still has to be built from components.</td></tr>
-<tr><th style="color:var(--accent-text)">Design system</th><td>All of the above, connected by tokens, with documentation, ownership and a process for change.</td><td>Design tool, code, docs, and a team</td><td>Everyone who builds the product</td><td>Succeed without adoption. It is only as real as the share of the product built with it.</td></tr>
+<tr><th>Decisions</th><td>You have a beautiful PDF of brand rules that nobody opens while they're working.</td></tr>
+<tr><th>Reusable parts</th><td>You have a library, but it copies whatever inconsistency already existed, because nobody agreed on the rules first.</td></tr>
+<tr><th>Decisions and parts, but no agreements</th><td>It works brilliantly for a year. Then it drifts out of date, teams stop trusting it, and they start building their own versions again.</td></tr>
 </tbody>
 </table>
 </div>
+<p>That last row is the most common failure we see. Which is why Layer One's first working rule is:</p>
+<p class="pull">A design system is an agreement, not a library.<cite>Rule #1 — Layer One</cite></p>
+</section>
+
+<section class="sec" id="ch01-3">
+<h2><span class="sec-num">01.3</span>Style guide, UI kit, component library, design system</h2>
+<p>These four terms get used as if they mean the same thing. They don't, and mixing them up leads to real budget mistakes. Let's take them one at a time.</p>
+
+<div class="term"><span class="term-k">New word</span><b>Component</b><span>A reusable piece of interface, like a button, a text field or a dropdown, that's built once and used everywhere.</span></div>
+<p><strong>A style guide</strong> is a set of written rules about how the brand looks: the logo, colours, fonts, photography style and tone of voice. Think of the brand book your marketing agency handed over. It describes what things should look like, but it doesn't build anything.</p>
+<p><strong>A UI kit</strong> is a file in a design tool like Figma that contains ready-made pieces of interface (buttons, inputs, icons) that designers can drag into their screens. It makes designers faster and more consistent with each other. But engineers can't use it. They still have to rebuild everything in code by looking at the designs.</p>
+<p><strong>A component library</strong> is the same idea on the engineering side: buttons, inputs and menus written once in code, which engineers import into the product instead of writing their own. It makes engineers faster. But it often doesn't say <em>when</em> to use which piece, and it's frequently built separately from the designers' UI kit, so the two slowly drift apart.</p>
+<p><strong>A design system</strong> connects all of this. The designers' parts and the engineers' parts are the same parts, with the same names, built on the same underlying decisions, with guidance on how to use them and a team that keeps everything in sync.</p>
 
 <figure class="fig">
 <div class="fig-body">
   <div class="table-wrap" style="margin:0">
   <table class="compact" style="table-layout:fixed">
-    <thead><tr><th style="width:24%">Capability</th><th style="text-align:center">Style guide</th><th style="text-align:center">UI kit</th><th style="text-align:center">Component library</th><th style="text-align:center">Design system</th></tr></thead>
+    <thead><tr><th style="width:30%">What it gives you</th><th style="text-align:center">Style guide</th><th style="text-align:center">UI kit</th><th style="text-align:center">Component library</th><th style="text-align:center">Design system</th></tr></thead>
     <tbody>
-      <tr><td>Documented visual decisions</td><td style="text-align:center" class="yes">●</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="yes">●</td></tr>
-      <tr><td>Tokens shared by design and code</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="yes">●</td></tr>
-      <tr><td>Reusable design components</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="yes">●</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="yes">●</td></tr>
-      <tr><td>Reusable production code</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="yes">●</td><td style="text-align:center" class="yes">●</td></tr>
-      <tr><td>Usage guidance (when / why)</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="yes">●</td></tr>
+      <tr><td>Written rules for the look and feel</td><td style="text-align:center" class="yes">●</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="yes">●</td></tr>
+      <tr><td>Ready-made parts for designers</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="yes">●</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="yes">●</td></tr>
+      <tr><td>Ready-made parts for engineers</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="yes">●</td><td style="text-align:center" class="yes">●</td></tr>
+      <tr><td>Design and code use the same names and values</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="yes">●</td></tr>
+      <tr><td>Guidance on when and why to use each part</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="yes">●</td></tr>
       <tr><td>Accessibility built in</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="yes">●</td></tr>
-      <tr><td>Versioning and release process</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="yes">●</td><td style="text-align:center" class="yes">●</td></tr>
-      <tr><td>Contribution and governance</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="yes">●</td></tr>
-      <tr><td>Named owner(s)</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="yes">●</td></tr>
+      <tr><td>A way to request and announce changes</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="no">○</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="yes">●</td></tr>
+      <tr><td>Someone whose job it is to look after it</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="part">◐</td><td style="text-align:center" class="yes">●</td></tr>
     </tbody>
   </table></div>
 </div>
-<figcaption><b>What each artefact typically covers.</b> ● = core to the artefact, ◐ = sometimes, ○ = not covered. The design system column is not a bigger version of the others. It is the only one that connects design and code through shared tokens and owns the process for changing them.</figcaption>
+<figcaption><b>What each one typically gives you.</b> ● usually yes, ◐ sometimes, ○ usually not. Notice that the design system column isn't just "more stuff". It's the only one that joins design and code together and has a way of changing over time.</figcaption>
 </figure>
 
 <div class="callout callout--mistake">
-  <p class="callout-label">Common mistake</p>
-  <h4>Calling a Figma library a design system</h4>
-  <p>It is an easy and costly confusion. Leadership believes the consistency problem is solved; engineering, which never received anything it could import, keeps building its own versions. A UI kit is a legitimate and often correct first step (Chapter 02 explains when). Just call it what it is, so nobody budgets as if production is covered.</p>
+  <p class="callout-label">A mistake we see often</p>
+  <h4>"We have a design system" (it's a Figma file)</h4>
+  <p>A team publishes a polished Figma library and announces a design system. Leadership relaxes; the consistency problem is solved. Six months later, engineering has built its own buttons anyway, because nothing they could actually use in code was ever delivered. A UI kit is a perfectly good first step. Just call it a UI kit, so nobody plans as if the code side is covered.</p>
 </div>
 
 <h3>Which one do you have today?</h3>
-<p>Answer honestly. Each "no" marks the edge of what you currently have.</p>
+<p>Try this quick check. Every "no" shows you where your current setup stops.</p>
 <ul class="checklist">
-  <li>Our colours, type sizes and spacing values exist as <b>named tokens</b>, not just hex codes in a file.</li>
-  <li>Engineers <b>import</b> components from a shared package rather than rebuilding them per team.</li>
-  <li>The design library and the code library use <b>the same names</b> for the same things.</li>
-  <li>There is <b>written guidance</b> on when to use each component, not just what it looks like.</li>
-  <li>Someone is <b>accountable</b> for the system, and it is in their job description.</li>
-  <li>Changes are <b>versioned and announced</b>; teams can upgrade on purpose.</li>
-  <li>Teams know <b>how to propose</b> a new component or change an existing one.</li>
+  <li>Our colours, text sizes and spacing values have <b>names</b> (like "primary-blue" or "space-16"), not just hex codes copied around.</li>
+  <li>Engineers <b>import</b> buttons and inputs from a shared package instead of rebuilding them for each feature.</li>
+  <li>A designer and an engineer would use <b>the same name</b> for the same thing.</li>
+  <li>There's <b>written guidance</b> on when to use each piece, not just what it looks like.</li>
+  <li>Someone is <b>responsible</b> for keeping it up to date, and it's part of their actual job.</li>
+  <li>When something changes, <b>people are told</b>, and they can choose when to update.</li>
+  <li>People know <b>how to ask</b> for something new or suggest a change.</li>
 </ul>
-<p>Seven yeses and you run a design system. One to three, you have a UI kit or component library with ambitions. That's fine, as long as it's a deliberate stage and not a stall.</p>
+<p>Seven yeses: you're running a design system. One to three: you have a UI kit or a component library, which is a fine place to be, as long as it's a deliberate stage and not where things got stuck.</p>
 </section>
 
-<section class="sec" id="ch01-3">
-<h2><span class="sec-num">01.3</span>The anatomy of a complete design system</h2>
-<p>A complete system has six layers that build on one another, and three capabilities that cut across all of them. Each layer only references the layer below it. That one-directional dependency is what lets a change at the bottom flow safely to the top.</p>
+<section class="sec" id="ch01-4">
+<h2><span class="sec-num">01.4</span>What's inside a complete design system</h2>
+<p>Now let's open the box. A complete design system has a few layers that stack on top of each other, plus some things that run through all of them. The important idea is that each layer is built from the one below it. That's what lets a change at the bottom ripple safely all the way up.</p>
+
 <figure class="fig">
 <div class="fig-body">
   <div class="anat">
     <div style="display:grid;gap:6px">
-      <div class="anat-row" style="padding:12px 14px;border:1px solid var(--rule);border-radius:8px"><b>06 Products</b><span class="muted" style="font-size:13px">Shipped screens and flows</span><span class="mono" style="font-size:11px">Invoices page, onboarding</span></div>
-      <div class="anat-row" style="padding:12px 14px;border:1px solid var(--rule);border-radius:8px"><b>05 Templates</b><span class="muted" style="font-size:13px">Page-level layouts with real content slots</span><span class="mono" style="font-size:11px">List-detail, settings page</span></div>
-      <div class="anat-row" style="padding:12px 14px;border:1px solid var(--rule);border-radius:8px"><b>04 Patterns</b><span class="muted" style="font-size:13px">Solutions to recurring UX problems</span><span class="mono" style="font-size:11px">Filtering, empty state, form validation</span></div>
-      <div class="anat-row" style="padding:12px 14px;border:1px solid var(--rule);border-radius:8px"><b>03 Components</b><span class="muted" style="font-size:13px">Reusable UI with defined API and states</span><span class="mono" style="font-size:11px">Button, Input, Table, Modal</span></div>
-      <div class="anat-row" style="padding:12px 14px;border:1px solid var(--rule);border-radius:8px;background:var(--accent-tint)"><b>02 Tokens</b><span class="muted" style="font-size:13px">Named decisions, platform-agnostic</span><span class="mono" style="font-size:11px">color.action.primary, space.400</span></div>
-      <div class="anat-row" style="padding:12px 14px;border-radius:8px;background:var(--signal-500);color:var(--ink-950)"><b>01 Foundations</b><span style="font-size:13px">Colour, type, space, layout, motion, elevation</span><span class="mono" style="font-size:11px">OKLCH ramps, 4px grid, type scale</span></div>
-      <div class="anat-row" style="padding:12px 14px;border-radius:8px;background:var(--ink-950);color:var(--paper-100)"><b>00 Principles</b><span style="font-size:13px;color:var(--ink-300)">What we value when trade-offs collide</span><span class="mono" style="font-size:11px;color:var(--ink-300)">"Clarity over density"</span></div>
+      <div class="anat-row" style="padding:11px 14px;border:1px solid var(--rule);border-radius:8px"><b>Products</b><span class="muted" style="font-size:13px">The screens your customers actually use</span><span class="mono" style="font-size:11px">Invoices page, sign-up flow</span></div>
+      <div class="anat-row" style="padding:11px 14px;border:1px solid var(--rule);border-radius:8px"><b>Templates</b><span class="muted" style="font-size:13px">Page layouts you can start from</span><span class="mono" style="font-size:11px">Settings page, list + detail</span></div>
+      <div class="anat-row" style="padding:11px 14px;border:1px solid var(--rule);border-radius:8px"><b>Patterns</b><span class="muted" style="font-size:13px">Proven ways to solve common problems</span><span class="mono" style="font-size:11px">Search and filter, empty state</span></div>
+      <div class="anat-row" style="padding:11px 14px;border:1px solid var(--rule);border-radius:8px"><b>Components</b><span class="muted" style="font-size:13px">The building blocks</span><span class="mono" style="font-size:11px">Button, input, table, dialog</span></div>
+      <div class="anat-row" style="padding:11px 14px;border:1px solid var(--rule);border-radius:8px;background:var(--accent-tint)"><b>Tokens</b><span class="muted" style="font-size:13px">Named design decisions</span><span class="mono" style="font-size:11px">primary colour, space-16</span></div>
+      <div class="anat-row" style="padding:11px 14px;border-radius:8px;background:var(--signal-500);color:var(--ink-950)"><b>Foundations</b><span style="font-size:13px">Colour, type, spacing, layout</span><span class="mono" style="font-size:11px">Part 02 of this book</span></div>
+      <div class="anat-row" style="padding:11px 14px;border-radius:8px;background:var(--ink-950);color:var(--paper-100)"><b>Principles</b><span style="font-size:13px;color:var(--ink-300)">What we value when we disagree</span><span class="mono" style="font-size:11px;color:var(--ink-300)">"Clear beats clever"</span></div>
     </div>
     <div style="display:grid;grid-template-rows:repeat(3,1fr);gap:6px">
-      <div style="border:1.5px dashed var(--rule-strong);border-radius:8px;padding:12px;display:flex;flex-direction:column;justify-content:center"><b style="font-size:14px">Documentation</b><span class="muted" style="font-size:12px;line-height:1.4">Usage, rationale, code, accessibility notes</span></div>
-      <div style="border:1.5px dashed var(--rule-strong);border-radius:8px;padding:12px;display:flex;flex-direction:column;justify-content:center"><b style="font-size:14px">Tooling</b><span class="muted" style="font-size:12px;line-height:1.4">Token pipeline, linting, Storybook, Figma libraries</span></div>
-      <div style="border:1.5px dashed var(--rule-strong);border-radius:8px;padding:12px;display:flex;flex-direction:column;justify-content:center"><b style="font-size:14px">Governance</b><span class="muted" style="font-size:12px;line-height:1.4">Ownership, contribution, versioning, metrics</span></div>
+      <div style="border:1.5px dashed var(--rule-strong);border-radius:8px;padding:12px;display:flex;flex-direction:column;justify-content:center"><b style="font-size:14px">Documentation</b><span class="muted" style="font-size:12px;line-height:1.4">How and when to use everything</span></div>
+      <div style="border:1.5px dashed var(--rule-strong);border-radius:8px;padding:12px;display:flex;flex-direction:column;justify-content:center"><b style="font-size:14px">Tools</b><span class="muted" style="font-size:12px;line-height:1.4">Design libraries, code packages, checks</span></div>
+      <div style="border:1.5px dashed var(--rule-strong);border-radius:8px;padding:12px;display:flex;flex-direction:column;justify-content:center"><b style="font-size:14px">People &amp; process</b><span class="muted" style="font-size:12px;line-height:1.4">Owners, requests, releases</span></div>
     </div>
   </div>
 </div>
-<figcaption><b>The anatomy of a design system.</b> Read bottom to top: each layer is built only from the layers beneath it. Documentation, tooling and governance span every layer. They are what turn a set of assets into a system people can trust.</figcaption>
+<figcaption><b>The layers of a design system.</b> Read it from the bottom up: everything above is built from what's below. The three boxes on the right run through every layer. They're what turn a pile of parts into something people trust.</figcaption>
 </figure>
 
-<div class="table-wrap">
-<table>
-<thead><tr><th style="width:16%">Layer</th><th>Contains</th><th>Who decides</th><th>Changes how often</th></tr></thead>
-<tbody>
-<tr><th>Principles</th><td>3–5 statements that settle trade-offs ("clarity over density", "accessible by default").</td><td>Design and product leadership</td><td>Rarely; years</td></tr>
-<tr><th>Foundations</th><td>Colour, typography, spacing, grid, elevation, radius, motion, iconography. The subject of Part 02.</td><td>System team, with brand</td><td>Rarely; each change is high-impact</td></tr>
-<tr><th>Tokens</th><td>Named, platform-agnostic values: primitive, semantic, component.</td><td>System team</td><td>Occasionally; via versioned releases</td></tr>
-<tr><th>Components</th><td>Buttons, inputs, tables, dialogs, each with variants, states, API and a11y behaviour.</td><td>System team plus contributors</td><td>Continuously; minor releases</td></tr>
-<tr><th>Patterns</th><td>Compositions solving a user problem: search and filter, bulk actions, error recovery.</td><td>System team plus product teams</td><td>Continuously</td></tr>
-<tr><th>Templates</th><td>Page scaffolds and layouts built from components and patterns.</td><td>Product teams, curated by system</td><td>As products evolve</td></tr>
-</tbody>
-</table>
+<div class="term"><span class="term-k">New word</span><b>Design token</b><span>A design decision with a name, like "primary-blue = #1C75D6". Design tools and code both read from the same list, so they always match.</span></div>
+<p>Two of these layers deserve a plain-English introduction, because you'll meet them throughout the book.</p>
+<p><strong>Foundations</strong> are the basic visual decisions that everything else inherits: your colours, your text sizes, how much space goes between things, how pages are laid out. Change a foundation and you change everything built on it. Part 02 of this book is all about getting them right.</p>
+<p><strong>Tokens</strong> are how those decisions get written down so that both designers and engineers can use them. Instead of a designer writing "#1C75D6" on a spec and an engineer copying it into code (and maybe mistyping it), the colour gets a name, like <code>color-primary</code>. Design tools and code both read the value from the same place. If the colour ever changes, it changes in one place, and everywhere that uses the name updates.</p>
+<p>The idea of building interfaces from small parts up to large ones was popularised by Brad Frost's <em>Atomic Design</em>,[[c:frost-atomic]] and the term "design tokens" came out of Salesforce's design system team.[[c:slds-tokens]] In October 2025 an industry working group published the first stable, shared standard for how tokens should be written,[[c:dtcg-announce]] which tells you how mainstream the idea has become.</p>
+
+<div class="callout callout--note">
+  <p class="callout-label">Complete doesn't mean big</p>
+  <p>A startup's complete design system might be a one-page list of principles, about a hundred tokens and fifteen components. It still has every layer, just a small amount of each. Completeness is about the layers being <em>connected</em>, not about how much is in them.</p>
 </div>
-<p>A complete system does not mean a large one. A startup's complete system might be one page of principles, 120 tokens and 15 components, and still have all six layers and all three capabilities. Completeness is about connection, not volume.</p>
 </section>
 
-<section class="sec" id="ch01-4">
-<h2><span class="sec-num">01.4</span>How a design system connects the whole organisation</h2>
-<p>The most underrated function of a design system is linguistic. It gives design, engineering and product <strong>one vocabulary for the interface</strong>. When a designer says "primary button", an engineer types <code>&lt;Button variant="primary"&gt;</code>, and both resolve to the token <code>color.action.primary</code>, a whole category of handoff error disappears.</p>
+<section class="sec" id="ch01-5">
+<h2><span class="sec-num">01.5</span>How it connects design, engineering, product and business</h2>
+<p>Here's something that surprises most people: the biggest benefit of a design system isn't the components. It's that everyone ends up <strong>speaking the same language</strong>.</p>
+<p>Without a system, a designer says "the blue button", a product manager says "the main CTA", and an engineer writes code for "btn-submit-v2". They're all talking about the same thing, and every handover is a small act of translation. Translations go wrong. With a system, there's one "primary button". The designer drags it in, the engineer types <code>&lt;Button variant="primary"&gt;</code>, and both get exactly the same thing.</p>
+
 <figure class="fig">
 <div class="fig-body">
 <svg viewBox="0 0 760 330" role="img" aria-label="The design system at the centre, exchanging value with design, engineering, product and business" style="width:100%;height:auto;color:var(--text)">
   <g font-family="Schibsted Grotesk, sans-serif">
     <rect x="285" y="120" width="190" height="90" rx="12" fill="var(--signal-500)"/>
     <text x="380" y="160" text-anchor="middle" font-size="17" font-weight="650" fill="#0b0d12">Design system</text>
-    <text x="380" y="182" text-anchor="middle" font-size="11" fill="#0b0d12" font-family="JetBrains Mono, monospace">one shared vocabulary</text>
+    <text x="380" y="182" text-anchor="middle" font-size="11" fill="#0b0d12" font-family="JetBrains Mono, monospace">one shared language</text>
     <g fill="none" stroke="currentColor" stroke-opacity=".35"><line x1="285" y1="140" x2="190" y2="70"/><line x1="475" y1="140" x2="570" y2="70"/><line x1="285" y1="190" x2="190" y2="260"/><line x1="475" y1="190" x2="570" y2="260"/></g>
     <rect x="20" y="20" width="250" height="90" rx="10" fill="var(--bg)" stroke="currentColor" stroke-opacity=".25"/>
     <text x="36" y="46" font-size="15" font-weight="650" fill="currentColor">Design</text>
-    <text x="36" y="68" font-size="11.5" fill="currentColor" fill-opacity=".7">Gives: intent, foundations, patterns</text>
-    <text x="36" y="88" font-size="11.5" fill="currentColor" fill-opacity=".7">Gets: speed, focus on real problems</text>
+    <text x="36" y="68" font-size="11.5" fill="currentColor" fill-opacity=".7">Brings: the look, the rules, the patterns</text>
+    <text x="36" y="88" font-size="11.5" fill="currentColor" fill-opacity=".7">Gets: time back for real problems</text>
     <rect x="490" y="20" width="250" height="90" rx="10" fill="var(--bg)" stroke="currentColor" stroke-opacity=".25"/>
     <text x="506" y="46" font-size="15" font-weight="650" fill="currentColor">Engineering</text>
-    <text x="506" y="68" font-size="11.5" fill="currentColor" fill-opacity=".7">Gives: component APIs, quality, a11y</text>
+    <text x="506" y="68" font-size="11.5" fill="currentColor" fill-opacity=".7">Brings: solid, tested, accessible code</text>
     <text x="506" y="88" font-size="11.5" fill="currentColor" fill-opacity=".7">Gets: less rework, fewer UI bugs</text>
     <rect x="20" y="220" width="250" height="90" rx="10" fill="var(--bg)" stroke="currentColor" stroke-opacity=".25"/>
     <text x="36" y="246" font-size="15" font-weight="650" fill="currentColor">Product</text>
-    <text x="36" y="268" font-size="11.5" fill="currentColor" fill-opacity=".7">Gives: priorities, real use cases</text>
-    <text x="36" y="288" font-size="11.5" fill="currentColor" fill-opacity=".7">Gets: predictable delivery, coherence</text>
+    <text x="36" y="268" font-size="11.5" fill="currentColor" fill-opacity=".7">Brings: priorities, real customer needs</text>
+    <text x="36" y="288" font-size="11.5" fill="currentColor" fill-opacity=".7">Gets: faster, more predictable delivery</text>
     <rect x="490" y="220" width="250" height="90" rx="10" fill="var(--bg)" stroke="currentColor" stroke-opacity=".25"/>
     <text x="506" y="246" font-size="15" font-weight="650" fill="currentColor">Business</text>
-    <text x="506" y="268" font-size="11.5" fill="currentColor" fill-opacity=".7">Gives: funding, brand, compliance needs</text>
-    <text x="506" y="288" font-size="11.5" fill="currentColor" fill-opacity=".7">Gets: lower cost of change, trust</text>
+    <text x="506" y="268" font-size="11.5" fill="currentColor" fill-opacity=".7">Brings: budget, brand, legal needs</text>
+    <text x="506" y="288" font-size="11.5" fill="currentColor" fill-opacity=".7">Gets: cheaper change, more trust</text>
   </g>
 </svg>
 </div>
-<figcaption><b>The system as an exchange.</b> Every function contributes something and gets something back. A system that only takes (asks teams to adopt without giving them speed) or only gives (builds what nobody asked for) loses support quickly.</figcaption>
+<figcaption><b>The system sits in the middle of an exchange.</b> Each group puts something in and gets something back. When a system only takes (asking teams to adopt it without making them faster) or only gives (building things nobody asked for), support drains away.</figcaption>
 </figure>
 
+<p>Here's what that looks like day to day, before and after:</p>
 <div class="table-wrap">
 <table>
-<thead><tr><th style="width:18%">Function</th><th>Without a system</th><th>With a working system</th></tr></thead>
+<thead><tr><th style="width:16%">Who</th><th>Without a system</th><th>With a working system</th></tr></thead>
 <tbody>
-<tr><th>Design</th><td>Re-solves the same table, form and empty state on every project. Specs every pixel in handoff.</td><td>Assembles known parts and spends time on the problems that are actually new.</td></tr>
-<tr><th>Engineering</th><td>Builds a "new" button per team; fixes the same focus bug in five places.</td><td>Imports tested components; fixes a bug once and ships the fix everywhere.</td></tr>
-<tr><th>Product</th><td>Estimates swing because UI scope is unknown; design QA becomes a release gate.</td><td>UI scope is predictable; teams talk about behaviour, not padding.</td></tr>
-<tr><th>Business</th><td>A rebrand is a multi-quarter programme; accessibility is a recurring audit finding.</td><td>Brand and accessibility changes are made at the token layer and released.</td></tr>
+<tr><th>Designers</th><td>Redesign the same table, form and empty screen on every project. Spend hours writing handover specs.</td><td>Start from known parts and spend their energy on the parts of the problem that are genuinely new.</td></tr>
+<tr><th>Engineers</th><td>Build "yet another" dropdown. Fix the same keyboard bug in five places.</td><td>Import a tested dropdown. Fix a bug once, and the fix reaches every screen on the next update.</td></tr>
+<tr><th>Product managers</th><td>Estimates swing wildly because nobody knows how much UI work is hiding in a feature.</td><td>UI work is predictable, so conversations are about what the feature does, not how many pixels of padding it has.</td></tr>
+<tr><th>The business</th><td>A rebrand takes quarters. Accessibility problems come back in every audit.</td><td>Brand and accessibility changes are made in one place and rolled out.</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 
-<section class="sec" id="ch01-5">
-<h2><span class="sec-num">01.5</span>Why design systems matter more as products scale</h2>
-<p>A design system's value is not linear in company size. It compounds, for two reasons you can reason about without any vendor statistics.</p>
-<h3>Reason one: coordination grows faster than headcount</h3>
-<p>If every team that makes UI decisions has to stay consistent with every other team, the number of pairwise agreements grows as <code>n(n−1)/2</code>. That is the communication-path arithmetic Fred Brooks described for software teams.[[c:brooks]] Four teams need six agreements. Sixteen teams need 120. If instead each team agrees with one shared system, the number of agreements grows only as <code>n</code>.</p>
+<section class="sec" id="ch01-6">
+<h2><span class="sec-num">01.6</span>Why it matters more as you grow</h2>
+<p>A two-person team doesn't need a design system to stay consistent. They sit next to each other. So why does it suddenly become essential at thirty, sixty or three hundred people? Two simple reasons, and neither needs any industry statistics to understand.</p>
+<h3>Reason one: the number of conversations explodes</h3>
+<p>If every team that makes UI decisions has to stay in sync with every other team, the number of "have you talked to them?" conversations grows much faster than the number of teams. Four teams have six pairs that need to stay aligned. Sixteen teams have 120. This is the same arithmetic Fred Brooks described decades ago for software teams.[[c:brooks]] If instead every team stays in sync with one shared system, sixteen teams need sixteen relationships, not 120.</p>
 <figure class="fig">
 <div class="fig-body"><!-- @fig coordination --></div>
-<figcaption><b>Agreements needed to stay consistent.</b> [[ill]] This is arithmetic, not survey data: it shows the shape of the coordination problem. No real organisation needs every pair of teams to talk, but the curve explains why consistency "suddenly" collapses somewhere between three and eight teams.</figcaption>
+<figcaption><b>How many relationships it takes to stay consistent.</b> [[ill]] This is simple arithmetic, not survey data. Real teams don't all talk to each other, but the shape of the curve explains why consistency tends to fall apart somewhere between three and eight teams.</figcaption>
 </figure>
-<h3>Reason two: the cost of change multiplies</h3>
-<p>Without tokens, changing a brand colour means finding every hard-coded value across every codebase, platform and design file: roughly <em>products × platforms × occurrences</em>. With a token architecture, it means changing one value and releasing. The same applies to an accessibility fix, a new dark theme or a typography refresh. The more surfaces you have, the more each "change once" saves. That's why the clearest returns usually appear at the second product, the second platform or the first rebrand, not at the first component.</p>
-<p>This is the kind of problem design systems exist to solve. At CARS24, for example, the work Layer One's founder led put more than ten products in three countries on one colour and token system.[[c:layerone]] That outcome is only practical with a token layer between decisions and code.</p>
+<h3>Reason two: every change costs more</h3>
+<p>Remember the five buttons? Without a system, changing the brand colour means hunting down every place it was typed by hand: roughly <em>products × platforms × places it appears</em>. With a system, you change one value and release an update. The same goes for adding dark mode, fixing a contrast problem or refreshing your typography.</p>
+<p>That's why the payoff of a design system usually shows up at the <em>second</em> product, the <em>second</em> platform or the <em>first</em> rebrand, not when the first button is built. At CARS24, for example, the work Layer One's founder led put more than ten products in three countries onto one shared colour and token system.[[c:layerone]] Without a shared layer of named decisions, that kind of change would mean editing each product by hand.</p>
 
 <div class="callout callout--practice">
-  <p class="callout-label">[[prac]] Layer One view</p>
+  <p class="callout-label">[[prac]] A simple test</p>
   <h4>Judge a design system by what it makes cheap</h4>
-  <p>Good systems make the common case fast (building a standard screen) and the expensive case cheap (changing a decision everywhere). If yours does neither, it is a catalogue, not a system.</p>
+  <p>A good system makes the everyday thing fast (building a normal screen) and the scary thing cheap (changing a decision everywhere at once). If yours does neither, it's a catalogue, not a system.</p>
 </div>
 
-<h3>Glossary: the ten terms this playbook uses precisely</h3>
+<h3>Ten words you'll meet in this book</h3>
 <div class="table-wrap">
 <table class="compact">
 <tbody>
-<tr><th style="width:22%">Foundation</th><td>A category of fundamental visual decision: colour, typography, spacing, layout, elevation, motion.</td></tr>
-<tr><th>Design token</th><td>A named design decision stored in a platform-agnostic format and compiled into code (<code>space.400 = 16px</code>).</td></tr>
-<tr><th>Primitive token</th><td>A raw value with a descriptive name and no usage intent (<code>color.blue.600</code>).</td></tr>
-<tr><th>Semantic token</th><td>A token named for its purpose that points to a primitive (<code>color.text.link → color.blue.700</code>).</td></tr>
-<tr><th>Component</th><td>A reusable piece of UI with a defined API, variants, states and accessibility behaviour.</td></tr>
-<tr><th>Variant</th><td>A sanctioned alternative form of a component (primary, secondary, destructive).</td></tr>
-<tr><th>Pattern</th><td>A reusable solution to a recurring user problem, composed of components.</td></tr>
-<tr><th>Theme</th><td>A complete mapping of semantic tokens to values (light, dark, a brand).</td></tr>
-<tr><th>Adoption</th><td>The share of the shipped product built with the system, measured in code, not in Figma.</td></tr>
-<tr><th>Contribution</th><td>A change to the system proposed or built by someone outside the core team.</td></tr>
+<tr><th style="width:20%">Foundations</th><td>The basic visual decisions everything inherits: colour, text, spacing and layout.</td></tr>
+<tr><th>Token</th><td>A design decision with a name, shared by design tools and code (<code>space-16 = 16px</code>).</td></tr>
+<tr><th>Component</th><td>A reusable piece of interface: a button, an input, a dialog.</td></tr>
+<tr><th>Variant</th><td>An approved version of a component, like a primary or a secondary button.</td></tr>
+<tr><th>Pattern</th><td>A proven way to solve a common problem using several components, such as how to show "no results found".</td></tr>
+<tr><th>Theme</th><td>A complete set of values that changes the look everywhere at once, like dark mode or another brand.</td></tr>
+<tr><th>Library</th><td>The place components live: a Figma library for designers, a code package for engineers.</td></tr>
+<tr><th>Adoption</th><td>How much of the real, shipped product is actually built with the system.</td></tr>
+<tr><th>Contribution</th><td>When someone outside the system team adds or improves something in the system.</td></tr>
+<tr><th>Release</th><td>A new version of the system that teams can update to, with notes on what changed.</td></tr>
 </tbody>
 </table>
 </div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Inconsistency doesn't come from carelessness. It comes from many good people making reasonable decisions separately.</li>
+    <li>A design system is decisions, reusable parts and working agreements. Missing any one of the three is the most common reason systems fail.</li>
+    <li>A UI kit helps designers, a component library helps engineers, and a design system connects the two with shared names and a way to change.</li>
+    <li>The value grows with size: more teams, more platforms and more change all make a shared system more valuable.</li>
+  </ol>
+</aside>
 </section>
 </div><!-- /chapter --></section>

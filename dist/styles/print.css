@@ -1,25 +1,45 @@
 /* ==========================================================================
-   Print / PDF. A4 portrait. Running heads are generated per chapter by the
-   build (named pages), see scripts/build.mjs → <style id="running-heads">.
+   Print / PDF — the book layout. A4 portrait.
+
+   Page grammar (how a reader knows where things begin and end):
+   · Part      → full-bleed ink opener page
+   · Chapter   → its own opener page (big number, promise, "in this chapter")
+   · Section   → always starts at the top of a new page, with a numbered band
+   · Topic end → every chapter closes with "The short version" + "Up next"
+
+   Measure: running text is set on a 122mm column (~70 characters), with a
+   40mm margin column on the right for "New word" notes. Figures, tables and
+   panels use the full 168mm width.
+
+   Running heads are generated per chapter by the build (named pages).
    ========================================================================== */
 @page {
   size: A4;
-  margin: 20mm 18mm 20mm 22mm;
-  @bottom-right { content: counter(page, decimal-leading-zero); font: 500 7.5pt "JetBrains Mono", monospace; color: #0b0d12; vertical-align: top; padding-top: 4mm; }
-  @bottom-left { content: "Layer One — The Design Systems Playbook"; font: 400 7pt "JetBrains Mono", monospace; color: #7a808a; vertical-align: top; padding-top: 4mm; }
+  margin: 22mm 20mm 22mm 22mm;
+  @bottom-right { content: counter(page); font: 500 7.5pt "JetBrains Mono", monospace; color: #0b0d12; vertical-align: top; padding-top: 5mm; }
+  @bottom-left { content: "The Design Systems Playbook — Layer One"; font: 400 7pt "JetBrains Mono", monospace; color: #7a808a; vertical-align: top; padding-top: 5mm; }
 }
 @page cover { margin: 0; @bottom-right { content: none; } @bottom-left { content: none; } }
 @page bleed { margin: 0; @bottom-right { content: none; } @bottom-left { content: none; } }
 @page front { @top-left { content: none; } }
 
 @media print {
-  :root { --measure: none; }
+  :root { --measure: none; --col: 122mm; }
   html, body { background: #fff; }
-  body { font-size: 9.4pt; line-height: 1.5; color: #0b0d12; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-size: 10pt; line-height: 1.55; color: #0b0d12; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .sidebar, .mobile-bar, .progress, .screen-only { display: none !important; }
   .shell, .main, .page { display: block; max-width: none; margin: 0; padding: 0; }
+  a { text-decoration: none; }
+  sup.cite a { color: #b83a16; }
 
-  /* Cover & full-bleed openers */
+  /* ---------- Reading measure ---------- */
+  .chapter p, .chapter > .page > section > ul, .chapter > .page > section > ol,
+  .chapter h3, .chapter h4, .front p { max-width: var(--col); }
+  .chapter .fig p, .chapter .card p, .chapter .callout p, .chapter .scenario p,
+  .chapter .qa p, .chapter .chapter-end p, .chapter .cols-2 p, .chapter .cols-3 p, .chapter .steps p { max-width: none; }
+  p, li { orphans: 3; widows: 3; }
+
+  /* ---------- Full-bleed pages ---------- */
   .cover { page: cover; width: 210mm; height: 297mm; min-height: 0; break-after: page; }
   .part-opener { page: bleed; width: 210mm; height: 297mm; min-height: 0; padding: 22mm 20mm 20mm; break-before: page; break-after: page; }
   .part-opener .po-num { font-size: 190pt; }
@@ -29,62 +49,98 @@
   .part-opener .po-art { right: -40mm; top: -20mm; width: 175mm; }
 
   .front { page: front; break-before: page; padding: 0; }
-  .chapter { break-before: page; padding: 0; border: 0; }
+  .front h2 { margin-top: 0; }
 
-  /* Type sizes for print */
-  h2 { font-size: 21pt; margin: 22pt 0 10pt; break-after: avoid; }
-  h3 { font-size: 13pt; margin: 16pt 0 6pt; break-after: avoid; }
-  h4 { font-size: 10.5pt; margin: 12pt 0 4pt; break-after: avoid; }
-  .sec-num { font-size: 7.5pt; margin-bottom: 5pt; }
-  section.sec { break-before: auto; }
-  section.sec.new-page { break-before: page; }
-  section.sec > h2:first-child { margin-top: 26pt; }
-  p, li { orphans: 3; widows: 3; }
-  .lede { font-size: 12.5pt; }
-  .chapter-opener { padding-top: 6mm; margin-bottom: 4mm; }
-  .chapter-opener h1 { font-size: 36pt; }
-  .chapter-opener .dek { font-size: 13pt; }
-  .chapter-opener .ch-num { font-size: 8pt; margin-bottom: 14mm; }
-  .opener-meta { margin-top: 12mm; }
+  /* ---------- Chapter opener: a page of its own ---------- */
+  .chapter { break-before: page; padding: 0; border: 0; }
+  .chapter-opener { height: 250mm; display: flex; flex-direction: column; padding: 0; margin: 0; break-after: page; break-inside: avoid; }
+  .chapter-opener .ch-num { font-size: 8pt; margin-bottom: 0; }
+  .chapter-opener .ch-big { font-size: 150pt; line-height: 0.82; font-weight: 800; letter-spacing: -0.06em; color: var(--signal-500); margin: 16mm 0 10mm -2mm; }
+  .chapter-opener h1 { font-size: 34pt; line-height: 1.04; max-width: 140mm; }
+  .chapter-opener .dek { font-size: 13pt; line-height: 1.45; max-width: 135mm; margin-top: 7mm; }
+  .chapter-opener .opener-meta { margin-top: auto; padding-top: 6mm; gap: 10mm; }
   .opener-meta p, .opener-meta li { font-size: 9pt; }
-  .pull { font-size: 16pt; margin: 18pt 0; }
+  .in-chapter-wrap { margin-top: 7mm; padding-top: 5mm; border-top: 1px solid var(--rule); }
+  .in-chapter-h { font-size: 6.8pt; }
+  .in-chapter { columns: 2; column-gap: 10mm; margin: 0; }
+  .in-chapter li { font-size: 8.8pt; grid-template-columns: 28pt 1fr; }
+
+  /* ---------- Sections: every section opens a new page ---------- */
+  section.sec { break-before: page; clear: both; }
+  section.sec > h2 { font-size: 23pt; line-height: 1.1; margin: 0 0 12pt; border-top: 2px solid #0b0d12; padding-top: 7pt; max-width: 150mm; break-after: avoid; }
+  section.sec > h2 .sec-num { display: block; font-size: 8pt; margin: 0 0 10pt; }
+  section.sec > h2 + p { font-size: 11.5pt; line-height: 1.5; color: #2a2f3a; }
+  h3 { font-size: 13.5pt; margin: 20pt 0 6pt; break-after: avoid; clear: both; }
+  h4 { font-size: 10.5pt; margin: 13pt 0 4pt; break-after: avoid; }
+  h3 + p, h4 + p, h3 + ul, h4 + ul { break-before: avoid; }
+  .lede { font-size: 12.5pt; }
+  .pull { font-size: 16pt; margin: 18pt 0; max-width: var(--col); }
+
+  /* ---------- Margin notes ("New word") ---------- */
+  .term { float: right; clear: right; width: 40mm; margin: 2pt 0 10pt 6mm; padding: 7pt 0 0; border-top: 2px solid var(--signal-500); background: none; break-inside: avoid; }
+  .term .term-k { font-size: 6.4pt; }
+  .term b { font-size: 9pt; }
+  .term span { font-size: 7.8pt; line-height: 1.42; }
+
+  /* Wide elements never sit beside a margin note */
+  .fig, .table-wrap, .callout, .scenario, .cols-2, .cols-3, .cols-4, pre, .qa, .steps, .checklist, .chapter-end, .stat, .pull, .routes, .ev-legend { clear: both; }
+
+  /* ---------- Keep things together ---------- */
+  .fig, .callout, .card, .scenario, .stat, .chapter-end, .pull, .steps > li, .checklist li, .dt-node, .dt-out { break-inside: avoid; }
+  .table-wrap { break-inside: auto; overflow: visible; }
+  tr { break-inside: avoid; }
+  thead { display: table-header-group; }
+  .qa { break-inside: auto; }
+  .qa .q { break-after: avoid; }
   pre { font-size: 7.6pt; padding: 12pt 14pt; white-space: pre-wrap; break-inside: avoid; }
 
-  /* Components at print size */
+  /* ---------- Components at print size ---------- */
   table { font-size: 8.4pt; }
   thead th, caption { font-size: 6.8pt; }
   th, td { padding: 5pt 8pt 5pt 0; }
   td.num, th.num { font-size: 7.8pt; }
   table.compact th, table.compact td { font-size: 7.8pt; padding: 4pt 6pt 4pt 0; }
-  thead { display: table-header-group; }
-  tr { break-inside: avoid; }
-  .callout { padding: 11pt 13pt 10pt; margin: 14pt 0; }
-  .callout p, .callout li { font-size: 8.9pt; }
+  .callout { padding: 12pt 14pt 11pt; margin: 16pt 0; }
+  .callout p, .callout li { font-size: 9pt; }
   .callout--key h4 { font-size: 12.5pt; }
   .card { padding: 10pt 11pt; }
   .card h4 { font-size: 10pt; }
-  .card p, .card li { font-size: 8.4pt; }
+  .card p, .card li { font-size: 8.6pt; }
   .stat .stat-n { font-size: 30pt; }
   .stat .stat-l { font-size: 8.6pt; }
   .qa { padding: 12pt 0; gap: 16pt; }
   .qa .q { font-size: 12.5pt; }
-  .qa .a p, .qa .a li { font-size: 9pt; }
-  .checklist li { font-size: 8.8pt; padding: 5pt 0 5pt 22pt; }
+  .qa .a p, .qa .a li { font-size: 9.2pt; }
+  .checklist li { font-size: 9pt; padding: 5pt 0 5pt 22pt; }
   .checklist li::before { top: 6pt; width: 10pt; height: 10pt; }
   .steps > li { padding: 8pt 0; grid-template-columns: 34pt 1fr; }
-  .steps p { font-size: 8.8pt; }
-  .fig { margin: 16pt 0 18pt; }
+  .steps p { font-size: 9pt; }
+  .fig { margin: 18pt 0 20pt; }
   .fig-body { padding: 14pt; border-radius: 8pt; }
-  .fig figcaption { font-size: 8pt; margin-top: 6pt; }
+  .fig figcaption { font-size: 8pt; margin-top: 6pt; max-width: 150mm; }
   .ev { font-size: 6.2pt; padding: 2pt 4pt; }
   .ev-legend div, .routes p { font-size: 8pt; }
   .routes h5 { font-size: 9.5pt; } .routes .path { font-size: 7pt; }
-  .toc-list li { font-size: 10pt; padding: 5pt 0; }
-  .toc-list li .tsub { font-size: 7.8pt; }
+  .toc-list li { font-size: 10pt; padding: 3.5pt 0; }
+  .toc-list li .tsub { font-size: 7pt; line-height: 1.35; }
+  .toc-part { margin: 12pt 0 4pt; padding-top: 6pt; }
   .toc-part .tp-title { font-size: 14pt; }
   .refs li { font-size: 8.2pt; padding: 5pt 0; }
   .refs .ru { font-size: 6.8pt; }
   .tk { font-size: 7pt; }
+
+  /* Scenario panels */
+  .scenario { padding: 14pt 16pt 12pt; margin: 18pt 0; }
+  .scenario .sc-title { font-size: 12pt; }
+  .scenario .sc-grid { gap: 8pt 14pt; }
+  .scenario .sc-grid p { font-size: 9pt; }
+  .scenario .sc-k { font-size: 6.4pt; }
+
+  /* Chapter ending */
+  .chapter-end { margin-top: 22pt; padding: 16pt 18pt; }
+  .chapter-end h4 { font-size: 13pt; }
+  .chapter-end li { font-size: 9.4pt; }
+  .up-next { font-size: 9pt; margin-top: 10pt; }
 
   /* Figure internals at print size */
   .chip { min-height: 40pt; font-size: 5.6pt; padding: 3pt; }
@@ -110,15 +166,35 @@
   .dt-out { font-size: 8.2pt; } .dt-out b { font-size: 8.8pt; }
   .hbar { grid-template-columns: 110pt 1fr; font-size: 8pt; }
   .fig-label { font-size: 6.4pt; }
-  a { text-decoration: none; }
-  sup.cite a { color: #b83a16; }
   .no-print { display: none !important; }
-  /* Let long tables and Q&A flow across pages; keep their heads attached. */
-  .table-wrap { break-inside: auto; overflow: visible; }
-  .qa { break-inside: auto; }
-  .qa .q { break-after: avoid; }
-  .toc-list li { padding: 3.5pt 0; }
-  .toc-list li .tsub { font-size: 7pt; line-height: 1.35; }
-  .toc-part { margin: 12pt 0 4pt; padding-top: 6pt; }
   .print-break { break-before: page; }
 }
+
+/* ---------- Fit levels, applied automatically by export-pdf.mjs to sections
+   that would otherwise spill a few lines onto an almost-empty page. ---------- */
+@media print {
+  section.sec.fit-1 { font-size: 9.6pt; line-height: 1.48; }
+  section.sec.fit-1 p, section.sec.fit-1 ul, section.sec.fit-1 ol { margin-bottom: 0.75em; }
+  section.sec.fit-1 h3 { margin-top: 14pt; }
+  section.sec.fit-1 .fig { margin: 12pt 0 14pt; }
+  section.sec.fit-1 .callout, section.sec.fit-1 .scenario { margin: 12pt 0; }
+  section.sec.fit-1 .pull { margin: 12pt 0; }
+  section.sec.fit-1 > h2 + p { font-size: 10.8pt; }
+  section.sec.fit-2 { font-size: 9.3pt; line-height: 1.44; }
+  section.sec.fit-2 p, section.sec.fit-2 ul, section.sec.fit-2 ol { margin-bottom: 0.6em; }
+  section.sec.fit-2 h3 { margin-top: 11pt; }
+  section.sec.fit-2 .fig { margin: 9pt 0 11pt; }
+  section.sec.fit-2 .fig-body { zoom: 0.9; }
+  section.sec.fit-2 .callout, section.sec.fit-2 .scenario { margin: 9pt 0; padding-top: 9pt; padding-bottom: 8pt; }
+  section.sec.fit-2 .pull { margin: 9pt 0; font-size: 14pt; }
+  section.sec.fit-2 > h2 + p { font-size: 10.2pt; }
+  section.sec.fit-2 td, section.sec.fit-2 th { padding-top: 3.5pt; padding-bottom: 3.5pt; }
+  section.sec.fit-2 .checklist li { padding-top: 3.5pt; padding-bottom: 3.5pt; }
+  section.sec.fit-2 .qa { padding: 8pt 0; }
+}
+@media print {
+  /* A section allowed to start mid-page (set by export-pdf.mjs when the
+     previous section would otherwise leave an almost-empty page). */
+  section.sec.follow { break-before: auto; margin-top: 30pt; }
+}
+@media print { .chapter-end { break-after: avoid; } .up-next { break-before: avoid; } }

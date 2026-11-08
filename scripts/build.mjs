@@ -59,6 +59,25 @@ body = body.replace(/<section class="(chapter[^"]*)"([^>]*)>([\s\S]*?)<!-- \/cha
 });
 const parts = book.parts;
 
+// 5b. Book furniture for numbered chapters: big opener number, "In this
+//     chapter" list on the opener page, and an "Up next" line at the end.
+const numbered = chapters.filter((c) => /^\d+$/.test(c.num));
+body = body.replace(/(<section class="chapter[^"]*" id="(ch\d+)"[^>]*>)([\s\S]*?)<!-- \/chapter -->/g, (m, open, id, inner) => {
+  const i = numbered.findIndex((c) => c.id === id);
+  if (i < 0) return m;
+  const ch = numbered[i], next = numbered[i + 1];
+  inner = inner.replace(/(<p class="ch-num">[^<]*<\/p>)/, `$1<span class="ch-big" aria-hidden="true">${ch.num}</span>`);
+  const list = `<div class="in-chapter-wrap"><p class="in-chapter-h">In this chapter</p><ol class="in-chapter">${ch.sections.map((s) => `<li><span>${s.id.replace(/^ch(\d+)-(\d+)$/, (_, a, b) => `${a}.${b}`)}</span>${s.title}</li>`).join('')}</ol></div>`;
+  inner = inner.replace(/<\/header>/, `${list}</header>`);
+  const nextLine = next
+    ? (next.part !== ch.part
+      ? `<p class="up-next">Up next →<b>Part ${next.part}: ${parts.find((p) => p.num === next.part)?.short || ''}</b></p>`
+      : `<p class="up-next">Up next →<b>Chapter ${next.num}: ${next.title}</b></p>`)
+    : '';
+  inner = inner.replace(/<\/div>\s*$/, `${nextLine}</div>`);
+  return `${open}${inner}<!-- /chapter -->`;
+});
+
 // 6. Contents page.
 const toc = `<section class="front toc-page" id="contents"><p class="eyebrow">Contents</p><h2 class="toc-title" style="font-size:44px;letter-spacing:-0.035em">What's inside</h2>
 ${parts.map((p) => `<div class="toc-part"><span class="tp-num">Part ${p.num}</span><span class="tp-title">${p.title}</span></div>

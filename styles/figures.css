@@ -137,3 +137,40 @@
   .anat > div:last-child { grid-template-rows: none !important; }
   .anat-row { grid-template-columns: 1fr; gap: 2px; }
 }
+
+/* ---- Part 03 component figures ---- */
+.cmp-demo { font-family: var(--font-sans); color: #0b0d12; }
+.cmp-label { font-size: 13px; font-weight: 550; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.cmp-field { height: 40px; border: 1px solid #878e99; border-radius: 6px; background: #fff; display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 14px; color: #0b0d12; }
+.cmp-field .ph { color: #707681; }
+.cmp-help { font-size: 12px; color: #595f69; margin-top: 6px; display: flex; align-items: center; gap: 8px; }
+.cmp-err { color: #b3081d; }
+.badge-n { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--signal-500); color: #0b0d12; font: 600 10px/1 var(--font-mono); flex: none; }
+.anatomy-list { list-style: none; padding: 0; margin: 0; }
+.anatomy-list li { display: grid; grid-template-columns: 26px 1fr; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--rule); font-size: 13.5px; line-height: 1.45; margin: 0; }
+.anatomy-list li b { display: block; }
+.state-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 14px; }
+.state-grid .st-name { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+.btn-demo { display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; font-weight: 600; white-space: nowrap; font-family: var(--font-sans); }
+.slot { border: 1.5px dashed #ed521c; border-radius: 6px; padding: 8px 10px; font-family: var(--font-mono); font-size: 10.5px; color: #b83a16; background: rgb(255 107 61 / 0.06); }
+.matrix-2x2 { display: grid; grid-template-columns: 26px 1fr 1fr; grid-template-rows: 1fr 1fr 22px; gap: 6px; }
+.matrix-2x2 .q { border-radius: 8px; padding: 12px 14px; font-size: 13px; line-height: 1.4; }
+.matrix-2x2 .q b { display: block; font-size: 14.5px; margin-bottom: 4px; }
+.matrix-2x2 .ax { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; }
+.matrix-2x2 .ax.v { writing-mode: vertical-rl; transform: rotate(180deg); }
+.lifecycle { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+.lifecycle > div { padding: 12px 12px 10px; border-top: 4px solid; font-size: 12.5px; line-height: 1.45; }
+.lifecycle b { display: block; font-size: 14px; margin-bottom: 4px; }
+.tree { font-family: var(--font-mono); font-size: 12px; line-height: 1.75; white-space: pre; }
+.tree .c { color: var(--text-muted); }
+.tree .hl { color: var(--accent-text); }
+@media print {
+  .cmp-label { font-size: 9pt; } .cmp-field { font-size: 9.5pt; height: 28pt; } .cmp-help { font-size: 8pt; }
+  .anatomy-list li { font-size: 8.6pt; padding: 4pt 0; }
+  .state-grid .st-name { font-size: 6.5pt; }
+  .matrix-2x2 .q { font-size: 8.4pt; padding: 8pt 10pt; } .matrix-2x2 .q b { font-size: 9.5pt; }
+  .matrix-2x2 .ax { font-size: 6.5pt; }
+  .lifecycle > div { font-size: 8pt; padding: 8pt; } .lifecycle b { font-size: 9.5pt; }
+  .tree { font-size: 7.6pt; }
+  .slot { font-size: 6.8pt; }
+}

@@ -1,265 +1,284 @@
-<section class="chapter" id="ch05" data-part="01" data-num="05" data-title="Design system operating models" data-short="Operating models"><div class="page">
+<section class="chapter" id="ch05" data-part="01" data-num="05" data-title="Running a design system day to day" data-short="Running it"><div class="page">
 <header class="chapter-opener">
   <p class="ch-num">Chapter 05</p>
-  <h1>Design system operating models</h1>
-  <p class="dek">A design system is not something a team builds and publishes. It is a product with users, a roadmap, releases, support and metrics. The operating model decides whether it is still trusted in three years.</p>
+  <h1>Running a design system day to day</h1>
+  <p class="dek">Building a design system is the easy part. Running it is where most of them succeed or fail. Who owns it? Who decides what goes in? What happens when two teams want different things, or an update breaks someone's screen? This chapter is about the everyday operation.</p>
   <div class="opener-meta">
-    <div><h5>Read this if</h5><p>You are setting up a system team, your system has adoption problems, or product teams see the system team as a bottleneck.</p></div>
-    <div><h5>What you'll leave with</h5><ol><li>A clear choice between centralised, federated and hybrid models, and what each requires.</li><li>Working templates: decision rights (RACI), contribution flow, versioning policy.</li><li>A health scorecard and a plan for managing design and technical debt.</li></ol></div>
+    <div><h5>Read this if</h5><p>You're setting up a system team, your system isn't being used as much as you hoped, or product teams have started calling the system team "the bottleneck".</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A clear picture of the ways companies organise design system ownership, and which fits you.</li><li>A practical process for requests, contributions, updates and breaking changes.</li><li>Ways to get people using the system, and to keep it healthy for years.</li></ol></div>
   </div>
 </header>
 
 <section class="sec" id="ch05-1">
-<h2><span class="sec-num">05.1</span>Treat the system as a product</h2>
-<p>The most reliable predictor of a healthy design system is whether its team behaves like a product team. That means it knows its users (product designers and engineers), runs discovery on their problems, prioritises a roadmap, ships on a cadence, supports what it ships and measures outcomes.</p>
+<h2><span class="sec-num">05.1</span>It's a product, not a project</h2>
+<p>A project has an end date. You build it, you launch it, you move on. A lot of design systems are treated this way, and that's exactly why they fail. Nathan Curtis, one of the most influential voices in the field, put it in a phrase that has stuck for a decade: a design system isn't a project, it's <em>a product, serving products</em>.[[c:curtis-product]]</p>
+<p>What does "product" mean in practice? It means the system has <strong>users</strong>, who are the designers and engineers in your product teams. It has a <strong>roadmap</strong> of what's coming next. It ships <strong>updates</strong> on a regular rhythm. It offers <strong>support</strong> when people get stuck. And somebody checks whether it's actually <strong>working</strong> for the people who use it. Ben Callahan of Sparkbox describes the people who build with a system as its "subscribers", and that's a useful way to think about them. They chose to rely on you. Keep earning it.[[c:callahan-maturity]]</p>
 <div class="table-wrap">
 <table class="compact">
-<thead><tr><th style="width:22%">Product practice</th><th>In a design system team</th></tr></thead>
+<thead><tr><th style="width:20%">Product habit</th><th>What it looks like for a design system</th></tr></thead>
 <tbody>
-<tr><th>Users</th><td>Product designers, engineers, PMs, content designers, and sometimes vendors and partners.</td></tr>
-<tr><th>Discovery</th><td>Audit requests, sit with product teams, review what teams build <em>outside</em> the system and why.</td></tr>
-<tr><th>Roadmap</th><td>Public, prioritised by reach (how many teams) × pain, not by what the system team finds interesting.</td></tr>
-<tr><th>Releases</th><td>Versioned, with changelogs and migration notes; on a predictable cadence.</td></tr>
-<tr><th>Support</th><td>A channel with response targets, office hours, onboarding sessions.</td></tr>
-<tr><th>Metrics</th><td>Adoption, coverage, contribution, satisfaction and outcome KPIs (03.4).</td></tr>
+<tr><th>Know your users</th><td>Regularly sit with product teams. Look at what they build <em>outside</em> the system, and ask why.</td></tr>
+<tr><th>Keep a roadmap</th><td>A public list of what's coming, ordered by how many teams need it and how painful the gap is.</td></tr>
+<tr><th>Ship on a rhythm</th><td>Regular updates with clear notes on what changed, so teams can plan.</td></tr>
+<tr><th>Offer support</th><td>A Slack channel with someone answering, weekly office hours, and a short onboarding session for new joiners.</td></tr>
+<tr><th>Measure what matters</th><td>Is it being used? Is it saving time? Do people like working with it? (See 05.8.)</td></tr>
 </tbody>
 </table>
+</div>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] A simple test</p>
+  <p>Ask a designer in a product team: "If the system doesn't have what you need, what do you do?" If they can answer confidently, you have an operating model. If they shrug and say "I just make my own", you have a library.</p>
 </div>
 </section>
 
 <section class="sec" id="ch05-2">
-<h2><span class="sec-num">05.2</span>Centralised, federated and hybrid models</h2>
-<p>Nathan Curtis's 2015 essay set out the vocabulary most teams still use: <em>solitary</em>, <em>centralised</em> and <em>federated</em>.[[c:curtis-team-models]] Salesforce later described a <em>cyclical</em> hybrid, with a central team plus a federated group of contributors that inform each other.[[c:salesforce-cyclical]] Curtis himself later concluded that successful systems always have a central team <em>and</em> seek participation from a federated community.[[c:curtis-fallacy]] [[doc]]</p>
+<h2><span class="sec-num">05.2</span>Who owns it? Four ways to organise</h2>
+<p>Every company that runs a design system has to answer one question early: whose job is it? In his 2015 essay on team models, Nathan Curtis described the options that most of the industry still uses today.[[c:curtis-team-models]] Here they are, in plain terms.</p>
 <figure class="fig">
 <div class="fig-body">
 <svg viewBox="0 0 760 210" role="img" aria-label="Four team models as node diagrams" style="width:100%;height:auto;color:var(--text);font-family:'Schibsted Grotesk',sans-serif">
-  <g font-size="13" font-weight="650" fill="currentColor"><text x="20" y="20">Solitary</text><text x="210" y="20">Centralised</text><text x="400" y="20">Federated</text><text x="590" y="20">Hybrid (cyclical)</text></g>
-  <!-- solitary -->
+  <g font-size="13" font-weight="650" fill="currentColor"><text x="20" y="20">One team's system</text><text x="210" y="20">Central team</text><text x="400" y="20">Shared ownership</text><text x="590" y="20">Central + contributors</text></g>
   <circle cx="95" cy="100" r="22" fill="var(--signal-500)"/><text x="95" y="104" text-anchor="middle" font-size="10" fill="#0b0d12" font-family="JetBrains Mono">A</text>
   <g fill="none" stroke="currentColor" stroke-opacity=".3" stroke-dasharray="3 3"><line x1="117" y1="100" x2="150" y2="70"/><line x1="117" y1="100" x2="150" y2="135"/><line x1="73" y1="100" x2="40" y2="135"/></g>
   <g fill="var(--bg)" stroke="currentColor" stroke-opacity=".5"><circle cx="156" cy="64" r="11"/><circle cx="156" cy="140" r="11"/><circle cx="34" cy="140" r="11"/></g>
-  <!-- centralised -->
   <rect x="263" y="78" width="54" height="44" rx="8" fill="var(--signal-500)"/><text x="290" y="104" text-anchor="middle" font-size="10" fill="#0b0d12" font-family="JetBrains Mono">core</text>
   <g stroke="currentColor" stroke-opacity=".45"><line x1="290" y1="78" x2="290" y2="50"/><line x1="317" y1="100" x2="345" y2="100"/><line x1="290" y1="122" x2="290" y2="150"/><line x1="263" y1="100" x2="235" y2="100"/></g>
   <g fill="var(--bg)" stroke="currentColor" stroke-opacity=".5"><circle cx="290" cy="40" r="11"/><circle cx="356" cy="100" r="11"/><circle cx="290" cy="161" r="11"/><circle cx="224" cy="100" r="11"/></g>
-  <!-- federated -->
   <g stroke="currentColor" stroke-opacity=".45"><line x1="445" y1="60" x2="525" y2="60"/><line x1="445" y1="60" x2="445" y2="140"/><line x1="525" y1="60" x2="525" y2="140"/><line x1="445" y1="140" x2="525" y2="140"/><line x1="445" y1="60" x2="525" y2="140"/><line x1="525" y1="60" x2="445" y2="140"/></g>
   <g fill="var(--signal-300)" stroke="currentColor" stroke-opacity=".5"><circle cx="445" cy="60" r="13"/><circle cx="525" cy="60" r="13"/><circle cx="445" cy="140" r="13"/><circle cx="525" cy="140" r="13"/></g>
-  <!-- hybrid -->
   <rect x="653" y="78" width="54" height="44" rx="8" fill="var(--signal-500)"/><text x="680" y="104" text-anchor="middle" font-size="10" fill="#0b0d12" font-family="JetBrains Mono">core</text>
   <g stroke="currentColor" stroke-opacity=".45"><line x1="680" y1="78" x2="680" y2="50"/><line x1="707" y1="100" x2="735" y2="100"/><line x1="680" y1="122" x2="680" y2="150"/><line x1="653" y1="100" x2="625" y2="100"/></g>
   <g fill="var(--signal-300)" stroke="currentColor" stroke-opacity=".5"><circle cx="680" cy="40" r="11"/><circle cx="746" cy="100" r="11"/><circle cx="680" cy="161" r="11"/><circle cx="614" cy="100" r="11"/></g>
-  <path d="M 692 38 Q 740 45 744 88" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
-  <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker></defs>
-  <g font-size="10.5" fill="currentColor" fill-opacity=".65" font-family="JetBrains Mono"><text x="20" y="196">one team serves itself</text><text x="210" y="196">one team serves all</text><text x="400" y="196">all teams share ownership</text><text x="590" y="196">core team + contributors</text></g>
+  <path d="M 692 38 Q 740 45 744 88" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr5)"/>
+  <defs><marker id="arr5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker></defs>
+  <g font-size="10.5" fill="currentColor" fill-opacity=".65" font-family="JetBrains Mono"><text x="20" y="196">one team, others borrow</text><text x="210" y="196">one team serves everyone</text><text x="400" y="196">every team chips in</text><text x="590" y="196">core team + helpers</text></g>
 </svg>
 </div>
-<figcaption><b>Four team models.</b> Orange marks system ownership; tinted nodes are product teams that contribute. In the hybrid model, contributions flow from product teams into the core and releases flow back out.</figcaption>
+<figcaption><b>Four ways to organise ownership.</b> Orange shows who owns the system; tinted circles are product teams that contribute. In the last model, improvements flow from product teams into the core, and updates flow back out. Based on Nathan Curtis's team models.[[c:curtis-team-models]]</figcaption>
 </figure>
-<div class="table-wrap">
-<table>
-<thead><tr><th style="width:14%">Model</th><th>Strengths</th><th>Failure mode</th><th style="width:24%">Fits</th></tr></thead>
-<tbody>
-<tr><th>Solitary</th><td>Fast; grounded in real product needs.</td><td>The system bends to one product; others don't adopt.</td><td>Stage 1–2; a single product</td></tr>
-<tr><th>Centralised</th><td>Focus, consistent quality, clear accountability.</td><td>Becomes a bottleneck and drifts from product reality ("overlords don't scale").</td><td>Early Stage 3, while foundations stabilise</td></tr>
-<tr><th>Federated</th><td>Spreads load; strong product context.</td><td>Nobody's job, so nobody does it; decisions stall.</td><td>Rarely works alone</td></tr>
-<tr><th>Hybrid</th><td>Core quality plus contribution at scale.</td><td>Needs real investment in contribution process and reviewer time.</td><td>Stage 3–4; multiple products</td></tr>
-</tbody>
-</table>
+<p><strong>One team's system</strong> (Curtis calls it "solitary"). One product team builds a system for itself, and others borrow it. It's fast and grounded in real work, but it naturally bends towards that one team's needs, so other teams often don't adopt it.</p>
+<p><strong>A central team</strong> ("centralised"). A dedicated team builds and runs the system for everyone. Quality and focus are high, but the team can drift away from what products actually need, and it can become a queue everyone is stuck in.</p>
+<p><strong>Shared ownership</strong> ("federated"). Designers and engineers across product teams share the work, with no central team. It sounds fair and efficient. In practice it's often nobody's real job, so it quietly stalls. Curtis himself later concluded that successful systems always have a central team, and also seek participation from a wider community.[[c:curtis-fallacy]]</p>
+<p><strong>Central team plus contributors</strong> (a hybrid). A core team owns quality and direction, and product teams contribute improvements back. Salesforce described their version as "cyclical": the core and the contributors constantly feed each other.[[c:salesforce-cyclical]] This is where most mature systems end up.</p>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Real-world example</span><span class="sc-title">Spotify: from 22 systems to one family</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">What happened</span><p>After Spotify's original central design system team was disbanded, teams started building their own. By the time the company looked again, it had 22 separate design systems.</p></div>
+    <div><span class="sc-k">The problem</span><p>Each one made sense locally, but together they made the product inconsistent and duplicated a lot of work.</p></div>
+    <div><span class="sc-k">What they did</span><p>They created Encore, a "system of systems": shared foundations at the core, with local systems for specific products or platforms on top.[[c:spotify-encore]]</p></div>
+  </div>
 </div>
 <div class="callout callout--practice">
   <p class="callout-label">[[prac]] Our recommendation</p>
-  <p>Start solitary or centralised to establish foundations and the first components. Move to hybrid as soon as two or more teams are adopting. Do it deliberately, by budgeting contributor time in product teams' plans, not by hoping for goodwill.</p>
+  <p>Start with one team or a central team while you get the basics right. As soon as two or more teams depend on the system, move to "central team plus contributors", and do it on purpose: set aside contributor time in product teams' plans instead of hoping people will help in their spare time.</p>
 </div>
 </section>
 
 <section class="sec" id="ch05-3">
-<h2><span class="sec-num">05.3</span>Ownership and decision rights</h2>
-<p>Most system conflicts are really unclear decision rights. Write them down. The RACI below is a starting template for a hybrid model. <b>R</b>esponsible does the work, <b>A</b>ccountable makes the call, <b>C</b>onsulted gives input, <b>I</b>nformed is told.</p>
+<h2><span class="sec-num">05.3</span>Who decides what goes in?</h2>
+<p>Imagine two product teams. The payments team needs a date picker that shows bank holidays. The reporting team needs a date picker that selects ranges of months. Both ask the system team for "a date picker". Who decides what gets built, and does it go into the shared system at all?</p>
+<p>This is the everyday reality of running a system, and the answer starts with a simple idea: <strong>not everything belongs in the core</strong>.</p>
+<figure class="fig">
+<div class="fig-body">
+<div style="display:grid;gap:8px">
+  <div style="display:grid;grid-template-columns:150px 1fr 1fr;gap:14px;align-items:center;padding:14px;border-radius:8px;background:var(--signal-500);color:#0b0d12"><b>Core</b><span style="font-size:13px">Used by every team. Highest quality bar. Owned by the system team.</span><span class="mono" style="font-size:11px">Button, input, dialog, date picker (basic)</span></div>
+  <div style="display:grid;grid-template-columns:150px 1fr 1fr;gap:14px;align-items:center;padding:14px;border-radius:8px;background:#ffe2d5;color:#0b0d12"><b>Shared extensions</b><span style="font-size:13px">Used by a family of products or one platform. Owned by a named team, visible to all.</span><span class="mono" style="font-size:11px">Month-range picker for analytics products</span></div>
+  <div style="display:grid;grid-template-columns:150px 1fr 1fr;gap:14px;align-items:center;padding:14px;border-radius:8px;border:1.5px dashed var(--rule-strong)"><b>Local</b><span class="muted" style="font-size:13px">Used by one product. Built from system parts. Owned by that product team.</span><span class="mono" style="font-size:11px">Bank-holiday calendar for payments</span></div>
+</div>
+</div>
+<figcaption><b>Three levels of "belonging".</b> Nathan Curtis calls these tiers: a high-quality core everyone uses, with lower tiers for things that are specific to a product or platform.[[c:curtis-tiers]] Brad Frost describes product-specific combinations as "recipes" that live outside the core so it doesn't fill up with one-offs.[[c:frost-recipes]]</figcaption>
+</figure>
+<p>In our date picker example, the system team builds (or improves) a basic, accessible date picker in the core. The reporting team builds a month-range picker as an extension, using core parts. The payments team adds bank holidays locally. Everyone gets what they need, the core stays clean, and if a third team later needs month ranges, the extension is a strong candidate to move into the core.</p>
+
+<h3>Write down who decides what</h3>
+<p>Most arguments about design systems are really arguments about who gets to decide. You can prevent most of them by writing it down in advance. Here's a starting point for a central team with contributors:</p>
 <div class="table-wrap">
 <table class="compact">
-<thead><tr><th style="width:34%">Decision</th><th style="text-align:center">System lead</th><th style="text-align:center">System designers</th><th style="text-align:center">System engineers</th><th style="text-align:center">Product teams</th><th style="text-align:center">Design / eng leadership</th></tr></thead>
+<thead><tr><th style="width:36%">Decision</th><th>Who makes the call</th><th>Who should be asked first</th></tr></thead>
 <tbody>
-<tr><td>Change a foundation (palette, type scale)</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
-<tr><td>Add a new component to the core</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">C</td><td style="text-align:center">I</td></tr>
-<tr><td>Add a variant to an existing component</td><td style="text-align:center">I</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">—</td></tr>
-<tr><td>Component API and breaking changes</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center"><b>A</b>/R</td><td style="text-align:center">C</td><td style="text-align:center">I</td></tr>
-<tr><td>Accessibility conformance of components</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">I</td><td style="text-align:center">I</td></tr>
-<tr><td>Use of a local (non-system) component</td><td style="text-align:center">I</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center"><b>A</b>/R</td><td style="text-align:center">—</td></tr>
-<tr><td>Deprecate and remove a component</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">C</td><td style="text-align:center">I</td></tr>
-<tr><td>System roadmap and funding</td><td style="text-align:center">R</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center"><b>A</b></td></tr>
+<tr><td>Changing a foundation (colours, text sizes)</td><td>System lead</td><td>Product designers, brand, engineering</td></tr>
+<tr><td>Adding a new component to the core</td><td>System lead</td><td>The teams that asked for it</td></tr>
+<tr><td>Adding a variation to an existing component</td><td>System designer</td><td>The requesting team</td></tr>
+<tr><td>How a component works in code, and changes that would break things</td><td>System engineers</td><td>Product engineers</td></tr>
+<tr><td>Whether a component meets accessibility rules</td><td>System lead (with an accessibility specialist)</td><td>—</td></tr>
+<tr><td>Building a local, product-only component</td><td><b>The product team</b></td><td>System designer (a quick heads-up)</td></tr>
+<tr><td>Removing an old component</td><td>System lead</td><td>Every team still using it</td></tr>
+<tr><td>The system's roadmap and budget</td><td>Design and engineering leadership</td><td>System lead, product teams</td></tr>
 </tbody>
 </table>
 </div>
-<p>Note row six. Product teams are <em>accountable</em> for their own local components. A healthy system lets teams build outside it when it doesn't meet their need. It just asks them to say so, so the system can learn.</p>
+<p>Look at the sixth row. Product teams are allowed to build their own components when the system doesn't cover what they need. A healthy system doesn't forbid that. It just asks teams to say so, so the system can learn from it.</p>
 </section>
 
 <section class="sec" id="ch05-4">
-<h2><span class="sec-num">05.4</span>Design and engineering collaboration</h2>
-<p>Design–engineering friction in a system usually comes from two sources of truth disagreeing. Resolve it by deciding, explicitly, what each source is authoritative for.</p>
-<div class="cols-3">
-  <div class="card"><span class="card-k">Tokens</span><h4>Truth for values</h4><p>One token source (JSON in the repository, in the DTCG format) feeds both the design tool and code.[[c:dtcg-format]] Neither side hand-edits values.</p></div>
-  <div class="card"><span class="card-k">Code</span><h4>Truth for behaviour</h4><p>States, keyboard interaction, responsiveness and accessibility semantics are defined by the shipped component.</p></div>
-  <div class="card"><span class="card-k">Design library</span><h4>Truth for intent</h4><p>Usage, composition and visual specification. It mirrors code names and variants one-to-one.</p></div>
+<h2><span class="sec-num">05.4</span>From "we need this" to "it's in the system"</h2>
+<p>Let's follow a real request through the system. Priya is a product designer on the billing team. She's designing a new invoice screen and needs a way to show a short list of key facts: amount, due date, status. Nothing in the system quite fits.</p>
+<p>What happens next decides whether Priya trusts the system or quietly gives up on it. Brad Frost has described a governance process that many teams use as a starting point,[[c:frost-governance]] and here's our version of it, in plain steps.</p>
+<ol class="steps">
+  <li><h4>Check the system first</h4><p>Priya searches the system and its documentation. If something fits, she uses it. Done.</p></li>
+  <li><h4>Talk to the system team early</h4><p>Nothing fits, so she posts in the system's Slack channel with a screenshot and a sentence about the problem. Not a finished design, just the need. Early is cheap; late is expensive.</p></li>
+  <li><h4>Decide: one-off or shared?</h4><p>The system designer replies within a day or two. Have other teams needed this? It turns out the subscriptions team built something very similar last month. Two teams need it, so it's a candidate for the system.</p></li>
+  <li><h4>Agree what "good" looks like</h4><p>They agree on a rough scope together: which states it needs, how it behaves on small screens, and accessibility requirements.</p></li>
+  <li><h4>Build it once, properly</h4><p>Either the system team builds it, or Priya's team builds it with the system team's help (that's a contribution; see 05.5). Either way it gets designed for every state, built in code, tested and documented.</p></li>
+  <li><h4>Review, release and announce</h4><p>A final check, then it ships in the next update with a short note: what it is, when to use it, and a thank-you to Priya's team.</p></li>
+  <li><h4>Teams pick it up</h4><p>Billing and subscriptions both update and use the shared version. The subscriptions team's one-off copy is retired.</p></li>
+</ol>
+<p>Meanwhile, Priya doesn't wait. If her deadline is before step 6, she builds a local version from system parts and swaps it for the official one later. The system should never be the reason a product team misses a deadline.</p>
+
+<h3>How do you decide what makes the cut?</h3>
+<p>The UK government's GOV.UK Design System publishes its criteria openly, and they're a great model. To be accepted, a proposed component or pattern must be <strong>useful</strong> (there's evidence other teams need it) and <strong>unique</strong> (it doesn't duplicate something that exists). Before it's published, it's checked to be <strong>usable</strong> (tested with real users, including disabled users), <strong>consistent</strong> (built from existing styles and parts) and <strong>versatile</strong> (works across browsers, devices and assistive technology).[[c:govuk-criteria]] [[doc]] You can adopt those five words almost as they are.</p>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] The rule of two</p>
+  <p>Our simplest test: something goes into the core when <strong>at least two teams</strong> need it. Until then, it lives locally with the team that built it, made from system parts so it's easy to promote later. This keeps the core free of one-offs and gives the system a steady supply of tried-and-tested candidates.</p>
 </div>
-<h3>One definition of done for a component</h3>
-<ul class="checklist">
-  <li>Designed for every state: default, hover, focus, active, disabled, loading, error, empty.</li>
-  <li>Built using tokens only. No raw values in component code.</li>
-  <li>Keyboard and screen-reader behaviour specified and tested; meets WCAG 2.2 AA.[[c:wcag22]]</li>
-  <li>Names, variants and properties identical in the design library and in code.</li>
-  <li>Documented: when to use, when not to, anatomy, examples, accessibility notes.</li>
-  <li>Released in a versioned package with a changelog entry.</li>
-</ul>
 </section>
 
 <section class="sec" id="ch05-5">
-<h2><span class="sec-num">05.5</span>Contribution and review</h2>
-<p>Contribution is what lets a small core team serve a large organisation. It only works if the path is clear, proportional to the size of the change, and fast.</p>
+<h2><span class="sec-num">05.5</span>Contributions: letting product teams help</h2>
+<p>A central team of three can't keep up with the needs of fifteen product teams. Contribution, meaning product teams improving the system themselves, is how small system teams serve big organisations. But it only works if contributing is easy and the effort matches the size of the change.</p>
+<p>Nathan Curtis makes a useful distinction between <strong>small</strong> and <strong>large</strong> contributions.[[c:curtis-contributions]] Small ones are things like fixing a bug, improving an accessibility issue or correcting documentation: changes that are clearly improvements, which should go through a normal, quick review. Large ones change how something works or add something new, and they deserve a proper proposal and discussion before anyone builds them.</p>
 <figure class="fig">
 <div class="fig-body">
 <div class="pipeline" style="grid-template-columns:repeat(4,minmax(0,1fr))">
-  <div class="pipe-step"><span class="pn">TIER 1 · HOURS</span><h5>Report or request</h5><div class="pex">Bug report, docs fix, "we need X". Anyone; triaged weekly.</div></div>
-  <div class="pipe-step"><span class="pn">TIER 2 · DAYS</span><h5>Fix</h5><div class="pex">Bug fix or docs change by a contributor. One reviewer from the core team.</div></div>
-  <div class="pipe-step"><span class="pn">TIER 3 · WEEKS</span><h5>Extend</h5><div class="pex">New variant or property. Short proposal; design + eng review; tests and docs.</div></div>
-  <div class="pipe-step"><span class="pn">TIER 4 · WEEKS–MONTHS</span><h5>New component</h5><div class="pex">Proposal with evidence of need in ≥ 2 teams; co-built with core; full definition of done.</div></div>
+  <div class="pipe-step"><span class="pn">LEVEL 1 · HOURS</span><h5>Report or ask</h5><div class="pex">"This button's focus ring is invisible on grey." Anyone can do it. Reviewed weekly.</div></div>
+  <div class="pipe-step"><span class="pn">LEVEL 2 · DAYS</span><h5>Fix</h5><div class="pex">A product engineer fixes the bug themselves. One system engineer reviews it.</div></div>
+  <div class="pipe-step"><span class="pn">LEVEL 3 · WEEKS</span><h5>Extend</h5><div class="pex">A new variation of an existing component. Short proposal, design and code review, docs.</div></div>
+  <div class="pipe-step"><span class="pn">LEVEL 4 · WEEKS+</span><h5>Add something new</h5><div class="pex">A new component. Written proposal, evidence that 2+ teams need it, built with the core team.</div></div>
 </div>
 </div>
-<figcaption><b>Four tiers of contribution.</b> [[prac]] Review effort scales with the change. The most common failure is applying Tier 4 process to a Tier 2 fix, which teaches contributors not to bother.</figcaption>
+<figcaption><b>Four sizes of contribution.</b> [[prac]] Effort scales with the size of the change. The most common mistake is putting a two-line bug fix through a month-long approval process, which teaches people never to contribute again.</figcaption>
 </figure>
-<h3>The rule of two</h3>
-<p>A component enters the core system when <strong>at least two teams</strong> need it. Until then, it lives as a local component in the team that built it, built from system tokens so it can be promoted later. This prevents the core from filling with one-off components, and it gives the system a natural pipeline of tested candidates. [[prac]]</p>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">The engineer who fixed a bug and never contributed again</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>Arjun, a product engineer, finds that the system's dropdown can't be closed with the Escape key. He fixes it in an afternoon and submits the change.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>The change sits for three weeks waiting for a design review and a "contribution committee" meeting. By the time it's merged, Arjun has worked around it in his own code. He doesn't bother next time.</p></div>
+    <div><span class="sc-k">What should happen</span><p>A clear bug fix is a small contribution: one engineer reviews it within a few days, it ships in the next patch, and Arjun gets a thank-you in the release notes.</p></div>
+  </div>
+</div>
+
+<h3>Proposals for bigger changes</h3>
+<div class="term"><span class="term-k">New word</span><b>RFC</b><span>"Request for comments": a short written proposal shared for feedback before a big decision is made.</span></div>
+<p>For larger changes, many teams use a short written proposal, often called an RFC. Keep it to a page: what problem are we solving, what are the options, what do we recommend, and what would teams have to change? Share it for comments for a fixed time, say a week, and then the person responsible decides. Written proposals sound bureaucratic, but they're actually faster than meetings, because people can comment when it suits them and the reasoning is saved for later.</p>
+<p>One last thought from Curtis that's worth holding on to: he has said he dislikes the word "contribution" because it makes teams focus on the <em>output</em> (a pull request) instead of the <em>outcome</em> (a better system for everyone).[[c:curtis-interview]] The point isn't to collect contributions. It's to make the system better and to make product teams feel it's theirs.</p>
 </section>
 
 <section class="sec" id="ch05-6">
-<h2><span class="sec-num">05.6</span>Governance and decision-making</h2>
-<p>Governance is how a system decides when people disagree. Keep it lightweight and written down:</p>
-<ol class="steps">
-  <li><h4>Principles settle most arguments</h4><p>"Accessible by default" and "clarity over density" end debates faster than any committee.</p></li>
-  <li><h4>RFCs for significant changes</h4><p>A one-page proposal (problem, options, recommendation, migration impact) open for comment for a fixed period, decided by the accountable owner.</p></li>
-  <li><h4>A small council for cross-org decisions</h4><p>At Stage 4, representatives of major product areas meet on a fixed cadence for decisions that affect everyone: foundations, breaking changes, roadmap.</p></li>
-  <li><h4>A documented exception path</h4><p>Teams may diverge with a stated reason. Exceptions are logged and reviewed quarterly; recurring exceptions become roadmap items.</p></li>
-</ol>
-<p class="pull">Every decision comes with a reason.<cite>Rule #6 — Layer One</cite></p>
-</section>
+<h2><span class="sec-num">05.6</span>Shipping changes without breaking anything</h2>
+<p>Here's a situation that happens in almost every design system eventually. The system team decides buttons should have slightly more rounded corners and a little more padding. It's a small visual tweak. They ship it on a Friday. On Monday, three product teams report broken screens: buttons no longer fit in a table row, a toolbar wraps onto two lines, and a checkout button now pushes the price off the screen on small phones.</p>
+<p>Nothing in the code "broke". But the products did. Nathan Curtis wrote a whole article about exactly this: changes to colour, size and spacing can break a product as surely as a change to the code.[[c:curtis-visual-breaking]]</p>
 
-<section class="sec" id="ch05-7">
-<h2><span class="sec-num">05.7</span>Versioning and release management</h2>
-<p>Product teams need to upgrade on purpose, not discover changes in production. Use semantic versioning:[[c:semver]] <code>MAJOR.MINOR.PATCH</code>, and define what each means <em>for a design system</em>. Visual changes are the grey area most policies forget.</p>
+<h3>Version numbers, in plain words</h3>
+<div class="term"><span class="term-k">New word</span><b>Breaking change</b><span>An update that could make something stop working or look wrong in a product, so teams need to check or change their own work.</span></div>
+<p>Most systems label their updates with a three-part version number, like <code>4.2.1</code>, following a widely used convention called semantic versioning.[[c:semver]] It's simpler than it sounds. Each number tells teams how careful they need to be when updating:</p>
 <div class="table-wrap">
 <table>
-<thead><tr><th style="width:14%">Bump</th><th>Meaning</th><th>Design system examples</th></tr></thead>
+<thead><tr><th style="width:18%">Which number changes</th><th>What it means for teams</th><th>Design system examples</th></tr></thead>
 <tbody>
-<tr><th>MAJOR</th><td>Consumers must change their code or will see breaking behaviour.</td><td>Renamed or removed token; changed component API; removed variant; changed default size or spacing that alters layouts.</td></tr>
-<tr><th>MINOR</th><td>New capability, backward compatible.</td><td>New component, variant, token or icon; new optional property.</td></tr>
-<tr><th>PATCH</th><td>Fixes, no intended visual or API change.</td><td>Bug fix; accessibility fix that doesn't change layout; documentation.</td></tr>
+<tr><th>First (4 → 5)</th><td>"Careful: you'll need to check or change your work."</td><td>A component renamed or removed; a named colour removed; button sizes changed in a way that affects layouts.</td></tr>
+<tr><th>Middle (4.2 → 4.3)</th><td>"New things added; nothing you use should change."</td><td>A new component, a new variation, a new icon.</td></tr>
+<tr><th>Last (4.2.1 → 4.2.2)</th><td>"Fixes only. Safe to update."</td><td>A bug fix; an accessibility fix that doesn't change size or layout; a docs correction.</td></tr>
 </tbody>
 </table>
 </div>
-<div class="cols-2">
-<div>
-<h4>Release practice</h4>
-<ul>
-  <li>A predictable cadence (e.g. minor releases every two weeks), with patches as needed.</li>
-  <li>Changelog entries written for consumers ("what changes for you"), not for the system team.</li>
-  <li>Design library versions published in step with code releases.</li>
-  <li>Visual regression tests on every component before release.</li>
-</ul>
+<p>Curtis's series on releasing design systems goes into this in depth: how often to release, how to number versions, and how to handle breaking changes.[[c:curtis-releasing]] The headline advice is simple. Decide in advance which kinds of <em>visual</em> change count as breaking, write it down, and stick to it. In our button story, a change to padding that affects layouts should have been a "first number" release, announced in advance, with screenshots and a test period.</p>
+
+<h3>Retiring old things gracefully</h3>
+<div class="term"><span class="term-k">New word</span><b>Deprecation</b><span>Marking something as "old, please stop using it" before actually removing it, so teams have time to switch.</span></div>
+<p>Sooner or later you'll need to replace a component. Doing it suddenly breaks things; never doing it leaves a mess. The healthy middle path looks like this. First, mark the old component as deprecated: it still works, but the documentation and a warning in the code say "please use the new one". Then give teams a guide to switching, and, where the change is mechanical, an automated script to do it for them. Track who's still using the old version. Only remove it in the next "first number" release, after a notice period everyone knows about in advance.</p>
+
+<h3>Telling people what changed</h3>
+<p>Release notes are the system's most-read documentation, so write them for the people using the system, not for the people who built it. Compare "Refactored Button padding tokens" with "Buttons are now 4px taller. If you've placed buttons inside table rows, check they still fit." The second one actually helps someone. Add before-and-after screenshots for anything visual. For bigger releases, a ten-minute demo in a team meeting goes a long way.</p>
+</section>
+
+<section class="sec" id="ch05-7">
+<h2><span class="sec-num">05.7</span>Getting people to actually use it</h2>
+<p>Here's an uncomfortable truth: a design system nobody uses is just an expensive side project. Adoption is the system team's most important job, and Ben Callahan's maturity model puts "growing adoption" right after "building version one" for good reason.[[c:callahan-maturity]] It's the stage where many systems stall.</p>
+<p>The good news is that adoption is rarely about persuasion. It's about making the system the <em>easiest</em> way to get work done. Teams take the path of least resistance. Your job is to make sure that path runs through the system.</p>
+
+<h3>Start with a pilot</h3>
+<p>Dan Mall, in his book <em>Design That Scales</em>, recommends building the system through <strong>pilots</strong>: real product projects where the system is used, tested and improved at the same time as the product work gets done.[[c:mall-dts]] Like a TV pilot, it's a low-risk way to find out what works before you roll it out widely. It also gives you your first success story: a real team that shipped faster, which is far more convincing than any slide.</p>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">"I couldn't find it, so I made my own"</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A new designer joins and needs a warning banner. The Figma library has 400 components with names like "Alert_v2_final" and "Banner/New/Warning (old)".</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>She can't tell which one is current, so she draws her own. Engineering builds it from scratch. The product now has a fourth kind of warning.</p></div>
+    <div><span class="sc-k">What fixes it</span><p>Clear names, removing or hiding old versions, a search-friendly description on every component, and a "start here" page. Findability is adoption. Part 03 covers library organisation in detail.</p></div>
+  </div>
 </div>
-<div>
-<h4>Deprecation policy</h4>
-<ul>
-  <li>Deprecate in a minor release, with a console warning and docs notice.</li>
-  <li>Provide a migration guide, and a codemod where the change is mechanical.</li>
-  <li>Remove only in the next major release, after a stated minimum period.</li>
-  <li>Track usage of deprecated items so you know when removal is safe.</li>
-</ul>
+
+<h3>What works</h3>
+<div class="cols-3">
+  <div class="card"><h4>Great documentation</h4><p>Teams use what they can understand in five minutes before a deadline. Layer One's rule: <em>docs decide adoption.</em></p></div>
+  <div class="card"><h4>Champions in each team</h4><p>One designer and one engineer per product team who get early previews and a direct line to the system team.</p></div>
+  <div class="card"><h4>Office hours</h4><p>A weekly slot where anyone can bring a screen and get help building it with the system.</p></div>
+  <div class="card"><h4>Starter templates</h4><p>New projects begin with the system already set up, so using it is the default, not an extra step.</p></div>
+  <div class="card"><h4>Automatic nudges</h4><p>Code checks that flag hard-coded colours or old components during code review.</p></div>
+  <div class="card"><h4>Share the credit</h4><p>Celebrate contributors and pilot teams in release notes and all-hands meetings.</p></div>
 </div>
+<div class="callout callout--mistake" style="margin-top:20px">
+  <p class="callout-label">A mistake we see often</p>
+  <h4>Mandating adoption before earning it</h4>
+  <p>"From next quarter, all teams must use the design system." If the system isn't ready to cover their needs, teams will comply on paper and work around it in practice, and they'll resent it. Make it genuinely useful first; mandates work best when they confirm something teams already want.</p>
 </div>
 </section>
 
 <section class="sec" id="ch05-8">
-<h2><span class="sec-num">05.8</span>Documentation and adoption</h2>
-<p class="pull">Docs decide adoption.<cite>Rule #9 — Layer One</cite></p>
-<p>Engineers and designers adopt what they can understand in the five minutes before a deadline. Every component page should answer, in order:</p>
-<div class="cols-2">
-<ol class="steps" style="margin-top:0">
-  <li><h4>What is it, and when do I use it?</h4><p>One sentence, plus when <em>not</em> to use it and what to use instead.</p></li>
-  <li><h4>What does it look like?</h4><p>Live examples of variants and states.</p></li>
-  <li><h4>How do I build with it?</h4><p>Copyable code; properties table; design library link.</p></li>
-</ol>
-<ol class="steps" start="4" style="margin-top:0;counter-reset:st 3">
-  <li><h4>What do I need to know about accessibility?</h4><p>Keyboard behaviour, labelling requirements, known pitfalls.</p></li>
-  <li><h4>Do's and don'ts</h4><p>Visual examples of correct and incorrect usage.</p></li>
-  <li><h4>What changed?</h4><p>Version history and migration notes.</p></li>
-</ol>
-</div>
-<h3>Adoption tactics that work</h3>
-<div class="cols-3">
-  <div class="card"><h4>Pilot, then case study</h4><p>Ship with one team first; publish their before-and-after internally.</p></div>
-  <div class="card"><h4>Champions</h4><p>One named designer and engineer per product team who get early access and a direct line.</p></div>
-  <div class="card"><h4>Office hours</h4><p>A weekly slot where anyone can bring a screen and get help building it with the system.</p></div>
-  <div class="card"><h4>Lint rules</h4><p>Flag raw colour values and deprecated components in code review, automatically.</p></div>
-  <div class="card"><h4>Codemods</h4><p>Automate mechanical migrations so upgrades cost minutes, not sprints.</p></div>
-  <div class="card"><h4>Make the right way easiest</h4><p>Starter templates and scaffolds that begin with the system already wired in.</p></div>
-</div>
-</section>
-
-<section class="sec" id="ch05-9">
-<h2><span class="sec-num">05.9</span>Measuring system health</h2>
-<p>Review a small scorecard monthly with the team and quarterly with leadership. Look for trends, not targets.</p>
+<h2><span class="sec-num">05.8</span>Keeping it healthy for years</h2>
+<p>Design systems rarely die suddenly. They fade. Updates get less frequent, requests pile up, the Figma library and the code drift apart, and one day someone says "we should build a new design system", and the cycle starts again.</p>
+<p>You can see it coming if you check a few simple signals regularly. Review them with the team monthly, and with leadership every quarter. Look at which way they're moving, not at hitting exact targets.</p>
 <div class="table-wrap">
 <table>
-<thead><tr><th style="width:16%">Dimension</th><th>Metric</th><th>Healthy signal</th><th>Warning signal</th></tr></thead>
+<thead><tr><th style="width:16%">Signal</th><th>What to look at</th><th>Healthy</th><th>Warning sign</th></tr></thead>
 <tbody>
-<tr><th>Adoption</th><td>% of UI files importing the system; % of products on a supported version</td><td>Rising; most products within one major version</td><td>Flat; products stuck on old majors</td></tr>
-<tr><th>Coverage</th><td>Token coverage; local components per product</td><td>Hard-coded values falling</td><td>Local components growing faster than core</td></tr>
-<tr><th>Quality</th><td>Open bugs; a11y violations; visual regressions</td><td>Bugs closed faster than opened</td><td>Same bug class recurring</td></tr>
-<tr><th>Flow</th><td>Median time from request to release; contribution count</td><td>Days to weeks; contributions growing</td><td>Months; contributions falling to zero</td></tr>
-<tr><th>Sentiment</th><td>"The system makes my work faster" (% agree)</td><td>Majority agree and rising</td><td>Teams describe the system as a blocker</td></tr>
+<tr><th>Usage</th><td>Share of UI built with the system; how many products are on a recent version</td><td>Rising; most products within one major version</td><td>Flat; products stuck on old versions</td></tr>
+<tr><th>Coverage</th><td>Hard-coded values in code; local components per product</td><td>Hard-coded values falling</td><td>Local components growing faster than the core</td></tr>
+<tr><th>Quality</th><td>Open bugs; accessibility errors</td><td>Bugs fixed faster than they arrive</td><td>The same kind of bug keeps coming back</td></tr>
+<tr><th>Speed</th><td>Time from request to release; number of contributions</td><td>Days to weeks; contributions growing</td><td>Months; contributions dropping to zero</td></tr>
+<tr><th>Feeling</th><td>"The system makes my work faster" (% who agree)</td><td>Most agree, and rising</td><td>People call it a blocker</td></tr>
 </tbody>
 </table>
 </div>
-</section>
 
-<section class="sec" id="ch05-10">
-<h2><span class="sec-num">05.10</span>Managing technical and design debt</h2>
-<p>Every system accumulates debt: components that no longer fit, workarounds that became permanent, values that drifted. Debt is normal; <em>invisible</em> debt is the problem.</p>
-<div class="table-wrap">
-<table class="compact">
-<thead><tr><th style="width:22%">Debt type</th><th>How it appears</th><th>How to detect it</th></tr></thead>
-<tbody>
-<tr><th>Detached instances</th><td>Designers break components to make one-off changes.</td><td>Design-tool analytics on detachments by component</td></tr>
-<tr><th>Hard-coded values</th><td>Raw colours, sizes and spacing in product code.</td><td>Lint rules; scripted search</td></tr>
-<tr><th>Forked components</th><td>Teams copy a system component and modify it.</td><td>Code search for copied component signatures</td></tr>
-<tr><th>Deprecated usage</th><td>Old components still in production after replacement.</td><td>Import tracking of deprecated items</td></tr>
-<tr><th>Inaccessible patterns</th><td>Components that pass in isolation but fail in composition.</td><td>Automated checks on key flows; periodic manual audits</td></tr>
-<tr><th>Design–code drift</th><td>The design library and code no longer match.</td><td>Periodic side-by-side review; token sync checks</td></tr>
-</tbody>
-</table>
-</div>
-<div class="callout callout--practice">
-  <p class="callout-label">[[prac]] A debt budget</p>
-  <p>Keep a visible debt register, and reserve a fixed share of every cycle (we suggest around a fifth) for paying it down. Teams that schedule debt work on a fixed basis rarely need a "big rewrite"; teams that don't usually end up doing one.</p>
-</div>
+<h3>Tidy as you go</h3>
+<div class="term"><span class="term-k">New word</span><b>Design debt</b><span>Shortcuts and inconsistencies that pile up over time and make future work slower, like clutter in a garage.</span></div>
+<p>Every system builds up clutter: components that no longer quite fit, workarounds that became permanent, copies that teams made and modified, old versions still in use, and places where the Figma library and the code no longer match. That's normal. The problem is clutter nobody can see. Keep a simple, visible list of it (a "debt register"), and set aside a fixed slice of every cycle, around a fifth of the team's time, to clear some of it. [[prac]] Teams that tidy a little all the time rarely need a big rewrite.</p>
 
-<h3>Operating model checklist</h3>
+<h3>Watch your own capacity</h3>
+<p>Finally, look after the team. In zeroheight's 2025 survey, 41% of respondents said they didn't have enough people to run their system, and that was most common at smaller companies.[[c:zeroheight-2025]] [[doc]] An overstretched system team becomes slow, a slow team becomes a bottleneck, and a bottleneck gets worked around. Protecting the team's capacity is part of protecting the system.</p>
+
+<h3>Operating checklist</h3>
 <div class="cols-2">
 <ul class="checklist">
-  <li>Team model chosen and written down</li>
-  <li>RACI for the eight decisions in 05.3</li>
-  <li>Tokens, code and design library each own a defined truth</li>
-  <li>Definition of done for components</li>
-  <li>Contribution tiers and the rule of two published</li>
+  <li>Ownership model chosen and written down</li>
+  <li>Who-decides-what table agreed (05.3)</li>
+  <li>A clear path from request to release (05.4)</li>
+  <li>Contribution levels published, with quick reviews for small fixes</li>
+  <li>Core, extensions and local levels defined</li>
 </ul>
 <ul class="checklist">
-  <li>Versioning policy including visual changes</li>
-  <li>Deprecation policy with minimum notice period</li>
-  <li>Docs template for every component</li>
-  <li>Health scorecard with a monthly review</li>
-  <li>Debt register and debt budget</li>
+  <li>Versioning rules, including which visual changes are "breaking"</li>
+  <li>A deprecation process with a notice period</li>
+  <li>Release notes written for the people using the system</li>
+  <li>A pilot team and champions in each product team</li>
+  <li>A monthly health check and a visible debt list</li>
 </ul>
 </div>
 <p class="pull">Leave the team able to run it without us.<cite>Rule #10 — Layer One</cite></p>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Treat the system as a product with users, a roadmap, releases and support, not a project with an end date.</li>
+    <li>Most mature systems end up with a central team plus contributors from product teams. Plan contributor time on purpose.</li>
+    <li>Not everything belongs in the core. Use levels (core, extensions, local) and the rule of two.</li>
+    <li>Decide in advance which visual changes count as breaking, and announce changes in plain language.</li>
+    <li>Adoption is the main job: pilot, document well, and make the system the easiest path.</li>
+  </ol>
+</aside>
 </section>
 </div><!-- /chapter --></section>

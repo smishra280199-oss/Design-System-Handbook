@@ -2,22 +2,22 @@
 <header class="chapter-opener">
   <p class="ch-num">Chapter 09</p>
   <h1>Spacing systems</h1>
-  <p class="dek">Spacing is the foundation people notice least and feel most. It creates grouping, hierarchy and rhythm. Left to individual judgement, it is also the first thing to drift.</p>
+  <p class="dek">Spacing is the foundation people notice least and feel most. It's what makes a screen feel calm or cluttered, organised or confusing. And because everyone decides it "by eye", it's usually the first thing to drift.</p>
   <div class="opener-meta">
-    <div><h5>Read this if</h5><p>Your screens feel "slightly off" without anyone being able to say why, reviews keep debating padding, or you need to support compact and comfortable densities.</p></div>
-    <div><h5>What you'll leave with</h5><ol><li>A base unit and a spacing scale, with the reasoning behind both.</li><li>A clear model for component spacing versus layout spacing, and for density modes.</li><li>Spacing tokens, and the mistakes to avoid when introducing them.</li></ol></div>
+    <div><h5>Read this if</h5><p>Your screens feel slightly "off" but nobody can say why, design reviews keep turning into debates about padding, or you need both a compact and a roomy layout.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A base unit and a short list of spacing values, and why they work.</li><li>A simple way to think about space inside and between things.</li><li>How to offer compact and comfortable versions of the same screen.</li></ol></div>
   </div>
 </header>
 
 <section class="sec" id="ch09-1">
-<h2><span class="sec-num">09.1</span>Why spacing systems matter</h2>
-<p>Space does three jobs in an interface. It <strong>groups</strong> related things (the Gestalt principle of proximity: elements close together are read as belonging together). It creates <strong>hierarchy</strong>, because more space around something gives it more importance. And it sets <strong>rhythm</strong>, a repeated cadence that makes a screen feel calm and intentional.</p>
-<p>When spacing is chosen per screen, each value is defensible on its own, but together they are noise: 13px here, 14px there, 22px somewhere else. Users don't consciously notice the numbers. They notice that the interface feels slightly unresolved.</p>
+<h2><span class="sec-num">09.1</span>Why spacing matters so much</h2>
+<p>Space does three jobs on a screen. It <strong>groups</strong> things: we automatically read items that sit close together as belonging together. It shows <strong>importance</strong>: things with more room around them feel more important. And it creates <strong>rhythm</strong>: a repeating beat that makes a page feel calm and intentional.</p>
+<p>When spacing is chosen screen by screen, each value can be defended on its own, but together they're noise: 13 pixels here, 14 there, 22 somewhere else. People using the product don't notice the numbers. They notice that it feels a bit untidy, and they trust it a little less. Look at the same form below, spaced two ways.</p>
 <figure class="fig">
 <div class="fig-body">
 <div class="cols-2" style="gap:56px">
   <div>
-    <p class="ba-tag bad">✕ Spacing by eye: 7 different values</p>
+    <p class="ba-tag bad">✕ Spaced by eye: 7 different values</p>
     <div class="gapstack" style="margin-right:44px">
       <div class="blk t">Invoice settings</div>
       <div class="gp off" style="height:5px"><span>5</span></div>
@@ -35,7 +35,7 @@
     </div>
   </div>
   <div>
-    <p class="ba-tag good">✓ Spacing from a scale: 3 values, one rhythm</p>
+    <p class="ba-tag good">✓ Spaced from a scale: 3 values, one rhythm</p>
     <div class="gapstack" style="margin-right:44px">
       <div class="blk t">Invoice settings</div>
       <div class="gp" style="height:4px"><span>4</span></div>
@@ -54,26 +54,26 @@
   </div>
 </div>
 </div>
-<figcaption><b>The same form, spaced by eye and by system.</b> On the left, the gap between "Payment terms" and its field (7px) is almost the same as the gap between fields (13px), so labels float between inputs. On the right, three values make three clear relationships: <i>belongs to</i> (4), <i>next item</i> (16), <i>new group</i> (24).</figcaption>
+<figcaption><b>The same form, spaced two ways.</b> On the left, the gap between "Payment terms" and its field (7) is almost the same as the gap between fields (13), so labels seem to float between inputs. On the right, three values create three clear relationships: <i>belongs to</i> (4), <i>next item</i> (16) and <i>new section</i> (24).</figcaption>
 </figure>
 </section>
 
 <section class="sec" id="ch09-2">
-<h2><span class="sec-num">09.2</span>Choosing a base unit</h2>
-<p>A spacing system starts with a base unit, and every spacing value is a multiple of it. The two common choices are <strong>8px</strong> and <strong>4px</strong>.</p>
+<h2><span class="sec-num">09.2</span>Picking a base unit</h2>
+<p>A spacing system starts with one small number, the <strong>base unit</strong>, and every spacing value is a multiple of it. Think of it like the smallest Lego stud: everything you build is a whole number of studs. The two common choices are 8 pixels and 4 pixels.</p>
 <div class="cols-2">
-  <div class="card"><span class="card-k">8px base</span><h4>Fewer, more distinct values</h4><p>Easy to reason about; most screen sizes divide by 8. Used by many systems as the primary unit: Atlassian's spacing scale is built on an 8px base, with smaller half and quarter steps for tight UI.[[c:atlassian-spacing]] [[doc]]</p></div>
-  <div class="card"><span class="card-k">4px base</span><h4>Finer control for dense UI</h4><p>Allows 12px, 20px and 28px, which matter for small components, icon alignment and line-heights. Material uses a 4dp baseline grid for type and icons alongside its 8dp layout grid.[[c:m3-structure]] [[doc]]</p></div>
+  <div class="card"><span class="card-k">8px base</span><h4>Fewer, clearer choices</h4><p>Easy to think about, and most screen sizes divide neatly by 8. Atlassian's design system, for example, builds its spacing on an 8px base, with a few smaller steps for tight spots.[[c:atlassian-spacing]] [[doc]]</p></div>
+  <div class="card"><span class="card-k">4px base</span><h4>Finer control for busy screens</h4><p>Lets you use 12, 20 and 28, which matter for small components, icons and line spacing. Google's Material uses a 4dp grid for text and icons alongside an 8dp grid for layout.[[c:m3-structure]] [[doc]]</p></div>
 </div>
 <div class="callout callout--practice">
   <p class="callout-label">[[prac]] Our recommendation</p>
-  <p>Use a <b>4px base with an 8px rhythm</b>: every value is a multiple of 4, and most of the values people reach for are multiples of 8. You get the precision dense components need without the indecision of a scale where every value is available. Align line-heights (Chapter 08) to the same 4px grid so text and boxes share one vertical rhythm.</p>
+  <p>Use a <b>4px base with an 8px rhythm</b>. Every value is a multiple of 4, and most of the values people actually reach for are multiples of 8. You get the precision small components need without the endless choice of "any number will do". Set line spacing for text (Chapter 08) to the same 4px grid, so text and boxes share one rhythm.</p>
 </div>
 </section>
 
 <section class="sec" id="ch09-3">
 <h2><span class="sec-num">09.3</span>The spacing scale</h2>
-<p>A scale is the closed list of spacing values the system offers. It should be <em>dense at the small end</em>, where 4px is a visible difference, and <em>sparse at the large end</em>, where 64px versus 68px is not. A roughly geometric progression does this naturally.</p>
+<p>The scale is the fixed list of spacing values people can choose from. It should have lots of options at the small end, where 4 pixels is a visible difference, and only a few at the large end, where nobody can tell 64 from 68.</p>
 <figure class="fig">
 <div class="fig-body">
 <div class="ruler">
@@ -92,138 +92,150 @@
   <div class="rs"><i style="width:96px;height:96px"></i><b>24</b>96</div>
 </div>
 </div>
-<figcaption><b>The Ledgerly spacing scale.</b> Thirteen values from 2px to 96px, each drawn at actual size. Token names are multiples of the 4px base (<code>space.6</code> = 6 × 4 = 24px), so anyone can guess a token's value from its name and the other way round.</figcaption>
+<figcaption><b>Ledgerly's spacing scale.</b> Thirteen values from 2 to 96 pixels, drawn at actual size. Each one's name is just how many 4-pixel units it contains: "space-6" is 6 × 4 = 24px. If you know the name you know the size, and the other way round.</figcaption>
 </figure>
-
-<h3>Naming spacing tokens</h3>
+<h3>Naming spacing values</h3>
+<p>Different systems name spacing in different ways. Any of them works, as long as you pick one and stick to it:</p>
 <div class="table-wrap">
 <table class="compact">
-<thead><tr><th style="width:20%">Convention</th><th>Example</th><th>Pros</th><th>Cons</th></tr></thead>
+<thead><tr><th style="width:20%">Style</th><th>Example</th><th>Good</th><th>Not so good</th></tr></thead>
 <tbody>
-<tr><th>Multiple of base</th><td><code>space.6</code> = 24px</td><td>Guessable; easy maths; open-ended</td><td>Changing the base unit renames everything</td></tr>
-<tr><th>Multiplier ×100</th><td><code>space.300</code> = 3 × 8px (Atlassian)[[c:atlassian-spacing]]</td><td>Room for fractional steps (<code>space.050</code>)</td><td>Values less obvious at a glance</td></tr>
-<tr><th>Ordinal</th><td><code>spacing-06</code> = 24px (Carbon)[[c:carbon-spacing]]</td><td>Compact; stable order</td><td>Must look up every value</td></tr>
-<tr><th>T-shirt sizes</th><td><code>space.md</code></td><td>Friendly</td><td>Runs out of names (<code>xxxl</code>); hard to insert steps</td></tr>
+<tr><th>Count of base units</th><td><code>space-6</code> = 24px</td><td>Easy to guess; easy maths</td><td>Changing the base unit renames everything</td></tr>
+<tr><th>Multiplier × 100</th><td><code>space.300</code> = 3 × 8px (Atlassian)[[c:atlassian-spacing]]</td><td>Room for in-between steps</td><td>Less obvious at a glance</td></tr>
+<tr><th>Numbered steps</th><td><code>spacing-06</code> = 24px (IBM Carbon)[[c:carbon-spacing]]</td><td>Short; stable order</td><td>You have to look up every value</td></tr>
+<tr><th>T-shirt sizes</th><td><code>space-md</code></td><td>Friendly</td><td>Runs out of names (xxxl?); hard to add a size in between</td></tr>
 </tbody>
 </table>
 </div>
-<p>Any convention works if it is consistent. Choose the one your engineers can read without a lookup table.</p>
+<p>Our advice: choose the style your engineers can read without a lookup table.</p>
 </section>
 
 <section class="sec" id="ch09-4">
-<h2><span class="sec-num">09.4</span>Component spacing and layout spacing</h2>
-<p>It helps to separate spacing <em>inside</em> components from spacing <em>between</em> them. Nathan Curtis describes three kinds: <strong>inset</strong> (padding inside a container), <strong>stack</strong> (vertical space between stacked elements) and <strong>inline</strong> (horizontal space between elements in a row).[[c:curtis-space]]</p>
+<h2><span class="sec-num">09.4</span>Space inside things, space between things</h2>
+<p>It helps to think about three kinds of space. Nathan Curtis gave them simple names that have stuck: <strong>inset</strong> (padding inside a box), <strong>stack</strong> (space between things stacked vertically) and <strong>inline</strong> (space between things side by side).[[c:curtis-space]] Naming the <em>kind</em> of space, not just the amount, makes design specs and code reviews much clearer.</p>
 <figure class="fig">
 <div class="fig-body">
 <div class="cols-3" style="gap:24px;align-items:start">
   <div>
-    <p class="fig-label" style="margin-bottom:10px">Inset — padding</p>
+    <p class="fig-label" style="margin-bottom:10px">Inset — padding inside</p>
     <div style="background:repeating-linear-gradient(45deg, rgb(255 107 61 / 0.25) 0 3px, rgb(255 107 61 / 0.08) 3px 6px);border-radius:8px;padding:16px">
       <div style="background:var(--paper-0);color:#0b0d12;border-radius:4px;padding:8px;font-size:13px">Card content</div>
     </div>
-    <p class="mono" style="font-size:11px;margin-top:8px">space.4 on all sides</p>
+    <p class="mono" style="font-size:11px;margin-top:8px">space-4 on every side</p>
   </div>
   <div>
-    <p class="fig-label" style="margin-bottom:10px">Stack — vertical</p>
+    <p class="fig-label" style="margin-bottom:10px">Stack — top to bottom</p>
     <div style="display:flex;flex-direction:column">
       <div style="background:var(--paper-0);color:#0b0d12;border:1px solid #c9ccd2;border-radius:4px;padding:8px;font-size:13px">Field</div>
       <div style="height:16px;background:repeating-linear-gradient(45deg, rgb(255 107 61 / 0.25) 0 3px, rgb(255 107 61 / 0.08) 3px 6px)"></div>
       <div style="background:var(--paper-0);color:#0b0d12;border:1px solid #c9ccd2;border-radius:4px;padding:8px;font-size:13px">Field</div>
     </div>
-    <p class="mono" style="font-size:11px;margin-top:8px">space.4 between fields</p>
+    <p class="mono" style="font-size:11px;margin-top:8px">space-4 between fields</p>
   </div>
   <div>
-    <p class="fig-label" style="margin-bottom:10px">Inline — horizontal</p>
+    <p class="fig-label" style="margin-bottom:10px">Inline — side by side</p>
     <div style="display:flex;align-items:center">
       <span style="background:#0b0d12;color:#fff;border-radius:6px;padding:8px 12px;font-size:13px;font-weight:600">Save</span>
       <span style="width:8px;height:34px;background:repeating-linear-gradient(45deg, rgb(255 107 61 / 0.25) 0 3px, rgb(255 107 61 / 0.08) 3px 6px)"></span>
       <span style="border:1px solid #a1a8b3;color:var(--text);border-radius:6px;padding:7px 12px;font-size:13px">Cancel</span>
     </div>
-    <p class="mono" style="font-size:11px;margin-top:8px">space.2 between buttons</p>
+    <p class="mono" style="font-size:11px;margin-top:8px">space-2 between buttons</p>
   </div>
 </div>
 </div>
-<figcaption><b>Inset, stack and inline.</b> Naming the <em>kind</em> of space, not just the amount, makes intent explicit in specs and code reviews.</figcaption>
+<figcaption><b>Inset, stack and inline.</b> Three kinds of space, each with its own job.</figcaption>
 </figure>
+<p>A useful rule of thumb is to use smaller values inside things and larger values between bigger groups:</p>
 <div class="table-wrap">
 <table>
-<thead><tr><th style="width:20%">Level</th><th>Typical range</th><th>Examples</th></tr></thead>
+<thead><tr><th style="width:24%">Where the space is</th><th>Typical values</th><th>Examples</th></tr></thead>
 <tbody>
-<tr><th>Within a component</th><td><code>space.1</code>–<code>space.4</code> (4–16px)</td><td>Icon-to-label gap, button padding, input padding, chip gap</td></tr>
-<tr><th>Between related elements</th><td><code>space.2</code>–<code>space.4</code> (8–16px)</td><td>Label to field, field to field, list items</td></tr>
-<tr><th>Between groups</th><td><code>space.6</code>–<code>space.8</code> (24–32px)</td><td>Form sections, card grid gaps, toolbar to content</td></tr>
-<tr><th>Between sections</th><td><code>space.10</code>–<code>space.16</code> (40–64px)</td><td>Page sections, settings groups</td></tr>
-<tr><th>Page margins</th><td><code>space.4</code>–<code>space.20</code> (16–80px)</td><td>Responsive; see Chapter 10</td></tr>
+<tr><th>Inside a component</th><td>4–16px</td><td>Gap between an icon and its label; padding inside a button or input</td></tr>
+<tr><th>Between related items</th><td>8–16px</td><td>A label and its field; one field and the next; list items</td></tr>
+<tr><th>Between groups</th><td>24–32px</td><td>Sections of a form; gaps between cards</td></tr>
+<tr><th>Between page sections</th><td>40–64px</td><td>Major sections of a page</td></tr>
+<tr><th>Page edges</th><td>16–80px</td><td>Grows with screen size (see Chapter 10)</td></tr>
 </tbody>
 </table>
 </div>
-<p><strong>The proximity rule:</strong> space <em>within</em> a group must always be clearly smaller than space <em>between</em> groups. A useful heuristic is to step at least two scale steps between levels (8 → 16 → 24/32). That keeps relationships unambiguous even when designers make reasonable local choices. [[prac]]</p>
+<p><strong>The golden rule:</strong> space <em>within</em> a group must always be clearly smaller than space <em>between</em> groups. A handy way to guarantee it is to jump at least two steps on the scale between levels: 8 → 16 → 24 or 32. That keeps relationships obvious, even when different designers make their own sensible choices. [[prac]]</p>
 </section>
 
 <section class="sec" id="ch09-5">
-<h2><span class="sec-num">09.5</span>Density: compact and comfortable</h2>
-<p>Density is how much information fits in a given area. Different users and tasks need different density: an analyst scanning 200 rows wants compact; a first-time user filling a form wants comfortable. Systems handle this with <strong>density modes</strong> that remap component sizes and spacing, not with separate components.</p>
+<h2><span class="sec-num">09.5</span>Compact and comfortable</h2>
+<p>Think about two very different people using the same invoices table. An accountant at month-end wants to see 200 rows without scrolling. A small business owner checking one invoice on a Sunday wants things roomy and easy to tap. <strong>Density</strong> is how much fits in a given space, and good systems let you offer both, by switching a few spacing values rather than building separate components.</p>
 <figure class="fig">
 <div class="fig-body">
   <div class="density-row"><span class="mono" style="font-size:11px">Compact<br><span class="muted">32px rows</span></span><div class="dr-rows"><div style="height:32px"><span>INV-2041</span><span>Acme Ltd</span><span style="text-align:right">₹84,200</span></div><div style="height:32px"><span>INV-2042</span><span>Globex</span><span style="text-align:right">₹12,900</span></div><div style="height:32px"><span>INV-2043</span><span>Initech</span><span style="text-align:right">₹3,15,000</span></div></div></div>
   <div class="density-row"><span class="mono" style="font-size:11px">Default<br><span class="muted">40px rows</span></span><div class="dr-rows"><div style="height:40px"><span>INV-2041</span><span>Acme Ltd</span><span style="text-align:right">₹84,200</span></div><div style="height:40px"><span>INV-2042</span><span>Globex</span><span style="text-align:right">₹12,900</span></div><div style="height:40px"><span>INV-2043</span><span>Initech</span><span style="text-align:right">₹3,15,000</span></div></div></div>
   <div class="density-row" style="margin-bottom:0"><span class="mono" style="font-size:11px">Comfortable<br><span class="muted">48px rows</span></span><div class="dr-rows"><div style="height:48px"><span>INV-2041</span><span>Acme Ltd</span><span style="text-align:right">₹84,200</span></div><div style="height:48px"><span>INV-2042</span><span>Globex</span><span style="text-align:right">₹12,900</span></div><div style="height:48px"><span>INV-2043</span><span>Initech</span><span style="text-align:right">₹3,15,000</span></div></div></div>
 </div>
-<figcaption><b>One table, three densities.</b> Same type, same columns; only the row-height and padding tokens change. Compact fits 50% more rows than comfortable in the same height.</figcaption>
+<figcaption><b>One table, three densities.</b> Same text, same columns; only the row height and padding change. The compact version fits 50% more rows in the same space as the comfortable one.</figcaption>
 </figure>
-<p>Density has a floor set by accessibility. WCAG 2.2 SC 2.5.8 (Target Size, Minimum, level AA) requires pointer targets of at least 24 × 24 CSS px, with some exceptions such as adequately spaced targets and inline links.[[c:wcag-target]] [[std]] Platform guidelines go further for touch: Apple recommends at least 44 × 44pt for controls,[[c:hig-a11y]] and Material recommends 48 × 48dp touch targets.[[c:m3-structure]] [[doc]] Compact modes are for pointer-driven desktop use; never ship them as the default on touch devices.</p>
+<p>There's a floor to how compact you can go, set by people's fingers and by accessibility rules. WCAG 2.2 requires click and tap targets of at least 24 by 24 pixels, with some exceptions.[[c:wcag-target]] [[std]] For touchscreens, platform guidelines go further: Apple recommends at least 44 by 44 points,[[c:hig-a11y]] and Google's Material recommends 48 by 48.[[c:m3-structure]] [[doc]] So compact modes are for mouse-and-keyboard use on desktop. Don't make them the default on phones.</p>
 <div class="table-wrap">
 <table class="compact">
-<thead><tr><th>Token</th><th class="num">Compact</th><th class="num">Default</th><th class="num">Comfortable</th></tr></thead>
+<thead><tr><th>Setting</th><th class="num">Compact</th><th class="num">Default</th><th class="num">Comfortable</th></tr></thead>
 <tbody>
-<tr><td><code>size.control.height</code></td><td class="num">32px</td><td class="num">40px</td><td class="num">48px</td></tr>
-<tr><td><code>space.control.inset-x</code></td><td class="num">8px</td><td class="num">12px</td><td class="num">16px</td></tr>
-<tr><td><code>space.table.row-y</code></td><td class="num">4px</td><td class="num">8px</td><td class="num">12px</td></tr>
-<tr><td><code>space.form.stack</code></td><td class="num">12px</td><td class="num">16px</td><td class="num">24px</td></tr>
+<tr><td>Height of buttons and inputs</td><td class="num">32px</td><td class="num">40px</td><td class="num">48px</td></tr>
+<tr><td>Padding inside buttons and inputs</td><td class="num">8px</td><td class="num">12px</td><td class="num">16px</td></tr>
+<tr><td>Padding inside table rows</td><td class="num">4px</td><td class="num">8px</td><td class="num">12px</td></tr>
+<tr><td>Space between form fields</td><td class="num">12px</td><td class="num">16px</td><td class="num">24px</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 
 <section class="sec" id="ch09-6">
-<h2><span class="sec-num">09.6</span>Responsive spacing and spacing tokens</h2>
-<p>Component spacing should generally <strong>not</strong> change with screen size: a button's padding is the same on a phone and a desktop. <strong>Layout</strong> spacing should: page margins, section gaps and grid gutters grow with available space. Encode that split in tokens:</p>
-<pre><span class="c">/* Tier 1: primitive scale (never changes with breakpoint) */</span>
+<h2><span class="sec-num">09.6</span>Spacing on different screens, and common mistakes</h2>
+<p>Here's a simple principle. Spacing <em>inside</em> components shouldn't change with screen size: a button has the same padding on a phone and a laptop. Spacing in the <em>layout</em> should: the margins around the page and the gaps between sections grow when there's more room. You can build that split into your named values. For engineers, it looks like this:</p>
+<pre><span class="c">/* The scale itself never changes */</span>
 <span class="k">--space-2</span>: <span class="s">8px</span>;  <span class="k">--space-4</span>: <span class="s">16px</span>;  <span class="k">--space-6</span>: <span class="s">24px</span>;  <span class="k">--space-10</span>: <span class="s">40px</span>;  <span class="k">--space-16</span>: <span class="s">64px</span>;
 
-<span class="c">/* Tier 2: semantic layout spacing (responsive) */</span>
-<span class="k">--space-page-margin</span>:  <span class="n">var(--space-4)</span>;     <span class="c">/* 16px on compact screens   */</span>
+<span class="c">/* Layout spacing grows on bigger screens */</span>
+<span class="k">--space-page-margin</span>:  <span class="n">var(--space-4)</span>;     <span class="c">/* 16px on phones          */</span>
 <span class="k">--space-section-gap</span>:  <span class="n">var(--space-10)</span>;
 @media (min-width: <span class="s">840px</span>) {
-  <span class="k">--space-page-margin</span>: <span class="n">var(--space-6)</span>;   <span class="c">/* 24px on medium and up      */</span>
+  <span class="k">--space-page-margin</span>: <span class="n">var(--space-6)</span>;   <span class="c">/* 24px on larger screens  */</span>
   <span class="k">--space-section-gap</span>: <span class="n">var(--space-16)</span>;
 }
 
-<span class="c">/* Tier 2: semantic component spacing (density-aware, not responsive) */</span>
+<span class="c">/* Component spacing changes with density, not screen size */</span>
 <span class="k">--space-control-inset-x</span>: <span class="n">var(--space-3)</span>;</pre>
 
-<h3>Common spacing mistakes</h3>
+<h3>Four mistakes we see again and again</h3>
 <div class="cols-2">
-  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Mistake</p><h4>Off-scale "just this once" values</h4><p>Each one is harmless; fifty are a second, invisible spacing system. Lint for raw pixel values in spacing properties.</p></div>
-  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Mistake</p><h4>Equal spacing everywhere</h4><p>Using 16px for everything removes the proximity signal. Groups disappear. Vary space deliberately by level.</p></div>
-  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Mistake</p><h4>Margins on components</h4><p>Components that carry their own outer margin collide unpredictably. Let parents own the space between children (CSS <code>gap</code>).</p></div>
-  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Mistake</p><h4>Ignoring line-height in vertical spacing</h4><p>A 16px gap between two text blocks with loose line-heights looks larger than 16px. Align text to the same 4px grid so measured and perceived space match.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Mistake</p><h4>"Just this once" values</h4><p>Each one seems harmless. Fifty of them add up to a second, invisible spacing system. Set up an automatic check for spacing values that aren't on the scale.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Mistake</p><h4>The same spacing everywhere</h4><p>Using 16px for everything removes the grouping signal, and groups disappear. Vary space on purpose.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Mistake</p><h4>Components with built-in outside margins</h4><p>A component that adds its own space around itself collides unpredictably with others. Let the container decide the gaps between its contents.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Mistake</p><h4>Forgetting about line spacing</h4><p>A 16px gap between two blocks of loosely spaced text looks bigger than 16px. Keep text on the same 4px rhythm so measured and visible space match.</p></div>
 </div>
 
-<h3 style="margin-top:36px">Spacing checklist</h3>
+<h3 style="margin-top:32px">Spacing checklist</h3>
 <div class="cols-2">
 <ul class="checklist">
-  <li>Base unit chosen (4px with an 8px rhythm recommended)</li>
-  <li>Closed scale of ~12–14 values, dense small, sparse large</li>
-  <li>Token names guessable from values</li>
-  <li>Inset / stack / inline vocabulary in specs</li>
+  <li>A base unit chosen (we recommend 4px with an 8px rhythm)</li>
+  <li>A fixed list of about 12–14 values</li>
+  <li>Names that tell you the size</li>
+  <li>Inset, stack and inline used in specs</li>
 </ul>
 <ul class="checklist">
-  <li>Proximity rule: within-group &lt; between-group, by 2+ steps</li>
-  <li>Density modes remap tokens; touch targets ≥ 24px (AA), 44–48 on touch</li>
-  <li>Component spacing fixed; layout spacing responsive</li>
-  <li>Lint against raw spacing values</li>
+  <li>Space within groups clearly smaller than space between them</li>
+  <li>Compact and comfortable modes; touch targets big enough</li>
+  <li>Component spacing fixed; layout spacing grows with screen size</li>
+  <li>An automatic check for off-scale values</li>
 </ul>
 </div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Space groups things, shows importance and sets rhythm. It's never just "empty".</li>
+    <li>Pick a base unit (4px is our recommendation) and a short, fixed list of values.</li>
+    <li>Keep space inside groups clearly smaller than space between them.</li>
+    <li>Offer density modes by changing a few values, and respect minimum tap sizes on touchscreens.</li>
+  </ol>
+</aside>
 </section>
 </div><!-- /chapter --></section>

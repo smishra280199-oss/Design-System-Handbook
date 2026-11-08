@@ -1,12 +1,25 @@
 {
   "title": "The Design Systems Playbook",
-  "edition": "0.1",
+  "edition": "0.2",
   "author": "Aniket Pandey",
   "publisher": "Layer One",
   "pdf": "layer-one-design-systems-playbook.pdf",
   "parts": [
-    { "num": "01", "short": "Understanding design systems", "title": "Understanding design systems: does your company actually need one?" },
-    { "num": "02", "short": "Building the foundations", "title": "Building the foundations of a design system" }
+    {
+      "num": "01",
+      "short": "Understanding design systems",
+      "title": "Understanding design systems: does your company actually need one?"
+    },
+    {
+      "num": "02",
+      "short": "Building the foundations",
+      "title": "Building the foundations of a design system"
+    },
+    {
+      "num": "03",
+      "short": "Components",
+      "title": "Components: designing, building and looking after them"
+    }
   ],
   "order": [
     "components/cover.html",
@@ -26,6 +39,12 @@
     "chapters/09-spacing.html",
     "chapters/10-grid-layout.html",
     "chapters/11-foundations-together.html",
+    "chapters/part-03.html",
+    "chapters/12-components-explained.html",
+    "chapters/13-what-to-build-first.html",
+    "chapters/14-designing-components.html",
+    "chapters/15-building-components.html",
+    "chapters/16-component-libraries.html",
     "@references",
     "components/about.html"
   ]

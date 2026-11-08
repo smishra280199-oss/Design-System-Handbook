@@ -357,5 +357,141 @@
     "year": 2016,
     "url": null,
     "note": "Introduces the inset, stack and inline vocabulary for spacing tokens."
+  },
+  "curtis-product": {
+    "title": "A Design System isn't a Project. It's a Product, Serving Products.",
+    "author": "Nathan Curtis",
+    "publisher": "EightShapes",
+    "year": 2015,
+    "url": "https://medium.com/eightshapes-llc/a-design-system-isn-t-a-project-it-s-a-product-serving-products-74dcfffef935"
+  },
+  "curtis-contributions": {
+    "title": "Contributions to Design Systems",
+    "author": "Nathan Curtis",
+    "publisher": "EightShapes",
+    "year": null,
+    "url": "https://medium.com/eightshapes-llc/contributions-to-design-systems-89261a9363d8",
+    "note": "Separates small contributions (fixes, objective improvements) from large ones that need a formal review such as an RFC."
+  },
+  "curtis-criteria": {
+    "title": "Design System Contribution Criteria (\"I made this. Does it go in the system?\")",
+    "author": "Nathan Curtis",
+    "publisher": "EightShapes",
+    "year": null,
+    "url": "https://medium.com/eightshapes-llc/i-made-this-does-it-go-in-the-system-3b67b9894531"
+  },
+  "curtis-tiers": {
+    "title": "Design System Tiers",
+    "author": "Nathan Curtis",
+    "publisher": "EightShapes",
+    "year": 2019,
+    "url": "https://medium.com/eightshapes-llc/design-system-tiers-2c827b67eae1",
+    "note": "A high-standard core used by everyone, with lower tiers for product- or platform-specific parts."
+  },
+  "curtis-releasing": {
+    "title": "Releasing Design Systems (six-part series: outputs, cadence, versions, breaking change, dependencies, process)",
+    "author": "Nathan Curtis",
+    "publisher": "EightShapes",
+    "year": null,
+    "url": "https://eightshapes.com/articles/versioning-design-systems"
+  },
+  "curtis-visual-breaking": {
+    "title": "Visual Breaking Change in Design Systems",
+    "author": "Nathan Curtis",
+    "publisher": "EightShapes",
+    "year": null,
+    "url": "https://eightshapes.com/articles/visual-breaking-change-in-design-systems/",
+    "note": "Argues that changes to colour, type and space can break products as surely as API changes."
+  },
+  "curtis-parts": {
+    "title": "Picking Parts, Products & People",
+    "author": "Nathan Curtis",
+    "publisher": "EightShapes",
+    "year": 2016,
+    "url": "https://eightshapes.com/articles/picking-parts-products-people/"
+  },
+  "frost-governance": {
+    "title": "A Design System Governance Process",
+    "author": "Brad Frost",
+    "publisher": "bradfrost.com",
+    "year": 2019,
+    "url": "https://bradfrost.com/blog/post/a-design-system-governance-process/"
+  },
+  "frost-inventory": {
+    "title": "Interface Inventory",
+    "author": "Brad Frost",
+    "publisher": "bradfrost.com",
+    "year": 2013,
+    "url": "https://bradfrost.com/blog/post/interface-inventory/"
+  },
+  "frost-recipes": {
+    "title": "The Art of Design System Recipes",
+    "author": "Brad Frost",
+    "publisher": "bradfrost.com",
+    "year": null,
+    "url": "https://bradfrost.com/blog/post/the-art-of-design-system-recipes/",
+    "note": "Product-specific compositions that live outside the core so the core doesn't fill with one-off components."
+  },
+  "callahan-maturity": {
+    "title": "The Design System Maturity Model",
+    "author": "Ben Callahan",
+    "publisher": "Sparkbox",
+    "year": null,
+    "url": "https://sparkbox.com/foundry/design_system_maturity_model",
+    "note": "Four stages, beginning with 'Building Version One' and 'Growing Adoption'."
+  },
+  "mall-dts": {
+    "title": "Design That Scales: Creating a Sustainable Design System Practice",
+    "author": "Dan Mall",
+    "publisher": "Rosenfeld Media",
+    "year": 2023,
+    "url": "https://rosenfeldmedia.com/books/design-that-scales/",
+    "note": "Includes a chapter on pilots: building the system through real product work."
+  },
+  "kholmatova": {
+    "title": "Design Systems: A practical guide to creating design languages for digital products",
+    "author": "Alla Kholmatova",
+    "publisher": "Smashing Magazine",
+    "year": 2017,
+    "url": "https://www.smashingmagazine.com/design-systems-book/",
+    "note": "Describes systems along three dimensions: strict–loose, modular–integrated, centralised–distributed."
+  },
+  "govuk-criteria": {
+    "title": "Contribution criteria",
+    "author": "GOV.UK Design System",
+    "publisher": "Government Digital Service",
+    "year": null,
+    "url": "https://design-system.service.gov.uk/community/contribution-criteria/",
+    "note": "Proposals must be useful and unique; before publication, work is checked to be usable, consistent and versatile."
+  },
+  "spotify-encore": {
+    "title": "Reimagining Design Systems at Spotify",
+    "author": "Spotify Design",
+    "publisher": "spotify.design",
+    "year": 2020,
+    "url": "https://spotify.design/article/reimagining-design-systems-at-spotify",
+    "note": "Describes Encore, a 'system of systems' that brought 22 disconnected design systems under one framework."
+  },
+  "aria-apg": {
+    "title": "ARIA Authoring Practices Guide (APG)",
+    "author": "W3C WAI",
+    "publisher": "W3C",
+    "year": null,
+    "url": "https://www.w3.org/WAI/ARIA/apg/",
+    "note": "Keyboard and screen-reader patterns for common widgets such as menus, tabs, dialogs and comboboxes."
+  },
+  "storybook": {
+    "title": "Storybook: frontend workshop for UI development",
+    "author": "Storybook",
+    "publisher": "storybook.js.org",
+    "year": null,
+    "url": "https://storybook.js.org/"
+  },
+  "curtis-interview": {
+    "title": "\"We're focused too much on design tokens\": Nathan Curtis on design systems today",
+    "author": "Design Systems Collective",
+    "publisher": "designsystemscollective.com",
+    "year": 2024,
+    "url": "https://www.designsystemscollective.com/were-focused-too-much-on-design-tokens-nathan-curtis-on-design-systems-today-a329fdd79d4c"
   }
 }

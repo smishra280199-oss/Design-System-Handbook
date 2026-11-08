@@ -1,0 +1,167 @@
+<section class="chapter" id="ch12" data-part="03" data-num="12" data-title="Components, explained" data-short="Components"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 12</p>
+  <h1>Components, explained</h1>
+  <p class="dek">Buttons, text fields, menus, tables: components are what most people picture when they hear "design system". This chapter takes one apart, piece by piece, so you understand what you're actually building before you build a single one.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You're new to components, you're about to plan a component library, or you've heard words like "variant", "prop" and "slot" and want them explained simply.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>What a component really is, in design and in code.</li><li>The vocabulary: parts, options, states and slots.</li><li>A realistic sense of how many components a product needs.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch12-1">
+<h2><span class="sec-num">12.1</span>What a component is</h2>
+<p>Think about the light switches in your home. You don't design a new switch for every room. You pick one model, and every room gets the same one. It works the same way everywhere, you know exactly what it does, and if a better model comes out, you can swap them all.</p>
+<p>A component is the same idea for software: a piece of interface that's <strong>designed once, built once and used everywhere</strong>. A button. A text field. A dropdown menu. A date picker. A table.</p>
+<p>The important part, and the part people often miss, is that a design system component exists <em>twice</em>, as a pair of twins. One twin lives in the design tool, where designers drag it into their screens. The other lives in code, where engineers use it to build the real product. The two twins have the same name, the same options and the same behaviour. When the twins match, a designer's screen and the shipped product match too.</p>
+<div class="cols-2">
+  <div class="card"><span class="card-k">The design twin</span><h4>In Figma (or similar)</h4><p>A "master" that designers place into screens. Change the master and every copy in every design file can update.</p></div>
+  <div class="card"><span class="card-k">The code twin</span><h4>In the code package</h4><p>A piece of code engineers use with one line, like <code>&lt;Button variant="primary"&gt;Save&lt;/Button&gt;</code>. Improve it and every screen gets the improvement on the next update.</p></div>
+</div>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">When the twins don't match</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>The Figma button has four types: primary, secondary, tertiary and danger. The code button has three, and calls them "solid", "outline" and "ghost".</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>A designer uses "tertiary" in a design. The engineer guesses it means "ghost". It doesn't quite match. Design review flags it. Everyone loses half a day.</p></div>
+    <div><span class="sc-k">The fix</span><p>One list of names and options, agreed once and used in both places. Chapter 15 covers how to keep the twins in step.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ch12-2">
+<h2><span class="sec-num">12.2</span>Anatomy: the parts of a component</h2>
+<p>Even a simple component is made of several parts, and naming them makes design discussions much faster. "The helper text is too close to the field" is a lot clearer than "that grey bit underneath is a bit squashed". Here's an ordinary text field, taken apart.</p>
+<figure class="fig">
+<div class="fig-body">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center">
+  <div class="cmp-demo" style="padding:10px 6px">
+    <div class="cmp-label"><span class="badge-n">1</span>Company email <span style="color:#b3081d">*</span></div>
+    <div class="cmp-field" style="border-color:#b3081d;border-width:1.5px"><span class="badge-n">2</span><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="1.5" fill="none" stroke="#595f69" stroke-width="1.3"/><path d="M2.5 4.5l5.5 4 5.5-4" fill="none" stroke="#595f69" stroke-width="1.3"/></svg><span>priya@ledgerly</span><span style="margin-left:auto" class="badge-n">3</span></div>
+    <div class="cmp-help cmp-err"><span class="badge-n">4</span>Enter a full email address, like name@company.com</div>
+    <div class="cmp-help"><span class="badge-n">5</span>We'll send invoices to this address.</div>
+  </div>
+  <ol class="anatomy-list">
+    <li><span class="badge-n">1</span><span><b>Label</b>Tells people what to type. Always visible; never only a placeholder.</span></li>
+    <li><span class="badge-n">2</span><span><b>Container</b>The box itself, with its border, background and corner rounding.</span></li>
+    <li><span class="badge-n">3</span><span><b>Value and icons</b>What the person typed, plus optional icons at the start or end.</span></li>
+    <li><span class="badge-n">4</span><span><b>Error message</b>Says what's wrong and how to fix it, in plain words, next to the problem.</span></li>
+    <li><span class="badge-n">5</span><span><b>Helper text</b>Extra guidance that's useful before anything goes wrong.</span></li>
+  </ol>
+</div>
+</div>
+<figcaption><b>The anatomy of a text field.</b> Five named parts. Each one has its own rules for colour, size and spacing, all taken from the foundations in Part 02. This field is shown in its error state, which is when the anatomy matters most.</figcaption>
+</figure>
+<p>Every component in your system should have an anatomy diagram like this in its documentation. It gives designers, engineers and writers a shared map, and it's where many accessibility decisions get made. In the example, the label is always visible, even while typing, because placeholder text that disappears as you type is a common usability and accessibility problem.</p>
+</section>
+
+<section class="sec" id="ch12-3">
+<h2><span class="sec-num">12.3</span>Options: types, sizes and settings</h2>
+<div class="term"><span class="term-k">New word</span><b>Variant</b><span>An approved version of a component, like a primary or a secondary button. Same component, different look for a different purpose.</span></div>
+<p>A single component usually comes in a few approved versions. A button might come in a <strong>primary</strong> version for the main action on a screen, a <strong>secondary</strong> version for less important actions, and a <strong>danger</strong> version for things like "Delete account". It might also come in three sizes. Designers call these <strong>variants</strong>; engineers often call the settings that control them <strong>props</strong> (short for "properties"). They're the same idea: the switches and dials on a component.</p>
+<figure class="fig">
+<div class="fig-body">
+<div style="display:grid;grid-template-columns:90px repeat(3,minmax(0,1fr));gap:14px 10px;align-items:center;font-size:12px">
+  <span></span><span class="fig-label">Small · 32px</span><span class="fig-label">Medium · 40px</span><span class="fig-label">Large · 48px</span>
+  <span class="fig-label">Primary</span>
+  <span><span class="btn-demo" style="height:32px;padding:0 12px;background:#ab2800;color:#fff;font-size:13px">Save</span></span>
+  <span><span class="btn-demo" style="height:40px;padding:0 16px;background:#ab2800;color:#fff;font-size:14px">Save</span></span>
+  <span><span class="btn-demo" style="height:48px;padding:0 20px;background:#ab2800;color:#fff;font-size:16px">Save</span></span>
+  <span class="fig-label">Secondary</span>
+  <span><span class="btn-demo" style="height:32px;padding:0 12px;border:1px solid #878e99;color:#0b0d12;background:#fff;font-size:13px">Cancel</span></span>
+  <span><span class="btn-demo" style="height:40px;padding:0 16px;border:1px solid #878e99;color:#0b0d12;background:#fff;font-size:14px">Cancel</span></span>
+  <span><span class="btn-demo" style="height:48px;padding:0 20px;border:1px solid #878e99;color:#0b0d12;background:#fff;font-size:16px">Cancel</span></span>
+  <span class="fig-label">Danger</span>
+  <span><span class="btn-demo" style="height:32px;padding:0 12px;background:#b3081d;color:#fff;font-size:13px">Delete</span></span>
+  <span><span class="btn-demo" style="height:40px;padding:0 16px;background:#b3081d;color:#fff;font-size:14px">Delete</span></span>
+  <span><span class="btn-demo" style="height:48px;padding:0 20px;background:#b3081d;color:#fff;font-size:16px">Delete</span></span>
+</div>
+</div>
+<figcaption><b>One button, nine combinations.</b> Three types × three sizes, all from a single component. In code this is one line with two settings: <code>&lt;Button variant="danger" size="sm"&gt;</code>.</figcaption>
+</figure>
+<p>Options are powerful, but they're also where components go wrong. Every option you add is something to design, build, test, document and maintain, for every combination. Three types and three sizes is nine combinations. Add "with icon" and "loading" and it's thirty-six. That's why mature systems are careful about adding options. A good question to ask before adding one: <em>is this a real, repeated need in more than one team, or a one-off for a single screen?</em></p>
+<div class="callout callout--mistake">
+  <p class="callout-label">A mistake we see often</p>
+  <h4>The button with forty settings</h4>
+  <p>Every team asks for one small option: a different colour, a different corner, a special icon position. Each request is reasonable, and the system team says yes each time. Two years later the button has forty settings, nobody understands them all, and it's slower to use the system button than to build your own. Saying "no" (or "build that locally") is part of looking after a component.</p>
+</div>
+</section>
+
+<section class="sec" id="ch12-4">
+<h2><span class="sec-num">12.4</span>States: one component, many situations</h2>
+<p>A component doesn't just sit there looking nice. People hover over it, click it, tab to it with the keyboard, type into it, make mistakes in it. Each of these situations is called a <strong>state</strong>, and each one needs to be designed. Here's a text field in eight of them.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="state-grid cmp-demo">
+  <div><div class="st-name">Default</div><div class="cmp-field"><span class="ph">name@company.com</span></div></div>
+  <div><div class="st-name">Hover</div><div class="cmp-field" style="border-color:#434953"><span class="ph">name@company.com</span></div></div>
+  <div><div class="st-name">Focus (keyboard)</div><div class="cmp-field" style="border-color:#1c75d6;box-shadow:0 0 0 2px #fff,0 0 0 4px #1c75d6"><span class="ph">name@company.com</span></div></div>
+  <div><div class="st-name">Filled</div><div class="cmp-field">priya@ledgerly.in</div></div>
+  <div><div class="st-name">Error</div><div class="cmp-field" style="border-color:#b3081d;border-width:1.5px">priya@ledgerly</div><div class="cmp-help cmp-err" style="font-size:11px">Enter a full email address</div></div>
+  <div><div class="st-name">Disabled</div><div class="cmp-field" style="background:#e6edf9;border-color:#d2dae5;color:#878e99">Not editable</div></div>
+  <div><div class="st-name">Read-only</div><div class="cmp-field" style="background:#f3f7fe;border-style:dashed">priya@ledgerly.in</div></div>
+  <div><div class="st-name">Loading</div><div class="cmp-field"><span class="ph">Checking…</span><svg style="margin-left:auto" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="none" stroke="#d2dae5" stroke-width="2"/><path d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5" fill="none" stroke="#1c75d6" stroke-width="2"/></svg></div></div>
+</div>
+</div>
+<figcaption><b>Eight states of a text field.</b> Every state uses colours from the job names in Chapter 07. The focus state uses the dedicated focus colour, so keyboard users can always see where they are.</figcaption>
+</figure>
+<p>When a component looks broken in production, it's very often because a state was never designed. Nobody thought about what happens when the text is too long, or when the data is still loading, or when there's an error and the field is also disabled. Designing every state up front is one of the biggest quality gains a design system gives you. Chapter 14 includes a full checklist.</p>
+</section>
+
+<section class="sec" id="ch12-5">
+<h2><span class="sec-num">12.5</span>Small parts and big parts</h2>
+<p>Some components are small and simple: a button, a checkbox, a badge. Others are made from several smaller ones: a search bar is a text field, an icon and a button; a data table is made of headers, cells, checkboxes and pagination. Brad Frost's <em>Atomic Design</em> popularised this idea of building big things from small things, a bit like atoms making molecules.[[c:frost-atomic]]</p>
+<div class="term"><span class="term-k">New word</span><b>Slot</b><span>An empty space inside a component where you can put other content, like a picture frame you fill yourself.</span></div>
+<p>For bigger components, there's an important design choice. Do you give the component lots of settings to cover every case, or do you give it <strong>slots</strong>, empty spaces where teams can put their own content? A card is a good example. Instead of building "card with image", "card with avatar", "card with chart" and so on, you build one card with a few slots and let teams fill them.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="cols-2" style="gap:28px;align-items:center">
+  <div style="border:1px solid #c9ccd2;border-radius:10px;background:#fff;padding:12px;display:grid;gap:8px">
+    <div class="slot">header — title, menu</div>
+    <div class="slot" style="height:58px">media — image, chart, map…</div>
+    <div class="slot" style="height:48px">body — any content</div>
+    <div class="slot">actions — buttons</div>
+  </div>
+  <div>
+    <h4 style="margin-top:0">One card, endless uses</h4>
+    <p style="font-size:14.5px">The card decides the <em>frame</em>: its corners, padding, border, shadow and the spacing between slots. Teams decide what goes <em>inside</em>. The billing team puts a chart in the media slot; the customers team puts an avatar there. Both cards still look like they belong to the same product.</p>
+    <p style="font-size:14.5px;margin:0">Fewer components, fewer settings, more flexibility. That's the trade slots give you.</p>
+  </div>
+</div>
+</div>
+<figcaption><b>A card built with slots.</b> The dashed areas are slots. The card controls the frame and spacing; teams supply the content.</figcaption>
+</figure>
+<p>Slots aren't always the answer. A button shouldn't have a slot for "anything you like", because then someone puts a dropdown inside it. As a rough rule: small, frequently used components should be strict, with a few clear options; larger, container-like components should be flexible, with slots. Alla Kholmatova's book <em>Design Systems</em> describes this as a balance between strict and loose systems, and points out that more modular isn't automatically better.[[c:kholmatova]]</p>
+</section>
+
+<section class="sec" id="ch12-6">
+<h2><span class="sec-num">12.6</span>How many components do you need?</h2>
+<p>Fewer than you'd think, at least to start. Most products are built from a surprisingly small set of everyday components. The table below is a typical starting set for a business web app. It's not a rule, but if you're planning your first year, it's a realistic shape. [[prac]]</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:20%">Group</th><th>Components</th><th style="width:10%" class="num">Count</th></tr></thead>
+<tbody>
+<tr><th>Actions</th><td>Button, icon button, link</td><td class="num">3</td></tr>
+<tr><th>Form inputs</th><td>Text field, text area, select, checkbox, radio, switch, date picker, search</td><td class="num">8</td></tr>
+<tr><th>Feedback</th><td>Alert / banner, toast, inline message, progress, spinner, empty state</td><td class="num">6</td></tr>
+<tr><th>Containers</th><td>Card, dialog, side panel, accordion, tabs</td><td class="num">5</td></tr>
+<tr><th>Navigation</th><td>Top bar, side menu, breadcrumbs, pagination, menu</td><td class="num">5</td></tr>
+<tr><th>Data display</th><td>Table, badge, tag, avatar, tooltip</td><td class="num">5</td></tr>
+<tr><th style="border-bottom:1px solid var(--text)">Total</th><td style="border-bottom:1px solid var(--text)"></td><td class="num" style="border-bottom:1px solid var(--text);font-weight:600">32</td></tr>
+</tbody>
+</table>
+</div>
+<p>Systems grow over time, of course. At IBM, Layer One's founder worked on systems with 71 components for an airline and more than 40 for a pharmacy storefront.[[c:layerone]] But even those started with the everyday basics. The order you build them in matters a lot, and that's the subject of the next chapter.</p>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>A component is designed once, built once and used everywhere, and it exists as twins in design and code with identical names and options.</li>
+    <li>Name a component's parts (its anatomy) so everyone can talk about it precisely.</li>
+    <li>Options multiply effort; add them only for real, repeated needs.</li>
+    <li>Design every state, not just the default. Use slots for big, container-like components.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>
