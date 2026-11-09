@@ -1,0 +1,168 @@
+<section class="chapter" id="ch31" data-part="06" data-num="31" data-title="Research and continuous discovery" data-short="Research"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 31</p>
+  <h1>Research and continuous discovery</h1>
+  <p class="dek">Design system teams research their customers' customers all the time, then forget to research their own. The designers and engineers who use your system are your users. This chapter shows how to understand what they actually need, continuously, and turn it into a roadmap.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You're deciding what the system should do next, you suspect you're building things nobody asked for, or you want to prove what teams really need.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>The research methods that work inside an organisation, and when to use each.</li><li>Practical guides for interviews, surveys, testing and usage analysis.</li><li>How to turn findings into a roadmap, and how to keep research running all year.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch31-1">
+<h2><span class="sec-num">31.1</span>Your users are in the building</h2>
+<p>A design system's users are designers, engineers, product managers and content designers inside your own company. That's a huge advantage: they're easy to reach, happy to talk, and you can watch them work. Yet many system teams decide their roadmap from their own instincts, and build things that look impressive but solve the wrong problem.</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">The table nobody needed (and the filter everybody did)</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A system team spends a quarter building an advanced data table with column resizing, grouping and pivoting, because "tables are important".</p></div>
+    <div><span class="sc-k">What they learn too late</span><p>Five interviews would have shown that most teams only needed simple tables. What every team struggled with was filtering, and each had built its own filter bar.</p></div>
+    <div><span class="sc-k">What research changes</span><p>Two weeks of interviews and usage analysis before planning. The quarter goes on a filter pattern used by twelve teams, not a table feature used by one.</p></div>
+  </div>
+</div>
+<p>Research also does something less obvious: it builds relationships. People who are asked about their needs, and then see those needs reflected in the roadmap, become the system's strongest supporters.</p>
+</section>
+
+<section class="sec" id="ch31-2">
+<h2><span class="sec-num">31.2</span>The research methods</h2>
+<p>Here are the methods that work best inside an organisation, what each one is good at, and how much effort it takes. You'll use most of them over a year; none of them is needed every week.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:20%">Method</th><th>Answers questions like…</th><th style="width:12%">Effort</th><th style="width:24%">Best used</th></tr></thead>
+<tbody>
+<tr><th>Interviews</th><td>What's hard about building UI here? Where do you work around the system, and why?</td><td>Medium</td><td>Before planning; when adoption stalls</td></tr>
+<tr><th>Workflow observation</th><td>How do people actually find and use components? Where do they get stuck?</td><td>Medium</td><td>When you suspect hidden friction</td></tr>
+<tr><th>Surveys</th><td>How satisfied and confident are people overall? What are the top pain points?</td><td>Low</td><td>Twice a year, for trends</td></tr>
+<tr><th>Usability testing</th><td>Can people use this component, or find this answer in the docs?</td><td>Medium</td><td>Before calling a component stable; after redesigning docs</td></tr>
+<tr><th>Usage analysis</th><td>What's used, what's detached, what's overridden, where are hard-coded values?</td><td>Low once set up</td><td>Monthly</td></tr>
+<tr><th>Feedback collection</th><td>What are people asking for and complaining about, right now?</td><td>Low</td><td>Continuously</td></tr>
+<tr><th>Support log analysis</th><td>Which questions come up again and again?</td><td>Low</td><td>Quarterly</td></tr>
+<tr><th>Inventory audit</th><td>What exists in the product, and how consistent is it?</td><td>Medium–high</td><td>Yearly; before big initiatives (Chapter 13)</td></tr>
+</tbody>
+</table>
+</div>
+<p>The strongest insights come from combining numbers and conversations. Usage data tells you <em>that</em> the alert component is detached a lot; an interview tells you <em>why</em>. Neither alone tells you what to build.</p>
+</section>
+
+<section class="sec" id="ch31-3">
+<h2><span class="sec-num">31.3</span>Interviews and observation</h2>
+<h3>Who to talk to</h3>
+<p>Talk to a mix: designers and engineers, heavy users and people who avoid the system, new joiners and veterans, people in head office and people in other locations. The people who <em>don't</em> use the system are often the most valuable to hear from, because they'll tell you what's in the way.</p>
+<h3>A simple interview guide (30–45 minutes)</h3>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:24%">Part</th><th>Questions</th></tr></thead>
+<tbody>
+<tr><td>Their work</td><td>Walk me through the last piece of UI you built. Where did you start? Where did you get stuck?</td></tr>
+<tr><td>Using the system</td><td>When did you last look something up in the system? What happened? When did you last build something yourself instead?</td></tr>
+<tr><td>Gaps</td><td>What do you rebuild over and over? What do you wish the system did?</td></tr>
+<tr><td>Process</td><td>Have you ever asked for something or contributed? What was that like?</td></tr>
+<tr><td>Wrap-up</td><td>If you could change one thing about how the system works, what would it be?</td></tr>
+</tbody>
+</table>
+</div>
+<p>Ask about specific recent events ("the last time you…") rather than general opinions ("do you like…?"). People are bad at predicting what they'd use and good at describing what just happened.</p>
+<h3>Watching people work</h3>
+<p>Ask a designer or engineer to share their screen while they build something real for 30–60 minutes, thinking aloud. You'll see things nobody mentions in interviews: the three places they search before finding a component, the manual workaround they no longer notice, the docs page they skip because it's too long. Watching is the most uncomfortable research method for system teams, and the most revealing.</p>
+</section>
+
+<section class="sec" id="ch31-4">
+<h2><span class="sec-num">31.4</span>Surveys</h2>
+<p>A short survey twice a year gives you trends you can track and share with leadership. Keep it to five minutes, or response rates collapse. Here's a question set we use as a starting point.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:5%">#</th><th>Question</th><th style="width:24%">Answer format</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td>What's your role, and which product or team do you work on?</td><td>Choice</td></tr>
+<tr><td class="num">2</td><td>"The design system makes my work faster."</td><td>Agree–disagree scale</td></tr>
+<tr><td class="num">3</td><td>"I can find what I need in the design system quickly."</td><td>Agree–disagree scale</td></tr>
+<tr><td class="num">4</td><td>"I trust the system's components to work correctly in production."</td><td>Agree–disagree scale</td></tr>
+<tr><td class="num">5</td><td>How confident are you at: finding a component · using tokens · requesting something · contributing?</td><td>Confidence scale per task</td></tr>
+<tr><td class="num">6</td><td>What's the most frustrating thing about working with the system?</td><td>Free text</td></tr>
+<tr><td class="num">7</td><td>What's one thing the system should add or change next?</td><td>Free text</td></tr>
+</tbody>
+</table>
+</div>
+<p>Keep the scored questions identical each time so you can compare. Read every free-text answer, tag them by theme, and share a short summary of what you heard and what you'll do about it. A survey that disappears into silence teaches people not to answer the next one.</p>
+</section>
+
+<section class="sec" id="ch31-5">
+<h2><span class="sec-num">31.5</span>Testing components and documentation</h2>
+<p>System components are products too, and they can be usability tested like any other product. The "users" are designers and engineers; the tasks are the jobs they do with the system.</p>
+<div class="cols-2">
+<div>
+<h4>Testing a component</h4>
+<p>Give three to five designers or engineers a realistic task: "Build this filter bar using the system" or "Add a date range to this report". Watch where they hesitate, what they misunderstand about the props, and what they work around. Do it during the beta stage (Chapter 16), before the API is locked.</p>
+</div>
+<div>
+<h4>Testing the documentation</h4>
+<p>Ask people to find answers: "How would you show an error on a field?", "Which colour token is for secondary text?" Note where they look first, how long it takes and whether they find the right answer. For the portal's structure, a card-sorting or tree-testing exercise shows whether your navigation matches how people think.</p>
+</div>
+</div>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Five people is usually enough</p>
+  <p>For finding problems in a component or a docs page, testing with about five people from different teams surfaces most of the big issues. Fix them, then test again with five more. Small and frequent beats large and rare.</p>
+</div>
+</section>
+
+<section class="sec" id="ch31-6">
+<h2><span class="sec-num">31.6</span>Usage analysis and feedback collection</h2>
+<p>Usage data is research that runs while you sleep. Set it up once (Chapter 26) and review it monthly.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:26%">Data</th><th>What to look for</th></tr></thead>
+<tbody>
+<tr><td>Component imports in code, per product</td><td>Which components are used, where adoption lags, which old versions linger</td></tr>
+<tr><td>Design library inserts and detaches</td><td>Components that are popular, and components people break apart to customise</td></tr>
+<tr><td>Hard-coded values and local components</td><td>Gaps the system isn't filling; teams that need help</td></tr>
+<tr><td>Documentation page views and searches</td><td>What people look for most, and searches that return nothing</td></tr>
+<tr><td>Support channel questions, tagged by theme</td><td>Recurring confusion and missing documentation</td></tr>
+<tr><td>Requests and their outcomes</td><td>Patterns in what teams ask for, and how long they wait</td></tr>
+</tbody>
+</table>
+</div>
+<p>Make feedback effortless to give: a feedback link on every documentation page, a form for requests, an emoji-reaction habit in the channel, and a standing question at the end of every office hours. The easier it is to say something, the earlier you hear about problems.</p>
+</section>
+
+<section class="sec" id="ch31-7">
+<h2><span class="sec-num">31.7</span>From findings to roadmap</h2>
+<p>Research only matters if it changes what you do. Here's how to turn a pile of notes, numbers and complaints into a roadmap people believe in.</p>
+<ol class="steps">
+  <li><h4>Keep one pain-point log</h4><p>Every finding (from interviews, office hours, surveys, data) goes into one list: the problem, who has it, how often, how severe, and the evidence.</p></li>
+  <li><h4>Group into themes</h4><p>Many small complaints are often one underlying problem. "Can't find the warning banner", "which alert do I use?" and "too many toast styles" may all be one theme: feedback messages are confusing.</p></li>
+  <li><h4>Score themes</h4><p>How many teams have this problem, how badly, and how much would solving it save? Feed the scores into the prioritisation framework (Chapter 35).</p></li>
+  <li><h4>Validate before building</h4><p>For the top themes, check the requirement with the teams affected: a short workshop (Chapter 29) or a quick prototype test.</p></li>
+  <li><h4>Publish the roadmap, with reasons</h4><p>Show each roadmap item with the evidence behind it: "Filter pattern: needed by 12 teams; 4 local versions exist; most common support question."</p></li>
+  <li><h4>Close the loop</h4><p>Tell the people who took part what you learned and what you're doing about it. It's the best way to get them to take part again.</p></li>
+</ol>
+</section>
+
+<section class="sec" id="ch31-8">
+<h2><span class="sec-num">31.8</span>Making research continuous</h2>
+<p>Research shouldn't be a project you do once before building version one. Needs change as products change, and a system that stops listening slowly becomes outdated. The answer is a light, continuous rhythm that fits into normal operations.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:16%">How often</th><th>Research activity</th><th style="width:22%">Owner</th><th style="width:20%">Time needed</th></tr></thead>
+<tbody>
+<tr><th>Weekly</th><td>Log insights from office hours, triage and the support channel</td><td>Office hours hosts</td><td>15 min</td></tr>
+<tr><th>Monthly</th><td>Two short interviews or one observation session; review usage data</td><td>System designer (rotating)</td><td>2–3 hours</td></tr>
+<tr><th>Quarterly</th><td>Synthesise the pain-point log into themes; feed planning</td><td>Lead + designer</td><td>Half a day</td></tr>
+<tr><th>Twice a year</th><td>Survey; share results</td><td>Lead</td><td>A day</td></tr>
+<tr><th>Yearly</th><td>Inventory audit; deeper research on the biggest open question</td><td>Whole team</td><td>1–2 weeks</td></tr>
+</tbody>
+</table>
+</div>
+<p>In total, that's a few hours a month for most teams, and it's the difference between a roadmap based on opinion and one based on evidence.</p>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Your users are the designers, engineers and PMs in your own company, so research them like any product's users.</li>
+    <li>Combine numbers (usage data) with conversations (interviews, observation) to understand both what and why.</li>
+    <li>Test components and documentation with about five people at a time, early and often.</li>
+    <li>Keep one pain-point log, turn themes into an evidence-backed roadmap, close the loop, and research a little every month.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

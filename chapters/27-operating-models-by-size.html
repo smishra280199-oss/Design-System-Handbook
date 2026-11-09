@@ -1,0 +1,157 @@
+<section class="chapter" id="ch27" data-part="06" data-num="27" data-title="Operating models by company size" data-short="Models by size"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 27</p>
+  <h1>Operating models by company size</h1>
+  <p class="dek">There is no single right way to run a design system. What works for a five-person startup would suffocate it at a global bank, and what works at the bank would bankrupt the startup. This chapter shows how the operating model should change as a company grows, with realistic examples at five sizes.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You're deciding how to set up your design system's team and ways of working, or your current model feels wrong for the size you've become.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>The four basic operating models, compared honestly.</li><li>A recommended model, team and rhythm for five company sizes, from startup to global enterprise.</li><li>The signals that tell you it's time to move to the next model.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch27-1">
+<h2><span class="sec-num">27.1</span>One system, many shapes</h2>
+<div class="term"><span class="term-k">New word</span><b>Operating model</b><span>How the design system is run inside a company: who owns it, who works on it, how decisions are made, how work flows in and out, and how often everyone meets.</span></div>
+<p>Chapter 05 introduced the day-to-day running of a design system. This part goes much deeper, because in our experience the operating model, not the quality of the components, is what decides whether a design system thrives or fades. The hardest part is that the right model depends on the size and shape of your organisation, and it has to change as you grow.</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">The startup that copied a tech giant</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A 60-person startup reads about how a famous tech company runs its design system: a dedicated team, a governance council, a formal request process, quarterly planning.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>They copy it. Two designers spend half their week in process meetings. A button change needs council approval. Product teams wait weeks for simple things and start building their own.</p></div>
+    <div><span class="sc-k">What would have fitted</span><p>One owner with protected time, a shared Slack channel, a fortnightly half-hour review, and "build it locally" for anything one team needs. Process grows when the company does, not before.</p></div>
+  </div>
+</div>
+<p>The rule we use is simple: <strong>use the lightest model that keeps the system trusted and moving</strong>. Every meeting, approval and form you add should solve a problem you actually have. When a new problem appears (teams waiting too long, decisions stalling, quality slipping), that's the signal to add the next piece of structure.</p>
+</section>
+
+<section class="sec" id="ch27-2">
+<h2><span class="sec-num">27.2</span>The four basic models</h2>
+<p>Chapter 05 introduced these through Nathan Curtis's team models.[[c:curtis-team-models]] Here they are again, side by side, with the honest pros and cons and the point at which each tends to break.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:15%">Model</th><th style="width:22%">How it works</th><th>Strengths</th><th>Weaknesses</th><th style="width:20%">Breaks when…</th></tr></thead>
+<tbody>
+<tr><th>Embedded (no dedicated team)</th><td>Product designers and engineers look after the system part-time</td><td>Cheap; stays close to real product needs; no "ivory tower"</td><td>Product deadlines always win; slow; bends to one team's needs</td><td>More than about three squads depend on it</td></tr>
+<tr><th>Centralised</th><td>A dedicated team builds and runs it for everyone</td><td>Focus, quality, clear accountability, consistent decisions</td><td>Can drift from product reality; becomes a queue</td><td>Requests outpace the team; teams feel unheard</td></tr>
+<tr><th>Decentralised (federated only)</th><td>Every team contributes; nobody owns it full-time</td><td>Shared ownership; broad input</td><td>Nobody's real job; decisions stall; quality varies</td><td>Almost immediately, without strong leadership</td></tr>
+<tr><th>Hybrid</th><td>A core team owns quality and direction; product teams contribute</td><td>Scales; balances quality and speed; teams feel ownership</td><td>Needs real investment in contribution, review and community</td><td>Contribution time isn't protected in product plans</td></tr>
+</tbody>
+</table>
+</div>
+<p>Alla Kholmatova describes a related spectrum, from centralised systems with one clear owner to distributed systems where ownership is spread out, and notes that each trades control against speed.[[c:kholmatova]] Curtis's own later conclusion is the one most mature organisations arrive at: a central team <em>plus</em> participation from a wider community.[[c:curtis-fallacy]] The rest of this chapter shows how to get there from wherever you are.</p>
+</section>
+
+<section class="sec" id="ch27-3">
+<h2><span class="sec-num">27.3</span>Early-stage startup</h2>
+<p><strong>Typical shape:</strong> 10–50 people; 1–3 designers; 3–15 engineers; one product, still changing fast. Example: a seed-stage fintech with three designers and four engineers. [[ill]]</p>
+<div class="cols-3">
+  <div class="card"><span class="card-k">Model</span><h4>Embedded</h4><p>No dedicated people. One designer and one engineer are the named owners, with about a day a week protected.</p></div>
+  <div class="card"><span class="card-k">What exists</span><h4>Foundations, light</h4><p>Named colours, type and spacing in code; a themed open-source component library; a small Figma library.</p></div>
+  <div class="card"><span class="card-k">Rhythm</span><h4>Fortnightly, 30 minutes</h4><p>A short review of new UI and requests in the team's usual design critique or engineering sync.</p></div>
+</div>
+<p style="margin-top:18px">At this size, everyone can talk to everyone, so the "operating model" is mostly a habit: before building a new piece of UI, check whether it already exists, and if you build something reusable, put it in the shared place. Decisions are made by the owners in conversation. Documentation is a single page. There's no request form. Somebody just asks in the team channel.</p>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] The one thing to get right at this stage</p>
+  <p>Name the basic values as tokens and use them in code from day one (Part 02). It costs days, survives every pivot, and is the foundation everything later builds on. Resist building custom components or process until the product settles down.</p>
+</div>
+</section>
+
+<section class="sec" id="ch27-4">
+<h2><span class="sec-num">27.4</span>Growing company (scale-up)</h2>
+<p><strong>Typical shape:</strong> 50–300 people; 4–15 designers; 20–80 engineers; 3–8 product squads; one or two products, maybe a mobile app. Example: a Series B SaaS company. [[ill]]</p>
+<div class="cols-3">
+  <div class="card"><span class="card-k">Model</span><h4>Small central team, starting hybrid</h4><p>1–3 dedicated people (often a designer and one or two engineers), plus a named champion in each squad.</p></div>
+  <div class="card"><span class="card-k">What exists</span><h4>Core system</h4><p>Tokens, 20–35 components, a documentation site, versioned releases, a simple request process.</p></div>
+  <div class="card"><span class="card-k">Rhythm</span><h4>Weekly and fortnightly</h4><p>Weekly office hours and triage; fortnightly releases; a monthly review with design and engineering leads.</p></div>
+</div>
+<p style="margin-top:18px">This is the stage where most design systems are formally born, and where the first serious mistakes happen. The usual one is hiring a single "design system designer" and expecting them to deliver a system alone. Without engineering capacity, you get a beautiful Figma library and little real use (Chapter 04). The minimum effective team is a designer and an engineer working as a pair.</p>
+<p>Decisions start needing to be written down: who decides what (Chapter 36), how requests come in (Chapter 35), how changes are announced (Chapter 33). Keep each of these to a page. zeroheight's 2025 survey found dedicated teams at companies with 100–499 employees averaging about four people,[[c:zeroheight-2025]] which matches what we see at the upper end of this stage.</p>
+</section>
+
+<section class="sec" id="ch27-5">
+<h2><span class="sec-num">27.5</span>Mid-sized company with distributed teams</h2>
+<p><strong>Typical shape:</strong> 300–2,000 people; 15–40 designers; 80–300 engineers; several products; teams spread across offices and time zones. Example: a company with product teams in Bangalore, Berlin and Toronto. [[ill]]</p>
+<div class="cols-3">
+  <div class="card"><span class="card-k">Model</span><h4>Hybrid, async-first</h4><p>A core team of 4–8, plus regional champions and protected contributor time in product teams.</p></div>
+  <div class="card"><span class="card-k">What exists</span><h4>Managed system</h4><p>Multiple themes, a contribution process, health metrics, a full documentation portal.</p></div>
+  <div class="card"><span class="card-k">Rhythm</span><h4>Repeated across time zones</h4><p>Office hours run twice (different time slots); written decisions; recorded sessions.</p></div>
+</div>
+<p style="margin-top:18px">Distribution changes everything about operations. A meeting that suits Bangalore is the middle of the night in Toronto. Decisions made in a hallway exclude half the company. So the operating model shifts to <strong>written first</strong>: proposals are documents, decisions are recorded with reasons, office hours are duplicated or recorded, and the documentation portal (Chapter 32) becomes the real meeting place. Regional champions matter more here than anywhere, because they're the local face of the system in each office.</p>
+<div class="callout callout--mistake">
+  <p class="callout-label">A mistake we see often</p>
+  <h4>A system that only lives in head-office hours</h4>
+  <p>When all the rituals happen in one time zone, other offices drift. They can't attend office hours, miss decisions and end up building their own components. Rotate meeting times, record everything, and give each region a champion with real influence.</p>
+</div>
+</section>
+
+<section class="sec" id="ch27-6">
+<h2><span class="sec-num">27.6</span>Unicorn with many product teams</h2>
+<p><strong>Typical shape:</strong> fast growth; 30–100 designers; 200–800 engineers; 20–60 squads; several business units with their own priorities; web and native apps. Example: a consumer marketplace that has grown from one app to five businesses in four years. [[ill]]</p>
+<div class="cols-3">
+  <div class="card"><span class="card-k">Model</span><h4>Hybrid with extensions</h4><p>A core team of 8–14 across design, web, iOS and Android, plus business-unit extensions owned by those units.</p></div>
+  <div class="card"><span class="card-k">What exists</span><h4>Platform</h4><p>Core plus extensions, multi-platform tokens, contribution levels, champions network, health dashboard.</p></div>
+  <div class="card"><span class="card-k">Rhythm</span><h4>Product-like</h4><p>Quarterly planning with business units; fortnightly releases; monthly community sessions; a lightweight decision forum.</p></div>
+</div>
+<p style="margin-top:18px">Unicorns have a special problem: speed. Business units launch new products faster than any central team can support them, and the pressure to "just build our own" is intense. The model that works is a strong core with sanctioned extensions (Chapter 25): each business unit owns an extension built on the core, and the core team's job shifts from building everything to enabling, reviewing and absorbing what proves widely useful. Without this, unicorns tend to end up with a separate system per business unit within two years.</p>
+</section>
+
+<section class="sec" id="ch27-7">
+<h2><span class="sec-num">27.7</span>Large global enterprise</h2>
+<p><strong>Typical shape:</strong> thousands of people; hundreds of designers; over a thousand engineers; many portfolios and brands; vendors and agencies; regulation; legacy technology. Example: a global bank or insurer. [[ill]]</p>
+<div class="cols-3">
+  <div class="card"><span class="card-k">Model</span><h4>Federated family of systems</h4><p>A central platform team of 15–25, specialised systems per portfolio, and federated contributors in every portfolio.</p></div>
+  <div class="card"><span class="card-k">What exists</span><h4>Family of systems</h4><p>Shared core, portfolio systems, compliance and accessibility tooling, automated checks, formal governance.</p></div>
+  <div class="card"><span class="card-k">Rhythm</span><h4>Formal but lean</h4><p>A governance council; quarterly roadmaps per portfolio; release trains; regular communication to hundreds of people.</p></div>
+</div>
+<p style="margin-top:18px">At this scale the system team is closer to a platform organisation than a design team. Much of the work is enablement and governance: training hundreds of people, reviewing contributions from dozens of teams, keeping vendors on-system, and proving value to executives. zeroheight's survey found teams at companies with 500+ employees averaging about nine people, with few growing beyond 20–25,[[c:zeroheight-2025]] because beyond that size, scale comes from contribution and automation rather than headcount. Layer One's founder works in this environment today, where design system checks support 500+ designers and 1,000+ engineers.[[c:layerone]] Automated checking, rather than manual review, is what makes that possible.</p>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Enterprise governance doesn't have to be heavy</p>
+  <p>Large organisations often add process to feel in control. The best enterprise systems we've seen do the opposite: they automate what can be automated (checks, release notes, usage tracking) so that human governance can focus on the few decisions that really need it.</p>
+</div>
+</section>
+
+<section class="sec" id="ch27-8">
+<h2><span class="sec-num">27.8</span>The five models at a glance, and when to move on</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:14%"></th><th>Startup</th><th>Scale-up</th><th>Mid-sized, distributed</th><th>Unicorn</th><th>Global enterprise</th></tr></thead>
+<tbody>
+<tr><th>Model</th><td>Embedded</td><td>Small central, starting hybrid</td><td>Hybrid, async-first</td><td>Hybrid with extensions</td><td>Federated family of systems</td></tr>
+<tr><th>Dedicated people</th><td>0 (owners ~20% time)</td><td>1–3</td><td>4–8</td><td>8–14</td><td>15–25</td></tr>
+<tr><th>Contributors</th><td>Everyone, informally</td><td>A champion per squad</td><td>Regional champions + protected time</td><td>BU extension teams + champions</td><td>Federated contributors in every portfolio</td></tr>
+<tr><th>Decisions</th><td>In conversation</td><td>System lead, written down</td><td>Written proposals, async comments</td><td>Lead + decision forum</td><td>Council for cross-portfolio decisions</td></tr>
+<tr><th>Requests</th><td>Ask in the channel</td><td>Simple form, weekly triage</td><td>Form, triage, public roadmap</td><td>Tiered intake per BU</td><td>Portfolio intake + central review</td></tr>
+<tr><th>Docs</th><td>One page</td><td>Docs site</td><td>Full portal</td><td>Portal + extension docs</td><td>Portal for the whole family</td></tr>
+</tbody>
+</table>
+</div>
+<p class="muted" style="font-size:14px">Team sizes are [[prac]] ranges for orientation, broadly consistent with zeroheight's 2025 survey data.[[c:zeroheight-2025]]</p>
+<h3>Signals that it's time to move to the next model</h3>
+<div class="cols-2">
+<ul class="checklist">
+  <li>Requests wait more than a few weeks for a first response</li>
+  <li>The part-time owners are always too busy with product work</li>
+  <li>Teams are building local copies of system components</li>
+  <li>Decisions are re-debated because nobody wrote them down</li>
+</ul>
+<ul class="checklist">
+  <li>A second product, platform, brand or office appears</li>
+  <li>Accessibility or compliance becomes a contractual requirement</li>
+  <li>Leadership asks "what are we getting for this?" and nobody can answer</li>
+  <li>The system team spends more time in meetings than building or enabling</li>
+</ul>
+</div>
+<p>The last signal works in the other direction: if process is eating the team's time, you may have added structure too early. Moving to a lighter model is a perfectly valid step.</p>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Use the lightest operating model that keeps the system trusted and moving; add structure only for real problems.</li>
+    <li>Startups embed ownership; scale-ups form a small designer–engineer pair; larger companies go hybrid.</li>
+    <li>Distributed companies work written-first; unicorns use sanctioned extensions; enterprises run a family of systems with automation.</li>
+    <li>Watch for the signals that it's time to move to the next model, in either direction.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

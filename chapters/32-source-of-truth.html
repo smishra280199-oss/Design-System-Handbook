@@ -1,0 +1,165 @@
+<section class="chapter" id="ch32" data-part="06" data-num="32" data-title="The single source of truth" data-short="Source of truth"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 32</p>
+  <h1>The single source of truth</h1>
+  <p class="dek">If people have to search Figma, a wiki, Storybook, three Slack channels and someone's memory to answer one question, they'll stop asking and start guessing. A design system needs one home: an internal portal where everything about the system lives. This chapter shows what to put in it and how to keep it trustworthy.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>Information about your system is scattered, your docs are out of date, or you're about to build or redesign your documentation site.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>Everything a design system portal should contain, and why.</li><li>An information architecture and page templates you can adapt.</li><li>How to keep the portal accurate, findable and owned.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch32-1">
+<h2><span class="sec-num">32.1</span>Why one home matters</h2>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">Seven places to check, zero answers</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>An engineer wants to know whether the old modal is being retired. The answer might be in the wiki, the Figma file, Storybook, the release notes, a Slack thread or the roadmap spreadsheet.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>The wiki says one thing, a three-month-old Slack thread says another, and the roadmap spreadsheet hasn't been updated. The engineer asks in the channel, waits a day, and builds with the old modal anyway.</p></div>
+    <div><span class="sc-k">What one home changes</span><p>The modal's documentation page shows "Deprecated: removed in 6.0 (March). Use Dialog. Migration guide →". One place, one answer, always current.</p></div>
+  </div>
+</div>
+<p>A <strong>single source of truth</strong> doesn't mean everything is stored in one tool. Figma files will stay in Figma and code in the repository. It means there's one front door that everyone knows, which links to everything else and says what's current. If it's in the portal, it's true. If it isn't in the portal, it isn't official.</p>
+</section>
+
+<section class="sec" id="ch32-2">
+<h2><span class="sec-num">32.2</span>What the portal should contain</h2>
+<p>Here's the full list of what a mature design system portal holds, what each part is for and who usually owns it. A startup's version might be three of these on a single page; an enterprise's has all of them.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Section</th><th>What it holds</th><th style="width:22%">Usual owner</th></tr></thead>
+<tbody>
+<tr><th>Getting started</th><td>What the system is, how to install it, how to use the Figma libraries, learning paths by role (Chapter 30)</td><td>Enablement / lead</td></tr>
+<tr><th>Principles &amp; foundations</th><td>Design principles; colour, type, spacing, layout, motion, iconography (Part 02)</td><td>System designers</td></tr>
+<tr><th>Tokens</th><td>Every token with its value per theme, purpose and usage; how to use tokens in design and code</td><td>System engineers + designers</td></tr>
+<tr><th>Components</th><td>One page per component using the template from Chapter 16, with live examples and props</td><td>Component owners</td></tr>
+<tr><th>Patterns</th><td>Documented patterns (Chapter 23) with examples and evidence</td><td>Pattern owners</td></tr>
+<tr><th>Content</th><td>Voice, vocabulary, message formulas (Chapter 24)</td><td>Content designer</td></tr>
+<tr><th>Engineering guides</th><td>Installation, theming, testing, migration guides, code examples</td><td>System engineers</td></tr>
+<tr><th>Contribute</th><td>How to request, how to contribute, contribution levels, review process (Chapter 35)</td><td>Lead</td></tr>
+<tr><th>Roadmap &amp; updates</th><td>Current roadmap, release notes, upcoming and breaking changes, deprecation schedule</td><td>Lead</td></tr>
+<tr><th>Support</th><td>Office hours schedule, workshop calendar, channels, FAQ, troubleshooting</td><td>DesignOps / lead</td></tr>
+<tr><th>Team &amp; ownership</th><td>Who's on the team, who owns what, how to contact them, champions per team</td><td>Lead</td></tr>
+<tr><th>Community</th><td>Links to discussion channels, community sessions, recordings, contributors' wall</td><td>DesignOps</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch32-3">
+<h2><span class="sec-num">32.3</span>Information architecture</h2>
+<p>The structure of the portal should match how people think about their work, not how the system team is organised. People arrive with a task: "I need a dropdown", "how do I theme this?", "is this changing?" The navigation should lead them straight to the answer.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="cols-2" style="gap:28px">
+<div class="tree"><span class="hl">Design System Portal</span>
+├─ <span class="hl">Get started</span>
+│  ├─ For designers · For engineers · For PMs
+│  └─ Learning paths
+├─ <span class="hl">Foundations</span>
+│  ├─ Principles · Colour · Type · Spacing
+│  └─ Layout · Motion · Icons
+├─ <span class="hl">Tokens</span>
+├─ <span class="hl">Components</span>   <span class="c">← A–Z and by group</span>
+├─ <span class="hl">Patterns</span>
+├─ <span class="hl">Content</span></div>
+<div class="tree">├─ <span class="hl">Engineering</span>
+│  ├─ Install · Theming · Testing
+│  └─ Migration guides
+├─ <span class="hl">Contribute</span>
+│  ├─ Request something · Contribute
+│  └─ Review process
+├─ <span class="hl">Updates</span>
+│  ├─ Release notes · Roadmap
+│  └─ Deprecations &amp; breaking changes
+└─ <span class="hl">Support &amp; community</span>
+   ├─ Office hours · Workshops · FAQ
+   └─ Team &amp; owners · Channels</div>
+</div>
+</div>
+<figcaption><b>A portal structure that works for most teams.</b> [[prac]] Ten top-level sections, each matching a kind of question people arrive with. "Get started" splits by role, so newcomers see only what's relevant to them.</figcaption>
+</figure>
+<p>Two structural choices make a big difference. First, <strong>entry points by role</strong>: a designer and an engineer need different first steps, so "Get started" offers a path for each. Second, <strong>the Updates section is always one click away</strong>, because "what's changed?" is one of the most common questions, and burying it means people miss breaking changes.</p>
+</section>
+
+<section class="sec" id="ch32-4">
+<h2><span class="sec-num">32.4</span>The pages that matter most</h2>
+<p>A few pages do most of the work. Get these right first.</p>
+<div class="cols-2">
+  <div class="card"><span class="card-k">Home page</span><h4>Answer "what's new and where do I go?"</h4><p>Latest release and any upcoming breaking change, quick links by role, search front and centre, next office hours, and one short "start here" link.</p></div>
+  <div class="card"><span class="card-k">Component page</span><h4>Everything about one component</h4><p>The nine-section template from Chapter 16: summary, when not to use, examples, anatomy, code and Figma, accessibility, writing, do's and don'ts, status and history.</p></div>
+  <div class="card"><span class="card-k">Token pages</span><h4>Values, purpose, and use</h4><p>Each token with its value in every theme, a swatch or preview, what it's for, and an example in design and code. Generated from the token source, so it's never out of date.</p></div>
+  <div class="card"><span class="card-k">Release notes</span><h4>What changed, for users</h4><p>Newest first, each release with breaking changes first, then new things, then fixes. Links to migration guides and the components affected.</p></div>
+  <div class="card"><span class="card-k">Support page</span><h4>How to get help</h4><p>Office hours times (in several time zones), how to book, channels, response times, the FAQ and troubleshooting, and who owns what.</p></div>
+  <div class="card"><span class="card-k">Contribute page</span><h4>How to take part</h4><p>The request form, contribution levels, what to expect at each step, and recent contributions to show it's real.</p></div>
+</div>
+</section>
+
+<section class="sec" id="ch32-5">
+<h2><span class="sec-num">32.5</span>Keeping it accurate</h2>
+<p>An out-of-date portal is worse than none, because people trust it and get it wrong. Accuracy has to be built into how the system works, not left to good intentions.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:28%">Practice</th><th>How it helps</th></tr></thead>
+<tbody>
+<tr><th>Generate what you can</th><td>Props tables, token values, live examples and release notes come straight from the code and token source, so they can't drift.</td></tr>
+<tr><th>Docs in the definition of done</th><td>A component change isn't finished until its page is updated (Chapter 21). Reviewers check it like code.</td></tr>
+<tr><th>An owner for every section</th><td>Named in the page footer, so readers know who to ask and owners know what's theirs.</td></tr>
+<tr><th>"Last reviewed" dates</th><td>Pages not reviewed in six months are flagged automatically for their owner.</td></tr>
+<tr><th>Feedback on every page</th><td>"Was this helpful?" and "report a problem" links send issues straight to the owner.</td></tr>
+<tr><th>Versioned docs</th><td>Teams on an older major version can still read the docs for their version.</td></tr>
+<tr><th>Automatic checks</th><td>Broken links and missing pages (a component with no docs) flagged in the build.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch32-6">
+<h2><span class="sec-num">32.6</span>Making it easy to find things</h2>
+<p>Most people arrive at the portal with a search, not a browse. Search quality is therefore the single biggest factor in whether people find answers.</p>
+<ul>
+  <li><strong>Search everything</strong>: components, tokens, patterns, guides, release notes and FAQs, in one search box.</li>
+  <li><strong>Teach search your synonyms</strong>: "modal" should find Dialog; "chip" and "pill" should find Tag. Use the keywords from Chapter 16.</li>
+  <li><strong>Watch failed searches</strong>: searches that return nothing are a free list of missing content or missing synonyms.</li>
+  <li><strong>Cross-link generously</strong>: every component links to the patterns that use it; every pattern links to its components; deprecated pages link to replacements.</li>
+  <li><strong>Keep an FAQ and a troubleshooting page</strong>, built from the questions that actually recur in the channel and office hours.</li>
+</ul>
+</section>
+
+<section class="sec" id="ch32-7">
+<h2><span class="sec-num">32.7</span>Building the portal</h2>
+<p>There are three common ways to build a portal, and the right one depends mostly on your size and how much engineering time you have.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Approach</th><th>Good for</th><th>Watch out for</th></tr></thead>
+<tbody>
+<tr><th>Workshop tool's docs (e.g. Storybook)</th><td>Engineering-heavy teams; live examples for free</td><td>Less friendly for designers and PMs; limited for guidance and processes</td></tr>
+<tr><th>Dedicated documentation platform</th><td>Fast to set up; good for designers; links Figma and code</td><td>Cost; another tool to keep in sync; some content still lives elsewhere</td></tr>
+<tr><th>Custom site from the repository</th><td>Full control; docs live next to code; generated content</td><td>Needs engineering time to build and maintain</td></tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:18%">Size</th><th>What we'd suggest [[prac]]</th></tr></thead>
+<tbody>
+<tr><td>Startup</td><td>A single well-organised page (in your wiki or README) linking to Figma and code.</td></tr>
+<tr><td>Scale-up</td><td>Storybook docs or a documentation platform, plus a short "Support" and "Updates" page.</td></tr>
+<tr><td>Mid-sized</td><td>A full portal with all ten sections, generated where possible.</td></tr>
+<tr><td>Unicorn / enterprise</td><td>A portal for the whole family of systems, with per-extension sections, versioned docs and strong search.</td></tr>
+</tbody>
+</table>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Give the system one front door. If it's in the portal it's true; if not, it isn't official.</li>
+    <li>Include everything people need: foundations, tokens, components, patterns, guides, contributing, updates, support and ownership.</li>
+    <li>Structure it around people's questions, with role-based entry points and updates always one click away.</li>
+    <li>Keep it accurate by generating what you can, naming owners and dating reviews, and invest in search.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

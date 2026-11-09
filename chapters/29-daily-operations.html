@@ -1,0 +1,203 @@
+<section class="chapter" id="ch29" data-part="06" data-num="29" data-title="Day-to-day operations" data-short="Daily operations"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 29</p>
+  <h1>Day-to-day operations</h1>
+  <p class="dek">Org charts don't run design systems; routines do. This chapter is the practical how-to: the meetings, sessions and processes that keep a system moving every week, with how often each happens, who comes, who owns it and what it should produce.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You run, or are about to run, a design system week to week and want a reliable set of routines.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A complete operating calendar you can adapt.</li><li>Formats for office hours, workshops, reviews and triage, with agendas.</li><li>How to handle bugs, inconsistencies and debt, and how to plan across many product teams.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch29-1">
+<h2><span class="sec-num">29.1</span>The operating calendar</h2>
+<p>A healthy design system has a heartbeat: a small set of recurring activities that everyone can rely on. Product teams know when they can get help, when changes arrive and when decisions are made. Here's a typical week for a team at the scale-up or mid-sized stage. [[prac]]</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="cal">
+  <span></span><span class="ch">Monday</span><span class="ch">Tuesday</span><span class="ch">Wednesday</span><span class="ch">Thursday</span><span class="ch">Friday</span>
+  <span class="ch">Morning</span>
+  <div class="ev" style="background:#ffe2d5"><b>Team stand-up</b>15 min</div>
+  <div class="ev" style="background:#ffa384"><b>Office hours</b>60 min, open</div>
+  <div class="ev" style="background:var(--bg-sunken)"><b>Focus time</b>no meetings</div>
+  <div class="ev" style="background:#ffe2d5"><b>Team stand-up</b>15 min</div>
+  <div class="ev" style="background:var(--bg-sunken)"><b>Focus time</b>no meetings</div>
+  <span class="ch">Afternoon</span>
+  <div class="ev" style="background:#ed521c"><b>Request triage</b>45 min</div>
+  <div class="ev" style="background:var(--bg-sunken)"><b>Pairing with product teams</b></div>
+  <div class="ev" style="background:#ffa384"><b>Component workshop</b>as needed</div>
+  <div class="ev" style="background:#ffa384"><b>Office hours</b>second time zone</div>
+  <div class="ev" style="background:#0b0d12;color:#ecece8"><b>Release (fortnightly)</b>notes + demo</div>
+</div>
+</div>
+<figcaption><b>A typical design system week.</b> [[prac]] Two office hours slots (in different time zones), one triage, protected focus time, and a release every other Friday. Monthly and quarterly rituals sit on top of this.</figcaption>
+</figure>
+<p>And here's the full set of recurring activities, from daily to yearly. Not every company needs all of them; startups need perhaps three. The table tells you who owns each one and, most importantly, what it should produce. A meeting without an output is the first thing to cut.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:20%">Activity</th><th style="width:12%">How often</th><th style="width:20%">Who attends</th><th style="width:14%">Owner</th><th>Expected outcome</th></tr></thead>
+<tbody>
+<tr><th>Support channel</th><td>Daily</td><td>Rota of system team + champions</td><td>Lead</td><td>Questions answered within a working day</td></tr>
+<tr><th>Team stand-up</th><td>2–3× a week</td><td>System team</td><td>Lead</td><td>Blockers cleared; priorities aligned</td></tr>
+<tr><th>Office hours</th><td>Weekly</td><td>Anyone; system designer + engineer host</td><td>Lead</td><td>Problems solved; requests and research notes logged</td></tr>
+<tr><th>Request triage</th><td>Weekly</td><td>Lead, designer, engineer</td><td>Lead</td><td>Every new request categorised and answered</td></tr>
+<tr><th>Release + demo</th><td>Fortnightly</td><td>System team; open to all</td><td>Engineer on rota</td><td>New version shipped; notes published; short demo recorded</td></tr>
+<tr><th>Component workshop</th><td>As needed</td><td>System team + requesting teams</td><td>System designer</td><td>Agreed scope and requirements for a component</td></tr>
+<tr><th>Contribution review</th><td>Weekly</td><td>System engineers + designers</td><td>Engineering lead</td><td>Contributions reviewed and merged or answered</td></tr>
+<tr><th>Health check</th><td>Monthly</td><td>System team</td><td>Lead</td><td>Metrics reviewed; actions agreed (Chapter 37)</td></tr>
+<tr><th>Community session</th><td>Monthly</td><td>Everyone interested</td><td>DesignOps / lead</td><td>Shared learning; contributors recognised (Chapter 34)</td></tr>
+<tr><th>Planning with product teams</th><td>Quarterly</td><td>Lead + product and design leads</td><td>Lead</td><td>Next quarter's roadmap agreed and published</td></tr>
+<tr><th>Architecture and debt review</th><td>Quarterly</td><td>System team</td><td>Engineering lead</td><td>Debt priorities; dependency risks addressed</td></tr>
+<tr><th>Satisfaction survey</th><td>Twice a year</td><td>All consumers</td><td>Lead</td><td>Trends in satisfaction; top pain points (Chapter 31)</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch29-2">
+<h2><span class="sec-num">29.2</span>Running office hours that people actually use</h2>
+<div class="term"><span class="term-k">New word</span><b>Office hours</b><span>A regular, open time slot where anyone can drop in with a question, a design or a piece of code and get help from the design system team.</span></div>
+<p>Office hours are the single most effective routine a system team can run. They're cheap, they build relationships, and every session is free research: you hear exactly where people struggle. But many teams set them up, see three people turn up, and quietly stop. The difference between office hours that fade and office hours that thrive comes down to a few details.</p>
+<div class="cols-2">
+<div>
+<h4>The format</h4>
+<ul>
+  <li><b>Weekly, same time, 60 minutes.</b> Predictability matters more than length.</li>
+  <li><b>Two hosts:</b> a system designer and a system engineer, so design and code questions can both be answered on the spot.</li>
+  <li><b>Optional sign-up</b> with a one-line topic, so hosts can prepare, but drop-ins welcome.</li>
+  <li><b>Screens first:</b> people bring the real file or the real code, not a description of it.</li>
+  <li><b>A second slot</b> for distant time zones, or a recorded summary.</li>
+</ul>
+</div>
+<div>
+<h4>The outputs</h4>
+<ul>
+  <li>Each question gets a resolution, or a follow-up owner and date.</li>
+  <li>Anything that reveals a gap becomes a logged request (Chapter 35).</li>
+  <li>Recurring questions become documentation or FAQ entries (Chapter 32).</li>
+  <li>A two-line weekly summary in the system channel: what came up, what changed.</li>
+</ul>
+</div>
+</div>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">From three visitors to a waiting list</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>Ledgerly's office hours average three visitors. The team considers cancelling them.</p></div>
+    <div><span class="sc-k">What they change</span><p>They move the slot from Friday afternoon to Tuesday morning, add an engineer host, ask champions to bring one real problem each, and post a short summary after every session.</p></div>
+    <div><span class="sc-k">The result</span><p>Within two months, sessions are full and the summaries have become the channel's most-read posts. Half of the next quarter's roadmap items came from office hours.</p></div>
+  </div>
+</div>
+<p><strong>By size:</strong> a startup doesn't need formal office hours; a standing "ask anything" thread works. A scale-up needs one weekly slot. Distributed and enterprise teams need several slots across time zones, sometimes specialised ones (for example "engineering office hours" and "accessibility clinic").</p>
+</section>
+
+<section class="sec" id="ch29-3">
+<h2><span class="sec-num">29.3</span>Workshops and collaborative sessions</h2>
+<p>Office hours are reactive: people bring problems. Workshops are proactive: the system team brings people together to shape something before it's built. Three kinds are worth running regularly.</p>
+<h3>Component kick-off workshop</h3>
+<p>Run one at the start of every level 3 or level 4 component (Chapter 17). Invite the system designer and engineer, plus a designer and engineer from each team that will use it.</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:18%">Time</th><th>Activity</th><th style="width:34%">Output</th></tr></thead>
+<tbody>
+<tr><td class="num" style="text-align:left">0–10 min</td><td>The problem: what are teams trying to do?</td><td>Shared problem statement</td></tr>
+<tr><td class="num" style="text-align:left">10–30 min</td><td>Inventory walk-through: every existing version and its context</td><td>List of real use cases</td></tr>
+<tr><td class="num" style="text-align:left">30–55 min</td><td>Requirements: must-haves, nice-to-haves, out of scope</td><td>Draft scope statement (Chapter 17)</td></tr>
+<tr><td class="num" style="text-align:left">55–75 min</td><td>States, edge cases and accessibility pattern</td><td>Draft checklist for design (Chapter 14)</td></tr>
+<tr><td class="num" style="text-align:left">75–90 min</td><td>Pilot team, timeline, owners</td><td>Agreed plan</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Co-design and API review sessions</h3>
+<p>Once a first design exists, hold a 45-minute session where the system designer and engineer walk the requesting teams through the anatomy, props (Chapter 19) and states, and teams try to "break" it with their real cases. It's much cheaper to change a prop name in a review than after 400 screens use it.</p>
+<h3>Hands-on usage workshops</h3>
+<p>For new or complex components, a practical session where people build a real screen with the component, guided by the system team. These double as enablement (Chapter 30) and as usability testing of the component itself (Chapter 31).</p>
+</section>
+
+<section class="sec" id="ch29-4">
+<h2><span class="sec-num">29.4</span>Reviews and feedback sessions</h2>
+<p>Reviews are where quality is protected. Too few and quality slips; too many and the system becomes a bottleneck. The trick is matching the review to the size of the change, the same principle as contribution levels in Chapter 05.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Review</th><th>What's reviewed</th><th style="width:22%">Who</th><th style="width:20%">Format</th></tr></thead>
+<tbody>
+<tr><th>Design review</th><td>New or changed system components, against the "ready to build" checklist</td><td>System designers + an engineer + accessibility</td><td>Weekly, 45 min</td></tr>
+<tr><th>Contribution review</th><td>Code and design contributions from product teams</td><td>One reviewer for small; pair for large</td><td>Asynchronous, within 2–3 days</td></tr>
+<tr><th>Release review</th><td>Visual test results and release notes before shipping</td><td>Engineer on rota + designer</td><td>15 min before each release</td></tr>
+<tr><th>Product UI review</th><td>How product teams use the system in real screens</td><td>System designer joins product critiques</td><td>Rotating, monthly per team</td></tr>
+<tr><th>Retrospective</th><td>How the system team itself is working</td><td>System team</td><td>Monthly, 60 min</td></tr>
+</tbody>
+</table>
+</div>
+<p>The product UI review deserves special mention. When a system designer regularly sits in on product teams' design critiques, they see how the system is really used, spot workarounds early, and build relationships. It's one of the cheapest forms of research and enablement at the same time.</p>
+</section>
+
+<section class="sec" id="ch29-5">
+<h2><span class="sec-num">29.5</span>Weekly triage and prioritising across teams</h2>
+<p>Chapter 35 covers the full request framework. Day to day, the key routine is a weekly triage: 45 minutes where the lead, a system designer and a system engineer go through every new request and give each one an answer. The rule is simple: <strong>no request waits more than a week for a first response</strong>, even if the response is "not this quarter, and here's why".</p>
+<ol class="steps">
+  <li><h4>Read and clarify</h4><p>What's the actual need? Is there enough information? If not, ask the requester a specific question.</p></li>
+  <li><h4>Categorise</h4><p>Bug, enhancement, new component, new pattern, documentation, question. Then: shared need, or product-specific?</p></li>
+  <li><h4>Decide the route</h4><p>Fix now; add to backlog with a priority; invite a contribution; suggest an existing solution; build locally.</p></li>
+  <li><h4>Reply and record</h4><p>Post the decision on the request with a reason and, if accepted, a rough timeframe. Update the public roadmap if needed.</p></li>
+</ol>
+<p>When several product teams compete for the same small team's time, prioritise in the open. Publish the scoring (Chapter 35), show the queue, and explain trade-offs. Teams accept "not yet" far more easily when they can see why, and what's ahead of them.</p>
+</section>
+
+<section class="sec" id="ch29-6">
+<h2><span class="sec-num">29.6</span>Bugs, inconsistencies, dependencies and debt</h2>
+<p>Things will go wrong, and a system that handles problems quickly earns more trust than one that seems never to have any. Define response times by severity, publish them, and stick to them.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:16%">Severity</th><th>Example</th><th style="width:18%">First response</th><th style="width:22%">Fix target</th></tr></thead>
+<tbody>
+<tr><th>Critical</th><td>A component blocks a key task, or a serious accessibility failure in production</td><td>Same day</td><td>Patch release within days</td></tr>
+<tr><th>High</th><td>Visible bug in a common component; broken in one browser</td><td>1 working day</td><td>Next release</td></tr>
+<tr><th>Medium</th><td>Edge case broken; minor visual inconsistency</td><td>Within triage week</td><td>Within the quarter</td></tr>
+<tr><th>Low</th><td>Cosmetic issue; documentation typo</td><td>Within triage week</td><td>When convenient, or invite a contribution</td></tr>
+</tbody>
+</table>
+</div>
+<p class="muted" style="font-size:14px">Response and fix targets are [[prac]] starting points; adjust them to your team's size.</p>
+<p><strong>Inconsistencies</strong> (places where the product doesn't match the system) are different from bugs. Log them separately, because many are product teams' to fix, and fixing them is part of adoption. A shared "inconsistency list" that product teams pick from during quieter weeks works well.</p>
+<p><strong>Dependencies</strong> (frameworks, libraries and tools the system relies on) need routine upkeep. Schedule upgrades quarterly rather than waiting until something breaks, and check what depends on what before upgrading (Chapter 18).</p>
+<p><strong>Debt</strong> is managed with the visible debt list and a fixed slice of capacity described in Chapter 05.</p>
+</section>
+
+<section class="sec" id="ch29-7">
+<h2><span class="sec-num">29.7</span>Planning cycles</h2>
+<p>System teams serve many masters, so planning needs to be visible and shared. Most teams combine a quarterly roadmap with short delivery cycles (two-week sprints or a continuous flow).</p>
+<div class="cols-2">
+<div>
+<h4>Quarterly planning, step by step</h4>
+<ol>
+  <li>Two weeks before: collect needs from product teams' roadmaps and from research (Chapter 31).</li>
+  <li>Score candidate work with the request framework (Chapter 35).</li>
+  <li>Draft a roadmap with capacity split across the buckets on the right.</li>
+  <li>Review with product and design leads; adjust.</li>
+  <li>Publish on the documentation portal and announce it (Chapter 33).</li>
+</ol>
+</div>
+<div>
+<h4>A healthy capacity split [[prac]]</h4>
+<div class="hbars" style="margin-top:8px">
+  <div class="hbar"><span>Roadmap work</span><div class="track"><div class="fill" style="width:50%">50%</div></div></div>
+  <div class="hbar"><span>Support &amp; enablement</span><div class="track"><div class="fill" style="width:20%">20%</div></div></div>
+  <div class="hbar"><span>Bugs &amp; debt</span><div class="track"><div class="fill" style="width:20%">20%</div></div></div>
+  <div class="hbar"><span>Improvement &amp; research</span><div class="track"><div class="fill" style="width:10%">10%</div></div></div>
+</div>
+<p style="font-size:13px;color:var(--text-muted);margin-top:10px">Teams that plan 100% roadmap work always miss their roadmap, because support and bugs arrive anyway.</p>
+</div>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Give the system a predictable heartbeat, and make every recurring meeting produce a clear output.</li>
+    <li>Run office hours weekly with a designer and an engineer, and turn what you hear into requests and docs.</li>
+    <li>Use workshops before complex components, match reviews to the size of the change, and triage every request weekly.</li>
+    <li>Publish severity targets for bugs, and plan quarterly with a capacity split that leaves room for support and debt.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

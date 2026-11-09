@@ -1,0 +1,199 @@
+<section class="chapter" id="ch28" data-part="06" data-num="28" data-title="Team structure, roles and hierarchy" data-short="Team structure"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 28</p>
+  <h1>Team structure, roles and hierarchy</h1>
+  <p class="dek">Who actually does the work of a design system, who do they report to, and who has the final say? This chapter builds a design system team from the ground up, covers how to operate with and without a dedicated team, and shows how the structure grows from a pair of people to a team of twenty.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You're hiring for a design system, deciding where the team should report, or making a part-time model work without a dedicated team.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>Every design system role, what it does and when you need it.</li><li>Team structures for three sizes, with organisation charts and reporting lines.</li><li>How to run the system with no dedicated team, and how to transition when you outgrow that.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch28-1">
+<h2><span class="sec-num">28.1</span>The roles, one by one</h2>
+<p>Chapter 04 listed the roles briefly for budgeting. Here they are in full, because getting the mix right is one of the biggest factors in whether a system succeeds. In small companies, one person wears several of these hats; in large ones, each is a separate job.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%">Role</th><th style="width:34%">What they do day to day</th><th>Key skills</th><th style="width:18%">Needed from</th></tr></thead>
+<tbody>
+<tr><th>Design system lead / product manager</th><td>Owns the roadmap and priorities, talks to leadership and product teams, measures value, removes blockers. Runs the system as a product.</td><td>Prioritisation, communication, stakeholder management, enough design and engineering literacy to make trade-offs</td><td>Scale-up (often a part-time hat)</td></tr>
+<tr><th>Design system designer</th><td>Foundations, component design, Figma libraries, usage guidance, design reviews, workshops.</td><td>Systems thinking, interaction design, accessibility, Figma expertise, writing</td><td>Startup (part-time)</td></tr>
+<tr><th>Design system engineer</th><td>Builds components and the token pipeline, testing, releases, code reviews of contributions.</td><td>Front-end architecture, accessibility in code, API design, testing, tooling</td><td>Startup (part-time)</td></tr>
+<tr><th>Native engineers (iOS, Android)</th><td>Build and maintain native component libraries from the shared tokens.</td><td>Platform expertise, accessibility on the platform</td><td>When native apps exist</td></tr>
+<tr><th>Accessibility specialist</th><td>Sets standards, reviews components, tests with assistive technology, trains others.</td><td>WCAG, assistive technology, testing</td><td>Scale-up (part-time or shared)</td></tr>
+<tr><th>Content designer</th><td>Voice, vocabulary, message patterns, documentation writing standards.</td><td>UX writing, information architecture</td><td>Mid-sized (part-time)</td></tr>
+<tr><th>DesignOps / programme manager</th><td>Runs rituals, community, enablement programmes, communication and metrics.</td><td>Operations, facilitation, communication</td><td>Mid-sized</td></tr>
+<tr><th>Developer advocate / enablement lead</th><td>Training, onboarding, office hours, migration support, sample code.</td><td>Teaching, empathy, engineering credibility</td><td>Unicorn / enterprise</td></tr>
+<tr><th>Champions (in product teams)</th><td>The system's voice in each team: early feedback, local help, contributions. Not a full-time role.</td><td>Credibility in their team, curiosity</td><td>Scale-up</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--mistake">
+  <p class="callout-label">A mistake we see often</p>
+  <h4>Hiring the designer, forgetting the engineer</h4>
+  <p>We'll say it again because it's so common: a design system team without engineers produces a design tool library, not a system. Adoption happens in code. At every size, aim for at least as much engineering capacity as design capacity on the core team. [[prac]]</p>
+</div>
+</section>
+
+<section class="sec" id="ch28-2">
+<h2><span class="sec-num">28.2</span>Running the system without a dedicated team</h2>
+<p>Most companies start here, and many stay here for good reason. With no dedicated team, the system is looked after by people whose main job is product work. It can work well, but only if you're deliberate about it. Here's how to set it up so it doesn't quietly fade.</p>
+<ol class="steps">
+  <li><h4>Name two owners and protect their time</h4><p>One designer and one engineer, each with about 20% of their time (a day a week) explicitly reserved in their team's plan, and written into their goals. Unprotected time is no time.</p></li>
+  <li><h4>Form a small guild</h4><p>A group of interested designers and engineers from each team that meets every two weeks for 45 minutes: review new UI, decide what goes into the system, share problems.</p></li>
+  <li><h4>Keep a single backlog</h4><p>One visible list of system work, reviewed in the guild meeting. Items are picked up by whichever team needs them first, built properly, and contributed back.</p></li>
+  <li><h4>Rotate the support role</h4><p>A weekly rotation for answering questions in the system channel, so the two owners don't become the only point of contact.</p></li>
+  <li><h4>Build the system inside product work</h4><p>New components are built when a product feature needs them (the pilot idea from Chapter 05), with a little extra time to make them reusable.</p></li>
+</ol>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%"></th><th>Advantages</th><th>Disadvantages</th></tr></thead>
+<tbody>
+<tr><th>No dedicated team</th><td>Cheap; always grounded in real product needs; spreads knowledge widely; no "us and them"</td><td>Product deadlines always win; slow on big work; nobody accountable for long-term quality; hard to do complex components or migrations</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch28-3">
+<h2><span class="sec-num">28.3</span>Running the system with a dedicated team</h2>
+<p>A dedicated team changes the nature of the work. The system now has people whose success is measured by the system's success. That focus is powerful, but it also creates a risk: the team can drift away from the products it serves. The best dedicated teams operate like a small product company whose customers are internal.</p>
+<div class="cols-2">
+<div>
+<h4>What a dedicated team should do</h4>
+<ul>
+  <li>Own a public roadmap, planned with product teams each quarter.</li>
+  <li>Ship on a regular rhythm, with release notes written for users.</li>
+  <li>Spend real time with product teams: pairing, pilots, office hours.</li>
+  <li>Run a support rota so questions get fast answers.</li>
+  <li>Review and merge contributions quickly.</li>
+  <li>Measure adoption, satisfaction and value, and report them.</li>
+</ul>
+</div>
+<div>
+<h4>What it should avoid</h4>
+<ul>
+  <li>Building in isolation, then "launching" to teams who weren't involved.</li>
+  <li>Being the only people allowed to change anything.</li>
+  <li>Measuring success by components shipped rather than value delivered.</li>
+  <li>Saying yes to everything, or no to everything.</li>
+  <li>Spending more time on internal process than with product teams.</li>
+</ul>
+</div>
+</div>
+<p style="margin-top:12px">A useful rule of thumb from practice: a dedicated team should spend roughly a third of its time with product teams (pairing, supporting, researching), not only on its own backlog. [[prac]] If the team rarely sees product work, it will slowly build the wrong things.</p>
+</section>
+
+<section class="sec" id="ch28-4">
+<h2><span class="sec-num">28.4</span>Team structures at three sizes</h2>
+<p>Here's how a dedicated team typically grows. These are illustrative structures, not rules, but they reflect the shapes we see work. [[ill]]</p>
+<h3>Small: the founding pair (scale-up)</h3>
+<figure class="fig">
+<div class="fig-body">
+<div class="org">
+  <div class="org-row first"><div class="org-box lead"><b>Head of Design</b><span>sponsor</span></div></div>
+  <div class="org-row spread">
+    <div class="org-box sys"><b>System designer</b><span>also acts as system lead</span></div>
+    <div class="org-box sys"><b>System engineer</b><span>reports to engineering, dotted line here</span></div>
+    <div class="org-box dash"><b>Champions</b><span>one per squad, ~10% time</span></div>
+  </div>
+</div>
+</div>
+<figcaption><b>The founding pair.</b> Two people, one sponsor and a ring of champions. The designer usually doubles as the lead; the engineer often reports into engineering with a dotted line to design.</figcaption>
+</figure>
+
+<h3>Medium: a product team (mid-sized or early unicorn)</h3>
+<figure class="fig">
+<div class="fig-body">
+<div class="org">
+  <div class="org-row first"><div class="org-box lead"><b>Director of Design / Platform</b><span>sponsor</span></div></div>
+  <div class="org-row"><div class="org-box sys"><b>Design system lead</b><span>product owner</span></div></div>
+  <div class="org-row spread">
+    <div class="org-box"><b>2 system designers</b><span>foundations, components</span></div>
+    <div class="org-box"><b>3 web engineers</b><span>components, tokens, tooling</span></div>
+    <div class="org-box"><b>Accessibility</b><span>shared, part-time</span></div>
+    <div class="org-box"><b>Content designer</b><span>part-time</span></div>
+  </div>
+</div>
+</div>
+<figcaption><b>A team of six to eight.</b> A dedicated lead runs the team as a product, with design and engineering capacity roughly balanced and specialists shared with the wider organisation.</figcaption>
+</figure>
+
+<h3>Large: a platform organisation (enterprise)</h3>
+<figure class="fig">
+<div class="fig-body">
+<div class="org">
+  <div class="org-row first"><div class="org-box lead"><b>Head of Design Systems</b><span>reports to VP Design and VP Engineering</span></div></div>
+  <div class="org-row spread">
+    <div class="org-box sys"><b>Foundations &amp; tokens</b><span>2 designers · 2 engineers</span></div>
+    <div class="org-box sys"><b>Web components</b><span>1 designer · 4 engineers</span></div>
+    <div class="org-box sys"><b>Native</b><span>1 designer · 2 iOS · 2 Android</span></div>
+    <div class="org-box sys"><b>Enablement &amp; ops</b><span>DesignOps · advocate · content</span></div>
+  </div>
+  <div class="org-row"><div class="org-box dash" style="max-width:520px"><b>Federated contributors and champions in every portfolio</b><span>portfolio extensions, reviews, local support</span></div></div>
+</div>
+</div>
+<figcaption><b>A team of about twenty, in four squads.</b> Each squad has its own focus; a central lead and an enablement squad hold it together. Beyond this size, growth comes from contributors and automation, not headcount.</figcaption>
+</figure>
+</section>
+
+<section class="sec" id="ch28-5">
+<h2><span class="sec-num">28.5</span>Where should the team report?</h2>
+<p>Reporting lines sound like an HR detail, but they shape what the system becomes. A team that reports only to design tends to drift towards Figma; one that reports only to engineering tends to drift towards code and away from product design quality.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Reports to</th><th>Tends to be good at</th><th>Watch out for</th></tr></thead>
+<tbody>
+<tr><th>Design leadership</th><td>Visual quality, foundations, design adoption</td><td>Weak engineering investment; code lags behind Figma</td></tr>
+<tr><th>Engineering / platform</th><td>Code quality, tooling, releases, technical adoption</td><td>Design quality and design-tool library neglected</td></tr>
+<tr><th>Product organisation</th><td>Prioritising by business value; roadmap discipline</td><td>Can be treated as a feature team and reprioritised constantly</td></tr>
+<tr><th>Joint (design and engineering)</th><td>Balance; shared accountability</td><td>Needs two leaders who genuinely agree, or decisions stall</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Our recommendation</p>
+  <p>Have one accountable leader for the system, and give designers and engineers on the team clear, equal standing, whichever organisation they formally sit in. A common working arrangement is a team that reports into design with engineers holding a dotted line to engineering leadership (or the reverse), plus a joint quarterly review with both design and engineering leaders.</p>
+</div>
+</section>
+
+<section class="sec" id="ch28-6">
+<h2><span class="sec-num">28.6</span>From part-time to dedicated: making the transition</h2>
+<p>The move from "looked after by product people" to "a dedicated team" is one of the riskiest moments in a system's life. Done badly, product teams feel the system has been taken away from them. Done well, it feels like the system finally got the support it needed.</p>
+<ol class="steps">
+  <li><h4>Make the case with evidence</h4><p>Use the signals from Chapter 27 and the numbers from Chapter 03: request wait times, local copies, time lost. Ask for the smallest team that solves the problem.</p></li>
+  <li><h4>Hire from inside where you can</h4><p>The part-time owners often make the best first dedicated members. They know the system, the history and the people.</p></li>
+  <li><h4>Keep the guild</h4><p>Turn the existing guild into the champions network. Contributors who built the system should keep a real voice in it.</p></li>
+  <li><h4>Announce what changes, and what doesn't</h4><p>New: faster answers, a roadmap, regular releases. Unchanged: anyone can still contribute and propose. Say both clearly.</p></li>
+  <li><h4>Show early wins</h4><p>In the first quarter, clear the oldest requests and fix the most annoying bugs. Trust is earned by response time.</p></li>
+</ol>
+<h3>Who's responsible for what: a starting matrix</h3>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:30%">Activity</th><th style="text-align:center">System lead</th><th style="text-align:center">System designers</th><th style="text-align:center">System engineers</th><th style="text-align:center">Champions</th><th style="text-align:center">Product teams</th></tr></thead>
+<tbody>
+<tr><td>Roadmap and priorities</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td>Foundations and tokens</td><td style="text-align:center">C</td><td style="text-align:center"><b>A</b>/R</td><td style="text-align:center">R</td><td style="text-align:center">I</td><td style="text-align:center">I</td></tr>
+<tr><td>Component design</td><td style="text-align:center">I</td><td style="text-align:center"><b>A</b>/R</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td>Component code and API</td><td style="text-align:center">I</td><td style="text-align:center">C</td><td style="text-align:center"><b>A</b>/R</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td>Office hours and support</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">—</td></tr>
+<tr><td>Enablement and onboarding</td><td style="text-align:center"><b>A</b></td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">R</td><td style="text-align:center">I</td></tr>
+<tr><td>Contributions</td><td style="text-align:center">I</td><td style="text-align:center">R (review)</td><td style="text-align:center">R (review)</td><td style="text-align:center">R</td><td style="text-align:center"><b>A</b> for their own</td></tr>
+<tr><td>Adoption in a product</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">R</td><td style="text-align:center"><b>A</b></td></tr>
+</tbody>
+</table>
+</div>
+<p class="muted" style="font-size:14px">A = accountable (makes the call), R = responsible (does the work), C = consulted, I = informed. Chapter 36 extends this into a full decision-rights model.</p>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Balance design and engineering on the team at every size, and add specialists as you grow.</li>
+    <li>Without a dedicated team, protect owners' time, form a guild, keep one backlog and rotate support.</li>
+    <li>A dedicated team should run like an internal product company and spend real time with product teams.</li>
+    <li>Give the system one accountable leader, and plan the move from part-time to dedicated carefully.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

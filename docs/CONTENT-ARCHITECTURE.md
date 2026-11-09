@@ -1,4 +1,4 @@
-# Content architecture — edition 1.0 (complete, Parts 01–05)
+# Content architecture — edition 1.1 (complete, Parts 01–06)
 
 Numbering: `PP.C` = part.chapter; sections are `C.n`. Figures are numbered per chapter.
 
@@ -58,7 +58,23 @@ Numbering: `PP.C` = part.chapter; sections are `C.n`. Figures are numbered per c
 | 24 | **Content and language** | Voice and tone, vocabulary, message formulas, inclusive writing, localisation |
 | 25 | **Scaling across products, brands and platforms** | Multi-brand, multi-platform, families of systems, governance and funding, legacy |
 | 26 | **Tools, automation and AI** | The toolchain, tools by stage, automation priorities, AI uses and cautions |
-| 27 | **Your first twelve months** | A four-workstream plan, operating rhythms, master checklist, ten failure modes |
+
+## PART 06 — Running the design system: the operating model (new in 1.1)
+
+| # | Chapter | Answers |
+|---|---|---|
+| 27 | **Operating models by company size** | Four basic models; recommended model, team and rhythm for startup, scale-up, mid-sized distributed, unicorn and global enterprise; transition signals |
+| 28 | **Team structure, roles and hierarchy** | Every role; running with and without a dedicated team; org charts at three sizes; reporting lines; transitioning; RACI |
+| 29 | **Day-to-day operations** | Operating calendar; office hours; workshops; reviews; weekly triage; bug severity targets; planning cycles and capacity split |
+| 30 | **Education, enablement and adoption** | Onboarding; learning paths by role; training formats; learning content; finding knowledge gaps; culture; differences by size |
+| 31 | **Research and continuous discovery** | Methods; interviews and observation; surveys; testing components and docs; usage analysis; findings to roadmap; continuous cadence |
+| 32 | **The single source of truth** | Portal contents and owners; information architecture; key pages; accuracy; findability; build options by size |
+| 33 | **Communication and change management** | Channels; audiences; cadence; templates (release, breaking change, deprecation, token update, digest); feedback; time zones |
+| 34 | **Community and collaboration** | Spaces; community rituals; champions network; working groups; guidelines and moderation; participation |
+| 35 | **Request management and contribution** | Request form; shared vs product-specific test; scoring model; competing, urgent and exception handling; contribution levels; lifecycle and owners |
+| 36 | **Governance, decision-making and ownership** | Decision-rights matrix; process by impact; escalation path; standards as gates; decision log; governance by size |
+| 37 | **Measuring how well the system runs** | Operational metrics catalogue; metrics by stage; one-page dashboard; metrics to improvements; leadership report; traps |
+| 38 | **Your first twelve months** | Moved from Part 05; plan, rhythms, master checklist (now including operations), failure modes, closing note |
 
 ## Back matter
 - References (numbered, linked)

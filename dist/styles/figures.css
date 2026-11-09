@@ -174,3 +174,34 @@
   .tree { font-size: 7.6pt; }
   .slot { font-size: 6.8pt; }
 }
+
+/* ---- Part 06: org charts, templates, calendars ---- */
+.org { display: grid; gap: 0; justify-items: center; }
+.org-row { display: flex; justify-content: center; gap: 10px; position: relative; padding-top: 14px; width: 100%; }
+.org-row::before { content: ""; position: absolute; top: 0; left: 50%; height: 14px; border-left: 1.5px solid var(--rule-strong); }
+.org-row.first { padding-top: 0; } .org-row.first::before { display: none; }
+.org-row.spread { border-top: 1.5px solid var(--rule-strong); margin-top: 14px; padding-top: 14px; }
+.org-row.spread::before { top: -15px; }
+.org-box { border: 1.5px solid var(--text); border-radius: 8px; padding: 8px 10px; background: var(--bg-raised); text-align: center; min-width: 0; flex: 1 1 0; max-width: 200px; }
+.org-box b { display: block; font-size: 13px; line-height: 1.25; }
+.org-box span { display: block; font-size: 11px; color: var(--text-muted); line-height: 1.35; margin-top: 2px; }
+.org-box.lead { background: var(--ink-950); color: var(--paper-100); border-color: var(--ink-950); }
+.org-box.lead span { color: var(--ink-300); }
+.org-box.sys { background: var(--signal-500); border-color: var(--signal-500); color: #0b0d12; }
+.org-box.sys span { color: #2a1006; }
+.org-box.dash { border-style: dashed; background: none; }
+.tpl { border: 1px solid var(--rule-strong); border-radius: var(--r); overflow: hidden; margin: 18px 0; break-inside: avoid; }
+.tpl-h { background: var(--ink-950); color: var(--paper-100); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; padding: 8px 14px; display: flex; justify-content: space-between; gap: 12px; }
+.tpl-h span { color: var(--signal-400); }
+.tpl-b { padding: 14px 16px; font-size: 14px; line-height: 1.55; background: var(--bg-raised); }
+.tpl-b p { margin: 0 0 8px; }
+.tpl-b .f { font-family: var(--font-mono); font-size: 11px; color: var(--accent-text); text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-top: 8px; }
+.cal { display: grid; grid-template-columns: 90px repeat(5, minmax(0, 1fr)); gap: 4px; font-size: 12px; }
+.cal .ch { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); padding: 4px 6px; }
+.cal .ev { border-radius: 6px; padding: 7px 8px; line-height: 1.35; }
+.cal .ev b { display: block; font-size: 12px; }
+@media print {
+  .org-box b { font-size: 8.4pt; } .org-box span { font-size: 7pt; }
+  .tpl-h { font-size: 7pt; } .tpl-b { font-size: 9pt; padding: 10pt 12pt; } .tpl-b .f { font-size: 6.6pt; }
+  .cal { font-size: 7.6pt; } .cal .ch { font-size: 6.4pt; } .cal .ev b { font-size: 8pt; } .cal .ev { padding: 5pt 6pt; }
+}

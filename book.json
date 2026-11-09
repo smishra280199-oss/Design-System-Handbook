@@ -1,6 +1,6 @@
 {
   "title": "The Design Systems Playbook",
-  "edition": "1.0",
+  "edition": "1.1",
   "author": "Aniket Pandey",
   "publisher": "Layer One",
   "pdf": "layer-one-design-systems-playbook.pdf",
@@ -29,6 +29,11 @@
       "num": "05",
       "short": "Patterns, content and scale",
       "title": "Patterns, content and scale"
+    },
+    {
+      "num": "06",
+      "short": "Operating model",
+      "title": "Running the design system: the operating model"
     }
   ],
   "order": [
@@ -67,7 +72,19 @@
     "chapters/24-content.html",
     "chapters/25-scaling.html",
     "chapters/26-tooling.html",
-    "chapters/27-roadmap.html",
+    "chapters/part-06.html",
+    "chapters/27-operating-models-by-size.html",
+    "chapters/28-team-structure.html",
+    "chapters/29-daily-operations.html",
+    "chapters/30-enablement.html",
+    "chapters/31-research.html",
+    "chapters/32-source-of-truth.html",
+    "chapters/33-communication.html",
+    "chapters/34-community.html",
+    "chapters/35-requests.html",
+    "chapters/36-governance.html",
+    "chapters/37-measuring-operations.html",
+    "chapters/38-roadmap.html",
     "@references",
     "components/about.html"
   ]

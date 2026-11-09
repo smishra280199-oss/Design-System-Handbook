@@ -1,0 +1,177 @@
+<section class="chapter" id="ch33" data-part="06" data-num="33" data-title="Communication and change management" data-short="Communication"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 33</p>
+  <h1>Communication and change management</h1>
+  <p class="dek">Every change to a design system lands in someone else's product. How you announce it decides whether teams feel supported or ambushed. This chapter covers the channels, the audiences, the timing and the exact words, with templates you can copy.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You announce releases, plan breaking changes or deprecations, or teams keep saying "nobody told us".</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A channel setup for Slack or Microsoft Teams, email and the portal.</li><li>Who communicates what, to whom, and when.</li><li>Ready-to-use templates for releases, breaking changes, deprecations, new components, token updates and fixes.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch33-1">
+<h2><span class="sec-num">33.1</span>Communication is part of the product</h2>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">"We found out from a broken build"</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>The system team renames a prop in a major release. It's mentioned in the release notes, posted once in a busy channel on a Friday evening.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>Three teams update on Monday as part of routine maintenance. Their builds break. One is mid-launch. The incident review concludes: "the design system broke production".</p></div>
+    <div><span class="sc-k">What should have happened</span><p>Notice weeks ahead, a direct message to affected teams' champions, a migration guide and codemod, a clear "breaking" label, and a release on a Tuesday morning with the team on hand.</p></div>
+  </div>
+</div>
+<p>In that story, the code change was fine. The communication failed. That's typical: most of the anger product teams feel towards design systems comes from surprises, not from the changes themselves. Communication is part of what the system team delivers, just like components.</p>
+</section>
+
+<section class="sec" id="ch33-2">
+<h2><span class="sec-num">33.2</span>Channels, and what each one is for</h2>
+<p>The most common mistake is one channel for everything: announcements, questions, debates and jokes all mixed together, so important news scrolls away in minutes. Separate channels by purpose. The names below use Slack conventions; the same setup works in Microsoft Teams with channels in one team.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Channel</th><th>Purpose</th><th style="width:30%">Rules</th></tr></thead>
+<tbody>
+<tr><th>#ds-announcements</th><td>Releases, breaking changes, deprecations, roadmap updates</td><td>Only the system team posts; reactions allowed; questions go to threads or #ds-help</td></tr>
+<tr><th>#ds-help</th><td>Questions and support</td><td>Anyone posts; answered within a working day by the support rota</td></tr>
+<tr><th>#ds-community</th><td>Discussion, ideas, show-and-tell, patterns</td><td>Anyone posts; light moderation (Chapter 34)</td></tr>
+<tr><th>#ds-champions</th><td>Early previews and coordination with champions</td><td>Champions + system team</td></tr>
+<tr><th>Email digest</th><td>Monthly summary for people who don't live in chat, especially leaders</td><td>One email a month, short</td></tr>
+<tr><th>Portal: Updates</th><td>The permanent record of every change</td><td>Every announcement links here (Chapter 32)</td></tr>
+<tr><th>Leadership report</th><td>Quarterly outcomes, metrics and asks</td><td>One page (Chapter 37)</td></tr>
+</tbody>
+</table>
+</div>
+<p>One rule ties these together: <strong>chat is for attention, the portal is for record</strong>. Every announcement in chat links to the full details on the portal, so nothing important lives only in a message that will scroll away.</p>
+</section>
+
+<section class="sec" id="ch33-3">
+<h2><span class="sec-num">33.3</span>Who communicates, and who needs to hear</h2>
+<p>Different people need different messages. A designer needs to know about a new Figma component; an engineering manager needs to know about a breaking change that affects their sprint; a VP needs to know whether the system is delivering value.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Message type</th><th style="width:16%">Sent by</th><th>Must reach</th><th style="width:22%">Through</th></tr></thead>
+<tbody>
+<tr><th>Release (minor, patch)</th><td>Engineer on release rota</td><td>Designers and engineers using the system</td><td>#ds-announcements, portal</td></tr>
+<tr><th>Breaking change</th><td>System lead</td><td>Engineers and engineering managers of affected teams; champions</td><td>Announcements + direct message to affected teams + portal + digest</td></tr>
+<tr><th>Deprecation</th><td>Component owner</td><td>Teams using the component (from usage data)</td><td>Announcements + direct to affected teams + warnings in code and Figma</td></tr>
+<tr><th>New component or pattern</th><td>System designer</td><td>All designers and engineers</td><td>Announcements + demo + digest</td></tr>
+<tr><th>Token update</th><td>System designer + engineer</td><td>Everyone, if visible; engineers, if names change</td><td>Announcements, with before/after</td></tr>
+<tr><th>Critical bug fix</th><td>Engineer on rota</td><td>Teams affected</td><td>Announcements + direct message</td></tr>
+<tr><th>Roadmap</th><td>System lead</td><td>Product, design and engineering leads; everyone</td><td>Portal + quarterly announcement + digest</td></tr>
+<tr><th>Outcomes and asks</th><td>System lead</td><td>Leadership and sponsors</td><td>Quarterly report</td></tr>
+</tbody>
+</table>
+</div>
+<p>The champions network (Chapter 34) is the secret weapon here. For anything important, brief the champions a day early in their own channel. They'll make sure their teams hear it, in their own words, at the right moment.</p>
+</section>
+
+<section class="sec" id="ch33-4">
+<h2><span class="sec-num">33.4</span>When, and how often</h2>
+<p>Predictable timing is itself a form of communication. When teams know releases come every other Tuesday and breaking changes are announced at least one release cycle ahead, they can plan, and they stop being surprised.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:28%">What</th><th>When</th></tr></thead>
+<tbody>
+<tr><td>Minor and patch releases</td><td>On the regular release day; early in the working week, never late on a Friday</td></tr>
+<tr><td>Breaking change: first notice</td><td>At least one full release cycle before, and ideally 4–8 weeks, with the migration guide ready [[prac]]</td></tr>
+<tr><td>Breaking change: reminders</td><td>One week before, and on release day</td></tr>
+<tr><td>Deprecation</td><td>When marked deprecated; again at the halfway point; one week before removal</td></tr>
+<tr><td>Monthly digest</td><td>First week of each month</td></tr>
+<tr><td>Roadmap</td><td>Start of each quarter, plus whenever it changes significantly</td></tr>
+<tr><td>Critical fixes</td><td>Immediately</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--mistake">
+  <p class="callout-label">A mistake we see often</p>
+  <h4>Announcing too much</h4>
+  <p>Posting every small change creates noise, and people mute the channel, then miss the one breaking change that matters. Bundle small changes into the regular release post, keep the announcements channel for things people need to know, and use clear labels (BREAKING, NEW, FIX) so readers can skim.</p>
+</div>
+</section>
+
+<section class="sec" id="ch33-5">
+<h2><span class="sec-num">33.5</span>Templates you can copy</h2>
+<p>Templates make announcements faster to write and easier to read, because readers learn where to look. Here are the ones we use, filled in with Ledgerly examples.</p>
+
+<div class="tpl"><div class="tpl-h">RELEASE ANNOUNCEMENT <span>#ds-announcements · every release</span></div><div class="tpl-b">
+<p><b>Design system 4.6.0 is out</b> · 14 October · Full notes →</p>
+<span class="f">New</span><p>Tag component, with status colours and an optional remove button. Figma and code. Docs →</p>
+<span class="f">Improved</span><p>Select now supports grouped options. Date picker shows week numbers (optional).</p>
+<span class="f">Fixed</span><p>Dialog now returns focus to the button that opened it. Toast no longer overlaps the side menu on small screens.</p>
+<span class="f">Do I need to do anything?</span><p>No. Safe to update. Thanks to Arjun (Payments) and Meera (Reports) for their contributions.</p>
+</div></div>
+
+<div class="tpl"><div class="tpl-h">BREAKING CHANGE NOTICE <span>first notice · 4–8 weeks ahead</span></div><div class="tpl-b">
+<p><b>BREAKING in 5.0 (planned 18 November): Button "kind" prop is renamed to "variant"</b></p>
+<span class="f">What's changing</span><p>The <code>kind</code> prop on Button will be removed. Use <code>variant</code>, which works the same way and is available now in 4.6.</p>
+<span class="f">Why</span><p>Every other component uses <code>variant</code>. One name across the library makes it easier to learn.</p>
+<span class="f">Who's affected</span><p>Around 600 uses in 7 products. Champions in those teams have the list.</p>
+<span class="f">What to do</span><p>Run the codemod (one command, about 2 minutes), or change <code>kind=</code> to <code>variant=</code>. Migration guide →</p>
+<span class="f">Help</span><p>Extra office hours on 4 and 11 November. Questions in #ds-help.</p>
+</div></div>
+
+<div class="tpl"><div class="tpl-h">DEPRECATION NOTICE <span>when marked deprecated</span></div><div class="tpl-b">
+<p><b>Deprecated: Modal. Use Dialog instead. Removal in 6.0 (planned March)</b></p>
+<span class="f">What this means</span><p>Modal still works and still gets critical fixes until March. Please don't use it in new work.</p>
+<span class="f">How to switch</span><p>Most uses can be switched automatically with the codemod. Guide with before-and-after examples →</p>
+<span class="f">Progress</span><p>142 uses remaining across 5 products. Live count on the portal →</p>
+</div></div>
+
+<div class="tpl"><div class="tpl-h">TOKEN UPDATE <span>when token values or names change</span></div><div class="tpl-b">
+<p><b>Token update in 4.7: secondary text is slightly darker</b></p>
+<span class="f">What's changing</span><p><code>color.text.secondary</code> now points to grey 700 instead of grey 600, raising contrast from 4.25:1 (below the 4.5:1 minimum) to 5.99:1 on the default background.</p>
+<span class="f">What you'll see</span><p>Secondary text (captions, helper text, timestamps) looks slightly darker everywhere. Before and after →</p>
+<span class="f">Do I need to do anything?</span><p>No code changes. If you've hard-coded the old grey anywhere, the lint rule will now flag it.</p>
+</div></div>
+
+<div class="tpl"><div class="tpl-h">MONTHLY DIGEST <span>email · first week of the month</span></div><div class="tpl-b">
+<p><b>Design system: October in 60 seconds</b></p>
+<span class="f">Shipped</span><p>Tag component; grouped Select; 9 fixes. Two contributions from product teams.</p>
+<span class="f">Coming up</span><p>5.0 on 18 November (one breaking change: Button "kind" → "variant"). Filter pattern in beta.</p>
+<span class="f">By the numbers</span><p>Adoption 68% (up 4). Median request response: 2 days. 41 people at office hours.</p>
+<span class="f">Get involved</span><p>Community session 21 November: "How Reports built their dashboards with the system".</p>
+</div></div>
+</section>
+
+<section class="sec" id="ch33-6">
+<h2><span class="sec-num">33.6</span>Handling feedback on changes</h2>
+<p>Announcements invite reactions: questions, concerns and sometimes strong objections. Handle them well and people feel heard, even when the change goes ahead. Handle them badly and every future change becomes a fight.</p>
+<ol class="steps">
+  <li><h4>Discuss before deciding, not after</h4><p>For significant changes, publish a short proposal (Chapter 05's RFC) for comments before the decision. Announcements should rarely be the first time people hear about something big.</p></li>
+  <li><h4>Keep discussion in threads</h4><p>Questions about an announcement go in its thread, so the context stays together and the announcements channel stays readable.</p></li>
+  <li><h4>Answer within a day, and collect the answers</h4><p>Recurring questions go into the change's FAQ on the portal.</p></li>
+  <li><h4>Take objections seriously</h4><p>If a team has a real blocker (a launch, a technical constraint), offer options: more time, help with migration, or a temporary exception (Chapter 35). Record what was agreed.</p></li>
+  <li><h4>Report back</h4><p>After a big change, share how it went: how many teams migrated, what went wrong, what you'll do differently.</p></li>
+</ol>
+</section>
+
+<section class="sec" id="ch33-7">
+<h2><span class="sec-num">33.7</span>Keeping distributed teams informed</h2>
+<p>When teams span time zones, every live-only moment excludes someone. A few habits keep everyone equally informed.</p>
+<div class="cols-2">
+<div>
+<ul>
+  <li><strong>Written first.</strong> Every decision, announcement and change exists in writing on the portal before it's discussed live.</li>
+  <li><strong>Record everything.</strong> Demos, community sessions and walkthroughs are recorded and posted with a short summary.</li>
+  <li><strong>Rotate times.</strong> Live sessions alternate between time zones, or run twice.</li>
+</ul>
+</div>
+<div>
+<ul>
+  <li><strong>Release when people are awake.</strong> Ship at a time that falls within working hours for most regions, with someone from the system team available.</li>
+  <li><strong>Regional champions.</strong> A champion in each region relays important news locally and in local context.</li>
+  <li><strong>Give longer notice.</strong> Breaking changes need more lead time across regions, because coordination is slower.</li>
+</ul>
+</div>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Most frustration with design systems comes from surprises, so communication is part of the product.</li>
+    <li>Separate channels by purpose; chat is for attention, the portal is for record.</li>
+    <li>Match messages to audiences, brief champions first, and give breaking changes weeks of notice.</li>
+    <li>Use consistent templates, handle feedback in threads, and work written-first across time zones.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

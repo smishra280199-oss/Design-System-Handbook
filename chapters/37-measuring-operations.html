@@ -1,0 +1,139 @@
+<section class="chapter" id="ch37" data-part="06" data-num="37" data-title="Measuring how well the system runs" data-short="Measuring"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 37</p>
+  <h1>Measuring how well the system runs</h1>
+  <p class="dek">Chapter 03 asked whether a design system is worth it. This chapter asks a different question: is the way we run it working? A team can be busy every day and still not be helping. The right measures tell you where the operating model is strong, where it's failing, and what to change.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You need to know whether your processes, team and rhythms are effective, or you report on the system to leadership.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A catalogue of operational metrics, with how to measure each one.</li><li>Which metrics matter at each stage of maturity, and a one-page dashboard.</li><li>How to turn metrics into improvements, report them, and avoid the common traps.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch37-1">
+<h2><span class="sec-num">37.1</span>Busy is not the same as effective</h2>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">Forty components shipped, adoption flat</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A system team proudly reports 40 new components in a year, 26 releases and 12 workshops.</p></div>
+    <div><span class="sc-k">What's missing</span><p>Adoption hasn't moved. Requests wait two months. Satisfaction has dropped. The team measured how much it did, not whether it helped.</p></div>
+    <div><span class="sc-k">What changes</span><p>The team starts tracking request turnaround, adoption by team and satisfaction. Within a quarter they see the real problem: slow triage and missing docs, not missing components.</p></div>
+  </div>
+</div>
+<p>It helps to separate three kinds of measure. <strong>Outputs</strong> are what the team produces: components, releases, workshops. <strong>Operational measures</strong> show how well the system runs: how fast requests are handled, how many people get help, how current the docs are. <strong>Outcomes</strong> are the results for the business: adoption, time saved, quality (Chapter 03). Outputs are easy to count and the least meaningful. This chapter focuses on the middle layer, which connects the team's work to the outcomes.</p>
+</section>
+
+<section class="sec" id="ch37-2">
+<h2><span class="sec-num">37.2</span>The metrics, area by area</h2>
+<p>Here's a full catalogue. Nobody needs all of them at once (37.3 shows which to start with), but together they cover every part of the operating model described in this part of the book.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%">Area</th><th style="width:30%">Metric</th><th>How to measure</th><th style="width:16%">Healthy direction</th></tr></thead>
+<tbody>
+<tr><th>Adoption</th><td>Share of UI built with the system, per product and team</td><td>Code scan of imports (Chapter 26)</td><td>Rising</td></tr>
+<tr><th></th><td>Products on a supported version</td><td>Package versions per product</td><td>Most within one major version</td></tr>
+<tr><th>Component usage</th><td>Uses per component; detach and override rates</td><td>Design library analytics; code scan</td><td>Usage up, detaches down</td></tr>
+<tr><th>Contribution</th><td>Contributions per quarter; number of different contributors</td><td>Tracker labels</td><td>Rising, from more teams</td></tr>
+<tr><th></th><td>Time from contribution to merge</td><td>Tracker timestamps</td><td>Days, not weeks</td></tr>
+<tr><th>Requests</th><td>Time to first response; time to resolution</td><td>Tracker timestamps</td><td>Stable or falling</td></tr>
+<tr><th></th><td>Requests open by age; share answered "build locally"</td><td>Tracker</td><td>Few old requests</td></tr>
+<tr><th>Documentation</th><td>Views; searches with no results; pages past review date</td><td>Portal analytics</td><td>Failed searches and stale pages falling</td></tr>
+<tr><th>Support &amp; office hours</th><td>Attendance; questions answered within a day; share answered by non-team members</td><td>Sign-ups; channel analytics</td><td>Steady attendance; more peer answers</td></tr>
+<tr><th>Enablement</th><td>New joiners onboarded within a month; confidence scores</td><td>Onboarding records; survey</td><td>Rising</td></tr>
+<tr><th>Satisfaction</th><td>"The system makes my work faster" (% agree)</td><td>Twice-yearly survey (Chapter 31)</td><td>Rising</td></tr>
+<tr><th>Consistency</th><td>Hard-coded values; local copies of system components</td><td>Lint and code scans</td><td>Falling</td></tr>
+<tr><th>Accessibility</th><td>Accessibility issues in system components and in products</td><td>Automated checks; audits</td><td>Falling</td></tr>
+<tr><th>Implementation efficiency</th><td>Time to build UI tickets with and without the system</td><td>Tracker (Chapter 03)</td><td>System work faster</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch37-3">
+<h2><span class="sec-num">37.3</span>What to measure at each stage</h2>
+<p>Measuring has a cost, and a small team that tracks twenty metrics will spend more time on spreadsheets than on the system. Start with a few, and add more as the system and the team grow. [[prac]]</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%">Stage</th><th>Focus on</th><th style="width:30%">Why these</th></tr></thead>
+<tbody>
+<tr><th>Startup</th><td>Hard-coded values (falling) · "Did we reuse or rebuild?" in reviews</td><td>Just enough to know the basics are sticking</td></tr>
+<tr><th>Scale-up</th><td>Adoption per team · time to first response · satisfaction · hard-coded values</td><td>The system is new; adoption and responsiveness decide its future</td></tr>
+<tr><th>Mid-sized</th><td>Add: contribution · docs failed searches · office hours · version spread</td><td>Scale depends on contribution and self-service</td></tr>
+<tr><th>Unicorn</th><td>Add: adoption per business unit · extension health · request turnaround by BU</td><td>Fairness and reach across business units</td></tr>
+<tr><th>Enterprise</th><td>Full dashboard, plus accessibility compliance and portfolio-level adoption</td><td>Leadership, compliance and many teams need evidence</td></tr>
+</tbody>
+</table>
+</div>
+<p>Whatever the stage, keep one rule from Chapter 03: <strong>baseline before you change anything</strong>. A metric without a starting point can't show improvement.</p>
+</section>
+
+<section class="sec" id="ch37-4">
+<h2><span class="sec-num">37.4</span>A one-page dashboard</h2>
+<p>Put the metrics you choose on one page, in four groups, and review it monthly. If it doesn't fit on one page, you're tracking too much.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="cols-2">
+  <div class="card"><span class="card-k">Adoption</span><h4>Is it used?</h4><p><b style="color:var(--text);font-size:22px">68%</b> of UI built with the system (+4 this quarter)<br>9 of 11 products on version 4.x<br>Lowest: Reports (41%). Action: team visit</p></div>
+  <div class="card"><span class="card-k">Flow</span><h4>Does work move?</h4><p><b style="color:var(--text);font-size:22px">2 days</b> median first response<br>19 days median to resolve<br>6 contributions merged; median 3 days to merge</p></div>
+  <div class="card"><span class="card-k">Quality</span><h4>Is it trustworthy?</h4><p><b style="color:var(--text);font-size:22px">−38%</b> hard-coded colours since baseline<br>2 open high-severity bugs<br>Accessibility issues in components: 4 (down from 11)</p></div>
+  <div class="card"><span class="card-k">People</span><h4>Do people like it?</h4><p><b style="color:var(--text);font-size:22px">71%</b> agree "makes my work faster" (+9)<br>41 office hours visits this month<br>Peer answers in #ds-help: 46%</p></div>
+</div>
+</div>
+<figcaption><b>Ledgerly's operational dashboard.</b> [[ill]] Four groups, three or four numbers each, every one with its trend and, where something is weak, the action being taken. The numbers are illustrative.</figcaption>
+</figure>
+</section>
+
+<section class="sec" id="ch37-5">
+<h2><span class="sec-num">37.5</span>From metrics to improvements</h2>
+<p>Metrics are only useful if they change what you do. Each warning sign usually points to a specific part of the operating model. Here's how we read the most common ones.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:30%">What you see</th><th>Likely cause</th><th style="width:30%">What to try</th></tr></thead>
+<tbody>
+<tr><td>First-response time rising</td><td>Triage capacity or skipped triage meetings</td><td>Protect weekly triage; add a support rota (Chapter 29)</td></tr>
+<tr><td>Docs views low, but the same questions keep coming</td><td>People can't find the docs, or don't trust them</td><td>Improve search and synonyms; link answers to docs (Chapter 32)</td></tr>
+<tr><td>Adoption lagging in one team</td><td>Missing onboarding, a real blocker, or no champion</td><td>Interview the team; assign a champion (Chapters 30, 31)</td></tr>
+<tr><td>High detach rate on one component</td><td>A capability gap</td><td>Research the detached copies; extend the component (Chapter 16)</td></tr>
+<tr><td>Contributions falling</td><td>Slow reviews or unclear process</td><td>Review targets; good first issues; contribution day (Chapter 34)</td></tr>
+<tr><td>Many products on old versions</td><td>Painful upgrades or unclear breaking changes</td><td>Codemods; better notices; migration support (Chapter 33)</td></tr>
+<tr><td>Satisfaction falling while outputs rise</td><td>Building the wrong things</td><td>Re-run research; re-plan with product teams (Chapter 31)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Review the dashboard monthly with the team, pick one or two things to improve, and check next month whether they moved. Small, steady improvements to the operating model compound just like improvements to the product.</p>
+</section>
+
+<section class="sec" id="ch37-6">
+<h2><span class="sec-num">37.6</span>Reporting to leadership</h2>
+<p>Leaders don't need the whole dashboard. They need to know whether the investment is working, what's in the way, and what you need from them. Once a quarter, one page.</p>
+<div class="tpl"><div class="tpl-h">QUARTERLY REPORT <span>to design and engineering leadership</span></div><div class="tpl-b">
+<p><b>Design system · Q3 summary</b></p>
+<span class="f">Headline</span><p>Adoption rose from 64% to 68%. The new filter pattern replaced four local versions and cut filter-related UI bugs by half in two products.</p>
+<span class="f">Value delivered</span><p>Dark mode shipped to all products in six weeks using the token architecture, against an earlier estimate of two quarters. Accessibility issues in components down from 11 to 4.</p>
+<span class="f">How we're running</span><p>Median request response: 2 days. 6 contributions from 4 teams. Satisfaction up 9 points to 71%.</p>
+<span class="f">Risks</span><p>Reports team adoption at 41%; their roadmap conflicts with migration. Two system engineers at capacity.</p>
+<span class="f">Asks</span><p>Agree migration time in Reports' Q4 plan. Approve one engineering hire for native components.</p>
+</div></div>
+<p>Notice the order: outcomes first, then how the operation is running, then risks and specific asks. Leaders who see a clear link from the system to results they care about keep funding it. The financial model in Chapter 04 shows how to put numbers on "value delivered" when you need them.</p>
+</section>
+
+<section class="sec" id="ch37-7">
+<h2><span class="sec-num">37.7</span>Traps to avoid</h2>
+<div class="cols-2">
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Trap</p><h4>Vanity metrics</h4><p>"12,000 button instances!" sounds impressive and says nothing about value. Prefer measures linked to time, quality and satisfaction (Rule #8).</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Trap</p><h4>Gaming the number</h4><p>If adoption becomes a target, teams may wrap old components in system ones to inflate it. Pair every number with a conversation.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Trap</p><h4>Blaming teams</h4><p>Low adoption in a team is information about the system, not a failing of the team. Use metrics to find where to help, never to rank teams publicly.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Trap</p><h4>Measuring everything</h4><p>Twenty metrics nobody reviews are worse than four that drive a monthly decision. Start small, and drop metrics that never change anything.</p></div>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Measure how well the system runs, not just how much the team produces.</li>
+    <li>Choose a few metrics for your stage, baseline them, and keep them on a one-page dashboard.</li>
+    <li>Read each warning sign as a pointer to a specific part of the operating model, and improve one thing at a time.</li>
+    <li>Report outcomes, operations, risks and asks to leadership quarterly, and avoid vanity, gaming and blame.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

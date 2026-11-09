@@ -1,0 +1,146 @@
+<section class="chapter" id="ch34" data-part="06" data-num="34" data-title="Community and collaboration" data-short="Community"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 34</p>
+  <h1>Community and collaboration</h1>
+  <p class="dek">A design system team working in isolation becomes a service desk: tickets in, components out. A design system with a community becomes something everyone builds together. This chapter shows how to create the spaces, rituals and roles that make that happen.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>Your system team feels like a bottleneck, contributions are rare, or product teams treat the system as someone else's job.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>The spaces a design system community needs, online and in person.</li><li>How to run community sessions, a champions network and working groups.</li><li>Community guidelines, moderation and ways to encourage participation.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch34-1">
+<h2><span class="sec-num">34.1</span>From service desk to community</h2>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">Five people serving two hundred</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A system team of five supports 40 designers and 160 engineers. Every question, idea and fix goes through them.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>The queue grows. Product teams see the team as slow and distant. Good ideas from product designers never reach the system because there's nowhere to share them.</p></div>
+    <div><span class="sc-k">What a community changes</span><p>Champions answer half the questions. A monthly session spreads good patterns between teams. Contributions come in weekly. The five people now steer and review, rather than doing everything.</p></div>
+  </div>
+</div>
+<p>A community doesn't replace the system team. It multiplies it. Nathan Curtis's observation that successful systems combine a central team with participation from a wider community (Chapter 27) is really an observation about community.[[c:curtis-fallacy]] And it's how the "central team plus contributors" model from Chapter 05 actually works in practice.</p>
+</section>
+
+<section class="sec" id="ch34-2">
+<h2><span class="sec-num">34.2</span>The spaces a community needs</h2>
+<p>A community needs places to gather, each with a clear purpose. Chapter 33 set up the core chat channels. Here's the full set of spaces, online and in person.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Space</th><th>What happens there</th><th style="width:22%">Owner</th></tr></thead>
+<tbody>
+<tr><th>Discussion channel (#ds-community)</th><td>Ideas, show-and-tell, "how would you solve this?", sharing good examples</td><td>DesignOps or lead, with moderators</td></tr>
+<tr><th>Proposals board</th><td>Written proposals for new components, patterns and big changes, open for comments (the RFCs from Chapter 05)</td><td>System lead</td></tr>
+<tr><th>Ideas and brainstorming board</th><td>A shared whiteboard (FigJam or similar) for early ideas, sketches and voting, before anything is formal</td><td>System designer</td></tr>
+<tr><th>Champions channel</th><td>Early previews, coordination, feedback from each team</td><td>System lead</td></tr>
+<tr><th>Monthly community session</th><td>Live show-and-tell, updates and discussion</td><td>DesignOps or lead</td></tr>
+<tr><th>Working groups</th><td>Small, time-boxed groups solving one shared problem (34.5)</td><td>A named group lead</td></tr>
+<tr><th>Contributors' wall</th><td>A portal page celebrating contributions</td><td>DesignOps</td></tr>
+</tbody>
+</table>
+</div>
+<p>Start small. A startup needs one channel. A scale-up needs the channels, a proposals board and a monthly session. The rest grows as the community does. Empty spaces are worse than missing ones, so only open a new space when there's demand for it.</p>
+</section>
+
+<section class="sec" id="ch34-3">
+<h2><span class="sec-num">34.3</span>Community rituals</h2>
+<h3>The monthly community session</h3>
+<p>This is the heartbeat of the community: an hour, once a month, open to everyone. Keep the format consistent so people know what they're coming to.</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:18%">Time</th><th>Segment</th><th style="width:36%">Why</th></tr></thead>
+<tbody>
+<tr><td>0–10 min</td><td>What's new and what's coming (system team)</td><td>Keeps everyone up to date in one place</td></tr>
+<tr><td>10–35 min</td><td>Show-and-tell: a product team shows how they used the system (or worked around it)</td><td>Spreads good practice; surfaces real gaps</td></tr>
+<tr><td>35–50 min</td><td>Open discussion on one topic or proposal</td><td>Gives the community a real voice in decisions</td></tr>
+<tr><td>50–60 min</td><td>Thank-yous and contributor shout-outs</td><td>Recognition builds participation</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Other rituals worth running</h3>
+<div class="cols-3">
+  <div class="card"><span class="card-k">Quarterly</span><h4>Contribution day</h4><p>A day where product designers and engineers pair with the system team on "good first issues" and backlog items. Great for first-time contributors.</p></div>
+  <div class="card"><span class="card-k">Monthly</span><h4>Pattern clinic</h4><p>Bring a tricky screen; the group works out the best pattern together. Often seeds new pattern documentation.</p></div>
+  <div class="card"><span class="card-k">Occasional</span><h4>Critique swaps</h4><p>Designers from different teams review each other's screens through the lens of the system. Builds shared standards.</p></div>
+</div>
+</section>
+
+<section class="sec" id="ch34-4">
+<h2><span class="sec-num">34.4</span>The champions network</h2>
+<div class="term"><span class="term-k">New word</span><b>Champion</b><span>A designer or engineer in a product team who acts as the design system's local advocate, helper and feedback channel, alongside their normal job.</span></div>
+<p>Champions are the most effective community structure we know. Each product team has one designer and one engineer who act as the bridge between their team and the system. They're not system team members, and they don't need to be the most senior people, just respected, curious and willing.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%"></th><th>What it looks like</th></tr></thead>
+<tbody>
+<tr><th>What champions do</th><td>Help their teammates use the system; bring their team's needs and frustrations to the system team; test previews early; relay important announcements; contribute where they can</td></tr>
+<tr><th>Time</th><td>About 5–10% of their week, agreed with their manager [[prac]]</td></tr>
+<tr><th>What they get</th><td>Early access, a direct line to the system team, influence over the roadmap, recognition, and credit in their career framework</td></tr>
+<tr><th>How they're chosen</th><td>Volunteers, agreed with their manager; refreshed yearly so the role spreads</td></tr>
+<tr><th>Rhythm</th><td>A fortnightly 30-minute champions call; a private channel; first look at every release</td></tr>
+</tbody>
+</table>
+</div>
+<p>Two things make or break a champions network. First, <strong>their feedback must visibly change things</strong>. If champions raise issues and nothing happens, they quietly stop. Second, <strong>managers must agree to the time</strong>. Champions doing this unofficially, on top of a full workload, burn out within months.</p>
+</section>
+
+<section class="sec" id="ch34-5">
+<h2><span class="sec-num">34.5</span>Working groups</h2>
+<p>Some problems are bigger than one component and need people from several teams: "our forms are inconsistent", "we need a data visualisation approach", "accessibility of our tables". A working group is a small team, usually three to six people from different product teams plus someone from the system team, set up to solve one such problem in a fixed time.</p>
+<ol class="steps">
+  <li><h4>Write a one-paragraph charter</h4><p>The problem, the goal, who's in it, how long (typically 6–12 weeks), and what "done" looks like: for example, "a documented forms pattern, adopted by two teams".</p></li>
+  <li><h4>Get time agreed</h4><p>Each member's manager agrees to a few hours a week.</p></li>
+  <li><h4>Work in the open</h4><p>Post progress in the community channel; share drafts as proposals.</p></li>
+  <li><h4>Hand over and close</h4><p>The output moves into the system with an owner, and the group ends. Groups without an end date drift.</p></li>
+</ol>
+</section>
+
+<section class="sec" id="ch34-6">
+<h2><span class="sec-num">34.6</span>Guidelines and moderation</h2>
+<p>Every community needs a few clear rules, written down and pinned, so people know what to expect. Keep them short and kind.</p>
+<div class="callout callout--note">
+  <p class="callout-label">Example community guidelines</p>
+  <ul style="margin:0">
+    <li><b>Assume good intent.</b> Everyone here wants better products. Critique work, not people.</li>
+    <li><b>Ask in the right place.</b> Questions in #ds-help, ideas in #ds-community, proposals on the board.</li>
+    <li><b>Search first.</b> Check the portal and recent threads; link what you found if it didn't answer you.</li>
+    <li><b>Show, don't describe.</b> Share screenshots, files or code with your question.</li>
+    <li><b>Close the loop.</b> When your question is answered, say so, and share the answer if it was elsewhere.</li>
+    <li><b>Disagree openly, decide clearly.</b> Debate is welcome; final decisions follow the governance model (Chapter 36).</li>
+  </ul>
+</div>
+<p><strong>Moderation</strong> is light-touch: a rota of two or three moderators (system team plus champions) who move posts to the right channel, answer or tag the right person, summarise long threads and step in if discussion turns personal. <strong>Participation expectations</strong> should be explicit for the system team (answer within a working day), for champions (attend their call, relay key news) and for everyone else (use the channels, share feedback). Nobody else is obliged to take part, but everyone should feel welcome to.</p>
+</section>
+
+<section class="sec" id="ch34-7">
+<h2><span class="sec-num">34.7</span>Encouraging people to take part</h2>
+<p>Most people won't contribute to a design system unless it's easy, valued and visibly worthwhile. Each of these lowers the barrier a little.</p>
+<div class="cols-2">
+<ul class="checklist">
+  <li><b>"Good first issues"</b>: small, well-described tasks labelled for newcomers</li>
+  <li><b>Fast reviews</b>: a first contribution reviewed within days, kindly</li>
+  <li><b>Templates</b>: proposal, bug and contribution templates that make it obvious what to write</li>
+  <li><b>Pairing</b>: offer to pair on any first contribution</li>
+</ul>
+<ul class="checklist">
+  <li><b>Recognition</b>: names in release notes, the contributors' wall, community shout-outs</li>
+  <li><b>Career credit</b>: contribution counted in growth frameworks</li>
+  <li><b>Visible impact</b>: "your idea shipped" messages, with usage numbers later</li>
+  <li><b>Leaders taking part</b>: senior designers and engineers presenting at sessions</li>
+</ul>
+</div>
+<h3>Is the community healthy?</h3>
+<p>Track a few simple signals monthly: how many different people posted or asked questions, what share of questions were answered by people outside the system team, attendance at community sessions, and the number of first-time contributors. A healthy community shows more people helping each other over time, not just more people asking the system team.</p>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>A community multiplies a small system team; it's how "central team plus contributors" works in practice.</li>
+    <li>Create spaces with clear purposes, and run a predictable monthly community session.</li>
+    <li>Build a champions network with protected time and visible influence; use time-boxed working groups for big shared problems.</li>
+    <li>Write short guidelines, moderate lightly, and lower every barrier to taking part.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

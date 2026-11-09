@@ -1,0 +1,150 @@
+<section class="chapter" id="ch36" data-part="06" data-num="36" data-title="Governance, decision-making and ownership" data-short="Governance"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 36</p>
+  <h1>Governance, decision-making and ownership</h1>
+  <p class="dek">Who has the final say on a token change, a new pattern or an accessibility standard? What happens when design and engineering disagree, or two business units want opposite things? Governance answers these questions before they become arguments. This chapter shows how to keep it light in small companies and clear in large ones.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>Decisions about the system stall or get re-opened, people aren't sure who decides, or you need governance that scales without becoming bureaucracy.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A decision-rights matrix for every kind of system decision.</li><li>Decision processes matched to impact, plus an escalation path.</li><li>A decision log, approval gates, and how governance should differ by company size.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch36-1">
+<h2><span class="sec-num">36.1</span>What governance is, and isn't</h2>
+<div class="term"><span class="term-k">New word</span><b>Governance</b><span>The agreed way decisions about the system are made: who decides what, how, how fast, and how it's recorded.</span></div>
+<p>Governance has a bad reputation, because people picture committees and approval forms. Good design system governance is the opposite: it's what lets most decisions happen quickly, by the right person, without a meeting. It only slows things down for the few decisions that genuinely affect everyone.</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">Three months to change a border radius</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>Brand wants rounder corners. The system designer agrees. An engineering lead worries about layouts. A product director wants to wait until after a launch.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>Nobody knows who decides. The topic comes up in five meetings over three months. Everyone is frustrated; nothing happens.</p></div>
+    <div><span class="sc-k">What governance changes</span><p>Token changes are decided by the system lead after a one-week comment period. The engineering concern becomes a release plan; the launch concern sets the date. Decided in ten days, logged with reasons.</p></div>
+  </div>
+</div>
+<p>Brad Frost's design system governance process, which many teams use as a starting point, makes the same point in a different way: most work should flow through a clear, predictable path from "use the system" to "propose a change" to "release", with the design system team and product teams each knowing their part.[[c:frost-governance]] Governance is that path, plus clarity about who decides at each step.</p>
+</section>
+
+<section class="sec" id="ch36-2">
+<h2><span class="sec-num">36.2</span>Decision rights: who has the final say</h2>
+<p>Here's a decision-rights matrix for a hybrid system at the mid-sized or unicorn stage. "Decides" means accountable for the final call; "approves" means can block; "consulted" means must be asked before the decision. Adjust names to your organisation, but keep one decider per row. [[prac]]</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:26%">Decision</th><th style="width:18%">Decides</th><th style="width:18%">Approves</th><th>Consulted</th></tr></thead>
+<tbody>
+<tr><th>Design principles</th><td>Head of Design</td><td>—</td><td>System lead, design leads</td></tr>
+<tr><th>Foundations (colour, type, spacing)</th><td>System lead</td><td>Brand (for brand values)</td><td>System designers, product designers, engineering</td></tr>
+<tr><th>Token names and structure</th><td>System engineering lead</td><td>—</td><td>System designers</td></tr>
+<tr><th>Token value changes</th><td>System lead</td><td>Accessibility specialist (contrast)</td><td>Champions</td></tr>
+<tr><th>Component architecture and API</th><td>System engineering lead</td><td>—</td><td>System designers, product engineers</td></tr>
+<tr><th>Component design</th><td>System design lead</td><td>Accessibility specialist</td><td>Requesting teams</td></tr>
+<tr><th>Patterns</th><td>Pattern owner (often a senior product designer)</td><td>System design lead</td><td>Teams using the pattern</td></tr>
+<tr><th>Accessibility standard</th><td>Accessibility lead</td><td>Head of Design + Head of Engineering</td><td>Legal / compliance</td></tr>
+<tr><th>Engineering implementation (frameworks, tooling)</th><td>System engineering lead</td><td>Engineering leadership (for new frameworks)</td><td>Platform teams</td></tr>
+<tr><th>Breaking changes and release timing</th><td>System lead</td><td>—</td><td>Champions, affected teams</td></tr>
+<tr><th>Deprecation and removal</th><td>System lead</td><td>—</td><td>Affected teams</td></tr>
+<tr><th>Exceptions to system rules</th><td>System design lead (design) or engineering lead (code)</td><td>—</td><td>Requesting team</td></tr>
+<tr><th>Roadmap and funding</th><td>Design + engineering leadership</td><td>—</td><td>System lead, product leads</td></tr>
+</tbody>
+</table>
+</div>
+<p>Notice two patterns. Decisions are pushed down to the people closest to the work wherever possible, and leadership only decides things that are genuinely about direction or money. And accessibility has a real veto: an approver who can block a change that fails the standard. That's deliberate. Accessibility is the one area where "we'll fix it later" multiplies harm across every product.</p>
+</section>
+
+<section class="sec" id="ch36-3">
+<h2><span class="sec-num">36.3</span>Matching the process to the decision</h2>
+<p>Not every decision needs the same process. A useful question is: how many people does this affect, and how easy is it to undo? Small, reversible decisions should be fast; big, hard-to-undo decisions deserve more care.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:20%">Decision type</th><th>Examples</th><th style="width:26%">Process</th><th style="width:16%">Time to decide</th></tr></thead>
+<tbody>
+<tr><th>Everyday</th><td>Bug fixes, docs, small enhancements, new variants</td><td>The owner decides, in review</td><td>Days</td></tr>
+<tr><th>Significant</th><td>New components, token value changes, new patterns, deprecations</td><td>Short written proposal; one-week comment period; decider decides</td><td>1–2 weeks</td></tr>
+<tr><th>Foundational</th><td>New framework, breaking API changes across the library, new brand, accessibility standard</td><td>Proposal; wider comment period; leadership or council review</td><td>2–6 weeks</td></tr>
+<tr><th>Exception</th><td>Breaking a rule for one product</td><td>Short request; named approver; expiry date; logged</td><td>Days</td></tr>
+</tbody>
+</table>
+</div>
+<p>The comment period matters as much as the decision. People accept decisions they disagree with far more readily when they had a genuine chance to be heard, and when the reasons are written down. That's also why Layer One's sixth rule applies so strongly here: <em>every decision comes with a reason</em>.</p>
+</section>
+
+<section class="sec" id="ch36-4">
+<h2><span class="sec-num">36.4</span>When people disagree: the escalation path</h2>
+<p>Disagreement is healthy; endless disagreement isn't. An escalation path says where a stuck decision goes next, and how long each step can take. Publish it, so nobody needs to invent one in the heat of an argument.</p>
+<ol class="steps">
+  <li><h4>The owner decides</h4><p>The person with decision rights (36.2) makes the call after hearing the concerns. Most disagreements end here.</p></li>
+  <li><h4>System lead</h4><p>If someone believes the decision is wrong for the system as a whole, the system lead reviews it within a week.</p></li>
+  <li><h4>Design and engineering leads together</h4><p>For conflicts between design and engineering, or between product teams, the relevant leads decide jointly within two weeks.</p></li>
+  <li><h4>Council or leadership</h4><p>Only for decisions affecting several business units or company direction. Decided at the next session.</p></li>
+</ol>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Disagree and commit</p>
+  <p>Once a decision is made through the agreed process, everyone commits to it, including those who argued against it. They can propose revisiting it later with new evidence, through the same process. Without this norm, every decision is reopened in the next meeting.</p>
+</div>
+</section>
+
+<section class="sec" id="ch36-5">
+<h2><span class="sec-num">36.5</span>Standards and approval gates</h2>
+<p>Some things shouldn't be decided case by case. They're standards, applied as gates that every change passes through automatically or in review.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Gate</th><th>Standard</th><th style="width:28%">Checked by</th></tr></thead>
+<tbody>
+<tr><th>Accessibility</th><td>WCAG 2.2 level AA as a minimum for every component and pattern[[c:wcag22]] [[std]]</td><td>Automated checks + manual review by the accessibility specialist</td></tr>
+<tr><th>Tokens only</th><td>No raw colours, sizes or spacing in system code</td><td>Lint rules</td></tr>
+<tr><th>Visual change</th><td>No unintended visual differences</td><td>Visual regression tests + designer sign-off</td></tr>
+<tr><th>Twins in step</th><td>Figma and code match in names, props and states</td><td>Definition of done (Chapter 21)</td></tr>
+<tr><th>Versioning</th><td>Semantic versioning, including visual breaking changes</td><td>Release review (Chapter 29)</td></tr>
+<tr><th>Documentation</th><td>Every public component has a complete page</td><td>Build check for missing docs</td></tr>
+</tbody>
+</table>
+</div>
+<p>Gates are where governance and automation meet (Chapter 26). The more gates are checked automatically, the less governance needs people's time, and the more consistently standards are applied.</p>
+</section>
+
+<section class="sec" id="ch36-6">
+<h2><span class="sec-num">36.6</span>Accountability: the decision log and ownership registry</h2>
+<p>Two simple records make governance trustworthy.</p>
+<div class="tpl"><div class="tpl-h">DECISION LOG ENTRY <span>portal → decisions</span></div><div class="tpl-b">
+<p><b>DS-042 · Increase default button height from 36px to 40px</b> · Decided 2 October by the system lead</p>
+<span class="f">Context</span><p>Research showed buttons were hard to hit on touch laptops; 36px is below our comfortable-target guideline.</p>
+<span class="f">Options considered</span><p>(a) Patch release now · (b) New "large" default only for new work · (c) Breaking change in 5.0 with notice</p>
+<span class="f">Decision</span><p>(c), shipping in 5.0 on 18 November, with visual diffs and a layout checklist.</p>
+<span class="f">Consulted</span><p>Champions (all teams), engineering leads, accessibility specialist. Concern about table rows addressed with a compact variant.</p>
+<span class="f">Revisit if</span><p>More than two teams report blocking layout problems during the beta.</p>
+</div></div>
+<p>The <strong>decision log</strong> stops decisions being re-litigated, because the reasons are written down, and gives newcomers the history behind the system. The <strong>ownership registry</strong> is a simple page listing every component, pattern and token group with its owner, so everyone knows who decides and who to ask. Both live on the portal (Chapter 32).</p>
+</section>
+
+<section class="sec" id="ch36-7">
+<h2><span class="sec-num">36.7</span>Light governance, structured governance</h2>
+<p>Governance should grow with the organisation, never ahead of it. Here's how it typically looks at each size.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:16%"></th><th>Startup</th><th>Scale-up</th><th>Mid-sized / unicorn</th><th>Global enterprise</th></tr></thead>
+<tbody>
+<tr><th>Who decides</th><td>The two owners, in conversation</td><td>System lead; decisions written down</td><td>Decision-rights matrix</td><td>Matrix + council for cross-portfolio decisions</td></tr>
+<tr><th>Proposals</th><td>A message in the channel</td><td>One-page proposal for big changes</td><td>Proposals with comment periods</td><td>Proposals per portfolio + central review</td></tr>
+<tr><th>Records</th><td>Pinned messages</td><td>Simple decision log</td><td>Decision log + ownership registry</td><td>Same, plus audit trail for compliance</td></tr>
+<tr><th>Gates</th><td>Code review</td><td>Lint + review</td><td>Automated gates + release review</td><td>Automated gates + compliance sign-off where required</td></tr>
+<tr><th>Escalation</th><td>Talk it out</td><td>System lead → design/eng lead</td><td>Full path</td><td>Full path + council</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--mistake">
+  <p class="callout-label">A mistake we see often</p>
+  <h4>A council for everything</h4>
+  <p>Large organisations sometimes route every decision through a governance council. Councils meet monthly, so everything takes a month. Keep the council for the handful of decisions that really cross business units, and let the decision-rights matrix handle the rest.</p>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Good governance makes most decisions fast; it only slows down the few that affect everyone.</li>
+    <li>Write down one decider for each kind of decision, and give accessibility a real veto.</li>
+    <li>Match the process to the impact, publish an escalation path, and expect everyone to disagree and commit.</li>
+    <li>Automate standards as gates, keep a decision log and an ownership registry, and grow governance only as you grow.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

@@ -1,0 +1,172 @@
+<section class="chapter" id="ch35" data-part="06" data-num="35" data-title="Request management and contribution" data-short="Requests"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 35</p>
+  <h1>Request management and contribution</h1>
+  <p class="dek">Ten teams, forty requests, one small system team. Handling many requests at once is one of the hardest parts of running a design system. This chapter gives you a complete framework: how requests come in, how they're judged and prioritised, how urgent cases and exceptions work, and how each request is tracked to the end.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>Requests are piling up, teams complain that the system is slow or unfair, or you need a clear, defensible way to decide what gets built.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>An intake process and request form that captures what you need.</li><li>A test for shared versus product-specific needs, and a scoring model for priorities.</li><li>A full request lifecycle, plus rules for urgent requests, exceptions and contributions.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch35-1">
+<h2><span class="sec-num">35.1</span>The problem with "just ask us"</h2>
+<p>In the early days, requests arrive informally: a message here, a hallway chat there. That works until about the third product team. Then requests get lost, the loudest team gets served first, and quiet teams decide the system isn't for them.</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">Whoever shouts loudest</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>Requests reach Ledgerly's system team through Slack, direct messages, meetings and a spreadsheet. A senior product manager escalates their team's request to a director.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>The escalated request jumps the queue. Two quieter teams who asked months earlier hear nothing. One gives up and builds its own components; the other complains that the system is "political".</p></div>
+    <div><span class="sc-k">What a framework changes</span><p>One front door, a public queue, a published scoring method and a weekly triage. Priorities can still change, but openly, with reasons everyone can see.</p></div>
+  </div>
+</div>
+<p>A request framework isn't bureaucracy. It's fairness made visible. It protects the system team from being pulled in ten directions, and it protects product teams from being forgotten.</p>
+</section>
+
+<section class="sec" id="ch35-2">
+<h2><span class="sec-num">35.2</span>One front door: submitting a request</h2>
+<p>All requests go through one place: a form on the portal that creates an item in a public tracker (GitHub issues, Jira or similar). Questions can still be asked in chat, but anything that needs work becomes a request. A good form takes two minutes to fill in and gives the system team everything it needs.</p>
+<div class="tpl"><div class="tpl-h">REQUEST FORM <span>portal → tracker</span></div><div class="tpl-b">
+<span class="f">1. What kind of request?</span><p>Bug · Enhancement to an existing component · New component · New pattern · Token change · Documentation · Other</p>
+<span class="f">2. What problem are you trying to solve?</span><p>Describe the user need, not the solution. "Customers can't tell which invoices are overdue" rather than "add a red badge".</p>
+<span class="f">3. Where does it appear?</span><p>Product, screen, and a screenshot or Figma link.</p>
+<span class="f">4. What have you tried?</span><p>Existing components you considered and why they didn't fit.</p>
+<span class="f">5. Who else might need this?</span><p>Other teams or products you know of.</p>
+<span class="f">6. When do you need it, and why?</span><p>The deadline and what depends on it. "Launch on 12 March" helps; "ASAP" doesn't.</p>
+<span class="f">7. Could your team help build it?</span><p>Yes / Maybe / No. Contributions get faster turnaround.</p>
+</div></div>
+<p>Question 2 is the most important. Teams usually arrive with a solution ("add a red badge"), but the system team needs the problem, because the best answer might be an existing component, a pattern, or something more general that helps other teams too.</p>
+</section>
+
+<section class="sec" id="ch35-3">
+<h2><span class="sec-num">35.3</span>Shared need or product-specific?</h2>
+<p>The single most important judgement in request management: does this belong in the system, or in the product? Get it wrong one way and the system bloats with one-offs; get it wrong the other way and teams duplicate work. Use these five questions in triage.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:5%">#</th><th style="width:34%">Question</th><th>Points towards the system if…</th><th>Points towards the product if…</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><th>How many teams need it?</th><td>Two or more now, or clearly soon (the rule of two)</td><td>Only one team</td></tr>
+<tr><td class="num">2</td><th>Is the need general?</th><td>Describes a common problem (show status, pick a date range)</td><td>Tied to one product's domain (a loan amortisation chart)</td></tr>
+<tr><td class="num">3</td><th>Does it duplicate something?</th><td>No existing component or pattern solves it</td><td>An existing one does, with small changes or better guidance</td></tr>
+<tr><td class="num">4</td><th>Will it last?</th><td>Long-lived need</td><td>A campaign, experiment or short-lived feature</td></tr>
+<tr><td class="num">5</td><th>Is it consistent with the system?</th><td>Fits the principles and foundations</td><td>Requires breaking them</td></tr>
+</tbody>
+</table>
+</div>
+<p>These questions echo the GOV.UK Design System's public criteria, where proposals must show they're useful and unique before they're accepted.[[c:govuk-criteria]] Nathan Curtis has written a whole article on contribution criteria for the same reason.[[c:curtis-criteria]] When the answer is "product-specific", the team builds it locally from system parts (Chapter 13), and the request stays open as a "watch" item. If a second team asks, it becomes a candidate for the system.</p>
+</section>
+
+<section class="sec" id="ch35-4">
+<h2><span class="sec-num">35.4</span>Categorising and prioritising</h2>
+<p>Every request accepted for the system gets a category and a score. The score doesn't decide automatically, but it makes trade-offs visible and discussions much calmer. Here's the scoring model we use. [[prac]]</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%">Factor</th><th>Question</th><th style="width:34%">Score 1 · 2 · 3</th></tr></thead>
+<tbody>
+<tr><th>Reach</th><td>How many teams or screens will benefit?</td><td>1 team · 2–4 teams · 5+ teams</td></tr>
+<tr><th>Impact</th><td>How much does it help each team or user?</td><td>Nice to have · saves real time · unblocks or fixes a serious problem</td></tr>
+<tr><th>Reuse</th><td>Will it be reused in future work?</td><td>Rarely · sometimes · constantly</td></tr>
+<tr><th>Business value</th><td>Does it support a company priority, revenue, compliance or accessibility?</td><td>Indirect · supports a priority · required for one</td></tr>
+<tr><th>Effort (divides)</th><td>How complex is it? (Chapter 17)</td><td>Level 1–2 · level 3 · level 4</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Priority score = (Reach + Impact + Reuse + Business value) ÷ Effort.</strong> A bug fix used everywhere scores high; a complex component for one team scores low. Publish the scores in the public queue, next to each request.</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:30%">Example request</th><th class="num">Reach</th><th class="num">Impact</th><th class="num">Reuse</th><th class="num">Value</th><th class="num">Effort</th><th class="num">Score</th></tr></thead>
+<tbody>
+<tr><td>Dialog focus bug (accessibility)</td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">1</td><td class="num"><b>12.0</b></td></tr>
+<tr><td>Filter pattern for lists</td><td class="num">3</td><td class="num">2</td><td class="num">3</td><td class="num">2</td><td class="num">2</td><td class="num"><b>5.0</b></td></tr>
+<tr><td>Month-range date picker</td><td class="num">1</td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num"><b>3.5</b></td></tr>
+<tr><td>Spreadsheet-style editable grid</td><td class="num">1</td><td class="num">3</td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num"><b>2.3</b></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch35-5">
+<h2><span class="sec-num">35.5</span>Competing priorities, urgent requests and exceptions</h2>
+<h3>When teams compete</h3>
+<p>When two teams both want their request done first, the scores start the conversation, but people finish it. Three habits help. Make the queue public, so everyone sees what's ahead. Agree a quarterly roadmap with product leads (Chapter 29), so most priorities are settled once, together. And when a priority genuinely changes mid-quarter, say what's moving down to make room, and tell the affected team directly.</p>
+<h3>Urgent requests</h3>
+<p>Some requests really are urgent: a launch next week, a legal deadline, a critical accessibility failure. Define "urgent" clearly and give it a fast lane, or everything will be called urgent.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Qualifies as urgent</th><th>Fast-lane response</th></tr></thead>
+<tbody>
+<tr><td>A system bug blocking a launch or a key user task</td><td>Fix within days as a patch (Chapter 29 severity)</td></tr>
+<tr><td>A legal, regulatory or accessibility deadline</td><td>Prioritised above roadmap work, with leadership informed</td></tr>
+<tr><td>A launch date with no time for the normal process</td><td>Build locally now, from system parts; system version follows; local version replaced later</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Exceptions</h3>
+<p>Sometimes a team needs to break a system rule: a different colour for a partner integration, a component that can't meet a guideline yet. Allow exceptions, but make them explicit: a short written request, a named approver (Chapter 36), an expiry date and an entry in the exception log. Review the log quarterly. Recurring exceptions are a sign the system needs to change.</p>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] The system should never be the reason a team misses a deadline</p>
+  <p>If the system can't deliver in time, the answer is a sanctioned local build, not a delay. That one promise does more for trust than any process.</p>
+</div>
+</section>
+
+<section class="sec" id="ch35-6">
+<h2><span class="sec-num">35.6</span>Contribution guidelines and review</h2>
+<p>When a team offers to build something themselves, the request becomes a contribution. Chapter 05 introduced four levels of contribution. Here's what the guidelines should say for each, so contributors know exactly what's expected.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:16%">Level</th><th>Contributor provides</th><th>System team provides</th><th style="width:16%">Review</th></tr></thead>
+<tbody>
+<tr><th>1 · Report</th><td>A clear description with a screenshot</td><td>Triage within a week</td><td>—</td></tr>
+<tr><th>2 · Fix</th><td>The fix, a test, a changelog line</td><td>Review within 2–3 days</td><td>One reviewer</td></tr>
+<tr><th>3 · Extend</th><td>A short proposal; then design, code, tests and docs</td><td>Proposal feedback; pairing if wanted</td><td>Designer + engineer</td></tr>
+<tr><th>4 · New</th><td>A written proposal with evidence of shared need; co-building</td><td>Workshop (Chapter 29), co-design, final review</td><td>Design review + code review + accessibility</td></tr>
+</tbody>
+</table>
+</div>
+<p>All contributions meet the same definition of done as system-built work (Chapter 21). The difference is in support, not standards. Contributors shouldn't get a lower bar; they should get more help reaching it.</p>
+</section>
+
+<section class="sec" id="ch35-7">
+<h2><span class="sec-num">35.7</span>The request lifecycle</h2>
+<p>Every request moves through the same stages, visible to everyone in the tracker. The requester always knows where their request is and what happens next.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="lifecycle" style="grid-template-columns:repeat(7,minmax(0,1fr))">
+  <div style="border-color:#c9ccd2"><span class="fig-label">01</span><b>Submitted</b>Form completed; auto-acknowledged</div>
+  <div style="border-color:#ffe2d5"><span class="fig-label">02</span><b>Triaged</b>Categorised, shared vs local decided, scored, answered within a week</div>
+  <div style="border-color:#ffa384"><span class="fig-label">03</span><b>Accepted</b>On the roadmap with a timeframe, or invited as a contribution</div>
+  <div style="border-color:#ed521c"><span class="fig-label">04</span><b>In progress</b>Designed and built; requester involved in reviews</div>
+  <div style="border-color:#b83a16"><span class="fig-label">05</span><b>Released</b>Shipped, announced, requester thanked</div>
+  <div style="border-color:#7a5a00"><span class="fig-label">06</span><b>Adopted</b>Requesting team using it; local versions retired</div>
+  <div style="border-color:#0b0d12"><span class="fig-label">07</span><b>Closed</b>Outcome recorded</div>
+</div>
+</div>
+<figcaption><b>The request lifecycle.</b> Requests can also leave at triage as "use existing", "build locally (watching)" or "not planned, with reason". Every exit gets a written reason.</figcaption>
+</figure>
+<p>Notice that a request isn't finished when it's released; it's finished when the requesting team is using it. Tracking requests to adoption closes a gap many teams miss, where something ships and the team who asked for it never switches over.</p>
+<h3>Who owns each stage</h3>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:24%">Stage</th><th>Owner</th><th>Service target [[prac]]</th></tr></thead>
+<tbody>
+<tr><td>Submitted → Triaged</td><td>System lead (weekly triage)</td><td>First response within a week</td></tr>
+<tr><td>Accepted</td><td>System lead</td><td>Timeframe stated; roadmap updated</td></tr>
+<tr><td>In progress</td><td>Component owner (designer + engineer)</td><td>Requester reviews design before build</td></tr>
+<tr><td>Released</td><td>Engineer on release rota</td><td>Announced with the release</td></tr>
+<tr><td>Adopted</td><td>Requesting team's champion</td><td>Within one or two cycles of release</td></tr>
+</tbody>
+</table>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Use one front door and a public queue; ask for the problem, not the solution.</li>
+    <li>Test every request for shared versus product-specific need; send one-offs to local builds and watch them.</li>
+    <li>Score requests openly by reach, impact, reuse and value against effort; define urgent and handle exceptions explicitly.</li>
+    <li>Track every request from submission to adoption, with a named owner and a service target at each stage.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>
