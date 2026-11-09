@@ -1,0 +1,171 @@
+<section class="chapter" id="ch21" data-part="04" data-num="21" data-title="Components as code" data-short="Components as code"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 21</p>
+  <h1>Components as code</h1>
+  <p class="dek">Chapter 15 introduced how components are built and shipped. This chapter goes deeper: what a well-built component looks like line by line, how to style it, how to make it accessible in code, which technology to choose, and how design and engineering stay aligned once the code exists.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You're an engineer building system components, a design lead who wants to review them with confidence, or a decision-maker choosing technologies for the system.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A complete, annotated example of a well-built component.</li><li>A comparison of styling approaches and technology choices.</li><li>A shared definition of done and a review checklist for design and engineering.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch21-1">
+<h2><span class="sec-num">21.1</span>A well-built component, line by line</h2>
+<p>Here's Ledgerly's button in React with TypeScript, two of the most common technologies for web design systems. If you don't write code, read the grey comments; they explain what each part is doing and why it matters. Everything in this chapter applies, with different syntax, to other frameworks.</p>
+<pre><span class="c">// 1. The props, written down as a contract. TypeScript checks every use of the</span>
+<span class="c">//    button against this list, so a typo like variant="primery" is caught instantly.</span>
+<span class="k">type</span> ButtonProps = {
+  variant?: <span class="s">"primary"</span> | <span class="s">"secondary"</span> | <span class="s">"danger"</span>;   <span class="c">// one choice, not three switches</span>
+  size?: <span class="s">"sm"</span> | <span class="s">"md"</span> | <span class="s">"lg"</span>;
+  icon?: IconName;                                  <span class="c">// a named icon from the system, not any image</span>
+  loading?: boolean;
+} &amp; React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt;; <span class="c">// plus every normal button attribute</span>
+
+<span class="c">// 2. forwardRef lets screens reach the real button element, for focus management.</span>
+<span class="k">export const</span> Button = React.forwardRef&lt;HTMLButtonElement, ButtonProps&gt;(<span class="k">function</span> Button(
+  <span class="c">// 3. safe defaults: secondary, medium, not loading</span>
+  { variant = <span class="s">"secondary"</span>, size = <span class="s">"md"</span>, icon, loading = <span class="k">false</span>, disabled, children, ...rest },
+  ref
+) {
+  <span class="k">return</span> (
+    &lt;<span class="k">button</span>                                    <span class="c">// 4. a real &lt;button&gt;: keyboard support is free</span>
+      ref={ref}
+      type=<span class="s">"button"</span>                              <span class="c">// 5. never submits a form by accident</span>
+      className=<span class="s">"button"</span>
+      data-variant={variant}                     <span class="c">// 6. styles read these; no colours in this file</span>
+      data-size={size}
+      disabled={disabled || loading}             <span class="c">// 7. no double clicks while saving</span>
+      aria-busy={loading || undefined}           <span class="c">// 8. screen readers hear that it's working</span>
+      {...rest}                                  <span class="c">// 9. pass through ids, tests, aria-labels…</span>
+    &gt;
+      {loading ? &lt;<span class="k">Spinner</span> size=<span class="s">"sm"</span> /&gt; : icon &amp;&amp; &lt;<span class="k">Icon</span> name={icon} aria-hidden /&gt;}
+      &lt;<span class="k">span</span> className=<span class="s">"button__label"</span>&gt;{children}&lt;/<span class="k">span</span>&gt;
+    &lt;/<span class="k">button</span>&gt;
+  );
+});</pre>
+<p>A few of these lines deserve a little more explanation, because they're exactly the details that separate a system component from one built quickly for a single screen.</p>
+<p><strong>Using a real <code>&lt;button&gt;</code> element</strong> (comment 4) is the single most important accessibility decision in the file. Native buttons can be reached with the Tab key, pressed with Enter and Space, and are announced as "button" by screen readers, all without any extra code. Teams that build buttons out of plain boxes have to recreate all of that by hand, and usually miss something.</p>
+<p><strong>No colours or sizes in the file</strong> (comment 6). The component only says <em>which</em> variant and size it is; the stylesheet decides what that looks like, using tokens. That's why a rebrand never needs to touch this file.</p>
+<p><strong>Passing through everything else</strong> (comment 9) means teams can add a test ID or an accessible label without asking the system team for a new prop. The system stays small, and teams aren't blocked.</p>
+</section>
+
+<section class="sec" id="ch21-2">
+<h2><span class="sec-num">21.2</span>Ways to style components</h2>
+<p>There are several ways to attach styles to components in code, and teams debate them passionately. The good news is that if your tokens are CSS variables, every approach can use them, so the choice matters less than it seems.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:20%">Approach</th><th>How it works, simply</th><th>Good for</th><th style="width:26%">Watch out for</th></tr></thead>
+<tbody>
+<tr><th>Plain CSS with CSS variables</th><td>A normal stylesheet per component, using token variables</td><td>Simple, fast, works with any framework</td><td>Needs naming discipline to avoid clashes</td></tr>
+<tr><th>CSS modules</th><td>Like plain CSS, but class names are made unique automatically</td><td>No clashes between components; easy to read</td><td>Requires a build step</td></tr>
+<tr><th>CSS-in-JS</th><td>Styles written in JavaScript next to the component</td><td>Styles that depend on props; everything in one file</td><td>Can affect performance and server rendering; less popular than a few years ago</td></tr>
+<tr><th>Utility classes</th><td>Many tiny ready-made classes combined in the markup</td><td>Very fast for product teams; tokens map to classes</td><td>Markup gets long; harder to enforce component-level rules</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Our usual recommendation</p>
+  <p>For the system's own components: plain CSS or CSS modules, reading token variables, with variants selected by data attributes as in 21.1. It's fast, framework-independent and easy for anyone to read. Product teams can then use whatever approach they like for their own screens, as long as it reads the same token variables.</p>
+</div>
+<p>Whichever approach you choose, two rules hold. Styles only ever use tokens (Chapter 20). And styles should use <em>logical</em> properties, such as <code>padding-inline</code> rather than <code>padding-left</code> and <code>padding-right</code>, so layouts mirror correctly for right-to-left languages like Arabic and Hebrew without extra work.[[c:mdn-logical]]</p>
+</section>
+
+<section class="sec" id="ch21-3">
+<h2><span class="sec-num">21.3</span>Accessibility, in code</h2>
+<p>Chapter 14 covered accessibility from the design side. In code, it comes down to a few habits that, once learned, become second nature.</p>
+<h3>Use the right element first</h3>
+<p>HTML already includes accessible elements for most jobs: buttons, links, form fields, labels, lists, headings, tables. They come with keyboard support and screen-reader meaning built in. Reach for extra accessibility attributes (ARIA) only when no native element fits. A common saying among accessibility specialists is that no ARIA is better than bad ARIA, because incorrect attributes can make things worse than none at all.</p>
+<h3>Follow the established patterns for complex components</h3>
+<p>For composites like menus, tabs, comboboxes and dialogs, the W3C's ARIA Authoring Practices Guide describes exactly how each should behave: which keys do what, where focus goes, what gets announced.[[c:aria-apg]] Following it means your components behave the way assistive-technology users already expect. Here's what that means for a dialog:</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:30%">Requirement</th><th>What the code must do</th></tr></thead>
+<tbody>
+<tr><td>Announce itself</td><td>Identify itself as a dialog and use its title as its name</td></tr>
+<tr><td>Move focus in</td><td>When it opens, move keyboard focus into the dialog (usually to the first field or the close button)</td></tr>
+<tr><td>Keep focus inside</td><td>Tab and Shift+Tab cycle within the dialog, never into the page behind it</td></tr>
+<tr><td>Close on Escape</td><td>The Escape key closes it, unless closing would lose unsaved work</td></tr>
+<tr><td>Return focus</td><td>When it closes, focus goes back to the button that opened it</td></tr>
+<tr><td>Hide the background</td><td>The page behind is hidden from screen readers while the dialog is open</td></tr>
+</tbody>
+</table>
+</div>
+<p>Six requirements, every one of which a quickly built dialog tends to miss, and all of which the system's dialog solves once for every product. That's the strongest argument for building complex components centrally.</p>
+</section>
+
+<section class="sec" id="ch21-4">
+<h2><span class="sec-num">21.4</span>Choosing the technology</h2>
+<p>A design system's components have to be built in the same technology as the products that use them. That makes technology choice one of the biggest cost decisions in the whole system (Chapter 04).</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Your situation</th><th>Common approach</th><th style="width:34%">Trade-off</th></tr></thead>
+<tbody>
+<tr><td>All web products use one framework</td><td>Build components in that framework</td><td>Simplest and best developer experience. Tied to that framework.</td></tr>
+<tr><td>Web products use several frameworks</td><td>Web Components (a browser standard) or a framework-neutral core with thin wrappers</td><td>One implementation works everywhere, but integration with each framework needs care.[[c:mdn-web-components]]</td></tr>
+<tr><td>Web plus iOS and Android apps</td><td>Shared tokens; separate native components per platform</td><td>Native feel and performance, but each component is built two or three times.</td></tr>
+<tr><td>Legacy products that can't adopt new components</td><td>Ship tokens (CSS variables) and styles only</td><td>Visual consistency without rewriting, but no shared behaviour.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Whatever you choose, notice the pattern: <strong>tokens are the part that works everywhere</strong>. Components may need to be built once per technology, but tokens are generated for every platform from one source. That's why tokens come first (Rule #4), and why they're the backbone when a company has a mix of old and new technology.</p>
+</section>
+
+<section class="sec" id="ch21-5">
+<h2><span class="sec-num">21.5</span>Keeping design and engineering aligned</h2>
+<p>Most design–engineering friction in design systems comes from one question: <em>when is a component actually done?</em> If designers think "done" means the Figma file is published and engineers think it means the code is merged, nothing is ever really finished. Agree one definition, for both twins.</p>
+<div class="cols-2">
+<div>
+<h4>Definition of done (both twins)</h4>
+<ul class="checklist">
+  <li>Figma component and code component have the same name, props and values</li>
+  <li>Every variant and state exists in both, and in the workshop</li>
+  <li>Styles use tokens only; lint passes</li>
+  <li>Keyboard and screen-reader behaviour tested by a person</li>
+  <li>Visual, behaviour and automated accessibility tests pass</li>
+  <li>Documentation page complete (Chapter 16 template)</li>
+  <li>Release note written; Figma library and code package released together</li>
+</ul>
+</div>
+<div>
+<h4>Review questions for system pull requests</h4>
+<ul class="checklist">
+  <li>Does this change any prop, default or visual size? Then which version number changes?</li>
+  <li>Which components and products depend on what's changing?</li>
+  <li>Do the workshop pictures show only the intended changes?</li>
+  <li>Is Figma updated in the same release?</li>
+  <li>Is any new token or prop genuinely needed by two or more teams?</li>
+  <li>Has someone from design reviewed the result in the workshop?</li>
+</ul>
+</div>
+</div>
+<p style="margin-top:16px">The workshop (Chapter 15) is the meeting point. Designers review the <em>real</em> coded component there, in every state, rather than reviewing screenshots. Many teams also link each Figma component to its code and documentation, so it's one click from design to implementation and back. The tooling varies; the habit of reviewing the real thing together is what matters.</p>
+</section>
+
+<section class="sec" id="ch21-6">
+<h2><span class="sec-num">21.6</span>Quality beneath the surface</h2>
+<p>System components are used everywhere, so their quality affects every product's speed and stability. A few engineering concerns deserve attention even though users never see them directly.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Concern</th><th>Why it matters</th><th style="width:36%">Good practice</th></tr></thead>
+<tbody>
+<tr><th>Package size</th><td>Every product downloads the components it uses; heavy components slow every product.</td><td>Let products import only what they use; watch size on every release.</td></tr>
+<tr><th>Dependencies</th><td>Each outside library a component relies on adds size, risk and upgrade work.</td><td>Keep outside dependencies few and well chosen; prefer browser features.</td></tr>
+<tr><th>Server rendering</th><td>Many products render pages on the server for speed; components must work there too.</td><td>Test components in server-rendered pages before release.</td></tr>
+<tr><th>Performance with real data</th><td>A list that's fine with 20 items may freeze with 10,000.</td><td>Test level 4 components with realistic data volumes (Chapter 17).</td></tr>
+<tr><th>Backwards compatibility</th><td>Teams update at different speeds.</td><td>Follow the versioning rules; support the previous major version for a stated time.</td></tr>
+</tbody>
+</table>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Good components use native elements, safe defaults, typed props, tokens only, and pass through standard attributes.</li>
+    <li>Any styling approach works if it reads token variables; use logical properties for right-to-left support.</li>
+    <li>Follow the established accessibility patterns for complex components, and test with a keyboard and a screen reader.</li>
+    <li>Agree one definition of done for both twins, and review the real coded component together.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

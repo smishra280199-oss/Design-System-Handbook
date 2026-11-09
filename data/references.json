@@ -493,5 +493,79 @@
     "publisher": "designsystemscollective.com",
     "year": 2024,
     "url": "https://www.designsystemscollective.com/were-focused-too-much-on-design-tokens-nathan-curtis-on-design-systems-today-a329fdd79d4c"
+  },
+  "style-dictionary": {
+    "title": "Style Dictionary",
+    "author": "Style Dictionary contributors (originally Amazon)",
+    "publisher": "styledictionary.com",
+    "year": null,
+    "url": "https://styledictionary.com/",
+    "note": "An open-source build system that turns design tokens into code for any platform."
+  },
+  "figma-variables": {
+    "title": "Guide to variables in Figma",
+    "author": "Figma",
+    "publisher": "Figma Help Center",
+    "year": null,
+    "url": "https://help.figma.com/hc/en-us/articles/15339657135383-Guide-to-variables-in-Figma"
+  },
+  "figma-props": {
+    "title": "Explore component properties",
+    "author": "Figma",
+    "publisher": "Figma Help Center",
+    "year": null,
+    "url": "https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties",
+    "note": "Variant, boolean, text and instance-swap properties."
+  },
+  "react-controlled": {
+    "title": "Sharing state between components (controlled and uncontrolled components)",
+    "author": "React team",
+    "publisher": "react.dev",
+    "year": null,
+    "url": "https://react.dev/learn/sharing-state-between-components"
+  },
+  "mdn-web-components": {
+    "title": "Web Components",
+    "author": "MDN contributors",
+    "publisher": "Mozilla",
+    "year": null,
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_components"
+  },
+  "govuk-patterns": {
+    "title": "Patterns",
+    "author": "GOV.UK Design System",
+    "publisher": "Government Digital Service",
+    "year": null,
+    "url": "https://design-system.service.gov.uk/patterns/",
+    "note": "Documented solutions to common user problems, such as asking for addresses or dates, and validation."
+  },
+  "govuk-errors": {
+    "title": "Error summary component",
+    "author": "GOV.UK Design System",
+    "publisher": "Government Digital Service",
+    "year": null,
+    "url": "https://design-system.service.gov.uk/components/error-summary/"
+  },
+  "wcag-errors": {
+    "title": "Understanding Success Criterion 3.3.1: Error Identification",
+    "author": "W3C WAI",
+    "publisher": "W3C",
+    "year": 2023,
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html"
+  },
+  "mdn-logical": {
+    "title": "CSS logical properties and values",
+    "author": "MDN contributors",
+    "publisher": "Mozilla",
+    "year": null,
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values"
+  },
+  "mdn-intl": {
+    "title": "Intl (internationalisation API)",
+    "author": "MDN contributors",
+    "publisher": "Mozilla",
+    "year": null,
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl",
+    "note": "Built-in formatting for dates, numbers, currencies and plural rules by locale."
   }
 }

@@ -1,0 +1,164 @@
+<section class="chapter" id="ch20" data-part="04" data-num="20" data-title="Components and tokens" data-short="Component tokens"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 20</p>
+  <h1>Components and tokens</h1>
+  <p class="dek">Part 02 showed how tokens hold your foundation decisions. This chapter shows how components plug into them: which parts of a component become tokens, how to name them, when a component deserves its own tokens, and how to keep the connections healthy as everything changes.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You're connecting components to tokens, planning theming or multiple brands, or your dark mode keeps breaking in specific components.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A clear map from a component's parts to the tokens it uses.</li><li>A naming pattern and a decision guide for component-level tokens.</li><li>How tokens connect to Figma and code, and how to audit them over time.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch20-1">
+<h2><span class="sec-num">20.1</span>Where components meet tokens</h2>
+<p>A quick reminder of the three levels of tokens from Chapter 07. <strong>Primitive</strong> tokens are the raw paints and sizes (<code>brand.700</code>, <code>space.4</code>). <strong>Semantic</strong> tokens name a job (<code>action.primary.bg</code>, <code>text.secondary</code>). <strong>Component</strong> tokens name a specific use inside a specific component (<code>button.primary.background</code>). Each level points to the one below.</p>
+<p>The question this chapter answers is: <em>how should a component get its values?</em> There are two sensible answers and one bad one.</p>
+<div class="cols-3">
+  <div class="card hl"><span class="card-k">Good</span><h4>Component uses semantic tokens</h4><p>The button's background is <code>action.primary.bg</code>. Simple and enough for most single-brand products.</p></div>
+  <div class="card hl"><span class="card-k">Good</span><h4>Component has its own tokens</h4><p>The button's background is <code>button.primary.background</code>, which points to <code>action.primary.bg</code>. More flexible, more to maintain.</p></div>
+  <div class="card" style="border-color:var(--bad)"><span class="card-k" style="color:var(--bad)">Bad</span><h4>Component uses primitives or raw values</h4><p>The button's background is <code>brand.700</code> or <code>#AB2800</code>. Dark mode and theming break here first.</p></div>
+</div>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">Dark mode works everywhere except the date picker</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>Ledgerly launches dark mode. Every screen looks right, except the date picker, whose selected day stays bright orange on a white square.</p></div>
+    <div><span class="sc-k">The cause</span><p>The date picker was built quickly and used <code>brand.700</code> and <code>neutral.50</code> directly. Those are paints, not jobs, so dark mode had no way of switching them.</p></div>
+    <div><span class="sc-k">The fix, and the lesson</span><p>Point the date picker at job names (<code>action.primary.bg</code>, <code>bg.surface</code>) and add an automatic check that flags any component using primitives. One component fixed, a whole class of bugs prevented.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ch20-2">
+<h2><span class="sec-num">20.2</span>Which parts of a component become tokens</h2>
+<p>Start from the component's anatomy (Chapter 12). For each part, ask: which of its visual properties could ever need to change with a theme, a brand, a density or a platform? Those properties should come from tokens. Here's the map for Ledgerly's text field.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="table-wrap" style="margin:0">
+<table class="compact">
+<thead><tr><th style="width:16%">Part</th><th style="width:16%">Property</th><th>Component token</th><th>Points to (semantic)</th><th style="width:16%">Changes with</th></tr></thead>
+<tbody>
+<tr><td>Label</td><td>Text style</td><td><code>input.label.font</code></td><td><code>type.label.md</code></td><td>Density</td></tr>
+<tr><td></td><td>Colour</td><td><code>input.label.color</code></td><td><code>text.primary</code></td><td>Theme</td></tr>
+<tr><td>Container</td><td>Background</td><td><code>input.container.background</code></td><td><code>bg.surface</code></td><td>Theme</td></tr>
+<tr><td></td><td>Border</td><td><code>input.container.border</code></td><td><code>border.strong</code></td><td>Theme</td></tr>
+<tr><td></td><td>Border, error</td><td><code>input.container.border.error</code></td><td><code>feedback.danger.text</code></td><td>Theme</td></tr>
+<tr><td></td><td>Border, focus</td><td><code>input.container.border.focus</code></td><td><code>focus.ring</code></td><td>Theme</td></tr>
+<tr><td></td><td>Height</td><td><code>input.container.height</code></td><td><code>size.control.height</code></td><td>Density</td></tr>
+<tr><td></td><td>Padding</td><td><code>input.container.padding-x</code></td><td><code>space.control.inset-x</code></td><td>Density</td></tr>
+<tr><td></td><td>Corners</td><td><code>input.container.radius</code></td><td><code>radius.control</code></td><td>Brand</td></tr>
+<tr><td>Helper text</td><td>Colour</td><td><code>input.helper.color</code></td><td><code>text.secondary</code></td><td>Theme</td></tr>
+<tr><td>Error message</td><td>Colour</td><td><code>input.error.color</code></td><td><code>feedback.danger.text</code></td><td>Theme</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<figcaption><b>Mapping a text field's anatomy to tokens.</b> Eleven properties, each with a component token that points to a semantic token. The last column shows which kind of change each property responds to.</figcaption>
+</figure>
+<p>Two things are worth noticing. First, every property that responds to a theme, brand or density is a token. Properties that never change, like the fact that the label sits above the field, are just part of the component's design and don't need tokens. Second, this map is useful even if you decide <em>not</em> to create component tokens. It tells you exactly which semantic token each part should use, which is what prevents the date picker problem.</p>
+</section>
+
+<section class="sec" id="ch20-3">
+<h2><span class="sec-num">20.3</span>Naming component tokens</h2>
+<p>Component tokens multiply quickly. Ten components with ten tokens each is already a hundred names. A consistent naming pattern is what keeps them guessable (Layer One's Rule #3). This pattern works well:</p>
+<pre><span class="k">{component}</span>.<span class="s">{variant}</span>.<span class="n">{part}</span>.<span class="c">{property}</span>.<span class="c">{state}</span>
+
+<span class="k">button</span>.<span class="s">primary</span>.<span class="n">container</span>.<span class="c">background</span>             <span class="c">// default state can be left out</span>
+<span class="k">button</span>.<span class="s">primary</span>.<span class="n">container</span>.<span class="c">background</span>.<span class="c">hover</span>
+<span class="k">button</span>.<span class="s">primary</span>.<span class="n">label</span>.<span class="c">color</span>
+<span class="k">input</span>.<span class="n">container</span>.<span class="c">border</span>.<span class="c">error</span>                <span class="c">// no variant needed</span>
+<span class="k">table</span>.<span class="n">row</span>.<span class="c">background</span>.<span class="c">selected</span></pre>
+<p>Use the anatomy part names from the component's documentation, so the token name, the anatomy diagram and the Figma layer names all match. Leave out levels that don't apply rather than inventing filler like "default". And use the same property words everywhere: if one component says <code>background</code>, none should say <code>bg</code> or <code>fill</code>.</p>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Test your names with a newcomer</p>
+  <p>Show a new designer or engineer the anatomy diagram of a component they haven't seen, and ask them to guess the token for, say, the border of the error state. If they get it right, or nearly right, your naming works. If they can't, simplify.</p>
+</div>
+</section>
+
+<section class="sec" id="ch20-4">
+<h2><span class="sec-num">20.4</span>When does a component deserve its own tokens?</h2>
+<p>Component tokens are powerful, but they have a real cost: more names to create, document and keep in step across Figma and code. Nathan Curtis has even cautioned that the industry may be "focused too much on design tokens" at the expense of other parts of a system.[[c:curtis-interview]] So don't create them by default. Create them when you have a reason.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:40%">Situation</th><th style="width:20%">Component tokens?</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td>One brand, light and dark mode</td><td><span class="fail">usually no</span></td><td>Semantic tokens already switch with the theme.</td></tr>
+<tr><td>Several brands that differ only in colour</td><td><span class="fail">usually no</span></td><td>A brand level under the semantic tokens handles it (Chapter 07).</td></tr>
+<tr><td>Brands that style specific components differently (rounder buttons, flat cards)</td><td><span class="pass">yes</span></td><td>Each brand can override just those components' tokens.</td></tr>
+<tr><td>White-label products where customers adjust specific components</td><td><span class="pass">yes</span></td><td>Gives a safe, limited list of things customers can change.</td></tr>
+<tr><td>A component that genuinely differs from the semantic rule</td><td><span class="pass">yes, for that part</span></td><td>Records the exception in one visible place instead of hiding it in code.</td></tr>
+<tr><td>Native apps that need platform-specific sizes</td><td><span class="pass">yes, for sizes</span></td><td>iOS and Android can map component sizes to their own guidelines.</td></tr>
+</tbody>
+</table>
+</div>
+<p>A good middle path, which many teams use, is to define component tokens <em>only for the properties that actually vary</em>. Ledgerly might give buttons a <code>button.container.radius</code> token, because one brand wants pill-shaped buttons, while letting the button's colours use semantic tokens directly. That keeps the token list short and purposeful.</p>
+</section>
+
+<section class="sec" id="ch20-5">
+<h2><span class="sec-num">20.5</span>Tokens in Figma and in code</h2>
+<p>The connection between a component and its tokens has to exist on both sides of the twins.</p>
+<h3>In Figma</h3>
+<p>Figma's variables let designers store token values and attach them to the properties of a component's layers: a fill, a stroke, padding, corner radius.[[c:figma-variables]] Variables can have several modes, such as light and dark or brand A and brand B, so switching a mode restyles every component that uses them. When the variable names match the token names in code, designers and engineers are literally talking about the same thing.</p>
+<h3>In code</h3>
+<p>The token pipeline generates the same values for code, typically as CSS variables on the web. The component's styles then reference only those names. Here's how a second brand changes just the button's shape, without touching any component code:</p>
+<div class="cols-2">
+<pre style="margin:0"><span class="c">/* tokens: component level, in the shared format */</span>
+{
+  <span class="k">"button"</span>: {
+    <span class="k">"container"</span>: {
+      <span class="k">"radius"</span>: {
+        <span class="k">"$type"</span>: <span class="s">"dimension"</span>,
+        <span class="k">"$value"</span>: <span class="n">"{radius.control}"</span>
+      }
+    },
+    <span class="k">"primary"</span>: { <span class="k">"container"</span>: { <span class="k">"background"</span>: {
+      <span class="k">"$type"</span>: <span class="s">"color"</span>,
+      <span class="k">"$value"</span>: <span class="n">"{color.action.primary.bg}"</span>
+    } } }
+  }
+}</pre>
+<pre style="margin:0"><span class="c">/* generated CSS */</span>
+:root {
+  <span class="k">--button-container-radius</span>: <span class="n">var(--radius-control)</span>;
+  <span class="k">--button-primary-container-background</span>:
+    <span class="n">var(--color-action-primary-bg)</span>;
+}
+<span class="c">/* brand B overrides one component token */</span>
+[data-brand="b"] {
+  <span class="k">--button-container-radius</span>: <span class="s">999px</span>;
+}
+
+<span class="c">/* Button.css never changes */</span>
+.button { <span class="k">border-radius</span>: <span class="n">var(--button-container-radius)</span>; }</pre>
+</div>
+<p style="margin-top:16px">That's the whole point of component tokens in one picture: brand B gets pill-shaped buttons by changing one value, and no component code is touched. The token format used here is the shared Design Tokens Community Group format from Chapter 06.[[c:dtcg-format]]</p>
+</section>
+
+<section class="sec" id="ch20-6">
+<h2><span class="sec-num">20.6</span>Keeping tokens and components in sync</h2>
+<p>Tokens and components drift apart over time, just like Figma and code do. A component gets a quick fix with a raw value. A token is renamed but one component still uses the old name. A token is created for a feature that was later removed. A light quarterly audit catches most of this.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:26%">Check</th><th>What it finds</th><th style="width:30%">How</th></tr></thead>
+<tbody>
+<tr><td>Raw values in components</td><td>Colours, sizes or spacing typed directly into component styles</td><td>An automatic lint rule on every code change</td></tr>
+<tr><td>Primitives used in components</td><td>Components pointing at paints instead of jobs (the date picker problem)</td><td>A lint rule that only allows semantic and component tokens</td></tr>
+<tr><td>Unused tokens</td><td>Tokens no component or product uses any more</td><td>A script comparing the token list with usage in code</td></tr>
+<tr><td>Missing tokens</td><td>Properties that change with themes but have no token</td><td>Switch every theme and density in the workshop and look for parts that don't change</td></tr>
+<tr><td>Figma–code mismatch</td><td>Variables in Figma that don't match tokens in code</td><td>Compare the exported variable list with the token source</td></tr>
+</tbody>
+</table>
+</div>
+<p>Before changing any token, check its blast radius: which components and products use it? The same dependency map from Chapter 18 works here. A token used by one component is safe to change; a token used by forty is a release with notes and screenshots.</p>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Components should use semantic or component tokens, never primitives or raw values.</li>
+    <li>Map each part of a component's anatomy to the token it uses; that map prevents theme bugs.</li>
+    <li>Create component tokens only where something genuinely varies by brand, platform or customer.</li>
+    <li>Connect tokens in Figma (variables) and code (CSS variables) with matching names, and audit them every quarter.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

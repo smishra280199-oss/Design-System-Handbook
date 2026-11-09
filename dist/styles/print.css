@@ -198,3 +198,38 @@
   section.sec.follow { break-before: auto; margin-top: 30pt; }
 }
 @media print { .chapter-end { break-after: avoid; } .up-next { break-before: avoid; } }
+
+/* ==========================================================================
+   GRID (edition 0.3). One 12-column grid for every page:
+   168mm text block · 12 columns · 5mm gutters (column ≈ 9.4mm).
+   All running text, headings, ledes and captions span the full grid width.
+   Two-part layouts split 4 + 8 columns; card rows use 6+6, 4+4+4 or 3+3+3+3.
+   ========================================================================== */
+@media print {
+  :root { --grid-w: 168mm; --gutter: 5mm; --col: none; }
+  body { font-size: 10.4pt; line-height: 1.55; }
+
+  /* Everything lives on the full grid width */
+  .chapter p, .chapter h3, .chapter h4, .front p, .chapter > .page > section > ul, .chapter > .page > section > ol,
+  .lede, .pull, .fig figcaption, section.sec > h2, .chapter-opener h1, .chapter-opener .dek,
+  .part-opener h1, .part-opener .po-dek, .callout, .callout p, .scenario p { max-width: none !important; }
+  section.sec > h2 { font-size: 24pt; }
+  section.sec > h2 + p { font-size: 11.6pt; }
+  .chapter-opener h1 { font-size: 40pt; }
+  .chapter-opener .dek { font-size: 13.5pt; }
+  .part-opener h1 { font-size: 42pt; }
+  .pull { font-size: 17pt; }
+
+  /* Grid-aligned gaps */
+  .cols-2, .cols-3, .cols-4, .scenario .sc-grid, .ev-legend, .tier-diagram { column-gap: var(--gutter) !important; }
+  .cols-2, .cols-3, .cols-4 { row-gap: 4mm !important; }
+  .qa, .opener-meta { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) !important; column-gap: var(--gutter) !important; }
+
+  /* "New word" notes become a full-width band in the flow (no side column) */
+  .term { float: none !important; width: auto !important; margin: 10pt 0 12pt !important; padding: 6pt 0 6pt !important;
+          display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); column-gap: var(--gutter);
+          border-top: 2px solid var(--signal-500); border-bottom: 1px solid var(--rule); break-inside: avoid; }
+  .term .term-k { grid-column: 1; grid-row: 1; margin: 0; }
+  .term b { grid-column: 1; grid-row: 2; font-size: 10pt; }
+  .term span:not(.term-k) { grid-column: 2; grid-row: 1 / span 2; font-size: 9.4pt; color: #2a2f3a; align-self: center; }
+}

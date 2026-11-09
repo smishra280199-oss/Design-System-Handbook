@@ -1,4 +1,4 @@
-# Content architecture — edition 0.2 (Parts 01–03)
+# Content architecture — edition 1.0 (complete, Parts 01–05)
 
 Numbering: `PP.C` = part.chapter; sections are `C.n`. Figures are numbered per chapter.
 
@@ -39,7 +39,28 @@ Numbering: `PP.C` = part.chapter; sections are `C.n`. Figures are numbered per c
 | 15 | **Building components in code** | Props and APIs in plain words; keeping design and code twins in step; configuration vs composition; no hard-coded values; testing; packaging and releases | Name-matching table; configuration vs composition code; testing table |
 | 16 | **A library people can actually use** | Findability; organising the Figma library; documentation template; component life cycle; usage and detach data; handling divergence | Library tree; docs template; five-stage life cycle; divergence options table |
 
+## PART 04 — Component architecture in depth (new in 1.0)
+
+| # | Chapter | Answers |
+|---|---|---|
+| 17 | **Component complexity** | Four levels (elements, controls, composites, systems); an 8-question scoring rubric; process by level; choosing the simplest component; controlling complexity creep |
+| 18 | **Component architecture** | Six layers with downward-only dependencies; primitives; behaviour vs appearance; compound components, slots, render-as, controlled/uncontrolled; file and package structure; dependency maps and ownership |
+| 19 | **Props, in depth** | Eight kinds of props and their Figma equivalents; design rules; one-way data flow; documenting props; changing props safely; anti-patterns |
+| 20 | **Components and tokens** | Semantic vs component tokens; anatomy-to-token maps; naming grammar; when component tokens are worth it; Figma variables and CSS variables; token audits |
+| 21 | **Components as code** | An annotated component; styling approaches; accessibility in code; technology choices; definition of done and review checklist; quality beneath the surface |
+| 22 | **A casebook of real situations** | Twelve worked cases: diverging needs, migrations, breaking changes, production bugs, scale limits, saying no |
+
+## PART 05 — Patterns, content and scale (new in 1.0)
+
+| # | Chapter | Answers |
+|---|---|---|
+| 23 | **Patterns** | Forms, lists and tables, navigation, feedback states; documenting and owning patterns |
+| 24 | **Content and language** | Voice and tone, vocabulary, message formulas, inclusive writing, localisation |
+| 25 | **Scaling across products, brands and platforms** | Multi-brand, multi-platform, families of systems, governance and funding, legacy |
+| 26 | **Tools, automation and AI** | The toolchain, tools by stage, automation priorities, AI uses and cautions |
+| 27 | **Your first twelve months** | A four-workstream plan, operating rhythms, master checklist, ten failure modes |
+
 ## Back matter
 - References (numbered, linked)
 - About the author & Layer One; the ten rules
-- What's next (Parts 03+ roadmap)
+- Where to go from here

@@ -1,0 +1,155 @@
+<section class="chapter" id="ch27" data-part="05" data-num="27" data-title="Putting it all together: your first twelve months" data-short="Your first year"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 27</p>
+  <h1>Putting it all together: your first twelve months</h1>
+  <p class="dek">You've seen the whole system: why it matters, what it costs, how to run it, its foundations, its components and how it scales. This final chapter turns all of that into a practical plan for your first year, the rhythms that keep a system healthy, and one checklist for the whole journey.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You're about to start (or restart) a design system and want a single plan that connects everything in this book.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A quarter-by-quarter plan across foundations, components, operations and adoption.</li><li>The weekly, monthly and quarterly rhythms of a healthy system.</li><li>A master checklist, and the ten most common ways systems fail.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch27-1">
+<h2><span class="sec-num">27.1</span>The whole book on one page</h2>
+<p>Before the plan, here's how the five parts of this book fit together. Each part answers a different question, and each one depends on the parts before it.</p>
+<figure class="fig">
+<div class="fig-body ink">
+<div class="pipeline">
+  <div class="pipe-step"><span class="pn">PART 01</span><h5 style="color:#fff">Why and how much</h5><div class="pex">Do we need it? What's it worth? What will it cost? How will we run it?</div></div>
+  <div class="pipe-step"><span class="pn">PART 02</span><h5 style="color:#fff">Foundations</h5><div class="pex">Colour, type, spacing and layout as named decisions everyone shares</div></div>
+  <div class="pipe-step"><span class="pn">PART 03</span><h5 style="color:#fff">Components</h5><div class="pex">What to build first, how to design, build and look after them</div></div>
+  <div class="pipe-step"><span class="pn">PART 04</span><h5 style="color:#fff">Architecture</h5><div class="pex">Complexity, structure, props, tokens and code, done properly</div></div>
+  <div class="pipe-step"><span class="pn">PART 05</span><h5 style="color:#fff">Patterns and scale</h5><div class="pex">Patterns, words, brands, platforms, tools and the long run</div></div>
+</div>
+</div>
+<figcaption><b>Five parts, one system.</b> In practice you'll work on several at once: foundations and the first components overlap, and the operating model from Part 01 runs underneath everything.</figcaption>
+</figure>
+<p>If you remember only one idea from the whole book, make it this one: <strong>a design system is an agreement, not a library</strong>. The components, tokens and documentation are how the agreement is written down. The people, processes and rhythms are how it stays alive.</p>
+</section>
+
+<section class="sec" id="ch27-2">
+<h2><span class="sec-num">27.2</span>A twelve-month plan</h2>
+<p>Here's a realistic first year for a mid-sized product company, like Ledgerly, starting from Stage 1 or 2 (Chapter 02). It runs four workstreams side by side. Each quarter ends with a gate (Chapter 04): something you can point to that earns the next quarter's investment. [[ill]]</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:14%"></th><th>Quarter 1 · Start</th><th>Quarter 2 · Prove</th><th>Quarter 3 · Spread</th><th>Quarter 4 · Settle</th></tr></thead>
+<tbody>
+<tr><th>Foundations</th><td>Audit. Colour, type, spacing, layout as tokens. Token pipeline.</td><td>Semantic tokens complete. Contrast checks automated.</td><td>Dark mode as a second theme.</td><td>Density modes. Token audit.</td></tr>
+<tr><th>Components</th><td>8 basics: button, field, select, checkbox, radio, switch, link, alert.</td><td>Containers and feedback: dialog, card, tabs, toast, menu, empty state.</td><td>Data and navigation: table, pagination, badge, tag, side menu.</td><td>The hard ones: date picker, search, advanced table features.</td></tr>
+<tr><th>Operations</th><td>Owner named. Who-decides-what agreed. Versioning rules written.</td><td>Request and contribution process live. Docs template.</td><td>First outside contribution. Monthly health check.</td><td>Deprecation of old components. Next year's roadmap.</td></tr>
+<tr><th>Adoption</th><td>Pilot team: new settings page.</td><td>Pilot two: onboarding. Champions in each team.</td><td>Second and third teams adopt. Office hours.</td><td>Migration dashboard. Most new work on the system.</td></tr>
+<tr><th style="color:var(--accent-text)">Gate</th><td>The pilot ships using only tokens.</td><td>The pilot team is measurably faster or has fewer UI bugs.</td><td>A team adopts without hand-holding.</td><td>Adoption trend and savings reported to leadership.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Two things make this plan work. First, every quarter delivers something teams can use immediately, so the system earns trust as it goes. Second, the components are always built inside a real product project (a pilot), never in isolation. That's Dan Mall's advice from Chapter 05, and in our experience it's the single biggest predictor of a system that people actually use.[[c:mall-dts]]</p>
+</section>
+
+<section class="sec" id="ch27-3">
+<h2><span class="sec-num">27.3</span>The rhythms of a healthy system</h2>
+<p>A design system stays healthy through steady habits, not heroic efforts. Here are the rhythms we set up with every team. Put them in the calendar in the first month; they're much harder to add later. [[prac]]</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:14%">How often</th><th style="width:28%">What</th><th>Why</th><th style="width:20%">Chapter</th></tr></thead>
+<tbody>
+<tr><th>Daily</th><td>Answer the support channel</td><td>Fast answers keep people using the system instead of working around it</td><td>05</td></tr>
+<tr><th>Weekly</th><td>Office hours; triage new requests</td><td>Help teams build with the system; decide one-off vs shared quickly</td><td>05, 13</td></tr>
+<tr><th>Every two weeks</th><td>Release, with notes for users</td><td>A predictable rhythm lets teams plan updates</td><td>05, 15</td></tr>
+<tr><th>Monthly</th><td>Health check; Figma–code "twin check"; usage and detach data</td><td>Spot drift and problems early</td><td>05, 15, 16</td></tr>
+<tr><th>Quarterly</th><td>Architecture and token audit; debt review; roadmap update; council (at scale)</td><td>Prevent slow tangles; keep the plan honest</td><td>18, 20, 25</td></tr>
+<tr><th>Yearly</th><td>Re-score component complexity; satisfaction survey; budget and staffing review</td><td>Step back and decide the next stage</td><td>04, 17</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch27-4">
+<h2><span class="sec-num">27.4</span>The master checklist</h2>
+<p>Every chapter ended with its own checklist. Here's the condensed version for the whole journey. Use it as a quarterly review: anything unticked becomes a candidate for the next quarter's plan.</p>
+<div class="cols-2">
+<div>
+<h4>Decide and fund <span class="mono muted" style="font-weight:400;font-size:12px">Part 01</span></h4>
+<ul class="checklist">
+  <li>An audit with "before" numbers</li>
+  <li>A sponsor, engineering commitment and a named owner</li>
+  <li>The next maturity stage chosen, not the last one</li>
+  <li>A budget in people and months, funded in steps</li>
+  <li>An ownership model and a who-decides-what table</li>
+</ul>
+<h4>Foundations <span class="mono muted" style="font-weight:400;font-size:12px">Part 02</span></h4>
+<ul class="checklist">
+  <li>OKLCH palette; colours named by job; contrast tested</li>
+  <li>Text styles by role; 4px spacing scale; breakpoints</li>
+  <li>One token source feeding design and code</li>
+</ul>
+<h4>Components <span class="mono muted" style="font-weight:400;font-size:12px">Part 03</span></h4>
+<ul class="checklist">
+  <li>Components chosen by frequency and pain</li>
+  <li>Every state designed; "ready to build" checklist</li>
+  <li>A tidy, documented library with life-cycle labels</li>
+</ul>
+</div>
+<div>
+<h4>Architecture <span class="mono muted" style="font-weight:400;font-size:12px">Part 04</span></h4>
+<ul class="checklist">
+  <li>Complexity scored; process matched to level</li>
+  <li>Layers with downward-only dependencies</li>
+  <li>Consistent props, matched in Figma and code</li>
+  <li>Components use semantic or component tokens only</li>
+  <li>One definition of done for both twins</li>
+</ul>
+<h4>Patterns and scale <span class="mono muted" style="font-weight:400;font-size:12px">Part 05</span></h4>
+<ul class="checklist">
+  <li>Forms, lists, navigation and feedback patterns written down</li>
+  <li>Voice, vocabulary and message formulas</li>
+  <li>Ready for other languages and right-to-left</li>
+  <li>A plan for brands, platforms and legacy products</li>
+  <li>Token pipeline and lint rules automated</li>
+  <li>The rhythms in 27.3 in everyone's calendar</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="sec" id="ch27-5">
+<h2><span class="sec-num">27.5</span>Ten ways design systems fail, and the antidote</h2>
+<p>We've seen many design systems in audits. The ones that struggle almost always struggle for one of these ten reasons. None of them is about the quality of the buttons.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:5%">#</th><th style="width:32%">How it fails</th><th>The antidote</th><th style="width:10%">Chapter</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td>Built by design, ignored by engineering</td><td>Get engineering commitment before you start; staff the team with engineers</td><td>02, 04</td></tr>
+<tr><td class="num">2</td><td>Treated as a project, then abandoned</td><td>Run it as a product, with a team that stays after launch</td><td>04, 05</td></tr>
+<tr><td class="num">3</td><td>Started with the fun components</td><td>Start with an inventory and the everyday basics</td><td>13</td></tr>
+<tr><td class="num">4</td><td>Components before tokens</td><td>Tokens first, components second</td><td>06</td></tr>
+<tr><td class="num">5</td><td>The system team became a bottleneck</td><td>Contribution levels, local components and the rule of two</td><td>05, 16</td></tr>
+<tr><td class="num">6</td><td>Components grew forty settings</td><td>Scope statements, splitting, and saying "build it locally"</td><td>17, 19</td></tr>
+<tr><td class="num">7</td><td>Figma and code drifted apart</td><td>Same names and props; monthly twin checks; one definition of done</td><td>15, 21</td></tr>
+<tr><td class="num">8</td><td>Updates broke products without warning</td><td>Versioning rules that include visual changes; notes; notice periods</td><td>05, 22</td></tr>
+<tr><td class="num">9</td><td>Nobody could find anything</td><td>A tidy library, clear names, one documentation template</td><td>16</td></tr>
+<tr><td class="num">10</td><td>Success measured by usage, not value</td><td>Baseline first; report time saved and change made cheap</td><td>03</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch27-6">
+<h2><span class="sec-num">27.6</span>A closing note</h2>
+<p>When we started this book, we said a design system is a shared set of decisions, reusable parts and working agreements that helps many people build one consistent product. After twenty-six chapters, we hope that sentence means a lot more than it did.</p>
+<p>The decisions are your foundations: colours named by their job, text styles with clear roles, a spacing scale, a grid. The reusable parts are your components and patterns, designed for every state and built for everyone. And the working agreements are what keep it all alive: who owns it, how people ask for things, how changes are made safely, how you know it's working.</p>
+<p>You don't need to do all of it at once. Pick the next stage, not the last one. Start with an audit, name your basic values, build the ten components your teams use most, and run a pilot. Then keep going, one quarter at a time, letting each step earn the next.</p>
+<p>And whatever you build, build it so your own team can run it without outside help. That's the last of Layer One's ten rules, and the best test of whether a design system will last.</p>
+<p class="pull">Leave the team able to run it without us.<cite>Rule #10 — Layer One</cite></p>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this book</h4>
+  <ol>
+    <li>A design system is an agreement, not a library: decisions, parts and the way of working together.</li>
+    <li>Start small and specific: audit, tokens, the everyday components, a real pilot.</li>
+    <li>Run it as a product with steady rhythms, and measure value, not just usage.</li>
+    <li>Build it so your own team can run it for years.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

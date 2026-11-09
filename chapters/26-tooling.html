@@ -1,0 +1,137 @@
+<section class="chapter" id="ch26" data-part="05" data-num="26" data-title="Tools, automation and AI" data-short="Tools &amp; AI"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 26</p>
+  <h1>Tools, automation and AI</h1>
+  <p class="dek">Tools don't make a design system, but the right ones make it much cheaper to run. This chapter maps the toolchain of a typical system, shows which automation pays back first, and looks practically at where AI helps today, and where it doesn't.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You're choosing tools for a design system, spending too much time on manual upkeep, or wondering how AI fits into design system work.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A map of the tools a design system uses, and what each one is for.</li><li>The minimum tool set for each stage of maturity, and the automations worth building first.</li><li>Realistic, useful ways to use AI in design system work, with the cautions that matter.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch26-1">
+<h2><span class="sec-num">26.1</span>Tools serve the process, not the other way round</h2>
+<p>It's tempting to start a design system by choosing tools: a documentation platform, a token manager, a component workshop. Tools feel like progress. But a tool without an owner and a process quickly becomes an expensive, out-of-date mirror of what's really happening.</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">The documentation site nobody updated</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A company buys a polished documentation platform and spends a month filling it with beautiful pages for every component.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>Nobody's job includes keeping it current. Within six months, half the pages describe old versions. Teams stop trusting it and ask in Slack instead.</p></div>
+    <div><span class="sc-k">What would have worked</span><p>Docs as part of the definition of done (Chapter 21), with parts generated from code automatically, so updating them is part of shipping, not a separate chore.</p></div>
+  </div>
+</div>
+<p>So the order matters: decide how the system will work (Chapter 05), then pick tools that make that way of working easier. Layer One's seventh rule applies here too: <em>build where the system lives</em>. Put the system into the files, repositories and tools your teams already use every day, rather than asking them to visit somewhere new.</p>
+</section>
+
+<section class="sec" id="ch26-2">
+<h2><span class="sec-num">26.2</span>The toolchain, mapped</h2>
+<p>Most design systems use tools in six areas. You don't need something in every area on day one, but it helps to see the whole picture and how the pieces connect.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="table-wrap" style="margin:0">
+<table>
+<thead><tr><th style="width:16%">Area</th><th style="width:28%">What it does</th><th>Typical tools</th><th style="width:26%">Connects to</th></tr></thead>
+<tbody>
+<tr><th>Design</th><td>Shared components and variables for designers</td><td>Figma libraries and variables[[c:figma-variables]]</td><td>Tokens (variables), docs (links)</td></tr>
+<tr><th>Tokens</th><td>One source of decisions, translated for every platform</td><td>Token files in the shared format;[[c:dtcg-format]] a build tool such as Style Dictionary[[c:style-dictionary]]</td><td>Design variables, code packages</td></tr>
+<tr><th>Code</th><td>The components, packaged and versioned</td><td>Your framework, a package registry, a component workshop such as Storybook[[c:storybook]]</td><td>Tokens, tests, docs</td></tr>
+<tr><th>Documentation</th><td>How and when to use everything</td><td>A dedicated documentation platform, or a docs site generated from the code</td><td>Code (live examples), design (links)</td></tr>
+<tr><th>Quality</th><td>Catch problems before they ship</td><td>Lint rules, visual regression tests, automated accessibility checks</td><td>Code, pull requests</td></tr>
+<tr><th>Insight</th><td>Know what's used and where</td><td>Design library analytics; scripts that scan product code</td><td>The health scorecard (Chapter 05)</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<figcaption><b>The six areas of a design system toolchain.</b> The arrows that matter most run from the token source into both design and code. That single connection keeps the twins in step.</figcaption>
+</figure>
+</section>
+
+<section class="sec" id="ch26-3">
+<h2><span class="sec-num">26.3</span>The right tools for your stage</h2>
+<p>A startup doesn't need an enterprise toolchain, and an enterprise can't run on a shared spreadsheet. Here's the minimum tool set we'd suggest for each of the maturity stages from Chapter 02. Add more only when a real problem calls for it. [[prac]]</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:20%">Stage</th><th>Design</th><th>Tokens</th><th>Code</th><th>Docs</th><th>Quality and insight</th></tr></thead>
+<tbody>
+<tr><th>1 · Shared styles</th><td>One Figma library</td><td>A shared file of values</td><td>Themed off-the-shelf library</td><td>A single page</td><td>Design reviews</td></tr>
+<tr><th>2 · Basics in code</th><td>Library + variables</td><td>Token files + build tool</td><td>Your package + workshop</td><td>Workshop pages</td><td>Lint for raw values</td></tr>
+<tr><th>3 · Looked after</th><td>Libraries split by purpose</td><td>Light and dark modes</td><td>Versioned releases</td><td>A docs site</td><td>Visual and accessibility tests; usage scripts</td></tr>
+<tr><th>4 · Platform</th><td>Brand and platform libraries</td><td>Multi-brand, multi-platform</td><td>Several packages and platforms</td><td>Docs platform with search</td><td>Health dashboard; automated migrations</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Keep your decisions portable</p>
+  <p>Whatever tools you choose, keep your tokens in the shared, vendor-neutral format and your components in your own repository. Tools come and go; your decisions shouldn't be locked inside any single product.</p>
+</div>
+</section>
+
+<section class="sec" id="ch26-4">
+<h2><span class="sec-num">26.4</span>Automation that pays for itself</h2>
+<p>Every hour the system team spends on repetitive upkeep is an hour not spent helping product teams. These automations, roughly in the order we'd build them, give the best return. [[prac]]</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:5%">#</th><th style="width:24%">Automation</th><th>What it saves</th><th style="width:14%">Effort</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><th>Token pipeline</th><td>Hand-copying values into code and design; mismatches between them</td><td>Days</td></tr>
+<tr><td class="num">2</td><th>Lint rules</th><td>Hard-coded colours and spacing slipping in; reviewers policing by hand</td><td>Days</td></tr>
+<tr><td class="num">3</td><th>Visual regression tests</th><td>Accidental visual changes; nervousness about every release</td><td>1–2 weeks</td></tr>
+<tr><td class="num">4</td><th>Automated accessibility checks</th><td>Common accessibility mistakes reaching products</td><td>Days</td></tr>
+<tr><td class="num">5</td><th>Release notes from changes</th><td>Writing release notes from memory at the last minute</td><td>Days</td></tr>
+<tr><td class="num">6</td><th>Usage dashboard</th><td>Guessing which components and versions are used where</td><td>1–2 weeks</td></tr>
+<tr><td class="num">7</td><th>Codemods for migrations</th><td>Teams manually rewriting code for breaking changes</td><td>Per change</td></tr>
+</tbody>
+</table>
+</div>
+<p>Notice that the first two are cheap and prevent the most common problems in the whole book: values drifting between design and code, and hard-coded values bypassing the foundations. If you automate nothing else, automate those.</p>
+</section>
+
+<section class="sec" id="ch26-5">
+<h2><span class="sec-num">26.5</span>Where AI helps today</h2>
+<p>AI tools are changing design system work quickly, and it's easy to either overhype them or dismiss them. Here's a grounded view of where they genuinely help, based on how teams are using them now. Layer One's founder has worked on exactly this kind of tooling: AI-assisted drafting of company-wide design patterns, and tools that check design files and code against a design system for hundreds of designers and over a thousand engineers.[[c:layerone]]</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:26%">Use</th><th>How it helps</th><th style="width:30%">Keep a human…</th></tr></thead>
+<tbody>
+<tr><th>Drafting documentation</th><td>Turns a component's code, props and examples into a first draft of its documentation page</td><td>…to check accuracy and add the "when not to use" judgement</td></tr>
+<tr><th>Writing release notes</th><td>Summarises code changes into plain-language notes for product teams</td><td>…to judge what's breaking and what teams must do</td></tr>
+<tr><th>Checking against the system</th><td>Flags designs or code that use off-system colours, spacing or components, and suggests the system equivalent</td><td>…to decide when a deviation is deliberate and fine</td></tr>
+<tr><th>Answering "which component?"</th><td>An assistant that has read your docs answers everyday questions in chat</td><td>…to keep the docs it reads accurate</td></tr>
+<tr><th>Migrations</th><td>Helps write and apply codemods for renames and replacements</td><td>…to review every change before it merges</td></tr>
+<tr><th>Drafting patterns</th><td>Proposes a first pattern write-up from examples across products</td><td>…to bring research, evidence and taste</td></tr>
+</tbody>
+</table>
+</div>
+<p>There's a pattern in that table. AI is good at <em>drafting</em> and <em>checking</em>, and it's only as good as the information it's given. A well-structured system, with named tokens, consistent props, documented components and clear rules, turns out to be excellent input for AI tools. A messy one gives messy results. In that sense, the work in this book is also the best preparation for using AI well.</p>
+</section>
+
+<section class="sec" id="ch26-6">
+<h2><span class="sec-num">26.6</span>Using AI responsibly</h2>
+<p>A few cautions are worth taking seriously, because the cost of a design system mistake is multiplied across every product.</p>
+<div class="cols-2">
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Watch out for</p><h4>Confident mistakes</h4><p>AI tools can produce plausible but wrong documentation or code. In a system used by hundreds of people, a wrong statement in the docs spreads quickly. Review everything.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Watch out for</p><h4>Accessibility by assumption</h4><p>Generated components often look right but miss keyboard behaviour or announcements. Test them like any other component (Chapter 21).</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Watch out for</p><h4>Inventing new things</h4><p>Ask an AI to "build a settings page" and it may invent components and colours instead of using yours. Point it at your system and check the result against it.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Watch out for</p><h4>Confidentiality</h4><p>Unreleased designs and internal code are sensitive. Use tools your company has approved, with appropriate data protections.</p></div>
+</div>
+<h3 style="margin-top:28px">Questions to ask before adopting any tool</h3>
+<ul class="checklist">
+  <li>What problem does it solve that we actually have today?</li>
+  <li>Who will own it and keep it current?</li>
+  <li>Does it work with our existing files, repositories and formats, or does it lock our decisions in?</li>
+  <li>How will we know, in three months, whether it was worth it?</li>
+  <li>What happens to our work if we stop using it?</li>
+</ul>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Decide how the system works first; choose tools that make that easier, and keep decisions portable.</li>
+    <li>Match the toolset to your maturity stage. More tools aren't better.</li>
+    <li>Automate the token pipeline and lint rules first; they prevent the most common problems.</li>
+    <li>Use AI for drafting and checking, keep humans for judgement, and remember that a well-structured system makes AI far more useful.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

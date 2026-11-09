@@ -1,0 +1,174 @@
+<section class="chapter" id="ch19" data-part="04" data-num="19" data-title="Props, in depth" data-short="Props"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 19</p>
+  <h1>Props, in depth</h1>
+  <p class="dek">Props are the settings on a component: the knobs and switches people use to get the version they need. They look like a small detail, but they decide how easy a component is to use, how consistent the product stays, and how painful it is to change things later.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You design or build components, review component proposals, or have ever wondered why some components are a joy to use and others are a puzzle.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>The different kinds of props, and how each one maps to Figma.</li><li>Rules for designing props that are clear, safe and consistent.</li><li>How props work under the surface, and how to change them without breaking anyone.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch19-1">
+<h2><span class="sec-num">19.1</span>Props are a promise</h2>
+<p>Go back to the TV remote from Chapter 15. A good remote has a few clearly labelled buttons that do exactly what they say. Nobody has to read a manual to turn the volume up. Now imagine a remote where "volume up" only works if "mode B" is on, and pressing "mute" while "input 2" is selected changes the channel. That's what a component with badly designed props feels like.</p>
+<p>Props matter for three reasons. They are <strong>the interface</strong> designers and engineers use every day, so clarity saves time on every screen. They <strong>decide consistency</strong>: if a prop lets anyone pick any colour, they will, and the product drifts. And they are <strong>a promise</strong>: once teams use a prop, changing or removing it breaks their screens, so mistakes in props are expensive to undo.</p>
+<p>That's why mature system teams spend more time discussing props than almost anything else. A useful mindset is to treat each prop as something you'll have to support for years. Add one only when you're sure it earns its place.</p>
+</section>
+
+<section class="sec" id="ch19-2">
+<h2><span class="sec-num">19.2</span>The kinds of props</h2>
+<p>Almost every prop in every component library falls into one of eight kinds. Knowing them helps you spot what a component needs, and spot props that don't belong.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:17%">Kind</th><th style="width:30%">What it does</th><th>Example in code</th><th style="width:20%">In Figma</th></tr></thead>
+<tbody>
+<tr><th>Variant</th><td>Picks one approved version from a fixed list</td><td><code>variant="primary" | "secondary" | "danger"</code></td><td>Variant property</td></tr>
+<tr><th>Size</th><td>Picks one approved size</td><td><code>size="sm" | "md" | "lg"</code></td><td>Variant property</td></tr>
+<tr><th>Switch</th><td>Turns one thing on or off</td><td><code>disabled</code>, <code>loading</code>, <code>fullWidth</code></td><td>Boolean property</td></tr>
+<tr><th>Content</th><td>Text or information to show</td><td><code>label="Email"</code>, <code>helperText="…"</code></td><td>Text property</td></tr>
+<tr><th>Slot</th><td>Lets you put other components inside</td><td><code>icon={&lt;SendIcon /&gt;}</code>, children</td><td>Instance swap or slot</td></tr>
+<tr><th>State</th><td>The current value, and its starting value</td><td><code>value</code>, <code>defaultValue</code>, <code>open</code></td><td>Usually a variant ("state")</td></tr>
+<tr><th>Event</th><td>What to do when something happens</td><td><code>onClick</code>, <code>onChange</code>, <code>onOpenChange</code></td><td>Not represented (prototype only)</td></tr>
+<tr><th>Accessibility</th><td>Extra information for assistive technology</td><td><code>aria-label="Close dialog"</code></td><td>Usually a note in the spec</td></tr>
+</tbody>
+</table>
+</div>
+<p>The Figma column matters. Figma's component properties come in a few types (variant, boolean, text and instance swap) that line up neatly with most of these kinds.[[c:figma-props]] When the two sides use the same property names and values, a designer's choices in Figma translate directly into code, which is the "twins" idea from Chapter 12 working at the level of individual settings.</p>
+</section>
+
+<section class="sec" id="ch19-3">
+<h2><span class="sec-num">19.3</span>Designing good props</h2>
+<p>Here are the rules we use when reviewing props. Each one comes from a mistake we've seen cause real pain.</p>
+
+<h3>Prefer one choice over many switches</h3>
+<p>The most common prop mistake is using several on/off switches for things that are really one choice. If a button has <code>isPrimary</code>, <code>isDanger</code> and <code>isGhost</code>, what happens when someone turns on two at once? Nobody knows. A single <code>variant</code> prop with a list of allowed values makes impossible combinations impossible.</p>
+<div class="cols-2">
+<pre style="margin:0"><span class="c">// ✕ Three switches, eight combinations,</span>
+<span class="c">//   most of them meaningless</span>
+&lt;<span class="k">Button</span> <span class="s">isPrimary</span> <span class="s">isDanger</span>&gt;
+  Delete
+&lt;/<span class="k">Button</span>&gt;</pre>
+<pre style="margin:0"><span class="c">// ✓ One choice, three valid options</span>
+&lt;<span class="k">Button</span> <span class="s">variant</span>=<span class="n">"danger"</span>&gt;
+  Delete
+&lt;/<span class="k">Button</span>&gt;</pre>
+</div>
+
+<h3>Use the same names everywhere</h3>
+<p>If buttons use <code>variant</code>, badges shouldn't use <code>type</code> and alerts shouldn't use <code>kind</code>. If buttons use <code>size="sm"</code>, inputs shouldn't use <code>size="small"</code>. Write down a short list of standard prop names (variant, size, tone, disabled, loading, label, onChange…) and use them across the whole library. People then learn the library once, not component by component.</p>
+
+<h3>Make the default the right answer</h3>
+<p>Whatever a prop is set to when nobody sets it should be the most common, safest choice. A button should default to the medium size and the secondary variant, so the "big orange button" is a deliberate decision, not an accident. A text field should default to having a visible label, not to hiding it.</p>
+
+<h3>Don't let props bypass the system</h3>
+<p>Props like <code>color="#FF3300"</code> or <code>padding={13}</code> let anyone escape the foundations, and someone always will. Props should offer <em>choices from the system</em> (<code>tone="critical"</code>, <code>size="lg"</code>), never raw values.</p>
+
+<h3>Only require what's essential</h3>
+<p>A component should work with as few props as possible. A button needs a label and something to do when clicked; everything else should have a sensible default. Every required prop is something someone will forget.</p>
+</section>
+
+<section class="sec" id="ch19-4">
+<h2><span class="sec-num">19.4</span>How props actually work</h2>
+<p>You don't need to be an engineer to understand the basic mechanics, and knowing them helps designers and engineers talk about components much more precisely.</p>
+<h3>Information flows one way</h3>
+<p>In most modern frameworks, information flows <strong>down</strong> through props, and news flows <strong>up</strong> through events. The screen tells the component what to show (via props). When something happens inside the component, like a click or a change, the component tells the screen (via an event prop such as <code>onChange</code>). The screen decides what to do, and if needed, sends new props back down.</p>
+<figure class="fig">
+<div class="fig-body">
+<svg viewBox="0 0 760 170" role="img" aria-label="Props flow down from the screen to the component; events flow back up" style="width:100%;height:auto;color:var(--text);font-family:'Schibsted Grotesk',sans-serif">
+  <rect x="20" y="40" width="240" height="90" rx="10" fill="var(--bg-sunken)" stroke="currentColor" stroke-opacity=".3"/>
+  <text x="40" y="74" font-size="15" font-weight="650" fill="currentColor">Product screen</text>
+  <text x="40" y="96" font-size="11.5" fill="currentColor" fill-opacity=".7">Knows the data and the rules</text>
+  <text x="40" y="114" font-size="11" font-family="JetBrains Mono" fill="currentColor" fill-opacity=".6">tab = "invoices"</text>
+  <rect x="500" y="40" width="240" height="90" rx="10" fill="var(--signal-500)"/>
+  <text x="520" y="74" font-size="15" font-weight="650" fill="#0b0d12">Tabs component</text>
+  <text x="520" y="96" font-size="11.5" fill="#0b0d12">Knows how to look and behave</text>
+  <text x="520" y="114" font-size="11" font-family="JetBrains Mono" fill="#0b0d12">shows the selected tab</text>
+  <line x1="270" y1="68" x2="490" y2="68" stroke="currentColor" stroke-width="1.6"/><path d="M490 68 l-8 -5 v10z" fill="currentColor"/>
+  <text x="300" y="58" font-size="11" font-family="JetBrains Mono" fill="currentColor">props: value="invoices"</text>
+  <line x1="490" y1="104" x2="270" y2="104" stroke="var(--accent)" stroke-width="1.6"/><path d="M270 104 l8 -5 v10z" fill="var(--accent)"/>
+  <text x="300" y="124" font-size="11" font-family="JetBrains Mono" fill="var(--accent-text)">event: onValueChange("payments")</text>
+</svg>
+</div>
+<figcaption><b>Props flow down, events flow up.</b> The screen owns the information; the component owns how it looks and behaves. When someone clicks a tab, the component reports it, and the screen decides what happens next.</figcaption>
+</figure>
+<p>This one-way flow is what makes components predictable. Given the same props, a component always looks the same. That's also what makes visual testing (Chapter 15) possible: render each combination of props, take a picture, compare.</p>
+
+<h3>Controlled and uncontrolled, again</h3>
+<p>Chapter 18 introduced the idea that either the screen or the component can keep track of a value. In terms of props, an uncontrolled component takes a <code>defaultValue</code> and looks after itself; a controlled component takes a <code>value</code> plus an event like <code>onValueChange</code>, and the screen stays in charge.[[c:react-controlled]] Good libraries name these consistently across every component that has a value, so engineers only learn the pattern once.</p>
+
+<h3>Passing things through</h3>
+<p>Components should usually pass along standard properties they don't use themselves, such as an ID for testing or an accessibility attribute, to the underlying element. Engineers call this "spreading" props. It means the system doesn't block teams from doing ordinary, legitimate things, without having to add a special prop for every case.</p>
+</section>
+
+<section class="sec" id="ch19-5">
+<h2><span class="sec-num">19.5</span>Props in Figma, and documenting them</h2>
+<p>For the twins to stay identical, props need to look the same in both places. Here's how Ledgerly's button lines up.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%">Code prop</th><th style="width:16%">Type</th><th style="width:12%">Default</th><th style="width:22%">Figma property</th><th>What it's for</th></tr></thead>
+<tbody>
+<tr><td><code>variant</code></td><td>primary · secondary · danger</td><td>secondary</td><td>Variant: <i>Variant</i></td><td>The importance of the action. One primary per screen area.</td></tr>
+<tr><td><code>size</code></td><td>sm · md · lg</td><td>md</td><td>Variant: <i>Size</i></td><td>Match the density of the surrounding UI.</td></tr>
+<tr><td><code>icon</code></td><td>icon name</td><td>none</td><td>Boolean <i>Has icon</i> + instance swap <i>Icon</i></td><td>An optional icon before the label.</td></tr>
+<tr><td><code>loading</code></td><td>true / false</td><td>false</td><td>Boolean: <i>Loading</i></td><td>Shows progress and prevents double clicks.</td></tr>
+<tr><td><code>disabled</code></td><td>true / false</td><td>false</td><td>Variant: <i>State = Disabled</i></td><td>Can't be used right now. Explain why nearby.</td></tr>
+<tr><td><code>children</code></td><td>text</td><td>—</td><td>Text: <i>Label</i></td><td>The label. Start with a verb: "Send invoice".</td></tr>
+<tr><td><code>onClick</code></td><td>event</td><td>—</td><td>— (prototype only)</td><td>What happens when it's pressed.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Notice two small differences that are agreed and documented: Figma shows the icon as two properties (a switch and a choice of icon), while code uses one; and Figma treats "disabled" as a visual state, while code treats it as a switch. Differences like this are fine <strong>as long as they're written down</strong>. What causes trouble is differences nobody decided.</p>
+<p>This table is also the right format for documentation. Every component's documentation page should list its props with the same five columns: name, type, default, the Figma equivalent and a plain-language purpose. Many teams generate the first three columns automatically from the code, so they're never out of date, and write the last two by hand.</p>
+</section>
+
+<section class="sec" id="ch19-6">
+<h2><span class="sec-num">19.6</span>Changing props without breaking anyone</h2>
+<p>Props are promises, so changing them needs care. Here's how each kind of change should be handled, using the version-number rules from Chapter 05.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Change</th><th style="width:16%">Release type</th><th>How to do it safely</th></tr></thead>
+<tbody>
+<tr><td>Add a new optional prop</td><td>Minor</td><td>Give it a default that keeps today's behaviour. Nobody notices unless they want it.</td></tr>
+<tr><td>Add a new value to a variant</td><td>Minor</td><td>As above. Update Figma at the same time.</td></tr>
+<tr><td>Change a default value</td><td>Major</td><td>Everyone relying on the old default sees a change. Announce it, with screenshots.</td></tr>
+<tr><td>Rename a prop</td><td>Major (eventually)</td><td>Accept both names for a while, warn when the old one is used, provide an automatic fix, remove the old name in the next major release.</td></tr>
+<tr><td>Remove a prop or value</td><td>Major</td><td>Deprecate first, track usage, give a notice period, then remove.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">Renaming "kind" to "variant" across 600 buttons</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>Ledgerly's early button used <code>kind</code>. Every other component uses <code>variant</code>. The inconsistency confuses new engineers.</p></div>
+    <div><span class="sc-k">What they do</span><p>Version 4.3 accepts both <code>kind</code> and <code>variant</code>, and shows a gentle warning in development when <code>kind</code> is used. They publish a small script that rewrites <code>kind=</code> to <code>variant=</code> automatically.</p></div>
+    <div><span class="sc-k">The result</span><p>Most teams run the script in a few minutes. Usage tracking shows when the old name is gone. Version 5.0 removes <code>kind</code>, and nobody's screen breaks.</p></div>
+  </div>
+</div>
+<div class="term"><span class="term-k">New word</span><b>Codemod</b><span>A small script that automatically rewrites code, for example renaming a prop everywhere it's used. It turns a day of manual edits into a minute.</span></div>
+</section>
+
+<section class="sec" id="ch19-7">
+<h2><span class="sec-num">19.7</span>Prop patterns to avoid</h2>
+<p>Finally, here are the prop patterns we most often recommend removing in audits. If you spot these in your library, they're usually signs of a component that's trying to do too much.</p>
+<div class="cols-2">
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Avoid</p><h4>Raw style props</h4><p><code>color</code>, <code>margin</code>, <code>fontSize</code> as free values. They bypass the foundations. Offer named choices instead.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Avoid</p><h4>Switch explosions</h4><p>Many booleans that interact. Combine related ones into a single choice.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Avoid</p><h4>One-team props</h4><p>A prop added for one screen in one product. It becomes everyone's maintenance burden. Build it locally instead.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Avoid</p><h4>"Config" objects</h4><p>A single prop that takes a big bundle of settings. It hides what the component can do and makes changes hard to track.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Avoid</p><h4>Contradictory props</h4><p>Props that make no sense together, like <code>loading</code> and <code>disabled</code> with different meanings. Define clearly which wins.</p></div>
+  <div class="callout callout--mistake" style="margin:0"><p class="callout-label">Avoid</p><h4>Hidden behaviour</h4><p>A prop whose name doesn't match what it does, like <code>compact</code> that also hides the icon. Names should never surprise.</p></div>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Props are a long-term promise. Add one only when it earns its place.</li>
+    <li>Use one choice instead of many switches, the same names everywhere, and safe defaults.</li>
+    <li>Props flow down and events flow up; support both controlled and uncontrolled use.</li>
+    <li>Match props in Figma and code, document differences, and change props through deprecation and automatic fixes.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

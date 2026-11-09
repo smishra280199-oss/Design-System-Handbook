@@ -1,0 +1,147 @@
+<section class="chapter" id="ch25" data-part="05" data-num="25" data-title="Scaling across products, brands and platforms" data-short="Scaling"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 25</p>
+  <h1>Scaling across products, brands and platforms</h1>
+  <p class="dek">A design system that works beautifully for one product and one team gets tested in new ways when the company grows: a second brand, a mobile app, an acquisition, a new business unit with its own ideas. This chapter is about stretching the system without breaking it.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>Your system needs to serve several brands, several platforms or several business units, or you're planning for that future.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>How to support several brands and platforms from one source of decisions.</li><li>How "families of systems" work, and when you need one.</li><li>Governance and funding models that work across business units.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch25-1">
+<h2><span class="sec-num">25.1</span>What changes when you scale</h2>
+<p>Scaling a design system isn't just "the same thing, bigger". New kinds of difference appear: different brands that must look different, different platforms that must feel native, and different business units with different priorities and budgets. Each one tempts teams to start their own system.</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">One group, three brands, three systems</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A financial group runs three consumer brands: a bank, an insurance company and a lending app. Each brand has its own design team, and each built its own design system.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>Three teams maintain three date pickers, three accessibility fixes, three token pipelines. When a regulation changes the rules for how fees must be displayed, it's implemented three times, differently.</p></div>
+    <div><span class="sc-k">What scaling well looks like</span><p>One shared core (behaviour, accessibility, structure, foundations) with a brand layer on top. Each brand still looks like itself; the hard work is done once.</p></div>
+  </div>
+</div>
+<p>The guiding principle for everything in this chapter is simple: <strong>share what should be the same, and make what should differ easy to differ</strong>. Behaviour, accessibility and structure should almost always be shared. Visual identity, and sometimes platform conventions, should be allowed to vary, in controlled ways.</p>
+</section>
+
+<section class="sec" id="ch25-2">
+<h2><span class="sec-num">25.2</span>Several brands from one system</h2>
+<p>Chapter 07 introduced brand tokens, and Chapter 20 showed how component tokens let a brand restyle specific components. Put together, they make a multi-brand system practical. Here's what usually stays shared and what varies.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Layer</th><th>Shared across brands</th><th>Varies by brand</th></tr></thead>
+<tbody>
+<tr><th>Behaviour</th><td>Keyboard use, focus, announcements, validation logic</td><td>Nothing</td></tr>
+<tr><th>Structure</th><td>Component anatomy, props, patterns</td><td>Rarely; only through agreed extensions</td></tr>
+<tr><th>Semantic tokens</th><td>The <em>names</em> of the jobs</td><td>Which values the names point to</td></tr>
+<tr><th>Colour</th><td>The lightness curve and contrast rules</td><td>Brand hues, and sometimes neutral tints</td></tr>
+<tr><th>Typography</th><td>The roles (heading, body, label) and accessibility rules</td><td>Font families, sometimes the scale</td></tr>
+<tr><th>Shape and motion</th><td>The token names</td><td>Corner rounding, shadows, animation style</td></tr>
+<tr><th>Imagery and voice</th><td>Accessibility rules</td><td>Illustrations, photography, tone of voice</td></tr>
+</tbody>
+</table>
+</div>
+<p>The result is that a new brand is mostly a new set of values, not a new system. Because the lightness curve is shared (Chapter 07), every brand's colours meet the same contrast rules automatically, even when their hues are completely different. A regulation change to how fees are shown becomes one pattern update, inherited by all three brands.</p>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Test with the most different brand first</p>
+  <p>When building a multi-brand system, design the first components against your two most different brands at once, not one brand first. It's much easier to find the right flexibility points while building than to add them afterwards.</p>
+</div>
+</section>
+
+<section class="sec" id="ch25-3">
+<h2><span class="sec-num">25.3</span>Several platforms from one source</h2>
+<p>Web, iPhone and Android each have their own conventions. Apple's guidelines and Google's Material Design describe different navigation, different controls and different text sizes.[[c:hig-layout,m3-structure]] A good multi-platform system respects those conventions while keeping the brand and the experience recognisably the same.</p>
+<figure class="fig">
+<div class="fig-body ink">
+<div class="pipeline" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+  <div class="pipe-step"><span class="pn">ONE SOURCE</span><h5 style="color:#fff">Token files</h5><div class="pex">Colours, type, spacing, radius, motion, in the shared format</div></div>
+  <div class="pipe-step"><span class="pn">BUILD</span><h5 style="color:#fff">Token pipeline</h5><div class="pex">A tool such as Style Dictionary translates the source for each platform</div></div>
+  <div class="pipe-step"><span class="pn">OUTPUTS</span><h5 style="color:#fff">Every platform</h5><div class="pex">CSS variables · Swift · Kotlin · Figma variables</div></div>
+  <div class="pipe-step"><span class="pn">COMPONENTS</span><h5 style="color:#fff">Native on each</h5><div class="pex">Built per platform, same names and props, same tokens</div></div>
+</div>
+</div>
+<figcaption><b>One source of decisions, every platform.</b> Tokens are written once and generated for each platform by a build tool. Style Dictionary is a widely used open-source example.[[c:style-dictionary]] Components are then built natively, sharing names, props and tokens.</figcaption>
+</figure>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Decide to…</th><th>Usually</th><th style="width:40%">Examples</th></tr></thead>
+<tbody>
+<tr><th>Share</th><td>Brand, foundations, content, component names and purposes</td><td>Colours, voice, "primary button", error message formulas</td></tr>
+<tr><th>Adapt</th><td>Things where the platform has strong conventions</td><td>Navigation patterns, date pickers, switches, text sizes, haptics</td></tr>
+<tr><th>Keep separate</th><td>Things that only exist on one platform</td><td>Widgets, watch faces, keyboard shortcuts on desktop</td></tr>
+</tbody>
+</table>
+</div>
+<p>A useful test: would a regular user of this platform be surprised by how this behaves? If yes, adapt to the platform. If no, share it. People expect an iPhone app to feel like an iPhone app, while still recognising your brand.</p>
+</section>
+
+<section class="sec" id="ch25-4">
+<h2><span class="sec-num">25.4</span>Families of systems</h2>
+<p>At a certain size, one system can't sensibly hold everything. A bank's customer app, its internal operations tools and its marketing site have such different needs that forcing them into one library makes it worse for all three. The answer many large companies arrive at is a <strong>family of systems</strong>: a shared core, with specialised systems built on top of it.</p>
+<figure class="fig">
+<div class="fig-body">
+<svg viewBox="0 0 760 250" role="img" aria-label="A shared core with specialised systems around it" style="width:100%;height:auto;color:var(--text);font-family:'Schibsted Grotesk',sans-serif">
+  <circle cx="380" cy="125" r="62" fill="var(--signal-500)"/>
+  <text x="380" y="120" text-anchor="middle" font-size="14" font-weight="650" fill="#0b0d12">Core</text>
+  <text x="380" y="138" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#0b0d12">tokens · base components</text>
+  <g fill="var(--bg-raised)" stroke="currentColor" stroke-opacity=".4">
+    <rect x="30" y="30" width="200" height="70" rx="10"/><rect x="530" y="30" width="200" height="70" rx="10"/>
+    <rect x="30" y="150" width="200" height="70" rx="10"/><rect x="530" y="150" width="200" height="70" rx="10"/>
+  </g>
+  <g stroke="currentColor" stroke-opacity=".35"><line x1="230" y1="65" x2="322" y2="105"/><line x1="530" y1="65" x2="438" y2="105"/><line x1="230" y1="185" x2="322" y2="145"/><line x1="530" y1="185" x2="438" y2="145"/></g>
+  <g font-size="13" font-weight="650" fill="currentColor"><text x="46" y="60">Customer apps</text><text x="546" y="60">Internal tools</text><text x="46" y="180">Marketing sites</text><text x="546" y="180">Data products</text></g>
+  <g font-size="10.5" fill="currentColor" fill-opacity=".65"><text x="46" y="80">mobile patterns, onboarding</text><text x="546" y="80">dense tables, admin patterns</text><text x="46" y="200">page sections, CMS blocks</text><text x="546" y="200">charts, data grids</text></g>
+</svg>
+</div>
+<figcaption><b>A family of systems.</b> Each specialised system builds on the shared core and is owned by the teams closest to its users. Nathan Curtis describes this as tiers below a high-quality core;[[c:curtis-tiers]] Spotify's Encore is a well-known example, which brought 22 separate systems under one shared foundation.[[c:spotify-encore]]</figcaption>
+</figure>
+<p>A family of systems only works with a few clear rules. <strong>Everyone uses the core tokens</strong>, so the brand and accessibility baseline stay consistent. <strong>Specialised systems build on core components rather than copying them</strong>, so fixes flow outwards. <strong>Each specialised system has a named owning team</strong>, usually the one closest to its users. And <strong>things move into the core when they're needed widely</strong>, following the rule of two from Chapter 05. Without these rules, a family of systems slowly becomes the "22 separate systems" problem again.</p>
+</section>
+
+<section class="sec" id="ch25-5">
+<h2><span class="sec-num">25.5</span>Governance and funding across business units</h2>
+<p>When several business units depend on one system, two questions become political very quickly: <em>who decides</em>, and <em>who pays</em>. Answering them openly, early, prevents a lot of quiet resentment.</p>
+<h3>Who decides</h3>
+<p>Most large organisations settle on a small <strong>council</strong>: the system lead plus a design and engineering representative from each major business unit, meeting on a regular rhythm for decisions that affect everyone (foundations, breaking changes, the roadmap). Day-to-day decisions stay with the system team and contributors, as described in Chapter 05. The council is for the few decisions that genuinely need everyone in the room.</p>
+<h3>Who pays</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Funding model</th><th>How it works</th><th>Works well when</th><th style="width:26%">Risk</th></tr></thead>
+<tbody>
+<tr><th>Central budget</th><td>The system is funded centrally, like shared infrastructure</td><td>Leadership sees the system as a platform</td><td>Business units feel no ownership</td></tr>
+<tr><th>Contribution of people</th><td>Each business unit gives a share of designers and engineers to the system</td><td>Units are similar in size and need</td><td>Contributed people get pulled back to unit work</td></tr>
+<tr><th>Mixed</th><td>A central core team plus contributors funded by units for their extensions</td><td>Most mature, multi-unit organisations</td><td>Needs clear rules about core vs extension</td></tr>
+</tbody>
+</table>
+</div>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">"Our unit wants to opt out"</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>One business unit complains the system is too slow for its needs and asks to build its own.</p></div>
+    <div><span class="sc-k">What to do</span><p>Treat it as feedback first: what's missing, and why is it slow? Often the answer is an extension owned by that unit, built on the core, with a fast lane for their needs.</p></div>
+    <div><span class="sc-k">Why</span><p>Opting out fully costs the unit the shared accessibility, brand and maintenance work, and costs everyone consistency. A well-supported extension usually gives them the speed they want without either cost.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ch25-6">
+<h2><span class="sec-num">25.6</span>Legacy products and long migrations</h2>
+<p>At scale, there's always an older product that can't adopt the new system quickly: different technology, no team assigned, or a complete rewrite planned "next year". Don't let these products hold the system back, and don't leave them behind entirely.</p>
+<ol class="steps">
+  <li><h4>Tokens first</h4><p>Ship the token values (as CSS variables or a theme file) into the legacy product. Colours, type and spacing align quickly, and the product looks part of the family (Chapter 22, case 4).</p></li>
+  <li><h4>Replace the most visible parts</h4><p>Navigation, buttons and forms, where users notice inconsistency most. Replace them as screens are touched, not all at once.</p></li>
+  <li><h4>Measure the whole portfolio</h4><p>Track adoption per product on one simple dashboard, so leadership sees progress across the whole company, not just in the newest products.</p></li>
+  <li><h4>Agree an end state</h4><p>For each legacy product, decide openly: full adoption, tokens only, or retirement. A clear plan is better than an endless "someday".</p></li>
+</ol>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Share behaviour, accessibility and structure; let brand and platform conventions vary in controlled ways.</li>
+    <li>One token source can feed every brand and platform; components are built natively with the same names.</li>
+    <li>At large scale, use a family of systems: a shared core plus specialised systems with named owners.</li>
+    <li>Decide openly who decides and who pays, and bring legacy products along with tokens first.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

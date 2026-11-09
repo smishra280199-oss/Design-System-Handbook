@@ -1,0 +1,146 @@
+<section class="chapter" id="ch17" data-part="04" data-num="17" data-title="Component complexity" data-short="Complexity"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 17</p>
+  <h1>Component complexity</h1>
+  <p class="dek">A badge and a data table are both "components", but one takes an afternoon and the other can take a quarter. Understanding complexity helps you plan honestly, choose the right process for each component, and pick the simplest component that does the job.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You estimate or plan component work, keep being surprised by how long some components take, or need to decide which component to use for a design problem.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>Four clear levels of component complexity, with examples.</li><li>A scoring method you can use to rate any component.</li><li>How complexity should change your process, and how to keep it under control.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch17-1">
+<h2><span class="sec-num">17.1</span>Not all components are equal</h2>
+<p>Here's a planning conversation we hear all the time. "This quarter, the design system team will build ten components: tooltip, badge, avatar, divider, tag, button group, breadcrumbs, tabs, date picker and data table." Ten components, three months, so about a week each. It sounds reasonable. It isn't.</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">"Ten components this quarter"</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A system team commits to ten components in a quarter. The first six (badge, avatar, divider, tag, tooltip, breadcrumbs) are done in three weeks. The team feels ahead of schedule.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>Tabs take two weeks to get keyboard behaviour right. The date picker takes five weeks: time zones, locales, keyboard grids, screen readers. The data table isn't started. Leadership sees "60% done" and loses trust.</p></div>
+    <div><span class="sc-k">What would have helped</span><p>Rating each component's complexity first. The data table alone was more work than the other nine combined. The plan should have said so, or left it for next quarter.</p></div>
+  </div>
+</div>
+<p>Counting components is like estimating a house renovation by counting rooms: the bathroom and the hallway are both "a room", but one involves plumbing, waterproofing and tiling. Complexity is what tells you which is which. The rest of this chapter gives you a shared language for it, so designers, engineers and managers can plan together and stop being surprised.</p>
+</section>
+
+<section class="sec" id="ch17-2">
+<h2><span class="sec-num">17.2</span>Four levels of complexity</h2>
+<p>We find it useful to sort components into four levels. They loosely echo Brad Frost's idea of building from small parts to large ones,[[c:frost-atomic]] but they're organised by <em>how hard something is to get right</em> rather than how big it is.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="maturity" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+  <div class="mat-col" style="height:250px;background:#ffe2d5;color:#0b0d12"><span class="mn">LEVEL 1</span><h5>Elements</h5><ul><li>Show something</li><li>Little or no interaction</li><li>Few states</li></ul><span class="mat-inv">Badge, avatar, divider, icon, tag, spinner</span></div>
+  <div class="mat-col" style="height:300px;background:#ffa384;color:#0b0d12"><span class="mn">LEVEL 2</span><h5>Controls</h5><ul><li>One clear interaction</li><li>Full set of states</li><li>Standard keyboard use</li></ul><span class="mat-inv">Button, text field, checkbox, radio, switch, link</span></div>
+  <div class="mat-col" style="height:350px;background:#ed521c;color:#0b0d12"><span class="mn">LEVEL 3</span><h5>Composites</h5><ul><li>Made of several parts</li><li>Complex keyboard and focus rules</li><li>Open/close, selection</li></ul><span class="mat-inv">Select, menu, tabs, dialog, combobox, date picker, card with slots</span></div>
+  <div class="mat-col" style="height:400px;background:#0b0d12;color:#ecece8"><span class="mn" style="color:#ff8a63">LEVEL 4</span><h5>Systems</h5><ul><li>Handle data and logic</li><li>Performance matters</li><li>Many configurations</li></ul><span class="mat-inv" style="color:#9aa0aa">Data table, rich text editor, file uploader, charts, multi-step form, app frame</span></div>
+</div>
+</div>
+<figcaption><b>Four levels of component complexity.</b> [[prac]] Each level up adds a new kind of difficulty: interaction at level 2, coordination between parts at level 3, and data, logic and performance at level 4.</figcaption>
+</figure>
+<p><strong>Level 1, elements,</strong> mostly display something: a badge, an avatar, a divider, an icon. They're about visual consistency and they're quick to build. The main risk is making too many variations of them.</p>
+<p><strong>Level 2, controls,</strong> are the things people interact with directly: buttons, text fields, checkboxes. Each has one main job, but now every state matters (hover, focus, disabled, error), and keyboard and screen-reader support become essential.</p>
+<p><strong>Level 3, composites,</strong> are built from several parts that have to work together: a menu has a trigger and a list; tabs have a tab list and panels; a dialog manages focus for everything inside it. This is where accessibility gets genuinely hard, because there are established keyboard patterns people expect, documented in the W3C's ARIA Authoring Practices Guide.[[c:aria-apg]]</p>
+<p><strong>Level 4, systems,</strong> are small applications in their own right. A data table sorts, filters, paginates, selects rows, resizes columns and must stay fast with thousands of rows. A rich text editor is a famously hard engineering problem. These components often take longer than everything else in the library combined.</p>
+</section>
+
+<section class="sec" id="ch17-3">
+<h2><span class="sec-num">17.3</span>Measuring complexity: a simple scoring method</h2>
+<p>Levels are a good first guess, but you'll want something more precise when planning. Here's a scoring method we use. Rate the component from 0 to 3 on each of eight questions, then add them up. You don't need to be exact; the point is to have the conversation, as a team, before committing to dates. [[prac]]</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Question</th><th>0 — none</th><th>1 — a little</th><th>2 — quite a lot</th><th>3 — a lot</th></tr></thead>
+<tbody>
+<tr><th>Options</th><td>One version</td><td>2–3 variants</td><td>Variants × sizes</td><td>Many combinations</td></tr>
+<tr><th>States</th><td>Static</td><td>Hover, focus</td><td>Full interactive set</td><td>Plus data states (loading, empty, error)</td></tr>
+<tr><th>Interaction</th><td>None</td><td>Click</td><td>Typing, selection</td><td>Drag, resize, multi-select</td></tr>
+<tr><th>Keyboard &amp; screen reader</th><td>Nothing special</td><td>Standard tab and enter</td><td>Arrow keys, announcements</td><td>Complex focus management, live updates</td></tr>
+<tr><th>Data</th><td>None</td><td>Simple value</td><td>Lists, formatting</td><td>Large data sets, async loading</td></tr>
+<tr><th>Screen sizes</th><td>Same everywhere</td><td>Minor adjustments</td><td>Different layout on mobile</td><td>Different behaviour on mobile</td></tr>
+<tr><th>Composition</th><td>Single part</td><td>Fixed sub-parts</td><td>Slots or children</td><td>Nested components, coordination</td></tr>
+<tr><th>Platforms</th><td>Web only</td><td>Web, one framework</td><td>Web + one native</td><td>Web + iOS + Android</td></tr>
+</tbody>
+</table>
+</div>
+<p>Then use the total like this: <strong>0–6</strong> is level 1, <strong>7–12</strong> is level 2, <strong>13–18</strong> is level 3, and <strong>19–24</strong> is level 4. Here's how three familiar components score:</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th style="width:18%">Component</th><th class="num">Options</th><th class="num">States</th><th class="num">Interaction</th><th class="num">Keyboard</th><th class="num">Data</th><th class="num">Screens</th><th class="num">Composition</th><th class="num">Platforms</th><th class="num">Total</th><th>Level</th></tr></thead>
+<tbody>
+<tr><th>Badge</th><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num"><b>2</b></td><td>1 · Element</td></tr>
+<tr><th>Button</th><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num"><b>9</b></td><td>2 · Control</td></tr>
+<tr><th>Date picker</th><td class="num">2</td><td class="num">3</td><td class="num">2</td><td class="num">3</td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num"><b>17</b></td><td>3 · Composite</td></tr>
+<tr><th>Data table</th><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">1</td><td class="num"><b>22</b></td><td>4 · System</td></tr>
+</tbody>
+</table>
+</div>
+<p>Notice the date picker. Most people would guess it's similar to a select menu. The scoring shows why it isn't: dates are data (time zones, locales, ranges, disabled days), and a calendar grid has some of the most demanding keyboard behaviour of any common component.</p>
+</section>
+
+<section class="sec" id="ch17-4">
+<h2><span class="sec-num">17.4</span>How complexity changes the way you work</h2>
+<p>Here's the practical payoff. Once you know a component's level, you can match the process to it. Running a level 4 process for a badge wastes everyone's time; running a level 1 process for a data table guarantees bugs in production.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%"></th><th>Level 1 · Elements</th><th>Level 2 · Controls</th><th>Level 3 · Composites</th><th>Level 4 · Systems</th></tr></thead>
+<tbody>
+<tr><th>Who's involved</th><td>One designer, one engineer</td><td>Pair, plus a quick accessibility check</td><td>Pair, accessibility specialist, a pilot team</td><td>A small squad, several pilot teams, product managers</td></tr>
+<tr><th>Research</th><td>Inventory only</td><td>Inventory and real content</td><td>Usage research across teams</td><td>Requirements gathering, like a product feature</td></tr>
+<tr><th>Accessibility</th><td>Contrast, labels</td><td>Keyboard and screen-reader basics</td><td>Full ARIA pattern; manual testing</td><td>Expert review; testing with assistive-technology users</td></tr>
+<tr><th>Testing</th><td>Visual tests</td><td>Visual and behaviour tests</td><td>Plus manual keyboard and screen-reader tests</td><td>Plus performance tests with real data volumes</td></tr>
+<tr><th>Beta period</th><td>None needed</td><td>A week or two</td><td>A month, with a pilot</td><td>A quarter, with several pilots</td></tr>
+<tr><th>Documentation</th><td>Short page</td><td>Full template</td><td>Full template plus behaviour notes</td><td>Guides, recipes and examples</td></tr>
+<tr><th>Typical effort</th><td>Days</td><td>1–2 weeks</td><td>3–6 weeks</td><td>1–3 months or more</td></tr>
+</tbody>
+</table>
+</div>
+<p class="muted" style="font-size:14px">Effort ranges are [[prac]] estimates for one web framework, assuming foundations already exist. Each extra platform adds roughly the same again.</p>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Plan by points, not by count</p>
+  <p>Instead of "ten components this quarter", plan with the complexity totals: "about 90 points this quarter". A badge is 2 points, a data table is 22. It sounds a little nerdy, but it instantly makes plans more honest, and it gives leadership a much better picture of progress than a count of finished components.</p>
+</div>
+</section>
+
+<section class="sec" id="ch17-5">
+<h2><span class="sec-num">17.5</span>Choosing the simplest component that works</h2>
+<p>Complexity isn't just a planning tool for system teams. It's also a design decision for product teams. Every time a designer chooses a component, they're choosing a level of complexity for their users <em>and</em> for the engineers who'll build the screen. The simplest component that does the job is almost always the right choice.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:30%">If you need people to…</th><th>Prefer this (simpler)</th><th>Over this (more complex)</th><th style="width:26%">Unless…</th></tr></thead>
+<tbody>
+<tr><td>Choose one of 2–5 options</td><td>Radio buttons</td><td>A dropdown select</td><td>Space is very tight</td></tr>
+<tr><td>Choose one of 6–15 options</td><td>A select</td><td>A searchable combobox</td><td>Options are unfamiliar or long</td></tr>
+<tr><td>Choose from hundreds of options</td><td>A combobox with search</td><td>A custom picker dialog</td><td>Options need images or grouping</td></tr>
+<tr><td>Enter a date they know (birthday)</td><td>Three simple fields or one text field</td><td>A calendar date picker</td><td>They need to see days of the week</td></tr>
+<tr><td>Show extra information</td><td>Text on the page</td><td>A tooltip</td><td>It's genuinely secondary</td></tr>
+<tr><td>Confirm a decision</td><td>An inline message or undo</td><td>A confirmation dialog</td><td>The action is destructive and can't be undone</td></tr>
+</tbody>
+</table>
+</div>
+<p>The date example is worth a moment. Calendar pickers feel modern, but for a date someone already knows, like their date of birth, typing it is usually faster than scrolling back decades in a calendar. The GOV.UK Design System, which is heavily user-tested, recommends simple separate day, month and year fields for exactly this case.[[c:govuk-patterns]] [[doc]] Simpler for the user, and a level 2 component instead of a level 3.</p>
+<p>When you do need something complex, build it from simpler parts. A combobox is a text field plus a list plus some coordination; a data table is cells, checkboxes, buttons and menus arranged in a grid. If the simple parts are solid, the complex component inherits their quality, and fixes to the parts improve everything built from them.</p>
+</section>
+
+<section class="sec" id="ch17-6">
+<h2><span class="sec-num">17.6</span>Keeping complexity under control</h2>
+<p>Components tend to get more complex over time. Every reasonable request adds a little: one more option, one more state, one more special case. We call this <strong>complexity creep</strong>, and it's how a level 2 button quietly becomes a level 3 problem nobody wants to touch.</p>
+<p>Three habits keep it in check. The first is a <strong>scope statement</strong> on every component's documentation page: a short list of what this component will <em>never</em> do. "The button will never contain a dropdown. Use the split button instead." It sounds negative, but it saves enormous amounts of debate.</p>
+<p>The second is <strong>splitting instead of stretching</strong>. When a component starts serving two quite different jobs, it's usually better to split it into two simpler components than to add options until it does both badly. A "card" that is sometimes a link, sometimes a form and sometimes a dashboard widget is probably three components.</p>
+<p>The third is <strong>re-scoring once a year</strong>. Run the eight questions again for your most-used components. If a score has jumped, ask why, and whether all that complexity is still earning its keep.</p>
+<div class="callout callout--mistake">
+  <p class="callout-label">A mistake we see often</p>
+  <h4>Building the "universal" component</h4>
+  <p>A team tries to build one table that handles every possible case: simple lists, editable spreadsheets, trees, pivot tables. It takes a year and is so complex that most teams avoid it. It's usually better to build a simple table that handles 80% of cases well, and let the rare, complex cases use a specialised component or a well-chosen third-party library.</p>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Components range from simple elements to whole systems. A data table can be more work than ten badges.</li>
+    <li>Score components on eight questions to plan honestly, and plan by points, not by count.</li>
+    <li>Match the process (people, testing, beta period) to the level of complexity.</li>
+    <li>Choose the simplest component that works, and fight complexity creep with scope statements and splits.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

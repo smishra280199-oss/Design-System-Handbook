@@ -1,7 +1,7 @@
 # The Design Systems Playbook — Layer One
 
 A free, research-backed handbook on design systems by **Aniket Pandey**, published by
-**[Layer One](https://www.layerone.co.in/)**. Edition 0.2 covers:
+**[Layer One](https://www.layerone.co.in/)**. Edition 1.0 (complete) covers:
 
 - **Part 01 — Understanding design systems:** what a design system is, who needs one, what it's worth,
   the economics, and operating models.
@@ -9,8 +9,12 @@ A free, research-backed handbook on design systems by **Aniket Pandey**, publish
   spacing, grid and layout, and how they work together.
 - **Part 03 — Components:** what components are, what to build first, designing and
   building them, and keeping a growing library usable.
+- **Part 04 — Component architecture in depth:** complexity, architecture, props, component
+  tokens, components as code, and a casebook of real situations.
+- **Part 05 — Patterns, content and scale:** patterns, content and language, scaling across
+  brands and platforms, tools and AI, and a twelve-month plan.
 
-From edition 0.2 the **PDF is the primary deliverable**. It is generated from the HTML
+From edition 0.2 onwards the **PDF is the primary deliverable**. It is generated from the HTML
 sources in this repo; see `docs/EDITORIAL.md` for the voice and page grammar.
 
 The publication is authored in HTML/CSS and ships in two forms:

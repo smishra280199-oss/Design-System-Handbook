@@ -1,0 +1,155 @@
+<section class="chapter" id="ch18" data-part="04" data-num="18" data-title="Component architecture" data-short="Architecture"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 18</p>
+  <h1>Component architecture</h1>
+  <p class="dek">Architecture sounds intimidating, but the idea is simple: decide which parts of your library are built from which, and keep those relationships tidy. Get it right and the library is easy to change for years. Get it wrong and every small change breaks something unexpected.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You're setting up a component library, your library has become hard to change, or you want to understand how mature systems are organised under the surface.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>A layered model for organising components, and the rules that keep it healthy.</li><li>The main ways components are put together, explained with simple examples.</li><li>How to organise the files and packages, and how to manage dependencies as the library grows.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch18-1">
+<h2><span class="sec-num">18.1</span>What "architecture" means for components</h2>
+<p>Think about the wiring in a building. You don't see it, but it decides a lot: whether you can add a new socket easily, whether a fault in the kitchen trips the whole house, whether an electrician can understand it ten years later. Good wiring is organised in circuits, each with a clear job, all running back to one board.</p>
+<p>Component architecture is the wiring of your design system. It answers three questions. <strong>What is each component built from?</strong> (A dialog uses buttons, which use text styles, which use tokens.) <strong>Which way do dependencies run?</strong> (A button can use an icon, but an icon should never need a button.) And <strong>where does each kind of logic live?</strong> (Is keyboard behaviour inside the dialog, or in a shared piece that menus use too?)</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">The text change that broke forty components</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>An engineer adjusts the line spacing of the library's internal Text component to fix a problem in one tooltip.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>Forty other components use the same Text component. Buttons grow by 2 pixels, table rows shift, and three product teams report layout bugs after the next update.</p></div>
+    <div><span class="sc-k">What architecture changes</span><p>A clear map of which components depend on which would have shown the "blast radius" before the change. The fix belonged in the tooltip, not in a shared building block.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ch18-2">
+<h2><span class="sec-num">18.2</span>Layers, and the one rule that keeps them healthy</h2>
+<p>Most well-run component libraries are organised in layers, a little like the layers of a design system in Chapter 01, but zoomed in on the components themselves. Each layer is built only from the layers beneath it.</p>
+<figure class="fig">
+<div class="fig-body">
+<div style="display:grid;gap:6px">
+  <div class="anat-row" style="padding:12px 14px;border:1px solid var(--rule);border-radius:8px;grid-template-columns:170px 1fr 1fr"><b>6 · Product screens</b><span class="muted" style="font-size:13px">Owned by product teams</span><span class="mono" style="font-size:11px">Invoices page</span></div>
+  <div class="anat-row" style="padding:12px 14px;border:1px solid var(--rule);border-radius:8px;grid-template-columns:170px 1fr 1fr"><b>5 · Recipes &amp; patterns</b><span class="muted" style="font-size:13px">Proven combinations for common problems</span><span class="mono" style="font-size:11px">Filter bar, invoice summary card</span></div>
+  <div class="anat-row" style="padding:12px 14px;border:1px solid var(--rule);border-radius:8px;grid-template-columns:170px 1fr 1fr"><b>4 · Composite components</b><span class="muted" style="font-size:13px">Several parts working together</span><span class="mono" style="font-size:11px">Dialog, menu, tabs, combobox, table</span></div>
+  <div class="anat-row" style="padding:12px 14px;border:1px solid var(--rule);border-radius:8px;grid-template-columns:170px 1fr 1fr"><b>3 · Base components</b><span class="muted" style="font-size:13px">Single-purpose controls and elements</span><span class="mono" style="font-size:11px">Button, text field, checkbox, badge</span></div>
+  <div class="anat-row" style="padding:12px 14px;border-radius:8px;background:var(--accent-tint);grid-template-columns:170px 1fr 1fr"><b>2 · Primitives</b><span class="muted" style="font-size:13px">Invisible building blocks for layout, text and behaviour</span><span class="mono" style="font-size:11px">Box, Stack, Text, Icon, focus helpers</span></div>
+  <div class="anat-row" style="padding:12px 14px;border-radius:8px;background:var(--signal-500);color:var(--ink-950);grid-template-columns:170px 1fr 1fr"><b>1 · Tokens</b><span style="font-size:13px">Named decisions from Part 02</span><span class="mono" style="font-size:11px">color.action.primary.bg, space.4</span></div>
+</div>
+<p class="fig-label" style="margin:14px 0 0;text-transform:none;letter-spacing:0">Rule: arrows only point down. A layer may use anything below it, never anything above it.</p>
+</div>
+<figcaption><b>The six layers of a component library.</b> [[prac]] Tokens and primitives are rarely seen by product teams, but they're what make every layer above them consistent.</figcaption>
+</figure>
+<div class="term"><span class="term-k">New word</span><b>Primitive</b><span>A low-level building block, often invisible, that other components are made from: a box with spacing, a piece of styled text, a stack that spaces its children evenly.</span></div>
+<p>The layer most people haven't heard of is <strong>primitives</strong>. These are tiny, mostly invisible building blocks: a <em>Box</em> that applies spacing and colour tokens, a <em>Stack</em> that lines things up with even gaps, a <em>Text</em> that applies a text style. Primitives mean that base components don't each reinvent "how do I apply spacing tokens". They're also handy for product teams building local components, because using primitives keeps local work on-system.</p>
+<p>The one rule that keeps layers healthy is: <strong>dependencies only point down</strong>. A dialog may use a button. A button must never use a dialog. A primitive must never know that tables exist. When this rule is broken, you get circular dependencies (two components each needing the other), and changes start causing surprises far away from where they were made.</p>
+</section>
+
+<section class="sec" id="ch18-3">
+<h2><span class="sec-num">18.3</span>Separating how it works from how it looks</h2>
+<p>Every interactive component has two quite different jobs. One is <strong>behaviour</strong>: what happens when you click, which element has keyboard focus, what a screen reader announces, when a menu opens and closes. The other is <strong>appearance</strong>: colours, spacing, corner rounding, text styles. Mature libraries increasingly keep these two jobs apart.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="cols-3" style="align-items:stretch">
+  <div class="card"><span class="card-k">Behaviour layer</span><h4>How it works</h4><p>Open and close, focus management, keyboard shortcuts, announcements, selection. No colours at all. Often provided by a headless library.</p></div>
+  <div class="card"><span class="card-k">Appearance layer</span><h4>How it looks</h4><p>Tokens applied to each part: background, border, text style, spacing, radius, motion. Changes with themes and brands.</p></div>
+  <div class="card hl"><span class="card-k">The component people use</span><h4>Both, joined</h4><p>Product teams just use <code>&lt;Menu&gt;</code>. Underneath, behaviour and appearance are separate, so each can change without breaking the other.</p></div>
+</div>
+</div>
+<figcaption><b>Behaviour and appearance, kept apart.</b> A rebrand touches only the appearance layer; an accessibility fix touches only the behaviour layer. Neither risks breaking the other.</figcaption>
+</figure>
+<p>This is why headless libraries (Chapter 13) have become so popular. They provide the behaviour layer, which is the genuinely difficult part, already tested against the expected keyboard and screen-reader patterns.[[c:aria-apg]] Your team supplies the appearance layer using your own tokens. The result looks entirely like your brand but behaves like a well-tested standard component.</p>
+<p>Even if you build everything yourself, the separation is worth keeping. Put behaviour into shared pieces of logic that several components can use. A "dismiss on Escape and return focus" behaviour, for example, is needed by dialogs, side panels, menus and popovers. Write it once, test it once, and use it in all four.</p>
+</section>
+
+<section class="sec" id="ch18-4">
+<h2><span class="sec-num">18.4</span>Four ways to put components together</h2>
+<p>When you look inside mature component libraries, you see the same few construction techniques again and again. Here they are in plain language, with a tiny code example of each for the engineers. You don't need to read the code to follow the idea.</p>
+
+<h3>1. Compound components: a family that works together</h3>
+<p>Some components are really a small family of parts that only make sense together. Tabs are the classic example: a list of tabs, the tabs themselves, and a panel for each tab. Instead of one giant component with dozens of settings, you provide each part separately and let them coordinate behind the scenes. It reads almost like a sentence.</p>
+<pre>&lt;<span class="k">Tabs</span> <span class="s">defaultValue</span>=<span class="n">"invoices"</span>&gt;
+  &lt;<span class="k">Tabs.List</span>&gt;
+    &lt;<span class="k">Tabs.Tab</span> <span class="s">value</span>=<span class="n">"invoices"</span>&gt;Invoices&lt;/<span class="k">Tabs.Tab</span>&gt;
+    &lt;<span class="k">Tabs.Tab</span> <span class="s">value</span>=<span class="n">"payments"</span>&gt;Payments&lt;/<span class="k">Tabs.Tab</span>&gt;
+  &lt;/<span class="k">Tabs.List</span>&gt;
+  &lt;<span class="k">Tabs.Panel</span> <span class="s">value</span>=<span class="n">"invoices"</span>&gt;…&lt;/<span class="k">Tabs.Panel</span>&gt;
+  &lt;<span class="k">Tabs.Panel</span> <span class="s">value</span>=<span class="n">"payments"</span>&gt;…&lt;/<span class="k">Tabs.Panel</span>&gt;
+&lt;/<span class="k">Tabs</span>&gt;</pre>
+<p>The parts share information quietly (which tab is selected, which panel to show, where keyboard focus goes), so the person using them doesn't have to wire it up. Use this for any component made of a fixed family of parts: tabs, menus, accordions, selects.</p>
+
+<h3>2. Slots: spaces for any content</h3>
+<p>We met slots in Chapter 12. In code, a slot is usually just "put whatever you like here", with the component controlling the frame around it. A card with header, media, body and footer slots is the typical example. Use slots for containers whose content varies endlessly: cards, dialogs, side panels, page layouts.</p>
+
+<h3>3. Changing what something renders as</h3>
+<p>Sometimes you want something that <em>looks</em> like a button but is really a link to another page, because it navigates rather than performs an action. That distinction matters for accessibility: screen readers announce links and buttons differently, and people expect different keyboard behaviour. Many libraries let a component render as a different underlying element while keeping its appearance.</p>
+<pre><span class="c">// Looks like a button, behaves like a link (because it navigates)</span>
+&lt;<span class="k">Button</span> <span class="s">as</span>=<span class="n">"a"</span> <span class="s">href</span>=<span class="n">"/invoices/new"</span> <span class="s">variant</span>=<span class="n">"primary"</span>&gt;New invoice&lt;/<span class="k">Button</span>&gt;</pre>
+<p>Use this sparingly and document it clearly. "Actions use buttons, navigation uses links" is a rule worth keeping, even when they look alike.</p>
+
+<h3>4. Controlled and uncontrolled</h3>
+<p>Some components hold a piece of information that can change: whether a dialog is open, which tab is selected, what's typed in a field. The question is <em>who keeps track of it</em>. In an <strong>uncontrolled</strong> component, the component keeps track itself; you just give it a starting value. In a <strong>controlled</strong> component, the product screen keeps track and tells the component what to show. React's documentation explains the idea well.[[c:react-controlled]]</p>
+<pre><span class="c">// Uncontrolled: "start on invoices, then look after yourself"</span>
+&lt;<span class="k">Tabs</span> <span class="s">defaultValue</span>=<span class="n">"invoices"</span>&gt;…&lt;/<span class="k">Tabs</span>&gt;
+
+<span class="c">// Controlled: "I'll tell you which tab is selected, and you tell me when it changes"</span>
+&lt;<span class="k">Tabs</span> <span class="s">value</span>=<span class="n">{tab}</span> <span class="s">onValueChange</span>=<span class="n">{setTab}</span>&gt;…&lt;/<span class="k">Tabs</span>&gt;</pre>
+<p>Good libraries support both. Uncontrolled is simpler for everyday use. Controlled is needed when the screen must react to changes, for example to save the selected tab in the web address so people can share a link to it.</p>
+</section>
+
+<section class="sec" id="ch18-5">
+<h2><span class="sec-num">18.5</span>Organising the files and packages</h2>
+<p>A tidy codebase is architecture you can see. When every component is organised the same way, engineers can find things instantly, reviewers know what to expect, and nothing important (tests, documentation, examples) gets forgotten. Here's a structure that works for most teams.</p>
+<figure class="fig">
+<div class="fig-body">
+<div class="cols-2">
+<div class="tree"><span class="hl">design-system/</span>
+├─ packages/
+│  ├─ <span class="hl">tokens/</span>        <span class="c">← source JSON + generated outputs</span>
+│  ├─ <span class="hl">icons/</span>         <span class="c">← SVG source + generated components</span>
+│  ├─ <span class="hl">primitives/</span>    <span class="c">← Box, Stack, Text, focus helpers</span>
+│  ├─ <span class="hl">core/</span>          <span class="c">← base + composite components</span>
+│  └─ <span class="hl">analytics/</span>     <span class="c">← extensions for one product family</span>
+├─ apps/
+│  ├─ docs/          <span class="c">← documentation site</span>
+│  └─ workshop/      <span class="c">← Storybook</span>
+└─ tools/            <span class="c">← lint rules, codemods, scripts</span></div>
+<div class="tree"><span class="hl">core/src/button/</span>
+├─ Button.tsx           <span class="c">← the component</span>
+├─ Button.css           <span class="c">← styles (tokens only)</span>
+├─ button.tokens.json   <span class="c">← component tokens</span>
+├─ Button.test.tsx      <span class="c">← behaviour tests</span>
+├─ Button.stories.tsx   <span class="c">← every variant and state</span>
+├─ Button.a11y.md       <span class="c">← accessibility notes</span>
+├─ README.md            <span class="c">← usage docs source</span>
+└─ index.ts             <span class="c">← what's public</span></div>
+</div>
+</div>
+<figcaption><b>A library split into packages, and one component's folder.</b> [[prac]] Separate packages let teams install only what they need and let each part be versioned on its own. Every component folder has the same eight files, so nothing is forgotten.</figcaption>
+</figure>
+<p>A few details matter more than they appear. The <strong>index file</strong> decides what's public. Anything not exported there is internal and can change freely, which gives the system team room to improve things without breaking anyone. The <strong>stories file</strong> shows every variant and state in the workshop (Chapter 15), which doubles as the source for visual tests. And the <strong>tokens file</strong> keeps a component's design decisions next to its code, which Chapter 20 explains.</p>
+</section>
+
+<section class="sec" id="ch18-6">
+<h2><span class="sec-num">18.6</span>Dependencies, ownership and change</h2>
+<p>As a library grows, the relationships between components become as important as the components themselves. Nathan Curtis's series on releasing design systems devotes a whole article to this: how a change to one component travels up to everything that depends on it.[[c:curtis-releasing]] Three habits make that manageable.</p>
+<p><strong>Keep a dependency map.</strong> Know which components use which. Many tools can generate this automatically from the code. Before changing a shared piece, look at what depends on it. In our scenario, that would have shown forty components relying on Text.</p>
+<p><strong>Name an owner for every component.</strong> In larger organisations, each component (or group of components) has a named owner who reviews changes to it. Code platforms let you record this in a simple file, so the right person is asked automatically whenever someone proposes a change.</p>
+<p><strong>Change the right layer.</strong> When fixing a problem, fix it at the lowest layer where it genuinely belongs, and no lower. If only the tooltip needs tighter lines, change the tooltip. If <em>every</em> component needs tighter lines, change the text token. The mistake in our scenario was fixing a local problem in a shared layer.</p>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Architecture review, quarterly</p>
+  <p>Once a quarter, look at the dependency map with fresh eyes. Are there arrows pointing upwards? Components nobody uses? Shared pieces with an enormous blast radius? An hour of review prevents the slow tangle that eventually makes teams say "we need to rebuild the design system".</p>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Organise the library in layers (tokens, primitives, base, composite, recipes) where dependencies only point down.</li>
+    <li>Keep behaviour separate from appearance, so rebrands and accessibility fixes don't collide.</li>
+    <li>Use compound components for families of parts, slots for containers, and support both controlled and uncontrolled use.</li>
+    <li>Give every component the same file structure, a named owner and a place on a dependency map.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

@@ -1,0 +1,136 @@
+<section class="chapter" id="ch24" data-part="05" data-num="24" data-title="Content and language in the system" data-short="Content"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 24</p>
+  <h1>Content and language in the system</h1>
+  <p class="dek">A product can have perfectly consistent buttons and still feel chaotic if one says "Remove", another "Delete" and a third "Discard" for the same action. Words are part of the interface, so they belong in the design system too.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>Your product's wording feels inconsistent, you're about to translate your product, or writers and designers keep debating the same phrases.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>How to define a voice and adjust tone for different moments.</li><li>A shared vocabulary and reusable writing formulas.</li><li>What it takes to write for everyone, and to prepare for translation.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch24-1">
+<h2><span class="sec-num">24.1</span>Why words belong in the system</h2>
+<p>People read interfaces in fragments: a button label, a heading, an error message. When those fragments use different words for the same thing, people hesitate. Is "Archive" the same as "Remove"? Will "Discard" lose my work? Is a "workspace" the same as an "organisation"? Every hesitation is a small cost, and in a large product they add up.</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">Five words for "make it go away"</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>Across Ledgerly, removing something uses "Delete", "Remove", "Archive", "Discard" and "Clear", chosen by whoever built each screen.</p></div>
+    <div><span class="sc-k">What goes wrong</span><p>Customers can't tell which actions are permanent. Support tickets ask how to recover "archived" invoices that were actually deleted. Translators get five different words to translate.</p></div>
+    <div><span class="sc-k">What the system adds</span><p>A vocabulary entry: "Delete = permanent, always confirmed. Archive = hidden, recoverable. Remove = taken out of a list, not deleted." Three words, three meanings, used everywhere.</p></div>
+  </div>
+</div>
+<p>Content in a design system usually covers four things: <strong>voice and tone</strong> (how the product sounds), <strong>vocabulary</strong> (which words mean what), <strong>formulas</strong> (reusable shapes for common messages) and <strong>localisation rules</strong> (what has to work in other languages). None of it needs to be long. A few pages, well maintained, do more than a 40-page style guide nobody opens.</p>
+</section>
+
+<section class="sec" id="ch24-2">
+<h2><span class="sec-num">24.2</span>Voice and tone</h2>
+<p>Think of the difference between personality and mood. Your <strong>voice</strong> is your product's personality: it stays the same everywhere. Your <strong>tone</strong> is the mood: it adapts to the moment, the way a good colleague speaks differently when celebrating a win and when delivering bad news.</p>
+<p>Ledgerly's voice, for example, might be: <em>clear, calm and helpful</em>. Its tone then adjusts:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%">Moment</th><th>Tone</th><th>Example</th></tr></thead>
+<tbody>
+<tr><th>Success</th><td>Brief and warm. Don't over-celebrate routine tasks.</td><td>"Invoice sent to Acme Ltd."</td></tr>
+<tr><th>Error</th><td>Calm and specific. Never blame the person.</td><td>"We couldn't process this payment. The bank declined it. Try another card."</td></tr>
+<tr><th>Warning</th><td>Clear about the consequence, and what to do.</td><td>"This invoice is overdue by 14 days. Send a reminder?"</td></tr>
+<tr><th>Destructive action</th><td>Serious and explicit. Name exactly what will happen.</td><td>"Delete this customer? Their 12 invoices will also be deleted. This can't be undone."</td></tr>
+<tr><th>First use</th><td>Encouraging and practical. Point to the next step.</td><td>"No invoices yet. Create your first one to get paid faster."</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--mistake">
+  <p class="callout-label">A mistake we see often</p>
+  <h4>Jokes in error messages</h4>
+  <p>"Oops! Something went wonky!" might feel friendly in a design review. To someone whose payroll just failed, it feels dismissive. Keep personality for calm moments; in stressful moments, be clear and kind.</p>
+</div>
+</section>
+
+<section class="sec" id="ch24-3">
+<h2><span class="sec-num">24.3</span>A shared vocabulary</h2>
+<p>The single most useful content artefact is a simple vocabulary list: the words your product uses, what they mean, and the words to avoid. It helps designers, engineers, support and translators all at once.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%">Use</th><th>Meaning</th><th style="width:26%">Don't use</th></tr></thead>
+<tbody>
+<tr><td><b>Delete</b></td><td>Permanently remove. Always confirmed.</td><td>Destroy, erase, discard</td></tr>
+<tr><td><b>Archive</b></td><td>Hide from the main list; can be restored.</td><td>Hide, store</td></tr>
+<tr><td><b>Customer</b></td><td>A business you invoice.</td><td>Client, account, buyer</td></tr>
+<tr><td><b>Workspace</b></td><td>Your company's area in Ledgerly, shared by its team.</td><td>Organisation, tenant, account</td></tr>
+<tr><td><b>Sign in / Sign out</b></td><td>Start or end a session.</td><td>Log in, login, log out</td></tr>
+<tr><td><b>Due date</b></td><td>The date an invoice must be paid by.</td><td>Deadline, payment date</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Small rules that add up</h3>
+<p>A handful of formatting rules prevent a surprising amount of inconsistency. Decide them once: sentence case or title case for headings and buttons (we recommend sentence case: "Send invoice", not "Send Invoice"); how dates are written; whether numbers use words or digits; how currencies are shown; and whether you write "you" and "your" when addressing people (we recommend it). Put them on one page, next to the vocabulary.</p>
+</section>
+
+<section class="sec" id="ch24-4">
+<h2><span class="sec-num">24.4</span>Formulas for common messages</h2>
+<p>Most interface text falls into a few types of message. Giving each type a simple formula means anyone can write a good message, quickly, in the product's voice. Chapter 14 introduced the idea for individual components; here are the formulas side by side.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%">Message</th><th style="width:34%">Formula</th><th>Example</th></tr></thead>
+<tbody>
+<tr><th>Button</th><td>Verb + object</td><td>"Send invoice", "Add customer"</td></tr>
+<tr><th>Error</th><td>What happened + why (if known) + what to do</td><td>"Payment failed. The card has expired. Update the card details."</td></tr>
+<tr><th>Field error</th><td>What to enter, specifically</td><td>"Enter an amount between ₹1 and ₹10,00,000"</td></tr>
+<tr><th>Confirmation dialog</th><td>Question naming the action + consequence; buttons repeat the action</td><td>"Delete 3 invoices? This can't be undone." [Delete invoices] [Cancel]</td></tr>
+<tr><th>Empty state</th><td>What will appear here + how to start</td><td>"Your payments will appear here. Connect a bank account to get started."</td></tr>
+<tr><th>Success</th><td>What happened, briefly</td><td>"Customer added."</td></tr>
+</tbody>
+</table>
+</div>
+<p>Notice the confirmation dialog's buttons. "Delete invoices" and "Cancel" are far clearer than "Yes" and "No", because people often read only the button. This one small habit prevents a lot of accidental deletions.</p>
+</section>
+
+<section class="sec" id="ch24-5">
+<h2><span class="sec-num">24.5</span>Writing for everyone</h2>
+<p>Good interface writing is accessible writing. Plain words, short sentences and clear structure help everyone, and they matter most for people reading in a second language, people with cognitive or learning disabilities, and anyone who is tired, stressed or in a hurry.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Principle</th><th>In practice</th></tr></thead>
+<tbody>
+<tr><th>Plain words</th><td>"Use" not "utilise"; "start" not "initiate"; explain jargon or avoid it.</td></tr>
+<tr><th>Front-load meaning</th><td>Put the important words first: "Invoice sent", not "We have successfully sent your invoice".</td></tr>
+<tr><th>Descriptive links</th><td>"View payment history", not "Click here". Screen-reader users often navigate by a list of links.</td></tr>
+<tr><th>Meaningful image text</th><td>Describe what an image tells people; mark purely decorative images so screen readers skip them.</td></tr>
+<tr><th>Inclusive language</th><td>Avoid assumptions about gender, ability or culture; use "they" when you don't know; avoid idioms that don't translate.</td></tr>
+<tr><th>Don't rely on direction or colour</th><td>"Select the highlighted option" or "click the button on the right" fails for many people. Name the thing.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="sec" id="ch24-6">
+<h2><span class="sec-num">24.6</span>Getting ready for other languages</h2>
+<p>Even if you only support one language today, a few habits now will save a painful rebuild later. Translation touches components, patterns and code, so it's very much a design system concern.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:26%">Habit</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><th>Leave room for longer text</th><td>Many languages need noticeably more space than English for the same message. Components should wrap or grow, not cut text off.</td></tr>
+<tr><th>Support right-to-left</th><td>Arabic and Hebrew read right to left; layouts and directional icons should mirror. Logical CSS properties make this mostly automatic.[[c:mdn-logical]]</td></tr>
+<tr><th>Never build sentences from pieces</th><td>"You have " + count + " invoices" breaks in languages with different word order or plural rules. Keep whole sentences together, with placeholders.</td></tr>
+<tr><th>Handle plurals properly</th><td>Some languages have several plural forms, not just "one" and "many". Use your platform's built-in plural rules.[[c:mdn-intl]]</td></tr>
+<tr><th>Format dates, numbers and money by locale</th><td>"1,00,000" in India is "100,000" elsewhere; dates differ too. Use built-in formatting rather than hand-written formats.[[c:mdn-intl]]</td></tr>
+<tr><th>Give translators context</th><td>"Post" could be a verb or a noun. Add a note or a screenshot to every string.</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Who owns the words?</h3>
+<p>In larger companies, content designers or UX writers own the voice, vocabulary and formulas, just as system designers own the visual foundations. In smaller ones, it's often a senior designer or product manager with a little protected time. Either way, treat content guidance like any other part of the system: it has an owner, it's versioned, changes are announced, and teams can propose improvements. Some teams even add simple automatic checks, flagging words from the "don't use" list in code reviews.</p>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Words are part of the interface; inconsistent words confuse people as much as inconsistent buttons.</li>
+    <li>Keep one voice, adjust the tone to the moment, and be calm and specific when things go wrong.</li>
+    <li>A short vocabulary list and a few message formulas do more than a long style guide.</li>
+    <li>Write plainly and inclusively, and build components and code ready for other languages from the start.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

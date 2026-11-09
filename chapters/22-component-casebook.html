@@ -1,0 +1,178 @@
+<section class="chapter" id="ch22" data-part="04" data-num="22" data-title="A casebook of real situations" data-short="Casebook"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 22</p>
+  <h1>A casebook of real situations</h1>
+  <p class="dek">Principles are easy to agree with and hard to apply on a Tuesday afternoon with a deadline. This chapter works through twelve situations design system teams meet again and again, showing the options, what we'd recommend and why.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>You want to see how the ideas in Parts 03 and 04 play out in practice, or you're facing one of these situations right now.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>Worked answers to twelve common component situations.</li><li>A repeatable way of thinking: options, recommendation, reasons.</li><li>A migration plan you can adapt for retiring old components.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch22-1">
+<h2><span class="sec-num">22.1</span>When teams need different things</h2>
+<p>Each case follows the same shape: the situation, the realistic options, what we'd recommend, and why. They're composites of situations we see in practice, not specific clients. [[ill]]</p>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 1</span><span class="sc-title">Two teams, two very different date pickers</span></div>
+  <div class="sc-body"><p>Payments needs a picker that shows bank holidays and blocks weekends. Reporting needs to select ranges of whole months. Both ask for "the date picker".</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">Options</span><p>(a) One picker with options for everything. (b) Two separate pickers. (c) A solid core picker, plus extensions built on it.</p></div>
+    <div><span class="sc-k">Recommendation</span><p>(c). The core picker handles single dates and ranges, with a way to mark days as unavailable. Reporting builds a month-range picker as a shared extension; payments supplies its holiday list to the core picker.</p></div>
+    <div><span class="sc-k">Why</span><p>Option (a) creates a level 4 monster. Option (b) duplicates the hardest part, the calendar grid and its keyboard behaviour. Option (c) shares the hard part and keeps the special cases out of the core (Chapter 05, tiers).</p></div>
+  </div>
+</div>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 2</span><span class="sc-title">Marketing wants a "special" button for a campaign</span></div>
+  <div class="sc-body"><p>The campaign team wants a large gradient button with an animated arrow for a two-week launch page.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">Options</span><p>(a) Add a "campaign" variant to the core button. (b) Refuse. (c) Build it locally on the campaign page, using system primitives and tokens.</p></div>
+    <div><span class="sc-k">Recommendation</span><p>(c), with a quick review from the system designer for accessibility (contrast on the gradient, reduced-motion support).</p></div>
+    <div><span class="sc-k">Why</span><p>It's a one-off with a short life. Adding it to the core makes it everyone's maintenance forever; refusing makes the system look obstructive. A local build keeps both the campaign and the core healthy.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ch22-2">
+<h2><span class="sec-num">22.2</span>Migrations: retiring the old and bringing in the new</h2>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 3</span><span class="sc-title">Three dropdowns, one system: a migration plan</span></div>
+  <div class="sc-body"><p>The three dropdowns from Chapter 15 are used about 450 times across four products. The system now has one good dropdown. How do you move everyone across without stopping product work?</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">Options</span><p>(a) A "migration sprint" where every team stops and switches. (b) Leave it and hope. (c) A phased plan with tooling and a clear end date.</p></div>
+    <div><span class="sc-k">Recommendation</span><p>(c). See the timeline below.</p></div>
+    <div><span class="sc-k">Why</span><p>Big-bang migrations compete with product deadlines and usually stall halfway. Phased migrations with automation and visible progress finish.</p></div>
+  </div>
+</div>
+<figure class="fig">
+<div class="fig-body">
+<div class="lifecycle">
+  <div style="border-color:#c9ccd2"><span class="fig-label">Weeks 1–2</span><b>Measure and prepare</b>Count every use of each old dropdown. Write a mapping from old props to new. Build a codemod for the simple cases.</div>
+  <div style="border-color:#ffa384"><span class="fig-label">Weeks 3–6</span><b>Pilot</b>One team migrates with the system team beside them. Fix gaps in the new dropdown and the codemod.</div>
+  <div style="border-color:#ed521c"><span class="fig-label">Weeks 7–8</span><b>Deprecate</b>Mark the old dropdowns as deprecated. Warnings appear in development. Publish the guide and the codemod.</div>
+  <div style="border-color:#7a5a00"><span class="fig-label">Weeks 9–20</span><b>Migrate gradually</b>Teams migrate as they touch each screen. A dashboard shows the remaining count falling.</div>
+  <div style="border-color:#0b0d12"><span class="fig-label">Week 21+</span><b>Remove</b>When usage reaches zero (or at the announced date), remove the old ones in a major release.</div>
+</div>
+</div>
+<figcaption><b>A phased migration.</b> [[ill]] The timings are illustrative. The shape is what matters: measure, pilot, deprecate, migrate gradually with visible progress, then remove.</figcaption>
+</figure>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 4</span><span class="sc-title">An acquired product built with a different technology</span></div>
+  <div class="sc-body"><p>The company acquires a startup whose product uses a different front-end framework. Leadership wants it to "look like us" within six months.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">Options</span><p>(a) Rewrite the acquired product in your framework. (b) Rebuild all system components in their framework. (c) Start with tokens, then the most visible components.</p></div>
+    <div><span class="sc-k">Recommendation</span><p>(c). Ship your tokens as CSS variables into their product first: colours, type and spacing change in weeks. Then restyle their existing buttons, inputs and navigation to use those tokens.</p></div>
+    <div><span class="sc-k">Why</span><p>Tokens work in any technology (Chapter 21). They deliver most of the visual consistency for a fraction of the cost, and buy time for a proper decision about the code later.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ch22-3">
+<h2><span class="sec-num">22.3</span>Changes that could break things</h2>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 5</span><span class="sc-title">Making every button 4 pixels taller</span></div>
+  <div class="sc-body"><p>Research shows buttons are slightly too small on touch laptops. The fix is to increase the default height from 36 to 40 pixels.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">Options</span><p>(a) Ship it as a patch; it's "just a visual tweak". (b) Add a new size and leave the default alone. (c) Treat it as a breaking change, with notice.</p></div>
+    <div><span class="sc-k">Recommendation</span><p>(c). Release it in the next major version, with before-and-after screenshots from the workshop, a test period in a pre-release, and a note telling teams which layouts to check (table rows, toolbars).</p></div>
+    <div><span class="sc-k">Why</span><p>Visual changes that affect layout can break products as surely as code changes.[[c:curtis-visual-breaking]] Option (b) avoids the problem today but leaves most of the product with the worse default.</p></div>
+  </div>
+</div>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 6</span><span class="sc-title">Renaming a widely used token</span></div>
+  <div class="sc-body"><p>The token <code>color.text.muted</code> is confusingly close to <code>color.text.subtle</code>. The team decides to merge them into <code>color.text.secondary</code>.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">Options</span><p>(a) Rename and fix everything at once. (b) Keep both names forever. (c) Add the new name, point the old names at it, deprecate, then remove.</p></div>
+    <div><span class="sc-k">Recommendation</span><p>(c). The old names become aliases of the new one, so nothing changes visually. A lint rule suggests the new name; a codemod replaces it automatically.</p></div>
+    <div><span class="sc-k">Why</span><p>Aliases make renaming safe. The same deprecation path used for components (Chapter 16) works for tokens.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ch22-4">
+<h2><span class="sec-num">22.4</span>When something goes wrong</h2>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 7</span><span class="sc-title">An accessibility bug found in production</span></div>
+  <div class="sc-body"><p>A customer reports that screen readers don't announce errors in the system's text field. It's used in every form, in every product.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">What to do</span><p>Confirm it, fix it in the component, add a test that would have caught it, and ship a patch release the same week. Announce it in the system channel and release notes.</p></div>
+    <div><span class="sc-k">Then</span><p>Check which products are on old versions that won't get the fix, and help them update. If the issue affects a legal commitment, tell the relevant owners directly.</p></div>
+    <div><span class="sc-k">Why it's good news</span><p>This is the system working. One fix reaches every form. Without a system, it would be dozens of separate bugs in dozens of backlogs.</p></div>
+  </div>
+</div>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 8</span><span class="sc-title">A component that ignores dark mode</span></div>
+  <div class="sc-body"><p>After launching dark mode, three components stay bright. Investigation finds raw colours and primitive tokens in their styles.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">Immediate fix</span><p>Map each part of the three components to the right semantic tokens (the anatomy map from Chapter 20) and release a patch.</p></div>
+    <div><span class="sc-k">Prevent it</span><p>Add lint rules that block raw colours and primitive tokens in component styles. Add dark mode to every visual test.</p></div>
+    <div><span class="sc-k">Why</span><p>The bug isn't the three components; it's the missing guardrail. Fix the class of problem, not just the instances.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ch22-5">
+<h2><span class="sec-num">22.5</span>Pushing the limits</h2>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 9</span><span class="sc-title">A table that must handle 10,000 rows</span></div>
+  <div class="sc-body"><p>The analytics team needs a table with 10,000 rows, frozen columns and inline editing. The system's table handles a few hundred rows comfortably and has no editing.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">Options</span><p>(a) Extend the core table to do everything. (b) A specialised data grid as a separate component. (c) A well-chosen third-party grid, styled with system tokens.</p></div>
+    <div><span class="sc-k">Recommendation</span><p>(b) or (c), depending on how many teams need it. Keep the core table simple. If only analytics needs this, (c) is usually the fastest, safest route.</p></div>
+    <div><span class="sc-k">Why</span><p>Spreadsheet-like grids are a level 4 problem of their own (Chapter 17). Stretching the simple table to do it would make it worse for the 90% of screens that just need a list.</p></div>
+  </div>
+</div>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 10</span><span class="sc-title">Launching in Arabic and German</span></div>
+  <div class="sc-body"><p>The company expands into the Middle East and Germany. Arabic reads right to left; German labels are often much longer than English ones.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">What to check</span><p>Do components use logical properties so they mirror automatically?[[c:mdn-logical]] Do labels wrap or truncate gracefully? Do icons that imply direction (arrows) flip?</p></div>
+    <div><span class="sc-k">What to add</span><p>Right-to-left and long-text versions in every component's stress test (Chapter 14) and in visual tests.</p></div>
+    <div><span class="sc-k">Why now</span><p>Fixing direction and text length once in each component is far cheaper than fixing them in every screen of every product.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ch22-6">
+<h2><span class="sec-num">22.6</span>Saying no, and listening</h2>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 11</span><span class="sc-title">"Can we add a prop just for our screen?"</span></div>
+  <div class="sc-body"><p>An engineer asks for a <code>hideLabelOnMobile</code> prop on the text field, for one compact filter bar.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">Questions to ask</span><p>Do other teams need this? Is there an existing way (a visually hidden label that screen readers still read)? Would it cause accessibility problems?</p></div>
+    <div><span class="sc-k">Recommendation</span><p>Usually: show the existing accessible way to hide a label visually, and explain why the label must remain for screen readers. No new prop.</p></div>
+    <div><span class="sc-k">Why</span><p>One-team props are how components grow forty settings (Chapter 19). A helpful "here's how" beats both a new prop and a flat no.</p></div>
+  </div>
+</div>
+
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Case 12</span><span class="sc-title">A designer who detaches everything</span></div>
+  <div class="sc-body"><p>Library data shows one designer detaching most components they use. It looks like they're ignoring the system.</p></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The tempting reaction</span><p>Ask their manager to enforce the rules.</p></div>
+    <div><span class="sc-k">The better reaction</span><p>Sit with them for an hour. In our experience, it often turns out they work on the product area the system serves worst, and their detachments are a list of what's missing.</p></div>
+    <div><span class="sc-k">Why</span><p>Workarounds are feedback (Chapter 16). The heaviest "rule-breakers" are often your best source of requirements.</p></div>
+  </div>
+</div>
+<div class="callout callout--key">
+  <p class="callout-label">The pattern behind all twelve cases</p>
+  <h4>Keep the core simple and strict. Give special needs a respectable home outside it. Change things with notice, tools and visible progress. And treat every workaround as information.</h4>
+</div>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Shared core plus extensions handles most "different needs" without bloating components.</li>
+    <li>Migrations finish when they're phased, automated and visible, not when they're big-bang.</li>
+    <li>Treat layout-affecting visual changes and renames as breaking; use aliases and notice.</li>
+    <li>Fix the guardrail, not just the bug, and listen to the people working around the system.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>

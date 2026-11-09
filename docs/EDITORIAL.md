@@ -102,8 +102,9 @@ Page grammar, so readers always know where a topic begins and ends:
   slightly (fit-1, fit-2) and, if that isn't enough, lets the next section in the same
   chapter start on that page (`follow`). Chapters always start on a new page.
 - **Chapter end** → "The short version" summary box plus an auto-generated "Up next".
-- **Measure** → running text on a 122 mm column (~70 characters); a 40 mm margin column
-  on the right for "New word" notes; figures and tables use the full 168 mm.
+- **Grid (1.0)** → one 12-column grid on a 168 mm text block with 5 mm gutters. All text,
+  headings, ledes and captions span the full grid width; two-part layouts split 4 + 8;
+  card rows use 6+6, 4+4+4 or 3+3+3+3. "New word" notes are full-width bands (4 + 8).
 - A4 portrait; margins 22/20/22/22 mm; running heads (part · chapter) and folio in mono.
 - Figures, callouts, scenarios and checklists never split; long tables may, with headers repeated.
 

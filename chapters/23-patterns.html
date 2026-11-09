@@ -1,0 +1,147 @@
+<section class="chapter" id="ch23" data-part="05" data-num="23" data-title="Patterns: from components to solutions" data-short="Patterns"><div class="page">
+<header class="chapter-opener">
+  <p class="ch-num">Chapter 23</p>
+  <h1>Patterns: from components to solutions</h1>
+  <p class="dek">Components are the words of your interface. Patterns are the sentences: proven ways of combining components to solve a problem people meet again and again, like filling in a form, finding something in a long list, or recovering from an error.</p>
+  <div class="opener-meta">
+    <div><h5>Read this if</h5><p>Your product has consistent components but still feels inconsistent, or teams keep solving the same problems (forms, tables, empty screens) in different ways.</p></div>
+    <div><h5>What you'll leave with</h5><ol><li>What a pattern is, and how it differs from a component.</li><li>Practical guidance for the most common patterns: forms, tables, navigation and feedback.</li><li>How to document and look after patterns as part of the system.</li></ol></div>
+  </div>
+</header>
+
+<section class="sec" id="ch23-1">
+<h2><span class="sec-num">23.1</span>Words and sentences</h2>
+<p>You can have a perfect dictionary and still write confusing sentences. The same thing happens with design systems. Every team uses the system's button, text field and table, so the components are consistent, but each team combines them differently. One form shows errors at the top, another under each field, a third in a pop-up. One list paginates, another scrolls forever. The product still feels like several products.</p>
+<div class="term"><span class="term-k">New word</span><b>Pattern</b><span>A proven, documented way of combining components to solve a recurring user problem, such as "how we validate a form" or "how we show that there are no results".</span></div>
+<p>That's what <strong>patterns</strong> fix. A pattern isn't a new component. It's guidance on how to use existing components together to solve a specific problem, with the reasoning and research behind it. The UK government's GOV.UK Design System is the best-known public example: alongside its components, it publishes patterns for things like asking for dates, addresses and names, each based on research with real users.[[c:govuk-patterns]] [[doc]]</p>
+<div class="scenario">
+  <div class="sc-head"><span class="sc-label">Scenario</span><span class="sc-title">Four ways to say "nothing here"</span></div>
+  <div class="sc-grid">
+    <div><span class="sc-k">The situation</span><p>A Ledgerly customer searches invoices, filters payments, opens an empty report and views a new project. Every component on those screens comes from the system.</p></div>
+    <div><span class="sc-k">What they see</span><p>"No data", a blank white area, a sad-face illustration with "Oops!", and "0 results found" in small grey text. Four teams, four different answers to the same question.</p></div>
+    <div><span class="sc-k">What a pattern changes</span><p>One documented empty-state pattern with three versions (first use, no results, cleared), each with a clear message and a next step. Same components, now saying the same thing.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ch23-2">
+<h2><span class="sec-num">23.2</span>Forms</h2>
+<p>Forms are where products make money and where users get most frustrated, so they're usually the first pattern worth writing down. Here's the guidance we start from. [[prac]]</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Question</th><th>Our default answer</th><th style="width:30%">Why</th></tr></thead>
+<tbody>
+<tr><th>Layout</th><td>One column, labels above fields</td><td>Easiest to scan; works on every screen size; labels stay close to their fields.</td></tr>
+<tr><th>Required fields</th><td>Mark the optional ones ("optional") rather than starring the required ones, when most fields are required</td><td>Fewer marks, less noise; clear wording beats a symbol.</td></tr>
+<tr><th>When to check for errors</th><td>When the person leaves a field (for format problems) and when they submit (for everything)</td><td>Checking while someone is still typing shows errors before they've finished.</td></tr>
+<tr><th>Where to show errors</th><td>A message next to each problem field, plus a summary at the top on submit that links to each error</td><td>People and screen readers can find every problem; the GOV.UK error summary is a well-tested model.[[c:govuk-errors]]</td></tr>
+<tr><th>What errors say</th><td>What's wrong and how to fix it: "Enter a date after 1 January 2026"</td><td>Errors must be identified and described in text.[[c:wcag-errors]] [[std]]</td></tr>
+<tr><th>Long forms</th><td>Split into steps with a clear progress indicator, or into sections with headings</td><td>Smaller chunks feel achievable and reduce mistakes.</td></tr>
+<tr><th>Buttons</th><td>One primary action at the end, labelled with what it does ("Send invoice")</td><td>The main action should be obvious and specific.</td></tr>
+</tbody>
+</table>
+</div>
+<p>The point isn't that these answers are the only right ones. Some products have good reasons to differ. The point is that <em>your</em> product has one answer for each question, written down, so every form feels familiar and every team stops re-debating the same choices.</p>
+</section>
+
+<section class="sec" id="ch23-3">
+<h2><span class="sec-num">23.3</span>Tables, lists and finding things</h2>
+<p>Most business software is, at heart, a collection of lists: invoices, customers, orders, users. How people find, sort and act on items in those lists decides how fast they can work.</p>
+<h3>Table, list or cards?</h3>
+<div class="cols-3">
+  <div class="card"><span class="card-k">Table</span><h4>When people compare</h4><p>Many items with the same attributes, where people scan columns, sort and compare: invoices, transactions.</p></div>
+  <div class="card"><span class="card-k">List</span><h4>When people pick</h4><p>Items with one or two key details, where people mostly find one and open it: messages, notifications.</p></div>
+  <div class="card"><span class="card-k">Cards</span><h4>When items are visual</h4><p>Items where an image or a preview matters more than comparison: templates, projects, products.</p></div>
+</div>
+<h3>Pagination, "load more" or endless scrolling?</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:22%">Approach</th><th>Best for</th><th style="width:40%">Downsides</th></tr></thead>
+<tbody>
+<tr><th>Pages</th><td>Work tools where people need to find their place again or reach the end</td><td>Extra clicks; page size choice matters</td></tr>
+<tr><th>"Load more" button</th><td>Feeds and search results where people mostly look at the first few</td><td>Long pages; footer hard to reach after loading lots</td></tr>
+<tr><th>Endless scrolling</th><td>Browsing content with no particular goal</td><td>Hard to return to a spot; footer unreachable; heavy for keyboard and screen-reader users</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Search, filters and bulk actions</h3>
+<p>Write down how filters work across the product: where they sit (above the list, or in a side panel), whether results update instantly or after pressing "Apply", how active filters are shown and cleared, and what the empty result looks like. For bulk actions, decide once how people select many items (checkboxes, with a "select all on this page" option), where the actions appear (a bar that appears when items are selected), and how destructive bulk actions are confirmed. These small decisions, made consistently, are what make a large product feel learnable.</p>
+</section>
+
+<section class="sec" id="ch23-4">
+<h2><span class="sec-num">23.4</span>Navigation</h2>
+<p>Navigation is the pattern people notice least when it works and most when it doesn't. The system should define the app frame (Chapter 10) and the rules for moving around inside it.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:24%">Component</th><th>Use it for</th><th style="width:34%">Don't use it for</th></tr></thead>
+<tbody>
+<tr><th>Side menu</th><td>The main sections of an app with many areas (5+)</td><td>Actions; settings for the current page</td></tr>
+<tr><th>Top navigation</th><td>A few main sections (up to about 5), often on websites</td><td>Deep hierarchies</td></tr>
+<tr><th>Tabs</th><td>Switching between views of the <em>same</em> thing (an invoice's details, payments, history)</td><td>Moving between different areas of the app</td></tr>
+<tr><th>Breadcrumbs</th><td>Showing where you are in a deep hierarchy and stepping back up</td><td>Flat products with one or two levels</td></tr>
+<tr><th>Back link</th><td>Returning from a detail page or a step in a flow</td><td>Replacing the browser's own back button behaviour</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout--practice">
+  <p class="callout-label">[[prac]] Three levels is usually enough</p>
+  <p>If people need to go more than three levels deep to reach something they use often (section, page, tab), the problem is usually the structure of the product, not the navigation component. That's a conversation for product leadership, and the design system is often the first to notice it.</p>
+</div>
+</section>
+
+<section class="sec" id="ch23-5">
+<h2><span class="sec-num">23.5</span>Feedback: loading, empty, error and success</h2>
+<p>Every screen has moments when things aren't normal: data is loading, there's nothing to show, something went wrong, or something just succeeded. These moments are where products most often feel inconsistent, because each team handles them as an afterthought.</p>
+<h3>Choosing how to tell people something</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:18%">Component</th><th>Use when the message is…</th><th style="width:36%">Example</th></tr></thead>
+<tbody>
+<tr><th>Inline message</th><td>About one specific field or section</td><td>"Enter a full email address" under the field</td></tr>
+<tr><th>Toast</th><td>A short confirmation that needs no action, and that it's fine to miss</td><td>"Invoice sent"</td></tr>
+<tr><th>Banner</th><td>About the whole page or account, and important enough to stay visible</td><td>"Your trial ends in 3 days"</td></tr>
+<tr><th>Dialog</th><td>Something people must decide before they continue</td><td>"Delete this customer and 12 invoices?"</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Loading</h3>
+<p>For short waits, show a skeleton (grey shapes where the content will appear) so the page doesn't jump when it loads. For actions like saving, show progress on the button that was pressed. For long operations, show what's happening and, if possible, how long it will take. And always handle the case where loading fails, with a clear way to try again.</p>
+<h3>Empty states</h3>
+<div class="cols-3">
+  <div class="card"><span class="card-k">First use</span><h4>Nothing yet</h4><p>Explain what will appear here and offer the first step: "No invoices yet. Create your first invoice to get paid faster."</p></div>
+  <div class="card"><span class="card-k">No results</span><h4>Search or filters found nothing</h4><p>Say what was searched, and suggest changing or clearing filters.</p></div>
+  <div class="card"><span class="card-k">All done</span><h4>Everything is cleared</h4><p>A small, positive confirmation: "All invoices are paid." No action needed.</p></div>
+</div>
+</section>
+
+<section class="sec" id="ch23-6">
+<h2><span class="sec-num">23.6</span>Documenting and looking after patterns</h2>
+<p>Patterns need documentation even more than components do, because there's no code to copy: the guidance <em>is</em> the pattern. A consistent template helps.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th style="width:5%">#</th><th style="width:22%">Section</th><th>What it covers</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><th>The problem</th><td>What people are trying to do, in one or two sentences</td></tr>
+<tr><td class="num">2</td><th>The solution</th><td>How we solve it, which components are used, and in what arrangement</td></tr>
+<tr><td class="num">3</td><th>Examples</th><td>Real screens from your products, good ones and ones to improve</td></tr>
+<tr><td class="num">4</td><th>Variations</th><td>Approved versions for different situations (for example, a short form vs a long one)</td></tr>
+<tr><td class="num">5</td><th>When not to use it</th><td>Situations where a different pattern fits better</td></tr>
+<tr><td class="num">6</td><th>Evidence</th><td>Research, test results or analytics that support the approach</td></tr>
+<tr><td class="num">7</td><th>Accessibility and writing</th><td>Keyboard flow, announcements, and the words to use</td></tr>
+</tbody>
+</table>
+</div>
+<p>Patterns change more often than components, because they're closer to product decisions. Give each pattern an owner, often a senior product designer rather than the system team, and review patterns when research or analytics suggest something isn't working. When a pattern becomes stable and is built the same way everywhere, it may be worth turning into a "recipe" or composite component (Chapter 18), so teams can use it rather than rebuild it.</p>
+
+<aside class="chapter-end">
+  <p class="ce-k">The short version</p>
+  <h4>What to remember from this chapter</h4>
+  <ol>
+    <li>Patterns are documented ways of combining components to solve recurring problems.</li>
+    <li>Start with forms, lists, navigation and feedback states; these cause the most inconsistency.</li>
+    <li>Have one written answer to each recurring question, with reasons, and evidence where you have it.</li>
+    <li>Document patterns with a consistent template, give each an owner, and promote stable ones into recipes.</li>
+  </ol>
+</aside>
+</section>
+</div><!-- /chapter --></section>
